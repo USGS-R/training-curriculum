@@ -1,0 +1,446 @@
+---
+title: "B. Get"
+author: Jeffrey W. Hollister & Luke Winslow
+date: "2016-07-03"
+slug: "Get"
+output: USGSmarkdowntemplates::hugo
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='/%s%s-%d.%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/Get/",
+  fig.width = 6,
+  fig.height = 6
+)
+title="B. Get"
+gsIntroR::navigation_array(title)
+```
+
+
+The second lesson is going to start to lay the foundation for working with data in R.  We will cover some of the very basics of R first, then move on to how you get data into R and how you work with some of the basic data structures.  Lastly, we will cover some ways to find relevant data and pull it directly into R.
+
+##Quick Links to Exercises and R code
+- [Exercise 1](#exercise-1): Introduction to the console and basic functions
+- [Exercise 2](#exercise-2): Read in data
+
+##Lesson Goals
+- Understand workflow basics
+- Learn R concepts such as assignment and operators
+- Learn some useful R functions
+- Understand the basic data structures and data types
+- Be able to read data into R from a variety of sources
+
+##More basics
+Before we jump into details on data in R we need to introduce a few of the basics about working in the console, working via scripts, and workspaces/projects.  We will also start working with some simple, yet important R functions.
+
+###Workflow
+Being thoughtful about workflow from the beginning of a project is something that gets overlooked a lot, but a little up-front effort can provide a big benefit.  For our purposes we are going to make use of RStudio projects and will script *EVERYTHING*.  The console has its utility and we will use it plenty, especially when we are first figuring out how to use commands.  But beyond that, we will store all of our work in a script.  The basic workflow I am going to advocate is:
+
+1. Use a single project for this workshop (we created that in Lesson 1: Exercise 1).
+2. Start everything in a script and use copy/paste, Ctrl+Enter / Cmd+Enter, or the RStudio tools to send to the console.
+3. Use a new script for each lesson.
+4. Comment ruthlessly.
+5. Don't save .RData files or workspace history.  The script should recreate whatever you need.
+
+This, of course, is not the only way you can structure a workflow, but I think it should be a good starting point for this workshop and one you can adapt to your own work afterwards.  And to provide a little motivation, the more you utilize scripts, the more reproducible your work is, the more likely you will be able to recall what you did 3 months from now (your future self will thank you), and the easier it will be to transition your work from scripts to functions and, ultimately, to R packages.
+
+###Working in the Console
+As I mentioned above, the console and using R interactively is very powerful.  We will do this quite a bit.  Let's spend a little time playing around in the console and learn a few new functions.
+
+R can be used as a calculator and a way to compare values.  Some examples of the basic operators:
+
+```{r operators_console, eval=FALSE, echo=TRUE}
+#A really powerful calculator!
+1 + 1 #Add
+10 - 4 #Subtract
+3 * 2 #Multiply
+3 ^ 3 #Exponents
+100 / 10 #Divide
+5 %% 2 #Modulus
+5 > 2 #Greater than
+4 < 5 #Less than
+5 <= 5 #Less than or equal
+8 >= 2 #Greater than or equal
+2 == 2 #Equality: notice that it is TWO equal signs!
+5 != 7 #Not Equals
+```
+
+That's neat, but so what...  
+
+Well, it could be interesting to do something with those values and save them for re-use.  We can do that with objects (everything in R is an object) and use the assignment operator, `<-`.  Know that object names cannot start with a number, contain spaces, or (most) special characters.  Underscore and periods are allowed.
+
+```{r assignment_operator}
+#Numeric assignment
+x <- 5
+x
+y <- x + 1
+y
+z <- x + y
+z
+#Character
+a <- "Bob"
+a
+b <- "Sue"
+b
+a2 <- "Larry"
+a2
+```
+
+Now that we have a little experience working in the console and creating objects with `<-`, we might want to be able to do some additional things to navigate around, look at these objects etc.
+
+Some functions that you might find useful for working with your R workspace:
+
+```{r useful_functions_workspace, eval=FALSE}
+#List all objects in current workspace
+ls() 
+ls(pattern="a")
+
+#Remove an object
+rm(x)
+
+#Save your workspace
+#Saves the whole thing to a file called lessonB.RData
+save.image("lessonB.RData") 
+#Saves just the a and y objects to a file called lessonB_ay.RData
+save(a, y, file="lessonB_ay.RData")
+```
+
+A note about saving your workspace: This should not be something you do regularly because your script should contain code that can easily recreate all of the objects in your workspace. 
+
+This is probably a good spot to bring up quotes vs no quotes around arguments in a function.  This is a very common stumbling block.  The general rule is that no quotes are used only when referring to an object that currently exists.  Quotes are used in all other cases.  For instance in `save(a, y, file="lessonB_ay.RData")` the objects `a` and `y` are not quoted because they are objects in the workspace.  `file` is an argument of save and arguments are never quoted.  We quote the name of the file "lessonB_ay.RData" because it is not an R object but the name of a file to be created.  You will likely still have some issues with this.  My recommendation is to think about if it is an object in your R workspace or not.  If so, no quotes! This isn't foolproof, but works well most of the time.
+
+Next thing you might want to do is navigate around your files and directories.
+
+```{r useful_functions_directory, eval=FALSE}
+#See the current directory
+getwd()
+
+#Change the directory
+setwd("temp")
+
+#List files and directories
+list.files()
+```
+
+While you can do this directly from the console, it is going to be better practice to mostly use RStudio projects to manage your folders, working directory etc.  You can also navigate using the Files, etc. pane. 
+
+```{r Exercise1, echo=FALSE}
+```
+
+##Exercise 1
+For this first excercise I am actually going to ignore my workflow advice from above.  We are still in explore mode and saving this as a script doesn't yet make a whole lot of sense. Remember to use the green stickies when you have completed, and red stickies if you are running into problems. So, for this exercise:
+
+1. Create two objects named `number1` and `number2` and give them the values of 25 and 4, respectively 
+2. Create two more objects named `string1` and `string2`, give them any character string that you would like. 
+3. Now using `number1`,`number2`, and the power of math create an object called `number3` that equals 100.
+4. Create two more objects whose value is of your choosing
+5. List the objects in your workspace
+6. Remove `string2`
+10. Try to add `string1` and `number1`.  What happens?  
+
+So the last question in exercise 1 was a bit of a contrived way to segue into data types and structures.  So with that last bit, what did we ask R to do?  Why did it respond the way it did?  
+
+In short it has a lot to do with data types.  Let's learn some more.
+
+##Data types and data structures in R
+*Borrowed liberally from Jenny Bryan's [course materials on r](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) and Karthik Ram's [material from the Canberra Software Carpentry R Bootcamp](https://github.com/swcarpentry/2013-10-09-canberra).  Anything good is because of Jenny and Karthik.  Mistakes are all mine.*
+
+Remember that everything in R is an object.  With regards to data, those objects have some specific characteristics that help R (and us) know what kind of data we are dealing with and what kind of operations can be done on that data.  This stuff may be a bit dry, but a basic understanding will help as so much of what we do with analysis has to do with the organization and type of data we have. First, lets discuss the atomic data types.
+
+###Data Types
+There are 6 basic atomic classes: character, numeric (real or decimal), integer, logical, complex, and raw.
+
+| Example 				 | Type 		 |
+| :--------------- | --------: |
+| "a", "swc" 			 | character |
+| 2, 15.5 				 | numeric 	 | 
+| 2L 							 | integer 	 |
+| `TRUE`, `FALSE`  | logical 	 |
+| 1+4i 						 | complex 	 |
+| 62 6f 62         | raw			 |
+
+In this workshop we will deal almost exclusively with three (and these are, in my experience, by far the most common): character, numeric, and logical.  
+
+### NA, Inf, and NaN
+There are values that you will run across on ocassion that aren't really data types but are important to know about.  
+
+`NA` is R's value for missing data.  You will see this often and need to figure out how to deal with them in your analysis.  A few built in functions are useful for dealing with `NA`.  We will show their usage a bit later.
+
+```{r na_examples, eval=FALSE}
+na.omit() #na.omit - removes them
+na.exclude() #similar to omit, but has different behavior with some functions.
+is.na() #Will tell you if a value is NA
+```
+
+`Inf` is infinity. You can have positive or negative infinity.
+
+```{r}
+1 / 0
+1 / Inf
+```
+
+`NaN` means Not a number. it's an undefined value.
+
+```{r}
+0 / 0
+NaN
+```
+
+###Data Structures
+The next set of information relates to the many data structures in R.  
+
+The data structures in base R include:
+
+- vector
+- list
+- matrix
+- data frame
+- factors
+- tables
+
+Our efforts will focus on vectors and data frames.  We will discuss just the basics of lists and factors.  I will leave it to your curiousity to explore the matrix and table data structures.
+
+### Vectors
+A vector is the most common and basic data structure in `R` and is pretty much the workhorse of R. 
+
+A vector can be a vector of characters, logical, integers or numeric and all values in the vector must be of the same data type.  Specifically, these are known as atomic vectors.
+
+There are many ways to create vectors, but we will focus on one, `c()`, which is a very common way to create a vector from a set of values.  `c()` combines a set of arguments into a single vector.  For instance,
+
+```{r use_c}
+char_vector <- c("Joe", "Bob", "Sue")
+num_vector <- c(1, 6, 99, -2)
+logical_vector <- c(TRUE, FALSE, FALSE, TRUE, T, F)
+```
+
+Now that we have these we can use some functions to examine the vectors. 
+
+```{r examine_vector}
+#Print the vector
+print(char_vector)
+char_vector
+
+#Examine the vector
+typeof(char_vector)
+length(logical_vector)
+class(num_vector)
+str(char_vector)
+```
+
+We can also add to existing vectors using `c()`.
+
+```{r add_to_vec}
+char_vector <- c(char_vector, "Jeff")
+char_vector
+```
+
+There are some ways to speed up entry of values.
+
+```{r vector_shortcuts}
+#Create a series
+series <- 1:10
+seq(10)
+seq(1, 10, by = 0.1)
+
+#Repeat values
+fives <- rep(5, 10)
+fives
+laugh <- rep("Ha", 100)
+laugh
+```
+
+Lastly, R can operate directly on vectors.  This means we can use use our arithmetic functions on vectors and also many functions can deal with vectors directly.  The result of this is another vector, equal to the length of the longest one.
+
+```{r vectorized_examp}
+#A numeric example
+x <- 1:10
+y <- 10:1
+z <- x + y
+z
+
+#another one, with different lengths
+a <- 1
+b <- 1:10
+c <- a + b
+c
+
+#A character example with paste()
+first <- c("Buggs", "Elmer", "Pepe", "Foghorn")
+last <- c("Bunny", "Fudd", "Le Pew", "Leghorn")
+first_last <- paste(first, last)
+first_last
+```
+
+### Factors
+
+Factors are special vectors that represent categorical data. Factors can be ordered or unordered and are often important with modelling functions such as `lm()` and `glm()` (think dummy variables) and also in plot methods.
+
+Factors are pretty much integers that have labels on them.  While factors look (and often behave) like character vectors, they are actually integers under the hood, and you need to be careful when treating them like strings. Some string methods will coerce factors to strings, while others will throw an error.
+
+Factors may be ordered (e.g., low, medium, high) or unordered (e.g. male, female).
+
+Factors can be created with `factor()`. Input is a character vector.
+
+```{r factor_examples}
+#An unordered factor
+yn <- factor(c("yes", "no", "no", "yes", "yes"))
+yn
+
+#An ordered factor
+lmh <- factor(c("high","high","low","medium","low","medium","high"),
+              levels=c("low","medium","high"), ordered=TRUE)
+lmh
+```
+
+### Data frames
+
+Data frames are the data structure you will most often use when doing data analysis.  They are the most spreadsheet like data structure in R, but unlike spreadsheets there are some rules that must be followed. This is a good thing!
+
+Data frames are made up of rows and columns.  Each column is a vector and those vectors must be of the same length.  Essentially, anything that can be saved in a `.csv` file can be read in as a data frame.  Data frames have several attributes.  The ones you will interact with the most are column names, row names, dimension.  
+
+So one way to create a data frame is from some vectors and the `data.frame()` command:
+
+```{r create_data_frame}
+numbers <- c(1:26, NA)
+lettersNew <- c(NA, letters) #letters is a special object available from base R
+logical <- c(rep(TRUE, 13), NA, rep(FALSE, 13))
+examp_df <- data.frame(lettersNew, numbers, logical, stringsAsFactors = FALSE)
+```
+
+Now that we have this data frame we probably want to do something with it.  We can examine it in many ways.
+
+```{r examine_data_frame}
+#See the first 6 rows
+head(examp_df)
+#See the last 6 rows
+tail(examp_df)
+#See column names
+names(examp_df)
+#see row names
+rownames(examp_df)
+#Show structure of full data frame
+str(examp_df)
+#Show number of rows and colums
+dim(examp_df)
+nrow(examp_df)
+ncol(examp_df)
+#Get summary info
+summary(examp_df)
+#remove NA
+na.omit(examp_df)
+```
+
+
+### Lists
+
+Lists are actually a special type of vector, but it is probably best to think of them as their own thing.  Lists can contain multiple items, of multiple types, and of multiple structures.  They are very versatile and often used inside functions or as an output of functions.  
+
+Also, lists don't print out like a vector. They print a new line for each element.
+
+Lists are made simply with the `list()` function.
+
+```{r list_examples}
+examp_list <- list(
+  letters=c("x","y","z"),
+  animals=c("cat","dog","bird","fish"),
+  numbers=1:100,
+  df=examp_df)
+examp_list
+```
+
+If you want to learn more about lists or any other data structure, [Hadley Wickham's Advanced R section on data structures](http://adv-r.had.co.nz/Data-structures.html) is good.
+
+##Reading data into R
+All of the examples so far have relied on entering data directly into the console or a script.  That mode is certainly useful for demonstrating data structures, but would be a nightmare if you were dealing with a real dataset.  What we generally want to do is read in data from a file or from a database that resides on your local machine or on the web.  There are a gazillion ways that this can be accomplished, right now, we are going to work with one, `read.csv()`.  If there is time later, we may talk about some others.
+
+`read.csv()` is a specialized version of `read.table()` that focuses on, big surprise here, `.csv` files.  This command assumes a header row with column names and that the delimiter is a comma.  The expected  
+no data value is `NA` and by default, strings are converted to factors (this can trip people up).
+
+Source files for `read.csv()` can either be on a local hard drive or, and this is pretty cool, on the web.  We will be using the later for our examples and exercises.  If you had a local file it would be accessed like `mydf <- read.csv("C:/path/to/local/file.csv")`.  As an aside, paths and use of forward vs back slash is important. R is looking for forward slashes ("/"), or unix-like paths.  You can use these in place of the back slash and be fine.  You can use a back slash but it needs to be a double back slash ("\\").  This is because the single backslash in an escape character that is used to indicate things like newlines or tabs. Doesn't really matter which one you use, I would just select one and be consistent.
+
+For now we are going to be focusing on grabbing data from a website, which just requires using an URL in the `read.csv()` function.
+
+```{r read_csv_examp}
+#Grab data from the web
+web_df <- read.csv("http://usgs-r.github.io/introR/figure/example.csv")
+head(web_df)
+str(web_df)
+dim(web_df)
+summary(web_df)
+```
+
+There are a variety of ways to pull data from Excel. We are going to show you our recommended way, which involves saving the data to a CSV. 
+
+Let's give it a try. Download the example excel sheet [here](http://usgs-r.github.io/introR/figure/example.xlsx).
+
+Now, open the example in Excel, make sure you're on the first worksheet, and go to File > Save As. Select CSV in the drop-down menu and save the file as "example.csv" in your usgs_r_workshop directory. 
+
+![How to save csv](figure/excel_to_csv.png)
+
+```{r excel_to_csv_examp, eval=FALSE}
+first_sheet <- read.csv("example.csv")
+#Did it work?
+first_sheet
+```
+
+A common issue in reading in data is getting the column formats right. For example, the `first_sheet$Names` column is a factor by default (can you confirm this?). If you want it to be a character column instead, you can prevent it ever becoming a factor with the `stringsAsFactors` argument to `read.csv`, `data.frame`, and other data.frame-making functions:
+```{r, eval=FALSE}
+str(read.csv("example.csv"))
+str(read.csv("example.csv", stringsAsFactors=FALSE))
+```
+
+You can also save objects in your R workspace as csv files. 
+
+```{r write.csv examp, eval=FALSE}
+write.table(web_df, file = "example_data_frame.csv", sep=",")
+# or
+write.csv(web_df, file="example_data_frame.csv")
+```
+
+##Reading NWIS data into R
+
+The USGS has created an R package to directly link NWIS with R. It is called `dataRetrieval`. With it, you can quickly and easily get NWIS data into R. Go ahead and experiment with it.
+
+```{r dataRetrievalExample, eval=FALSE}
+library(dataRetrieval)
+# Gather NWIS data:
+siteListPhos <- readNWISdata(
+  stateCd="FL", parameterCd="00665", drainAreaMin=400,
+  siteType="ST", service="site") 
+phosData <- readNWISqw(siteListPhos$site_no, parameterCd="00665")
+head(phosData)
+```
+
+So now we have a basic feel on how to work in R, how data is dealt with, and how to pull data from a file into R.  Next we are going to practice some of these skills.
+
+```{r Exercise2, echo=FALSE}
+```
+
+##Exercise 2
+For this exercise we are going to read in data from a csv file, look at that data, and be able to describe some basic information about that dataset. The data we will use originally comes from the `smwrData` datasets (and can be accessed using the `data()` function, but we are going to practice reading in csv files).
+
+1. Create a new script in RStudio. Name it “usgs_analysis.R”
+2. As you write the script comment as you go.
+3. Add commands to create a new data frame named `ion_balance` that contains all the data in the 
+IonBalance.csv file. The file is stored in the `gsIntroR` package. To get the filepath for this csv file use the following code:
+```{r}
+filepath <- system.file("IonBalance.csv", package = "gsIntroR")
+filepath_complete <- file.path(filepath, "IonBalance.csv")
+```
+4. Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
+5. Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
+6. If you still have some time, explore the data frame using some of the commands we covered. 
+
+
+```{r echo=FALSE}
+gsIntroR::navigation_array(title)
+```

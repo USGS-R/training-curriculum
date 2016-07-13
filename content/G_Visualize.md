@@ -1,0 +1,238 @@
+---
+author: Lindsay R. Carr
+date: 2016-07-03
+slug: Visualize
+draft: True
+title: G. Visualize - Advanced plotting with base R
+categories: Data Science
+tags: 
+  - R
+---
+| Previous Lesson                         | Current Lesson                          | Next Lesson                                | Workshop Outline                 |
+|:----------------------------------------|:----------------------------------------|:-------------------------------------------|:---------------------------------|
+| [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [H. Visualize - ggplot2](H_Visualize.html) | [Workshop Outline](Outline.html) |
+
+Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
+
+Quick Links to Exercises and R code
+-----------------------------------
+
+-   [Exercise 1](#exercise-1): Create plots using a number of styles and graphical parameters.
+-   [Exercise 2](#exercise-2): Save an image with multiple plots using secondary axes and log scales.
+
+Lesson Goals
+------------
+
+-   Be able to add styles to the plot (colors, linetypes, par arguments, etc)
+-   Become familar with additional plotting features (symbols, legends, multiple axes)
+-   Create multiple plots in one graphic device
+-   Output plots to files
+
+### Plot Styles
+
+So far we have learned to plot data using scatter plots, boxplots, and histograms for exploratory purposes. But what if you wanted to present this data to others? Usually, that would require some work on its style, and base R plotting has many features for this.
+
+First, let's start with two sets of random data and plot them using different colors and point types.
+
+-   `pch` is a number that corresponds to a point type.
+-   `col` can be a character string or hexadecimal color (\#RRGGBB)
+-   you can use the function `colors()` to get a list of R colors
+
+``` r
+#Load the data package!
+library(smwrData)
+
+#Use the dataset MenomineeMajorIons from smwrData
+data("MenomineeMajorIons")
+
+#plot Magnesium vs Calcium (winter and summer different colors)
+#Create two data frames using dplyr (winter & summer)
+library(dplyr)
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+winter <- MenomineeMajorIons %>% 
+  filter(season == "winter") %>% 
+  select(Magnesium, Calcium)
+summer <- MenomineeMajorIons %>% 
+  filter(season == "summer") %>% 
+  select(Magnesium, Calcium)
+
+#Now, plot winter and summer points in different colors
+plot(summer$Calcium, summer$Magnesium, pch=16, col='#FF5034')
+points(winter$Calcium, winter$Magnesium, pch=16, col='skyblue')
+```
+
+<img src='/static/Visualize/pch_col_examp-1.png'/>
+
+Similarly, you can change linetypes (`lty`), linewidths (`lwd`), and point size (`cex`). These all refer to graphical parameters and there are many more. Use `?par` to read about the others.
+
+Graphical parameters also apply to the overall graph. For instance, `las` is used to give the orientation of the axes labels - parallel or perpendicular to the axis, always horizontal, or always vertical. Plot margins can also be set using `par` arguments.
+
+-   use `las` to change the axis labels orientation
+-   `tck` changes the tick length (negative is outside of the plot region)
+-   `bg` can change the entire graphics device background color
+
+``` r
+par(las=2, tck=0.01, bg="darkseagreen")
+plot(summer$Calcium, summer$Magnesium, pch=6)
+```
+
+<img src='/static/Visualize/par_example-1.png'/>
+
+### Legends
+
+Legends are an obvious necessity for publishing plots built in R. Adding legends is a straightforward process: use the `legend()` function and include vectors of the legend names (`legend`), colors, point/line types, and also the location of the legend (`x`). Including a title is optional. Additional arguments used to customize legends can be found in the help file (`?legend`). Below, is a simple example:
+
+``` r
+#use the same plot and add a legend to illustrate color and point type
+plot(summer$Calcium, summer$Magnesium, pch=16, col='#FF5034')
+points(winter$Calcium, winter$Magnesium, pch=16, col='skyblue')
+
+#add a legend
+legend(x="topright", legend=c("Summer", "Winter"),
+       pch=16, col=c('#FF5034', 'skyblue'), title="Legend")
+```
+
+<img src='/static/Visualize/legend_example-1.png'/>
+
+### Additional Plotting Features
+
+R base plotting offers features other than points and lines, such as symbols, rectangles, polygons, and curves. Their usage is illustrated in the example below.
+
+``` r
+#plot formulas using curve()
+curve(x^2, from=0, to=10)
+```
+
+<img src='/static/Visualize/add_features_example-1.png'/>
+
+``` r
+curve(sin(x), from=-pi, to=pi)
+```
+
+<img src='/static/Visualize/add_features_example-2.png'/>
+
+``` r
+#plot rectangles or polygons
+plot(1:15, c(1:7, 9.5, 9:15), type='l')
+rect(xleft=6, xright=10, ybottom=5, ytop=11, density=5, col="orange")
+polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
+```
+
+<img src='/static/Visualize/add_features_example-3.png'/>
+
+``` r
+#use symbols to plot circles (and more) based on data
+#plot of Uranium concentration as a function of TDS w/ circle radii as high or low bicarbonate concentration
+data("UraniumTDS")
+x <- UraniumTDS$TDS
+y <- UraniumTDS$Uranium
+radii <- UraniumTDS$HCO3
+symbols(x, y, circles = radii)
+```
+
+<img src='/static/Visualize/add_features_example-4.png'/>
+
+Exercise 1
+----------
+
+1.  Copy and paste the following code to get two data frames of USGS phosphorus data.
+
+``` r
+library(dataRetrieval)
+# Gather NWIS data:
+P_site1 <- readNWISqw("01656960", parameterCd = "00665")
+P_site2 <- readNWISqw("01656725", parameterCd = "00665")
+```
+
+1.  Using the base R plotting features just discussed, plot a timeseries (see dates column `sample_dt`) for two different sites phosphorus data (see column `result_va`). Show the different timeseries in different colors, linetypes, or linewidths. Include a legend.
+
+2.  Challenge: add points to show the maximum for each timeseries.
+
+### Axes
+
+You can also customize your plot axes using the `axis()` function and specifying which axis by using the `side=` argument. Add ticks at specific values, and add second x and y axes (side=3 or side=4). To make a log-scale axis, use the argument `log=` and specify the x or y axis.
+
+``` r
+#plot Uranium vs total dissolved solids from the smwrData::UraniumTDS dataset
+plot(UraniumTDS$TDS, UraniumTDS$Uranium, pch=20)
+#add a second y-axis
+axis(side=4)
+```
+
+<img src='/static/Visualize/axis_example-1.png'/>
+
+``` r
+#now log the x axis
+plot(UraniumTDS$TDS, UraniumTDS$Uranium,  pch=20, log='x')
+#format the second y-axis to have tick marks at every concentration (not just every 5) & no labels
+axis(side=4, at=1:15, labels=FALSE)
+#add a second x-axis
+axis(side=3) #this axis is also logged
+```
+
+<img src='/static/Visualize/axis_example-2.png'/>
+
+### Multiple Plots in One Graphics Device
+
+It is often useful to have multiple plots shown in one image. There are a few ways to accomplish this: par arguments mfcol or mfrow, `layout`, or `split.screen`. We are only going to discuss `layout`.
+
+To use layout, you must first create a matrix specifying the location of each plot. For instance, if you want plot 1 above the second plot, you would set up this matrix: `matrix(c(1,2), 2, 1)`. If you wanted a gap in between your two plots, you could say "0", meaning no plot will be in that location: `matrix(c(1,0,2), 3, 1)`. Then you simply use the function `layout()` with your matrix as the function argument.
+
+``` r
+#use the smwrData dataset, "MenomineeMajorIons"
+
+layout_matrix <- matrix(c(1:4), nrow=2, ncol=2, byrow=TRUE)
+layout(layout_matrix)
+
+#four boxplots:
+plot1 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Magnesium, ylab="Concentration", main="Magnesium")
+plot2 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Calcium, ylab="Concentration", main="Calcium")
+plot3 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Chloride, ylab="Concentration", main="Chloride")
+plot4 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Sulfate, ylab="Concentration", main="Sulfate")
+```
+
+<img src='/static/Visualize/multiple_plots_example-1.png'/>
+
+### Saving Plots
+
+It is very simple to save your plots as images. In RStudio's "Plots" window, you can select the "Export" drop down and say "Save as Image" or "Save as PDF". Alternatively, you can use the following functions: `png()`, `jpeg()`, `pdf()`, `svg()`, and the list goes on. To use, call `png()`, etc. to open a plotting canvas (i.e., a "graphics device"), make your plot on that canvas, then call `dev.off()` to close and save the canvas.
+
+``` r
+#Using the MiscGW dataset from smwrData
+data("MiscGW")
+ions_to_plot <- MenomineeMajorIons %>% select(Magnesium, Potassium, Chloride, Sulfate)
+
+png("gw_ion_pairs.png", width=5, height=6, res=300, units="in") # see ?png
+plot(ions_to_plot)
+dev.off()
+```
+
+The default for `dev.off()` is to turn off the most current device, but you can have several devices open, and you can specify which device to close with the `which` argument.
+
+Exercise 2
+----------
+
+using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks:
+
+1.  Make a timeseries plot for total dissolved solids (`TDS`). Make the points red and add secondary x and y axes.
+2.  Now make a second timeseries plot with flow (`Q`) and color the points blue. Use a log scale (hint: use the argument `log`).
+3.  Using `layout`, place the second plot below the first. Plus, have the top plot span the whole device and leave an empty region next to the lower plot.
+4.  Save this image as a png.
+5.  If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!
+
+| Previous Lesson                         | Current Lesson                          | Next Lesson                                | Workshop Outline                 |
+|:----------------------------------------|:----------------------------------------|:-------------------------------------------|:---------------------------------|
+| [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [H. Visualize - ggplot2](H_Visualize.html) | [Workshop Outline](Outline.html) |
