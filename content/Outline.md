@@ -30,7 +30,9 @@ Day 1
 -   Pre-course survey results
 -   Accessing workshop resources
 
-### [01 - Introduction (9:00 am - 10:00 am)](Introduction)
+### 01 - Introduction (9:00 am - 10:00 am)
+{{< ref "Introduction" >}}
+
 
 -   Getting R and RStudio going
 -   Using packages
@@ -39,7 +41,8 @@ Day 1
 
 #### Break (10:00 am - 10:15 am)
 
-### [02 - Get (10:15 am - 12:00 pm)](Get)
+### 02 - Get (10:15 am - 12:00 pm)
+{{< ref "Get" >}}
 
 -   Working in the console
 -   Useful functions
