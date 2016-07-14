@@ -1,7 +1,7 @@
 ---
 title: "G. Visualize - Advanced plotting with base R"
 author: "Lindsay R. Carr"
-date: "2016-07-03"
+date: "2016-07-04"
 slug: "Visualize"
 output: USGSmarkdowntemplates::hugo
 ---
@@ -21,8 +21,6 @@ opts_chunk$set(
   fig.width = 6,
   fig.height = 6
 )
-title="G. Visualize - base"
-gsIntroR::navigation_array(title)
 ```
 
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions. 
@@ -199,7 +197,3 @@ using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks:
 5. If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!
 
 
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

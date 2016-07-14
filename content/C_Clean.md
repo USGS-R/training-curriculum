@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
-date: 2016-07-03
+date: 2016-07-08
 slug: Clean
 draft: True
 title: C. Clean
@@ -8,10 +8,6 @@ categories: Data Science
 tags: 
   - R
 ---
-| Previous Lesson      | Current Lesson           | Next Lesson                  | Workshop Outline                 |
-|:---------------------|:-------------------------|:-----------------------------|:---------------------------------|
-| [B. Get](B_Get.html) | [C. Clean](C_Clean.html) | [D. Explore](D_Explore.html) | [Workshop Outline](Outline.html) |
-
 In this third lesson we are going to start working on maninpulating and cleaning up our data frames. We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze. However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R. We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package. There are many ways to do this type of work in R, many of which are available from base R, but I heard from many (AED colleagues and Hadley himself!) focusing on one way to do this is best, so `dplyr` it is!
 
 Before we jump into the lesson, quick links and lesson goals are:
@@ -954,7 +950,3 @@ Next, we're going to practice summarizing large datasets. We will use the `MC11_
 2.  Now add a new column that is the average soil temperature at each depth (do not include `TEMP.REF`). Then, sort the resulting data.frame in descending order. Name this new data.frame `MC11_1993_daily_avg_temp`. Hint: use `rowwise` to compute at each depth.
 
 3.  Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`.
-
-| Previous Lesson      | Current Lesson           | Next Lesson                  | Workshop Outline                 |
-|:---------------------|:-------------------------|:-----------------------------|:---------------------------------|
-| [B. Get](B_Get.html) | [C. Clean](C_Clean.html) | [D. Explore](D_Explore.html) | [Workshop Outline](Outline.html) |

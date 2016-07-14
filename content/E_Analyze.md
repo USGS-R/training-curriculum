@@ -1,17 +1,13 @@
 ---
 author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-03
+date: 2016-07-06
 slug: Analyze
 draft: True
-title: E. Analyze: Base
+title: E. Analyze
 categories: Data Science
 tags: 
   - R
 ---
-| Previous Lesson              | Current Lesson                      | Next Lesson                             | Workshop Outline                 |
-|:-----------------------------|:------------------------------------|:----------------------------------------|:---------------------------------|
-| [D. Explore](D_Explore.html) | [E. Analyze - base](E_Analyze.html) | [F. Analyze - packages](F_Analyze.html) | [Workshop Outline](Outline.html) |
-
 The focus of this workshop hasn't really been statistics, it's been more about R, the language. But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it. In this lesson we will touch on some very simple stats that we can do with base R.
 
 Quick Links to Exercises and R code
@@ -262,7 +258,3 @@ For this exercise, let's start to look at some of the statistical tests and rela
 3.  Next, let's build a linear model that predicts phosphorus concentrations at a USGS site on Klamath River (`KlamathTP` dataset from `smwrData`). Use flow as the explanatory variable. Add a line to extract the r-squared value from the linear model.
 
 4.  Challenge: Create a multivariate linear model relating total nitrogen to two or three explanatory variables in the `TNLoads` dataset from `smwrData`. Extract the adjusted r-squared value. If there's time, try to figure out which variables maximize the r-squared.
-
-| Previous Lesson              | Current Lesson                      | Next Lesson                             | Workshop Outline                 |
-|:-----------------------------|:------------------------------------|:----------------------------------------|:---------------------------------|
-| [D. Explore](D_Explore.html) | [E. Analyze - base](E_Analyze.html) | [F. Analyze - packages](F_Analyze.html) | [Workshop Outline](Outline.html) |

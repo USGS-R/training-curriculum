@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 2016-07-03
+date: 2016-07-04
 slug: Visualize
 draft: True
 title: G. Visualize - Advanced plotting with base R
@@ -8,10 +8,6 @@ categories: Data Science
 tags: 
   - R
 ---
-| Previous Lesson                         | Current Lesson                          | Next Lesson                                | Workshop Outline                 |
-|:----------------------------------------|:----------------------------------------|:-------------------------------------------|:---------------------------------|
-| [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [H. Visualize - ggplot2](H_Visualize.html) | [Workshop Outline](Outline.html) |
-
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
 
 Quick Links to Exercises and R code
@@ -232,7 +228,3 @@ using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks:
 3.  Using `layout`, place the second plot below the first. Plus, have the top plot span the whole device and leave an empty region next to the lower plot.
 4.  Save this image as a png.
 5.  If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!
-
-| Previous Lesson                         | Current Lesson                          | Next Lesson                                | Workshop Outline                 |
-|:----------------------------------------|:----------------------------------------|:-------------------------------------------|:---------------------------------|
-| [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [H. Visualize - ggplot2](H_Visualize.html) | [Workshop Outline](Outline.html) |
