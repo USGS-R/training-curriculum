@@ -45,7 +45,7 @@ Each step of the workflow has a written component (blog post) describing the top
 
 #### Lunch (12:00 pm - 1:00 pm)
 
-### [03 - Clean (1:00 pm - 2:45 pm)]("{{ .Site.BaseURL }}"/Clean)
+### 03 - Clean (1:00 pm - 2:45 pm)(Clean)
 
 - Declare project groups
 - `dplyr` 

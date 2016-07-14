@@ -49,7 +49,9 @@ Day 1
 
 #### Lunch (12:00 pm - 1:00 pm)
 
-### [03 - Clean (1:00 pm - 2:45 pm)](%22%7B%7B%20.Site.BaseURL%20%7D%7D%22/Clean)
+### 03 - Clean (1:00 pm - 2:45 pm)
+
+<a href="{{.NextInSection.Permalink}}">Clean</a>
 
 -   Declare project groups
 -   `dplyr`

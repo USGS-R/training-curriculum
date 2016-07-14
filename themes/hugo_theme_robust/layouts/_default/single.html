@@ -48,6 +48,13 @@
           <h3>{{ .Params.author }}</h3>
           {{ .Content }}
         </div>
+        
+{{ if .NextInSection }}
+<a href="{{.NextInSection.Permalink}}">Previous Post</a>
+{{ end }}
+{{ if .PrevInSection }}
+<a href="{{.PrevInSection.Permalink}}">Next Post</a>
+{{ end }}
 
         <aside>
           <section>
