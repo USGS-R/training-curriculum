@@ -31,8 +31,6 @@ Day 1
 -   Accessing workshop resources
 
 ### 01 - Introduction (9:00 am - 10:00 am)
-{{< ref "Introduction" >}}
-
 
 -   Getting R and RStudio going
 -   Using packages
@@ -42,7 +40,6 @@ Day 1
 #### Break (10:00 am - 10:15 am)
 
 ### 02 - Get (10:15 am - 12:00 pm)
-{{< ref "Get" >}}
 
 -   Working in the console
 -   Useful functions
@@ -53,8 +50,6 @@ Day 1
 #### Lunch (12:00 pm - 1:00 pm)
 
 ### 03 - Clean (1:00 pm - 2:45 pm)
-
-<a href="{{.NextInSection.Permalink}}">Clean</a>
 
 -   Declare project groups
 -   `dplyr`
