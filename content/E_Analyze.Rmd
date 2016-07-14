@@ -1,7 +1,7 @@
 ---
-title: "E. Analyze: Base"
+title: "E. Analyze"
 author: "Jeffrey W. Hollister & Emily Read"
-date: "2016-07-03"
+date: "2016-07-06"
 slug: "Analyze"
 output: USGSmarkdowntemplates::hugo
 ---
@@ -22,8 +22,6 @@ opts_chunk$set(
   fig.height = 6
 )
 set.seed(5)
-title="E. Analyze - base"
-gsIntroR::navigation_array(title)
 ```
 
 The focus of this workshop hasn't really been statistics, it's been more about R, the language.  But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it.  In this lesson we will touch on some very simple stats that we can do with base R.  
@@ -126,7 +124,3 @@ For this exercise, let's start to look at some of the statistical tests and rela
 
 4. Challenge: Create a multivariate linear model relating total nitrogen to two or three explanatory variables in the `TNLoads` dataset from `smwrData`. Extract the adjusted r-squared value. If there's time, try to figure out which variables maximize the r-squared.
 
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

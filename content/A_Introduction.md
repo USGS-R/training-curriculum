@@ -1,9 +1,9 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
-date: 2016-07-02
+date: 2016-07-10
 slug: Introduction
 draft: True
-title: Introduction to R
+title: A. Introduction to R
 categories: Data Science
 tags: 
   - R
@@ -209,7 +209,3 @@ For this second exercise we are going to get used to using some basic functions,
 5.  Load the package into R.
 6.  Open the help for the package.
 7.  Save all these commands inside your "lessonA.R" script. Comment out any lines that install packages - this only needs to be done once per computer. Run the whole script again using the "Source" button at the top right of the editor. Then run just a few lines at once by highlighting those lines with your mouse, then pressing the Run button or Ctrl+Enter (Cmd+Enter). What's the difference between (1) clicking Source and (2) selecting all lines then clicking Run?
-
-| Previous Lesson                  | Current Lesson                         | Next Lesson          | Workshop Outline                 |
-|:---------------------------------|:---------------------------------------|:---------------------|:---------------------------------|
-| [Workshop Outline](Outline.html) | [A. Introduction](A_Introduction.html) | [B. Get](B_Get.html) | [Workshop Outline](Outline.html) |

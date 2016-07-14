@@ -1,18 +1,13 @@
 ---
 author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-03
+date: 2016-07-07
 slug: Explore
 draft: True
 title: D. Explore
 categories: Data Science
 tags: 
   - R
-image: static/Explore/abline_examp_lm-1.png
 ---
-| Previous Lesson          | Current Lesson               | Next Lesson                         | Workshop Outline                 |
-|:-------------------------|:-----------------------------|:------------------------------------|:---------------------------------|
-| [C. Clean](C_Clean.html) | [D. Explore](D_Explore.html) | [E. Analyze - base](E_Analyze.html) | [Workshop Outline](Outline.html) |
-
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
 
 Quick Links to Exercises and R code
@@ -287,7 +282,3 @@ Similar to before let's first just play around with some basic exploratory data 
 Now, use the dataset `MiningIron` from `smwrData` for step 3.
 
 1.  Create a boxplot that compares iron concentrations based on stream rock types. If it is interpret the boxplot, try logging the iron concentrations.
-
-| Previous Lesson          | Current Lesson               | Next Lesson                         | Workshop Outline                 |
-|:-------------------------|:-----------------------------|:------------------------------------|:---------------------------------|
-| [C. Clean](C_Clean.html) | [D. Explore](D_Explore.html) | [E. Analyze - base](E_Analyze.html) | [Workshop Outline](Outline.html) |

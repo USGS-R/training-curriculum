@@ -1,7 +1,7 @@
 ---
 title: "B. Get"
-author: Jeffrey W. Hollister & Luke Winslow
-date: "2016-07-03"
+author: "Jeffrey W. Hollister & Luke Winslow"
+date: "2016-07-09"
 slug: "Get"
 output: USGSmarkdowntemplates::hugo
 ---
@@ -21,8 +21,6 @@ opts_chunk$set(
   fig.width = 6,
   fig.height = 6
 )
-title="B. Get"
-gsIntroR::navigation_array(title)
 ```
 
 
@@ -440,7 +438,3 @@ filepath_complete <- file.path(filepath, "IonBalance.csv")
 5. Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
 6. If you still have some time, explore the data frame using some of the commands we covered. 
 
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

@@ -1,7 +1,7 @@
 ---
 title: "C. Clean"
 author: "Jeffrey W. Hollister & Luke Winslow"
-date: "2016-07-03"
+date: "2016-07-08"
 slug: "Clean"
 output: USGSmarkdowntemplates::hugo
 ---
@@ -22,8 +22,6 @@ opts_chunk$set(
   fig.height = 6
 )
 set.seed(3)
-title="C. Clean"
-gsIntroR::navigation_array(title)
 ```
 
 
@@ -301,9 +299,4 @@ Next, we're going to practice summarizing large datasets. We will use the `MC11_
 2. Now add a new column that is the average soil temperature at each depth (do not include `TEMP.REF`). Then, sort the resulting data.frame in descending order. Name this new data.frame `MC11_1993_daily_avg_temp`. Hint: use `rowwise` to compute at each depth.
 
 3. Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`. 
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
 

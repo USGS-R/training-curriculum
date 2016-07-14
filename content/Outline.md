@@ -1,6 +1,6 @@
 ---
 author: 
-date: 2016-07-01
+date: 2016-07-11
 slug: Outline
 draft: True
 title: Intro R Workshop Outline
@@ -30,7 +30,7 @@ Day 1
 -   Pre-course survey results
 -   Accessing workshop resources
 
-### [01 - Introduction (9:00 am - 10:00 am)](A_Introduction.html)
+### [01 - Introduction (9:00 am - 10:00 am)](Introduction)
 
 -   Getting R and RStudio going
 -   Using packages
@@ -39,7 +39,7 @@ Day 1
 
 #### Break (10:00 am - 10:15 am)
 
-### [02 - Get (10:15 am - 12:00 pm)](B_Get.html)
+### [02 - Get (10:15 am - 12:00 pm)](Get)
 
 -   Working in the console
 -   Useful functions
@@ -49,7 +49,9 @@ Day 1
 
 #### Lunch (12:00 pm - 1:00 pm)
 
-### [03 - Clean (1:00 pm - 2:45 pm)](C_Clean.html)
+### 03 - Clean (1:00 pm - 2:45 pm)
+
+<a href="{{.NextInSection.Permalink}}">Clean</a>
 
 -   Declare project groups
 -   `dplyr`
@@ -59,7 +61,7 @@ Day 1
 
 #### Break (2:45 pm - 3:00 pm)
 
-### [04 - Explore (3:00 pm - 4:30 pm)](D_Explore.html)
+### [04 - Explore (3:00 pm - 4:30 pm)](Explore)
 
 -   Exploratory data analysis
 -   Summary statistics

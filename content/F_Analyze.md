@@ -3,15 +3,11 @@ author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-03
 slug: AnalyzeII
 draft: True
-title: F. Analyze: Packages
+title: F. Analyze with packages
 categories: Data Science
 tags: 
   - R
 ---
-| Previous Lesson                     | Current Lesson                          | Next Lesson                             | Workshop Outline                 |
-|:------------------------------------|:----------------------------------------|:----------------------------------------|:---------------------------------|
-| [E. Analyze - base](E_Analyze.html) | [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [Workshop Outline](Outline.html) |
-
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. We'll be moving away from the GAGES-II sites in NM to focus on some other sites of interest. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 
 Quick Links to Exercises and R code
@@ -174,7 +170,3 @@ Second, it is becoming increasingly common to see journal articles about package
 -   [PLoS One](http://www.plosone.org/search/simple?from=globalSimpleSearch&filterJournals=PLoSONE&query=R+Package&x=0&y=0)
 
 Third, the last resort is of course [Google](http://www.google.com)!
-
-| Previous Lesson                     | Current Lesson                          | Next Lesson                             | Workshop Outline                 |
-|:------------------------------------|:----------------------------------------|:----------------------------------------|:---------------------------------|
-| [E. Analyze - base](E_Analyze.html) | [F. Analyze - packages](F_Analyze.html) | [G. Visualize - base](G_Visualize.html) | [Workshop Outline](Outline.html) |

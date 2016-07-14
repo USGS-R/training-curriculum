@@ -1,7 +1,7 @@
 ---
-title: "F. Analyze: Packages"
+title: "F. Analyze with packages"
 author: "Jeffrey W. Hollister & Emily Read"
-date: "2016-07-03"
+date: "2016-07-05"
 slug: "AnalyzeII"
 output: USGSmarkdowntemplates::hugo
 ---
@@ -21,8 +21,6 @@ opts_chunk$set(
   fig.width = 6,
   fig.height = 6
 )
-title="F. Analyze - packages"
-gsIntroR::navigation_array(title)
 ```
 
 
@@ -150,10 +148,5 @@ Second, it is becoming increasingly common to see journal articles about package
 - [PLoS One](http://www.plosone.org/search/simple?from=globalSimpleSearch&filterJournals=PLoSONE&query=R+Package&x=0&y=0)
 
 Third, the last resort is of course [Google](http://www.google.com)!  
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
 
 
