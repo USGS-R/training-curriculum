@@ -1,12 +1,11 @@
 ---
 author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-03
+date: 2016-07-05
 slug: AnalyzeII
 draft: True
 title: F. Analyze with packages
-categories: Data Science
 tags: 
-  - R
+  - F. Analyze II
 ---
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. We'll be moving away from the GAGES-II sites in NM to focus on some other sites of interest. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 
