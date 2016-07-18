@@ -661,9 +661,9 @@ article.single .body p>code {
   color: #78909c;
 }
 
-article.single .body h1 { margin: 2rem 0; font-weight: 700; clear:both; }
-article.single .body h2 { margin: 2rem 0; font-weight: 700; }
-article.single .body h3 { margin: 1rem 0; font-weight: 700; }
+article.single .body h1 { margin: 2rem 0; font-weight: 700; clear: both;}
+article.single .body h2 { margin: 2rem 0; font-weight: 700; clear: both;}
+article.single .body h3 { margin: 1rem 0; font-weight: 700; clear: both;}
 
 /* Helpers */
 ul.h-inline,
