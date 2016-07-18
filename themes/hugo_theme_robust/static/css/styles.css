@@ -405,6 +405,7 @@ h5 { font-size: 1rem; line-height: 1rem; }
 /* Parts:share */
 .p-share {
   text-align: center;
+  clear:both;
 }
 
 .p-share a {
@@ -450,11 +451,71 @@ section>div {
 /* Parts:article */
 article {
   word-break: break-all;
+  position:relative;
 }
 
 article>a {
   display: block;
 }
+
+.previousPost,
+.nextPost{
+  width:150px;
+  height:35px;
+  padding:8px 10px;
+  margin:10px 0 20px 0;
+  text-align:center;
+  border-radius:5px;
+  background:#003366;
+  color:#fff;
+  border:1px solid #003366;
+}
+
+.previousPost{
+  float:left;
+  margin-left:10px;
+}
+
+
+.nextPost{
+  float:right;
+   margin-right:10px;
+}
+
+.previousPost:hover,
+.nextPost:hover{
+  background:#fff;
+  color:#003366;
+}
+
+.previousPost:hover .arrow-left{
+  border-right: 7px solid #003366 !important;
+}
+
+.nextPost:hover .arrow-right{
+  border-left: 7px solid #003366 !important;
+}
+
+.arrow-left,
+.arrow-right{
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent; 
+  margin-top:1px;
+}
+
+.arrow-left{
+  border-right:7px solid #fff; 
+  float:left;
+}
+
+.arrow-right{
+  border-left:7px solid #fff;
+  float:right;
+}
+
+
 
 article .image {
   background-size: contain;
@@ -600,7 +661,7 @@ article.single .body p>code {
   color: #78909c;
 }
 
-article.single .body h1 { margin: 2rem 0; font-weight: 700; }
+article.single .body h1 { margin: 2rem 0; font-weight: 700; clear:both; }
 article.single .body h2 { margin: 2rem 0; font-weight: 700; }
 article.single .body h3 { margin: 1rem 0; font-weight: 700; }
 
