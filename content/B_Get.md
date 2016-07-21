@@ -4,9 +4,8 @@ date: 2016-07-09
 slug: Get
 draft: True
 title: B. Get
-categories: Data Science
 tags: 
-  - R
+  - B. Get
 ---
 The second lesson is going to start to lay the foundation for working with data in R. We will cover some of the very basics of R first, then move on to how you get data into R and how you work with some of the basic data structures. Lastly, we will cover some ways to find relevant data and pull it directly into R.
 

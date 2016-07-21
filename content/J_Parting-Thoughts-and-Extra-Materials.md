@@ -4,9 +4,8 @@ date: 2016-07-01
 slug: Parting-Thoughts
 draft: True
 title: J. Parting Thoughts
-categories: Data Science
 tags: 
-  - R
+  - J. Parting Thoughts
 ---
 Parting Thoughts
 ----------------

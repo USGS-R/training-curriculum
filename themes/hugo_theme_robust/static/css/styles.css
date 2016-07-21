@@ -3,6 +3,11 @@
  * #b0bec5
  * #78909c
  */
+ body{
+	 background: #e8e6e1 !important;
+	 font-family:"Open Sans", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	 }
+ 
  
  aside.site header{
    color:#003366;
@@ -61,9 +66,9 @@ h4{
 @media screen and (min-width:768px){
   #desktopNav {
     position: relative;
-    width: 768px;
-    height: 40px;
+    height: 35px;
     margin: 0 auto;
+	background:#003366;
   }
   #owiLogoSmall {
     display: block;
@@ -182,18 +187,6 @@ h4{
   }
 }
 
-@media screen and (min-width: 1025px) {
-  #desktopNav {
-    width: 970px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  #desktopNav {
-    width: 1170px;
-  }
-}
-
 
 /* Reset */
 html {
@@ -288,7 +281,7 @@ h5 { font-size: 1rem; line-height: 1rem; }
   background-color: #fff;
   margin-bottom: 2rem;
   border-bottom:1px solid #bebebe;
-  height:40px;
+  height:35px;
 }
 
 .l-footer {
@@ -315,13 +308,14 @@ h5 { font-size: 1rem; line-height: 1rem; }
   display: none;
   list-style: none;
   position: absolute;
-  top: 40px;
+  top: 41px;
   padding:0;
   background: #fff;
   width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   
 }
+
 .p-logo ul a {
   color: #003366;
   display: inline-block;
@@ -329,48 +323,46 @@ h5 { font-size: 1rem; line-height: 1rem; }
   width: 100%;
   font-size:1em;
   padding:8px 0 0 0;
+  border-right:1px solid #fff;
 }
 .p-logo ul a:focus {
   background: #003366;
   color: #fff;
 }
 .p-logo ul a li {
-  border-bottom: 1px solid #bebebe;
+  border-bottom: 1px solid #003366;
   padding:0 10px;
   height:32px;
+  
 }
 
 @media screen and (min-width:768px){
-  .p-logo{
-    width:760px;
-    margin:0 auto;
-  }
-  
   .p-logo {
     background: none;
     border-bottom: 1px solid #bebebe;
-    margin-bottom: 10px;
+    margin:1px 0 10px 0;
+	height:35px;
   }
   .p-logo ul {
     display: block !important;
     position: static;
-    width: 525px;
-    height: 40px;
-    float: right;
+    height: 35px;
     box-shadow: none;
     background:none;
   }
   .p-logo ul a {
+	color: #fff;
     width: 105px;
+	height:35px;
     text-align: center;
     display: block;
     float: left;
     font-weight: 300;
-    padding-top:8px;
+    padding-top:6px;
   }
   .p-logo ul a:hover {
-    background: #003366;
-    color: #fff;
+    background: #fff;
+    color: #003366;
     box-shadow:none;
     outline:none;
   }
@@ -380,22 +372,10 @@ h5 { font-size: 1rem; line-height: 1rem; }
   }
 }
 
-@media screen and (min-width:991px){
-  .p-logo{
-    width:960px;
-  }
-}
-
-@media screen and (min-width:1200px){
-  .p-logo{
-    width:1170px;
-  }
-}
-
 .p-logo a {
   font-size: 1.5em;
   display:inline-block;
-  height:40px;
+  height:35px;
   padding-top:12px;
 }
 
@@ -425,6 +405,7 @@ h5 { font-size: 1rem; line-height: 1rem; }
 /* Parts:share */
 .p-share {
   text-align: center;
+  clear:both;
 }
 
 .p-share a {
@@ -470,11 +451,71 @@ section>div {
 /* Parts:article */
 article {
   word-break: break-all;
+  position:relative;
 }
 
 article>a {
   display: block;
 }
+
+.previousPost,
+.nextPost{
+  width:150px;
+  height:35px;
+  padding:8px 10px;
+  margin:10px 0 20px 0;
+  text-align:center;
+  border-radius:5px;
+  background:#003366;
+  color:#fff;
+  border:1px solid #003366;
+}
+
+.previousPost{
+  float:left;
+  margin-left:10px;
+}
+
+
+.nextPost{
+  float:right;
+   margin-right:10px;
+}
+
+.previousPost:hover,
+.nextPost:hover{
+  background:#fff;
+  color:#003366;
+}
+
+.previousPost:hover .arrow-left{
+  border-right: 7px solid #003366 !important;
+}
+
+.nextPost:hover .arrow-right{
+  border-left: 7px solid #003366 !important;
+}
+
+.arrow-left,
+.arrow-right{
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent; 
+  margin-top:1px;
+}
+
+.arrow-left{
+  border-right:7px solid #fff; 
+  float:left;
+}
+
+.arrow-right{
+  border-left:7px solid #fff;
+  float:right;
+}
+
+
 
 article .image {
   background-size: contain;
@@ -620,9 +661,9 @@ article.single .body p>code {
   color: #78909c;
 }
 
-article.single .body h1 { margin: 2rem 0; font-weight: 700; }
-article.single .body h2 { margin: 2rem 0; font-weight: 700; }
-article.single .body h3 { margin: 1rem 0; font-weight: 700; }
+article.single .body h1 { margin: 2rem 0; font-weight: 700; clear: both;}
+article.single .body h2 { margin: 2rem 0; font-weight: 700; clear: both;}
+article.single .body h3 { margin: 1rem 0; font-weight: 700; clear: both;}
 
 /* Helpers */
 ul.h-inline,

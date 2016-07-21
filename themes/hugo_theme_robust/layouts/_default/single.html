@@ -37,11 +37,18 @@
 {{ partial "header_after.html" . }}
 
 <div class="container">
-
+  
   <div class="row">
     <div class="col-md-9">
 
       <article class="single">
+        
+        {{ if .NextInSection }}
+<a href="{{.NextInSection.Permalink}}" class="previousPost"><span class="arrow-left"></span>Previous Post</a>
+{{ end }}
+{{ if .PrevInSection }}
+<a href="{{.PrevInSection.Permalink}}" class="nextPost">Next Post<span class="arrow-right"></span></a>
+{{ end }}
 <!--<div class="image" style="background-image: url({{ $.Site.BaseURL }}images/{{ with .Params.image }}{{ . }}{{ else }}default.jpg{{ end }});"></div>-->
         <div class="body">
           <h1>{{ .Title }}</h1>
@@ -50,10 +57,10 @@
         </div>
         
 {{ if .NextInSection }}
-<a href="{{.NextInSection.Permalink}}">Previous Post</a>
+<a href="{{.NextInSection.Permalink}}" class="previousPost"><span class="arrow-left"></span>Previous Post</a>
 {{ end }}
 {{ if .PrevInSection }}
-<a href="{{.PrevInSection.Permalink}}">Next Post</a>
+<a href="{{.PrevInSection.Permalink}}" class="nextPost">Next Post<span class="arrow-right"></span></a>
 {{ end }}
 
         <aside>
