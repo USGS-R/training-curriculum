@@ -93,7 +93,7 @@ h4{
   }
   
   #banner{
-    width:300px;
+    width:290px;
   }
   #usgsbanner {
     width: 100%;
@@ -189,6 +189,7 @@ h4{
 
 
 /* Reset */
+
 html {
   font-size: 16px;
   word-break: keep-all;
@@ -297,6 +298,10 @@ h5 { font-size: 1rem; line-height: 1rem; }
 }
 
 /* Parts:logo */
+#trainingDropdown{
+  display:none;
+}
+
 .p-logo{
   background: #003366;
   height: 40px;
@@ -322,54 +327,99 @@ h5 { font-size: 1rem; line-height: 1rem; }
   height: 40px;
   width: 100%;
   font-size:1em;
-  padding:8px 0 0 0;
-  border-right:1px solid #fff;
+  padding:8px 0 0 5px;
 }
 .p-logo ul a:focus {
   background: #003366;
   color: #fff;
 }
-.p-logo ul a li {
+.p-logo ul li {
   border-bottom: 1px solid #003366;
   padding:0 10px;
-  height:32px;
-  
+  height:40px;
 }
 
 @media screen and (min-width:768px){
+  .mobileLinks{
+    display:none !important;
+  }
+  
   .p-logo {
     background: none;
     border-bottom: 1px solid #bebebe;
     margin:1px 0 10px 0;
-	height:35px;
+	  height:35px;
   }
-  .p-logo ul {
+  
+  .p-logo:first-child ul{
     display: block !important;
     position: static;
     height: 35px;
     box-shadow: none;
     background:none;
   }
-  .p-logo ul a {
-	color: #fff;
+  
+  .p-logo ul li {
     width: 105px;
-	height:35px;
+	  height:35px;
     text-align: center;
     display: block;
     float: left;
     font-weight: 300;
-    padding-top:6px;
+    padding:0;
   }
-  .p-logo ul a:hover {
+  
+  .p-logo ul li:hover{
     background: #fff;
+  }
+  
+  .p-logo ul a{
+    color: #fff;
+    padding:6px 0 0 0;
+    height:35px;
+  }
+  
+  .p-logo ul li:hover a{
     color: #003366;
     box-shadow:none;
     outline:none;
   }
-  .p-logo ul a li {
-    border-bottom: none;
-    padding:0;
-  }
+  
+#trainingDropdown{
+    display:none !important;
+    width:230px;
+    min-height:50px;
+    }
+    
+.shower:hover #trainingDropdown{
+    display:block !important;
+    }
+    
+#trainingDropdown li{
+       width:100%;
+       height:40px;
+       background:#fff;
+       text-align:left;
+       border-right:none;
+       border-bottom:none;
+       }
+       
+#trainingDropdown li:hover{
+           background:#003366 !important;
+           }
+           
+#trainingDropdown a{
+         padding:8px 0 10px 10px;
+         color:#003366;
+         background:none;
+         border-right:none;
+         }
+           
+#trainingDropdown li:hover a{
+           color:#fff;
+           
+           }
+  
 }
 
 .p-logo a {
@@ -378,7 +428,7 @@ h5 { font-size: 1rem; line-height: 1rem; }
   height:35px;
   padding-top:12px;
 }
-
+    
 /* Parts:menu */
 .p-menu {
   line-height: 1.5rem;
@@ -515,7 +565,9 @@ article>a {
   float:right;
 }
 
-
+.blogTeaser{
+  margin-top:30px;
+}
 
 article .image {
   background-size: contain;
