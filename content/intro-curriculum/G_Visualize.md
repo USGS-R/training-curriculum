@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 2016-07-04
 slug: Visualize
 draft: True
-title: G. Visualize - Advanced plotting with base R
+title: G. Visualize - Plotting with base R
 menu:
 ---
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
