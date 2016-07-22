@@ -4,8 +4,7 @@ date: 2016-07-01
 slug: Parting-Thoughts
 draft: True
 title: J. Parting Thoughts
-tags: 
-  - J. Parting Thoughts
+menu:
 ---
 Parting Thoughts
 ----------------
