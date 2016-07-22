@@ -36,12 +36,30 @@
     <div id="desktopNav">
       <img id="mobileBurger" src="{{ $.Site.BaseURL }}/images/mobileburger.png" alt="mobile nav menu"/>
       <ul id="navigation">
-        <a href="http://owi.usgs.gov/R/index.html"><li>Home</li></a>
-        <a href="http://owi.usgs.gov/R/about.html"><li>About</li></a>
-        <a href="http://owi.usgs.gov/R/resources.html"><li>Resources</li></a>
-        <a href="http://owi.usgs.gov/R/training.html"><li>Training</li></a>
-        <a href="http://owi.usgs.gov/R/gran.html"><li>GRAN</li></a>
-		<a href="http://owi.usgs.gov/R/contact_contribute.html"><li>Contact</li></a>
+        <li><a href="http://owi.usgs.gov/R/index.html">Home</a></li>
+        <li><a href="http://owi.usgs.gov/R/about.html">About</a></li>
+        <li><a href="http://owi.usgs.gov/R/resources.html">Resources</a></li>
+        <li class="shower"><a href="http://owi.usgs.gov/R/training.html">Training</a>
+          <ul id="trainingDropdown">
+					  <li><a href="training.html">Training Schedule</a></li>
+					
+					  <li>
+						  <a href="http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/">
+					      Introduction to R Curriculum
+						  </a>
+					  </li>
+					
+					  <li><a href="#">Course Specific Materials</a></li>
+				  </ul>
+        </li>
+        <li class="mobileLinks">
+				  <a href="http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/">
+				  Introduction to R Curriculum
+				  </a>
+			  </li>
+			  <li class="mobileLinks"><a href="#">Course Specific Materials</a></li>
+        <li><a href="http://owi.usgs.gov/R/gran.html">GRAN</a></li>
+		    <li><a href="http://owi.usgs.gov/R/contact_contribute.html">Contact</a></li>
       </ul>
 
     </div>
