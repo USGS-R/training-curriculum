@@ -5,6 +5,7 @@ slug: Visualize
 draft: True
 title: G. Visualize - Plotting with base R
 menu:
+  weight=1
 image: img/main/intro-icons-300px/visualize.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5

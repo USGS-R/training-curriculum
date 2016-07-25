@@ -5,6 +5,7 @@ slug: Before
 draft: True
 title: Before The Workshop
 menu:
+  weight=2
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
 

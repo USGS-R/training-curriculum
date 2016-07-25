@@ -5,6 +5,7 @@ slug: ggplot2
 draft: True
 title: H. Visualize - Plotting with ggplot2
 menu:
+  weight=1
 image: img/main/intro-icons-300px/ggplot.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5

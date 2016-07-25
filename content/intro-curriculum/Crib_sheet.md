@@ -5,6 +5,7 @@ slug: Crib
 draft: True
 title: Crib Sheet
 menu:
+  weight=2
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
 

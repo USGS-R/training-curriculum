@@ -5,6 +5,7 @@ slug: Explore
 draft: True
 title: D. Explore
 menu:
+  weight=1
 image: img/main/intro-icons-300px/explore.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5

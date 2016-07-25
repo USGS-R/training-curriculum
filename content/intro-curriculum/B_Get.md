@@ -5,6 +5,7 @@ slug: Get
 draft: True
 title: B. Get
 menu: 
+  weight=1
 image: img/main/intro-icons-300px/get.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5

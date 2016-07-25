@@ -5,6 +5,7 @@ slug: data
 draft: true
 title: Data
 menu:
+  weight=2
 ---
 
 [course\_NWISdata.csv](data/course_NWISdata.csv)

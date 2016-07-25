@@ -5,6 +5,7 @@ slug: AnalyzeII
 draft: True
 title: F. Analyze with packages
 menu:
+  weight=1
 image: img/main/intro-icons-300px/analyzewpackages.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
