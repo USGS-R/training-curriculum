@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/ggplot.png
 ---
-
 One of the frequently touted strong points of R is data visualization. We saw some of that with our use of base graphics, but those plots were, frankly, a bit pedestrian. More and more users are moving away from base graphics and using the `ggplot2` package. I would even go as far to say that it has almost become the default plotting mechanism in R. This whole lesson we will focus on creating, modifying, and saving plots with `ggplot2`.
 
 Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
@@ -50,7 +49,7 @@ qtemp_gg <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst))
 qtemp_gg
 ```
 
-<img src='/static/ggplot2/ggplot_examp-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ggplot_examp-1.png'/>
 
 All we did at this point is create a blank slate that contains our data and knows what we want on the x and y axes. We haven't said anything about what type of plot we want to make. That comes next with the use of geometries.
 
@@ -65,7 +64,7 @@ qtemp_gg + geom_point()
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/points_examp-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/points_examp-1.png'/>
 
 ``` r
 #This too can be saved to an object
@@ -77,7 +76,7 @@ qtemp_scatter
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/points_examp-2.png'/>
+<img src='/intro-curriculum/static/ggplot2/points_examp-2.png'/>
 
 Not appreciably better than base, in my opinion. But what if we want to add some stuff...
 
@@ -96,7 +95,7 @@ qtemp_scatter
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/ion_labels-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_labels-1.png'/>
 
 Now to add some colors, shapes, etc. to the point. Look at the `geom_point()` documentation for this. Notice that ggplot2 makes the correct legend for us without help!
 
@@ -118,7 +117,7 @@ qtemp_scatter
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/ion_colors-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_colors-1.png'/>
 
 Much easier than using base, but `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.). Lets add a loess line with 95% confidence intervals
 
@@ -140,7 +139,7 @@ qtemp_scatter + geom_smooth()
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/ion_loess-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_loess-1.png'/>
 
 Or we could add a simple linear regression line with:
 
@@ -162,7 +161,7 @@ qtemp_scatter + geom_smooth(method="lm")
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/ion_lm-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_lm-1.png'/>
 
 And if we are interested in the regressions by group we could do it this way.
 
@@ -184,7 +183,7 @@ qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/ion_lm_groups-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_lm_groups-1.png'/>
 
 Or, if we wanted our regression lines to match the color.
 
@@ -206,7 +205,7 @@ qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/ion_lm_color-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/ion_lm_color-1.png'/>
 
 You'll notice that I had to specify the `aes()` again, but for `geom_smooth()`. We only specified the x and y in the original `ggplot` object, so if want to do something different in the subsequent functions we need to overwrite it for the function in which we want a different mapping (i.e. groups).
 
@@ -224,7 +223,7 @@ ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 
     ## Warning: Removed 90 rows containing non-finite values (stat_boxplot).
 
-<img src='/static/ggplot2/gg_box_examp-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/gg_box_examp-1.png'/>
 
 ### Histograms
 
@@ -238,7 +237,7 @@ ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 
     ## Warning: Removed 120 rows containing non-finite values (stat_bin).
 
-<img src='/static/ggplot2/gg_hist_examp-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/gg_hist_examp-1.png'/>
 
 ### Barplots
 
@@ -251,7 +250,7 @@ ggplot(intro_df_flow_mean, aes(x=site_no, y=mean_flow)) +
   geom_bar(stat="identity")
 ```
 
-<img src='/static/ggplot2/gg_bar_examp2-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/gg_bar_examp2-1.png'/>
 
 Exercise 1
 ----------
@@ -287,7 +286,7 @@ qtemp_scatter
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/themes_examp-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/themes_examp-1.png'/>
 
 Nothing new there. Let's now edit some of this theme by dropping the grey background and the grid, and changing our font.
 
@@ -310,7 +309,7 @@ qtemp_scatter_base
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/themes_examp_custom-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/themes_examp_custom-1.png'/>
 
 Still not great, but it shows the basics. You can build on this and edit EVERYTHING in the plot. To get an idea of what you have access to, take a look at the help on `theme()` (e.g. `help("theme")`).
 
@@ -330,7 +329,7 @@ qtemp_scatter + theme_bw()
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/themes_examp_stock-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/themes_examp_stock-1.png'/>
 
 ``` r
 qtemp_scatter + theme_classic()
@@ -346,7 +345,7 @@ qtemp_scatter + theme_classic()
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/themes_examp_stock-2.png'/>
+<img src='/intro-curriculum/static/ggplot2/themes_examp_stock-2.png'/>
 
 Let's build on one of the default themes to create a more polished plot.
 
@@ -375,7 +374,7 @@ qtemp_scatter_polished
     ## because more than 6 becomes difficult to discriminate; you have
     ## 12. Consider specifying shapes manually if you must have them.
 
-<img src='/static/ggplot2/themes_examp_polished-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/themes_examp_polished-1.png'/>
 
 A bit complicated for some of the custom stuff, but that is the price you have to pay to get complete control over the output.
 
@@ -422,7 +421,7 @@ qtemp
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/facet_grid_example-1.png'/>
+<img src='/intro-curriculum/static/ggplot2/facet_grid_example-1.png'/>
 
 ``` r
 # Faceting with one variable 
@@ -433,7 +432,7 @@ qtemp + facet_grid(site_no ~ .)
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/facet_grid_example-2.png'/>
+<img src='/intro-curriculum/static/ggplot2/facet_grid_example-2.png'/>
 
 ``` r
 # Faceting with two variables
@@ -444,7 +443,7 @@ qtemp + facet_grid(site_no ~ Flow_Inst_cd)
 
     ## Warning: Removed 177 rows containing missing values (geom_point).
 
-<img src='/static/ggplot2/facet_grid_example-3.png'/>
+<img src='/intro-curriculum/static/ggplot2/facet_grid_example-3.png'/>
 
 Documentation
 -------------

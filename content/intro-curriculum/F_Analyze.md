@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/analyzewpackages.png
 ---
-
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 
 Quick Links to Exercises and R code
@@ -54,7 +53,7 @@ eListMerced <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eListMerced, istat=5)
 ```
 
-<img src='/static/AnalyzeII/flow_history_example-1.png'/>
+<img src='/intro-curriculum/static/AnalyzeII/flow_history_example-1.png'/>
 
 ``` r
 # Then run the same function after setting the Period of Analysis to December
@@ -63,7 +62,7 @@ eListMerced <- setPA(eListMerced, paStart=12, paLong=3)
 plotFlowSingle(eListMerced, istat=5, qMax=200)
 ```
 
-<img src='/static/AnalyzeII/flow_history_example-2.png'/>
+<img src='/intro-curriculum/static/AnalyzeII/flow_history_example-2.png'/>
 
 The two plots produced here show us that although annual mean discharge does not have a strong trend at this location over the past century, discharge during the winter season appears to be increasing. This may be related to changing patterns in the fraction of precipitation that falls in this region as snow versus rain.
 
@@ -73,7 +72,7 @@ Next, let's take a closer look at the distribution of discharge at this site:
 plotFourStats(eListMerced, qUnit=3)
 ```
 
-<img src='/static/AnalyzeII/plotFourStats_example-1.png'/>
+<img src='/intro-curriculum/static/AnalyzeII/plotFourStats_example-1.png'/>
 
 What do you notice about changes in maximum, minimum, median, and 7-day minimum?
 
@@ -120,7 +119,7 @@ Now the analysis is done, but we still need to do some plotting.
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
-<img src='/static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/>
+<img src='/intro-curriculum/static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/>
 
 This four panel plot shows the relationship between discharge, concentration of inorganic N, and season. Upon examination of the lower left hand plot, you may notice seasonal changes in the distribution of inorganic N observed. Next, let's use WRTDS to look further into seasonal changes.
 
@@ -138,7 +137,7 @@ Next, use 'EGRET' functions to take a look at how well WRTDS predicts inorganic 
 Learning a New Package
 ----------------------
 
-As of Jul 25, 2016, there were 8822 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
+As of Jul 25, 2016, there were 8825 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
 
 First, if a package has a vignette that is usually a good first place to start. To list the vignettes for a given package you can use the `vignette()` function. For instance:
 

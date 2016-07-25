@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/analyze.png
 ---
-
 The focus of this workshop hasn't really been statistics, it's been more about R, the language. But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it. In this lesson we will touch on some very simple stats that we can do with base R.
 
 Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
@@ -214,7 +213,7 @@ plot(intro_df$Flow_Inst, intro_df$pH_Inst)
 abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
 ```
 
-<img src='/static/Analyze/abline_examp_lm-1.png'/>
+<img src='/intro-curriculum/static/Analyze/abline_examp_lm-1.png'/>
 
 We can also just add a straight line defined by slope and intercept. We do this with `abline()`. This is useful if you have a known value that you want to compare to your data.
 
@@ -228,7 +227,7 @@ abline(v=15)
 abline(7, 0.5)
 ```
 
-<img src='/static/Analyze/abline_examp-1.png'/>
+<img src='/intro-curriculum/static/Analyze/abline_examp-1.png'/>
 
 All of your standard modeling approaches (and then some) are available in R, including typical variable selection techniques (e.g. stepwise with AIC) and logistic regression, which is implemented with the rest of the generalized linear models in `glm()`. Interaction terms can be specified directly in the model, but we won't be covering them in this course.. Lastly, if you are interested in more involved or newer approaches these are likely implemented in additional packages, beyond base R and `stats`, which you can find on a repository such as [CRAN](https://cran.rstudio.com), [GRAN](http://owi.usgs.gov/R/gran.html), or [Bioconductor](https://www.bioconductor.org/packages/release/BiocViews.html#___Software). You can also check out task pages such as the [CRAN Environmetrics Task View](https://cran.r-project.org/web/views/Environmetrics.html) for more ideas.
 

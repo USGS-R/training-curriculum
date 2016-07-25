@@ -17,7 +17,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/Clean/",
+  fig.path="intro-curriculum/static/Clean/",
   fig.width = 6,
   fig.height = 6
 )
@@ -91,7 +91,7 @@ head(intro_df)
 #And grab the first site_no
 intro_df[1,1]
 #Get a whole column
-intro_df[,7]
+head(intro_df[,7])
 #Get a single row
 intro_df[15,]
 #Grab multiple rows
@@ -226,12 +226,12 @@ Now that you have a basic understanding of if-else structures, let's use them wi
 ```{r if_else_dplyr}
 # if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
 if(!'DO_mgmL' %in% names(intro_df)){
-  mutate(intro_df, DO_mgmL = DO_Inst/1000)
+  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
 } 
 
 # if there are more than 1000 observations, we want to filter out high temperature observations
 if(nrow(intro_df) > 1000){
-  filter(intro_df, Wtemp_Inst >= 15)
+  head(filter(intro_df, Wtemp_Inst >= 15))
 }
 ```
 

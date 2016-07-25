@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/r-logo.png
 ---
-
 Parting Thoughts
 ----------------
 

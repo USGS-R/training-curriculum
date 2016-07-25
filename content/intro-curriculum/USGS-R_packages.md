@@ -6,7 +6,6 @@ title: USGS-R Packages
 menu:
   weight=2
 ---
-
 ### Find USGS-R package information
 
 Visit the [R Community website to see](http://owi.usgs.gov/R/) a list of released and in-development packages. There is also the [USGS-R GitHub community](https://github.com/USGS-R) where you can watch or participate in the development of packages. Lastly, you can run the following commands in R to see what packages exist on [GRAN (**G**eological Survey **R** **A**rchive **N**etwork)](GRAN_pkg%20%3C-%20available.packages(contrib.url(%22http://owi.usgs.gov/R%22))%20names(GRAN_pkg%5B,1:2%5D)).

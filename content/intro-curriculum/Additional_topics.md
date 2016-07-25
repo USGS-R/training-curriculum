@@ -6,7 +6,6 @@ title: Additional Topics in R
 menu:
   weight=2
 ---
-
 Spatial Analyses
 ----------------
 

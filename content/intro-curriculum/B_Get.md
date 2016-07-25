@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/get.png
 ---
-
 The second lesson is going to start to lay the foundation for working with data in R. We will cover some of the very basics of R first, then move on to how you get data into R and how you work with some of the basic data structures. Lastly, we will cover some ways to find relevant data and pull it directly into R.
 
 Quick Links to Exercises and R code
@@ -738,7 +737,7 @@ For this exercise we are going to read in data from a csv file, look at that dat
 
 1.  Create a new script in RStudio. Name it “usgs\_analysis.R”
 2.  As you write the script comment as you go.
-3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. Download this file from [data section](/intro-curriculum/data). Be sure you put the file in your current working directory or include the entire filepath.
+3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. Download this file from the [data section](/intro-curriculum/data). Be sure you put the file in your current working directory or include the entire filepath.
 4.  Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
 5.  Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
 6.  If you still have some time, explore the data frame using some of the commands we covered.

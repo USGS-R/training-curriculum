@@ -6,7 +6,6 @@ title: Example Schedule
 menu:
   weight=2
 ---
-
 Day 1
 -----
 

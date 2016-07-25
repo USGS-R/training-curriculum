@@ -16,7 +16,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/Before/",
+  fig.path="intro-curriculum/static/Before/",
   fig.width = 6,
   fig.height = 6
 )
