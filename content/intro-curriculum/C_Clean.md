@@ -5,6 +5,7 @@ slug: Clean
 draft: True
 title: C. Clean
 menu:
+image: img/main/intro-icons-300px/clean.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
 

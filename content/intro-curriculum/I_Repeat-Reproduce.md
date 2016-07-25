@@ -5,6 +5,7 @@ slug: Reproduce
 draft: True
 title: I. Repeat and Reproduce
 menu:
+image: img/main/intro-icons-300px/repeat.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
 

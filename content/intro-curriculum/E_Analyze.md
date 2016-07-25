@@ -5,6 +5,7 @@ slug: Analyze
 draft: True
 title: E. Analyze
 menu:
+image: img/main/intro-icons-300px/analyze.png
 ---
     ## Warning: package 'knitr' was built under R version 3.2.5
 
