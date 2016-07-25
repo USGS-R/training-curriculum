@@ -149,9 +149,3 @@ Similar to before let's first just play around with some basic exploratory data 
 Now, use the dataset `MiningIron` from `smwrData` for step 3. 
 
 3. Create a boxplot that compares iron concentrations based on stream rock types. If it is interpret the boxplot, try logging the iron concentrations.
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
-

@@ -128,8 +128,3 @@ For this exercise, let's start to look at some of the statistical tests and rela
 3. Next, let's build a linear model that predicts phosphorus concentrations at a USGS site on Klamath River (`KlamathTP` dataset from `smwrData`). Use flow as the explanatory variable. Add a line to extract the r-squared value from the linear model. 
 
 4. Challenge: Create a multivariate linear model relating total nitrogen to two or three explanatory variables in the `TNLoads` dataset from `smwrData`. Extract the adjusted r-squared value. If there's time, try to figure out which variables maximize the r-squared.
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

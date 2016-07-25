@@ -281,9 +281,3 @@ qtemp + facet_grid(site_no ~ Flow_Inst_cd)
 - Cool rCharts examples: [rCharts Gallery](http://rcharts.io/gallery/)
 - ggplot examples: [Google Image Search](http://goo.gl/P0q2Lx)
 - R Data Viz, gone wrong: [Accidental aRt](http://accidental-art.tumblr.com) 
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
-

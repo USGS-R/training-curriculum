@@ -390,8 +390,3 @@ I know you will probably wonder whether you can change the look and feel of this
 2. Spend some time playing around with this document. Add in some markdown (e.g., section titles), text, and a code chunk.
 3. Push the `Knit` button to see the outcome.
 4. Challenge: use the `Qall` dataset from `smwrData` to add a plot. Try changing the plot size (hint: chunk options).
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

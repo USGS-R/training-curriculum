@@ -181,9 +181,3 @@ using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks:
 3. Using `layout`, place the second plot below the first. Plus, have the top plot span the whole device and leave an empty region next to the lower plot. 
 4. Save this image as a png.
 5. If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!
-
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

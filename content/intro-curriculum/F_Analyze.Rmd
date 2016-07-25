@@ -148,10 +148,3 @@ Second, it is becoming increasingly common to see journal articles about package
 - [PLoS One](http://www.plosone.org/search/simple?from=globalSimpleSearch&filterJournals=PLoSONE&query=R+Package&x=0&y=0)
 
 Third, the last resort is of course [Google](http://www.google.com)!  
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
-
-

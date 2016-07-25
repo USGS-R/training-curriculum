@@ -428,8 +428,3 @@ IonBalance.csv file. Download this file from the curriculum website: __. Be sure
 4. Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
 5. Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
 6. If you still have some time, explore the data frame using some of the commands we covered. 
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```

@@ -199,9 +199,3 @@ For this second exercise we are going to get used to using some basic functions,
 5. Load the package into R.
 6. Open the help for the package.
 7. Save all these commands inside your "lessonA.R" script. Comment out any lines that install packages - this only needs to be done once per computer. Run the whole script again using the "Source" button at the top right of the editor. Then run just a few lines at once by highlighting those lines with your mouse, then pressing the Run button or Ctrl+Enter (Cmd+Enter). What's the difference between (1) clicking Source and (2) selecting all lines then clicking Run?
-
-
-
-```{r echo=FALSE}
-gsIntroR::navigation_array(title)
-```
