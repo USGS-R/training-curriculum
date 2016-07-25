@@ -7,7 +7,11 @@ title: D. Explore
 menu:
 image: img/main/intro-icons-300px/explore.png
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
+
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/Data/), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -25,117 +29,62 @@ Lesson Goals
 Summary Statistics
 ------------------
 
-There are a number of ways to get at the basic summaries of a data frame in R. The easiest is to use `summary()` which for data frames will return a summary of each column. For numeric columns it gives quantiles, median, etc. and for factor a frequency of the terms. Let's use a data frame of major ion concentrations in the Menominee River, `MenomineeMajorIons` from the `smwrData` package.
+There are a number of ways to get at the basic summaries of a data frame in R. The easiest is to use `summary()` which for data frames will return a summary of each column. For numeric columns it gives quantiles, median, etc. and for factor a frequency of the terms. This was briefly introduced in the "Get" lesson, but let's use it again.
 
 ``` r
-#Load the data package!
-library(smwrData)
-
-#load the dataset and take a quick look
-data("MenomineeMajorIons")
-summary(MenomineeMajorIons)
+summary(intro_df)
 ```
 
-    ##   agency.cd           site.no            sample.dt         
-    ##  Length:37          Length:37          Min.   :1985-11-14  
-    ##  Class :character   Class :character   1st Qu.:1993-05-20  
-    ##  Mode  :character   Mode  :character   Median :1993-12-21  
-    ##                                        Mean   :1992-12-23  
-    ##                                        3rd Qu.:1994-09-20  
-    ##                                        Max.   :1995-07-12  
-    ##                                                            
-    ##   medium.cd           CO3.rmk               CO3         
-    ##  Length:37          Length:37          Min.   :0.00000  
-    ##  Class :character   Class :character   1st Qu.:0.00000  
-    ##  Mode  :character   Mode  :character   Median :0.00000  
-    ##                                        Mean   :0.05405  
-    ##                                        3rd Qu.:0.00000  
-    ##                                        Max.   :2.00000  
-    ##                                                         
-    ##    HCO3.rmk              HCO3       Nitrate.rmk           Nitrate      
-    ##  Length:37          Min.   : 80.0   Length:37          Min.   :0.0500  
-    ##  Class :character   1st Qu.:106.0   Class :character   1st Qu.:0.0610  
-    ##  Mode  :character   Median :118.0   Mode  :character   Median :0.1000  
-    ##                     Mean   :118.2                      Mean   :0.1664  
-    ##                     3rd Qu.:127.0                      3rd Qu.:0.1700  
-    ##                     Max.   :151.0                      Max.   :2.0000  
-    ##                                                                        
-    ##  Calcium.rmk           Calcium      Magnesium.rmk        Magnesium    
-    ##  Length:37          Min.   :18.00   Length:37          Min.   : 8.30  
-    ##  Class :character   1st Qu.:23.00   Class :character   1st Qu.:10.00  
-    ##  Mode  :character   Median :26.00   Mode  :character   Median :12.00  
-    ##                     Mean   :25.68                      Mean   :11.46  
-    ##                     3rd Qu.:28.00                      3rd Qu.:13.00  
-    ##                     Max.   :41.00                      Max.   :14.00  
-    ##                                                                       
-    ##   Sodium.rmk            Sodium      Potassium.rmk        Potassium    
-    ##  Length:37          Min.   : 2.20   Length:37          Min.   :0.800  
-    ##  Class :character   1st Qu.: 4.20   Class :character   1st Qu.:1.100  
-    ##  Mode  :character   Median : 6.40   Mode  :character   Median :1.300  
-    ##                     Mean   : 6.67                      Mean   :1.314  
-    ##                     3rd Qu.: 8.20                      3rd Qu.:1.500  
-    ##                     Max.   :12.00                      Max.   :1.800  
-    ##                                                                       
-    ##  Chloride.rmk          Chloride      Sulfate.rmk           Sulfate      
-    ##  Length:37          Min.   : 3.400   Length:37          Min.   : 6.100  
-    ##  Class :character   1st Qu.: 4.975   Class :character   1st Qu.: 9.925  
-    ##  Mode  :character   Median : 5.950   Mode  :character   Median :13.000  
-    ##                     Mean   : 6.169                      Mean   :13.189  
-    ##                     3rd Qu.: 7.450                      3rd Qu.:16.000  
-    ##                     Max.   :11.000                      Max.   :21.000  
-    ##                     NA's   :1                           NA's   :1       
-    ##  Fluoride.rmk          Fluoride         season  
-    ##  Length:37          Min.   :0.1000   summer:24  
-    ##  Class :character   1st Qu.:0.1000   winter:13  
-    ##  Mode  :character   Median :0.1000              
-    ##                     Mean   :0.1027              
-    ##                     3rd Qu.:0.1000              
-    ##                     Max.   :0.2000              
-    ## 
+    ##    site_no            dateTime           Flow_Inst       
+    ##  Length:3000        Length:3000        Min.   :-90800.0  
+    ##  Class :character   Class :character   1st Qu.:     5.1  
+    ##  Mode  :character   Mode  :character   Median :    12.0  
+    ##                                        Mean   :   488.2  
+    ##                                        3rd Qu.:    25.0  
+    ##                                        Max.   : 92100.0  
+    ##                                        NA's   :90        
+    ##  Flow_Inst_cd         Wtemp_Inst      pH_Inst         DO_Inst      
+    ##  Length:3000        Min.   :11.9   Min.   :6.200   Min.   : 3.200  
+    ##  Class :character   1st Qu.:18.2   1st Qu.:7.000   1st Qu.: 6.800  
+    ##  Mode  :character   Median :21.2   Median :7.200   Median : 7.700  
+    ##                     Mean   :20.7   Mean   :7.159   Mean   : 7.692  
+    ##                     3rd Qu.:23.2   3rd Qu.:7.300   3rd Qu.: 8.600  
+    ##                     Max.   :28.0   Max.   :9.100   Max.   :12.600  
+    ##                     NA's   :90     NA's   :120     NA's   :90
 
-If you want to look at the range, use `range()`, but it is looking for a numeric vector as input.
+If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. Also, don't forget to tell it to ignore NAs!
 
 ``` r
-range(MenomineeMajorIons$HCO3)
+range(intro_df$Flow_Inst, na.rm=TRUE)
 ```
 
-    ## [1]  80 151
+    ## [1] -90800  92100
 
 The interquartile range can be easily grabbed with `IQR()`, again a numeric vector is the input.
 
 ``` r
-IQR(MenomineeMajorIons$Potassium)
+IQR(intro_df$Wtemp_Inst, na.rm=TRUE)
 ```
 
-    ## [1] 0.4
+    ## [1] 5
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
 
 ``` r
-quantile(MenomineeMajorIons$Magnesium)
+quantile(intro_df$pH_Inst, na.rm=TRUE)
 ```
 
     ##   0%  25%  50%  75% 100% 
-    ##  8.3 10.0 12.0 13.0 14.0
-
-``` r
-#try this with Sulfate instead 
-#quantile(MenomineeMajorIons$Sulfate)
-#there are missing values, so add the na.rm argument
-quantile(MenomineeMajorIons$Sulfate, na.rm = TRUE)
-```
-
-    ##     0%    25%    50%    75%   100% 
-    ##  6.100  9.925 13.000 16.000 21.000
+    ##  6.2  7.0  7.2  7.3  9.1
 
 I use quantile quite a bit, as it provides a bit more flexibility because you can specify the probabilities you want to return.
 
 ``` r
-quantile(MenomineeMajorIons$Magnesium, probs=(c(0.025, 0.975)))
+quantile(intro_df$pH_Inst, probs=c(0.025, 0.975), na.rm=TRUE)
 ```
 
     ##  2.5% 97.5% 
-    ##  8.39 13.10
+    ##   6.6   7.7
 
 Exercise 1
 ----------
@@ -155,11 +104,10 @@ Basic Visualization
 
 Exploratory data analysis tends to be a little bit about stats and a lot about visualization. Later we are going to go into more detail on advanced plotting with both base R and `ggplot2`, but for now we will look at some of the simple, yet very useful, plots that come with base R. I find these to be great ways to quickly explore data.
 
-The workhorse function for plotting data in R is `plot()`. With this one command you can create almost any plot you can conceive of, but for this workshop we are just going to look at the very basics of the function. The most common way to use `plot()` is for scatterplots. Let's look at the `MenomineeMajorIons` data from `smwrData`.
+The workhorse function for plotting data in R is `plot()`. With this one command you can create almost any plot you can conceive of, but for this workshop we are just going to look at the very basics of the function. The most common way to use `plot()` is for scatterplots.
 
 ``` r
-data("MenomineeMajorIons")
-plot(MenomineeMajorIons$Sulfate, MenomineeMajorIons$HCO3)
+plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 ```
 
 <img src='/static/Explore/plot_examp-1.png'/>
@@ -167,17 +115,17 @@ plot(MenomineeMajorIons$Sulfate, MenomineeMajorIons$HCO3)
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
 ``` r
-plot(MenomineeMajorIons$Sulfate, MenomineeMajorIons$HCO3,
-     main="Changes in bicarbonate concentration as function of sulfate concentration",
-     xlab="Sulfate Concentration", ylab="Bicarbonate concentration")
+plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
+     main="Changes in D.O. concentration as function of water temperature",
+     xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
 
 <img src='/static/Explore/plot_examp_2-1.png'/>
 
-Not sure if this will apply to everyone, but I use scatterplots ALL the time. So, for me I could almost (not really) stop here. But lets move on. Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot. Let's go back to `MenomineeMajorIons`.
+Not sure if this will apply to everyone, but I use scatterplots ALL the time. So, for me I could almost (not really) stop here. But lets move on. Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
 
 ``` r
-#get a data frame with concentrations of 4 major ions and the season
+#get a data frame with only the measured values
 library(dplyr)
 ```
 
@@ -193,55 +141,27 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
-menominee_pairs <- MenomineeMajorIons %>% 
-  select(HCO3, Nitrate, Potassium, Sulfate, season)
-plot(menominee_pairs, main="Menominee Major Ions Pairs Plot")
+intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
+plot(intro_df_data)
 ```
 
 <img src='/static/Explore/pairs_examp-1.png'/>
 
-Last thing I will show with plot is how to add a line. The one I use most often for exploratory analysis is a straight line defined by slope and intercept. We do this with `abline()`.
+Let's look at boxplots, histograms, and cumulative distribution functions.
 
-We can add a horizontal line and vertical line easily with this as follows:
-
-``` r
-plot(MenomineeMajorIons$Sulfate, MenomineeMajorIons$HCO3)
-#horizontal line at specified y value
-abline(h=140)
-#a vertical line
-abline(v=15)
-#Line with a slope and intercept
-abline(55, 6)
-```
-
-<img src='/static/Explore/abline_examp-1.png'/>
-
-This is useful if you have a known value that you want to compare to your data. Next example is putting a regression line on the plot. We haven't talked about regression in R yet, but this example is simple enough I think we can get away with introducing it.
+Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input.
 
 ``` r
-plot(MenomineeMajorIons$Sulfate, MenomineeMajorIons$HCO3)
-#abline accepts a linear model object as input
-#linear model is done with lm, and uses a formula as input
-abline(lm(HCO3 ~ Sulfate, data=MenomineeMajorIons))
-```
-
-<img src='/static/Explore/abline_examp_lm-1.png'/>
-
-So, we detoured a bit. Let's get back to a few more examples of exploratory plots. We will look at boxplots, histograms, and cumulative distribution functions then call it quits on the exploratory analyis (and the first day, whew!)
-
-Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input. Sticking with `MenomineeMajorIons`:
-
-``` r
-boxplot(MenomineeMajorIons$Chloride, main="Boxplot of Chloride Concentration", ylab="Concentration")
+boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
 <img src='/static/Explore/boxplot_examp-1.png'/>
 
-As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of another R formula.
+As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`. The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable\[s\] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
 ``` r
-boxplot(MenomineeMajorIons$Chloride ~ MenomineeMajorIons$season, 
-        main="Boxplot of Chloride Concentration by Season", ylab="Concentration")
+boxplot(intro_df$DO_Inst ~ intro_df$site_no, 
+        main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
 <img src='/static/Explore/boxplot_grps_examp-1.png'/>
@@ -249,13 +169,13 @@ boxplot(MenomineeMajorIons$Chloride ~ MenomineeMajorIons$season,
 Lastly, let's look at two other ways to plot our distributions. First, histograms.
 
 ``` r
-hist(MenomineeMajorIons$Magnesium)
+hist(intro_df$pH_Inst)
 ```
 
 <img src='/static/Explore/base_hist_examp-1.png'/>
 
 ``` r
-hist(MenomineeMajorIons$Magnesium, breaks=4)
+hist(intro_df$pH_Inst, breaks=4)
 ```
 
 <img src='/static/Explore/base_hist_examp-2.png'/>
@@ -263,8 +183,8 @@ hist(MenomineeMajorIons$Magnesium, breaks=4)
 And finally, cumulative distribution functions. Since CDF's are actually a function of the distribution we need to get that function first. This requires that we combine `plot()` and `ecdf()`, the emprical CDF function.
 
 ``` r
-calcium_ecdf <- ecdf(MenomineeMajorIons$Calcium)
-plot(calcium_ecdf)
+wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
+plot(wtemp_ecdf)
 ```
 
 <img src='/static/Explore/cdf_examp-1.png'/>
@@ -274,7 +194,7 @@ Exercise 2
 
 Similar to before let's first just play around with some basic exploratory data visualization using the `TNLoads` dataset from `smwrData` for the first two steps.
 
-1.  Make a scatter plot relating total nitrogen to drainage area. Try adding a regression line (hint: `lm`).
+1.  Make a scatter plot relating total nitrogen to drainage area.
 
 2.  Create an impervious surface area histogram using the non-logged values. Explore different values for the argument `breaks`.
 

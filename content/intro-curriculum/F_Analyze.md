@@ -7,7 +7,9 @@ title: F. Analyze with packages
 menu:
 image: img/main/intro-icons-300px/analyzewpackages.png
 ---
-The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. We'll be moving away from the GAGES-II sites in NM to focus on some other sites of interest. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
+The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -43,7 +45,7 @@ siteNumber <- "11264500"
 Daily <- readNWISDaily(siteNumber, "00060", startDate="", endDate="")
 ```
 
-    ## There are 36850 data points, and 36850 days.
+    ## There are 36862 data points, and 36862 days.
 
 ``` r
 INFO <- readNWISInfo(siteNumber, "", interactive=FALSE)
@@ -100,15 +102,6 @@ Daily <- readNWISDaily(siteNumber,"00060",startDate,endDate)
 INFO<- readNWISInfo(siteNumber,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 Sample <- readNWISSample(siteNumber,param,startDate,endDate)
-```
-
-    ## Warning in is.na(parameterCd): is.na() applied to non-(list or vector) of
-    ## type 'NULL'
-
-    ## Warning in is.na(parameterCd.orig): is.na() applied to non-(list or vector)
-    ## of type 'NULL'
-
-``` r
 eList <- mergeReport(INFO, Daily, Sample)
 ```
 
@@ -145,7 +138,7 @@ Next, use 'EGRET' functions to take a look at how well WRTDS predicts inorganic 
 Learning a New Package
 ----------------------
 
-As of Jul 13, 2016, there were 8755 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
+As of Jul 25, 2016, there were 8822 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
 
 First, if a package has a vignette that is usually a good first place to start. To list the vignettes for a given package you can use the `vignette()` function. For instance:
 

@@ -7,7 +7,11 @@ title: I. Repeat and Reproduce
 menu:
 image: img/main/intro-icons-300px/repeat.png
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 You now have a basic understanding of how to conduct a typical data analysis workflow in R. All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports. This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
+
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -77,7 +81,6 @@ print_twice("Howdy, Texas")
 Functions are most useful when we want to repeat a general procedure with different specifics each time. Since we have been working most recently with creating plots, I could imagine us wanting to create a plot with a similar layout, but with different source data and then save that plot to a file, all with a single function call. That might look like:
 
 ``` r
-library(ggplot2)
 myplot <- function(x, y, grp, file) {
   my_dat <- data.frame(X=x, Y=y, Grp=grp)
   my_p <- ggplot(my_dat, aes(x=X, y=Y)) +
@@ -88,87 +91,42 @@ myplot <- function(x, y, grp, file) {
   return(my_p)
 }
 
-#Call the function using a smwrData dataset
-
-#Load the data package!
-library(smwrData)
-
-data("MenomineeMajorIons")
-
-myplot(MenomineeMajorIons$Magnesium, MenomineeMajorIons$Potassium, 
-       MenomineeMajorIons$season, "Mg_K.jpg")
+#Call the function using intro_df
+library(ggplot2)
+myplot(intro_df$Flow_Inst, intro_df$pH_Inst, 
+       intro_df$Flow_Inst_cd, "q_pH.jpg")
 ```
 
     ## Saving 6 x 6 in image
+
+    ## Warning: Removed 207 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 207 rows containing missing values (geom_point).
+
+    ## Warning: Removed 207 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 207 rows containing missing values (geom_point).
 
 <img src='/static/Reproduce/plot_function_examp-1.png'/>
 
 ``` r
-myplot(MenomineeMajorIons$Calcium, MenomineeMajorIons$Sodium, 
-       MenomineeMajorIons$season, "Ca_Na.jpg")
+myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
+       intro_df$Flow_Inst_cd, "q_do.jpg")
 ```
 
     ## Saving 6 x 6 in image
 
+    ## Warning: Removed 178 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 178 rows containing missing values (geom_point).
+
+    ## Warning: Removed 178 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 178 rows containing missing values (geom_point).
+
 <img src='/static/Reproduce/plot_function_examp-2.png'/>
 
-Cool, a function, that does something useful. It still is just a collection of functions at this point though. What if we wanted to repeat something or have the function make some decisions and do one thing given a set of criteria and something else for a different set? Well we need to look more at some of the classic programming structures in R. For this introduction, I am going to look just at `if-else` statements, `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but I think the concept useful and I M writing this, so there!), and `return()`.
-
-### if-else
-
-If you have done any programing in any language, then `if-else` statements are not new to you. All they do is allow us to tell the function how to make some decisions.
-
-I will show the examples in the context of a function as that is how they are most commonly used. So, we can implement them in R like:
-
-``` r
-odd_even <- function(num) {
-  if(num %% 2 == 0){
-    print("EVEN")
-  } else {
-    print("ODD")
-  }
-}
-
-odd_even(27)
-```
-
-    ## [1] "ODD"
-
-``` r
-odd_even(34)
-```
-
-    ## [1] "EVEN"
-
-And you can you use multiple `if` statements
-
-``` r
-plus_minus <- function(num) {
-  if(num > 0) {
-    print("plus")
-  } else if (num < 0) {
-    print("minus")
-  } else {
-    print("zero")
-  }
-}
- 
-plus_minus(198)
-```
-
-    ## [1] "plus"
-
-``` r
-plus_minus(-44)
-```
-
-    ## [1] "minus"
-
-``` r
-plus_minus(37*0)
-```
-
-    ## [1] "zero"
+Cool, a function, that does something useful. It still is just a collection of functions at this point though. What if we wanted to repeat something? Well we need to look more at some of the classic programming structures in R. For this introduction, I am going to look just at `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but the concept is useful), and `return()`.
 
 ### for
 
@@ -211,7 +169,7 @@ sum_vec(1:10)
     ## [1] 45
     ## [1] 55
 
-Again a bit of a silly example since all it is doing is looping through a list of values and summing it. In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).
+Again a bit of a silly example since all it is doing is looping through a list of values and summing it. In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley Wickham's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).
 
 Let's dig a bit more into this issue with another example. This time, let's look at adding two vectors together. We haven't touched on this yet, but R is really good at dealing with this kind of operation. It is what people mean when they talk about "vectorized" operations. For instance:
 
@@ -270,7 +228,7 @@ loop_time
 ```
 
     ##    user  system elapsed 
-    ##   18.33    0.14   18.47
+    ##   21.22    0.15   21.43
 
 Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping. In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that. That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up. With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
 
@@ -288,7 +246,7 @@ system.time(add_vecs2(large_vec1,large_vec2))
 ```
 
     ##    user  system elapsed 
-    ##    0.14    0.00    0.14
+    ##    0.17    0.00    0.17
 
 Now that's better. In short, if an obvious vector or primitive solution exists, use that. If those aren't clear and you need to use a loop, don't be afraid to use one. There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand. Personally, I think it is possible to go too far down the vectorized path. Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
 
@@ -476,8 +434,8 @@ In this document we can see a couple of things. First at the top we see:
 
     ---
     title: "My First Reproducible Document"
-    author: "Jeff W. Hollister"
-    date: "1/6/2015"
+    author: "Author Name"
+    date: "1/1/2016"
     output: html_document
     ---
 

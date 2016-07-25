@@ -24,21 +24,27 @@ opts_chunk$set(
 set.seed(3)
 ```
 
+```{r load_data, echo=FALSE, warning=FALSE}
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
+```
 
-In this third lesson we are going to start working on maninpulating and cleaning up our data frames.  We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze.  However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R.  We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package.  There are many ways to do this type of work in R, many of which are available from base R, but I heard from many (AED colleagues and Hadley himself!) focusing on one way to do this is best, so `dplyr` it is!
+
+In this third lesson we are going to start working on manipulating and cleaning up our data frames.  We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze.  However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R.  We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package.  There are many ways to do this type of work in R, many of which are available from base R, but I heard from many focusing on one way to do this is best, so `dplyr` it is!
+
+Remember our NWIS data we loaded in the `Get` lesson? That's the dataset we will use here. If it's no longer loaded, go back to the "Reading data into R" section and read the data into R as a data frame (remember that we named it `intro_df`).
 
 Before we jump into the lesson, quick links and lesson goals are:
 
-
 ##Quick Links to Exercises and R code
-- [Exercise 1](#exercise-1): Subsetting the Gages data with `dplyr`
-- [Exercise 2](#exercise-2): Merge two Gages data files together.
-- [Exercise 3](#exercise-3): Using `dplyr` to modify and summarize the Gages.
+- [Exercise 1](#exercise-1): Subsetting data with `dplyr`.
+- [Exercise 2](#exercise-2): Merging two data frames together.
+- [Exercise 3](#exercise-3): Using `dplyr` to modify and summarize data.
 
 
 ##Lesson Goals
 - Show and tell on using base R for data manipulation
 - Better understand data cleaning through use of `dplyr`
+- Use conditional statements to further manipulate data
 - Use `merge()` to combine data frames by a common key
 - Do some basic reshaping and summarizing data frames
 - Know what pipes are and why you might want to use them
@@ -55,7 +61,7 @@ There is a lot of great info on `dplyr`.  If you have an interest, I'd encourage
 - [CRAN page: vignettes here](http://cran.rstudio.com/web/packages/dplyr/)
 
 ##Subsetting in base R
-In base R you can use a indexing to select out rows and columns.  You will see this quite often in other people's code, so I want to at least show it to you.  
+In base R you can use indexing to select out rows and columns.  You will see this quite often in other people's code, so I want to at least show it to you.  
 
 ```{r indexing_examp}
 #Create a vector
@@ -78,44 +84,38 @@ x[x %% 2 == 0]
 
 You can also index a data frame or select individual columns of a data frame.  Since a data frame has two dimensions, you need to specify an index for both the row and the column.  You can specify both and get a single value like `data_frame[row,column]`, specify just the row and the get the whole row back like `data_frame[row,]` or get just the column with `data_frame[,column]`. These examples show that. 
 
-For the remainder of this course, I will be using prefabricated datasets from the `smwrData` package. This package is a collection of real hydrologic data that can be loaded into your R workspace and used. It is similar to the stock R datasets (type `data()` into your console to see stock datasets), but with USGS-relevant data. So don't forget to load the package for each new R session (I will remind you at the beginning of each lesson).
-
 ```{r data_frame_index}
-#Let's use one a data frame from the smwrData package
 
-#Load the package and data frame:
-library(smwrData)
-data("PugetNitrate")
-
-head(PugetNitrate)
-#And grab a specific value
-PugetNitrate[1,1]
-#A whole column
-nitrate_levels <- PugetNitrate[,7]
-nitrate_levels
-#A row
-obs15<-PugetNitrate[15,]
-obs15
-#Many rows
-obs3to7<-PugetNitrate[3:7,]
-obs3to7
+#Take a look at the data frame
+head(intro_df)
+#And grab the first site_no
+intro_df[1,1]
+#Get a whole column
+intro_df[,7]
+#Get a single row
+intro_df[15,]
+#Grab multiple rows
+intro_df[3:7,]
 ```
 
-Also remember that data frames have column names.  We can use those too.  Let's try it.
+Did you notice the difference between subsetting by a row and subsetting by a column? Subsetting a column returns a vector, but subsetting a row returns a data.frame. This is because columns (like vectors) contain a single data type, but rows can contain multiple data types, so it could not become a vector.
+
+Also remember that data frames have column names. We can use those too. Let's try it.
 
 ```{r more_data_frame_index}
 #First, there are a couple of ways to use the column names
-PugetNitrate$wellid
-head(PugetNitrate["wellid"])
+head(intro_df$site_no)
+head(intro_df["site_no"])
+head(intro_df[["site_no"]])
 #Multiple colums
-head(PugetNitrate[c("date","nitrate")])
+head(intro_df[c("dateTime","Flow_Inst")])
 #Now we can combine what we have seen to do some more complex queries
-#Get all the data where nitrate concentration is greater than 10
-high_nitrate <- PugetNitrate[PugetNitrate$nitrate > 10,]
-head(high_nitrate)
-#Or maybe we want just the nitrate concentrations for Bedrock geology
-bedrock_nitrate <- PugetNitrate$nitrate[PugetNitrate$surfgeo == "BedRock"]
-head(bedrock_nitrate)
+#Get all the data where water temperature is greater than 15
+high_temp <- intro_df[intro_df$Wtemp_Inst > 15,]
+head(high_temp)
+#Or maybe we want just the discharge that was estimated (code is "E")
+estimated_q <- intro_df$Flow_Inst[intro_df$Flow_Inst_cd == "E"]
+head(estimated_q)
 ```
 
 
@@ -138,85 +138,220 @@ I am going to repeat some of what I showed above on data frames but now with `dp
 
 ```{r more_data_frame_dplyr}
 #First, select some columns
-dplyr_sel <- select(PugetNitrate, date, nitrate, surfgeo)
-#That's it.  Select one or many columns
+dplyr_sel <- select(intro_df, site_no, dateTime, DO_Inst)
+head(dplyr_sel)
 #Now select some observations, like before
-dplyr_high_nitrate <- filter(PugetNitrate, nitrate > 10)
-head(dplyr_high_nitrate)
-#Or maybe we want just the bedrock samples
-bedrock_nitrate <- filter(PugetNitrate, surfgeo == "BedRock")
-head(bedrock_nitrate)
+dplyr_high_temp <- filter(intro_df, Wtemp_Inst > 15)
+head(dplyr_high_temp)
+#Find just observations with estimated flows (as above)
+dplyr_estimated_q <- filter(intro_df, Flow_Inst_cd == "E")
+head(dplyr_estimated_q)
 ```
 
-But what if I wanted to select and filter?  There are three ways to do this: use intermediate steps, nested functions, or pipes.  With the intermediate steps, you essentially create a temporary data frame and use that as input to the next function.  You can also nest functions (i.e. one function inside of another).  This is handy, but can be difficult to read if too many functions are nested as the process from inside out.  The last option, pipes, are a fairly recent addition to R.  Pipes in the unix/linux world are not new and allow you to chain commands together where the output of one command is the input to the next.  This provides a more natural way to read the commands in that they are executed in the way you conceptualize it and make the interpretation of the code a bit easier.  Pipes in R look like `%>%` and are made available via the `magrittr` package, which is installed as part of `dplyr`.  Let's try all three with the same analysis: selecting out a subset of columns but for only a single species.
+Now we have seen how to filter observations and select columns within a data frame. Now I want to add a new column. In dplyr, `mutate()` allows us to add new columns. These can be vectors you are adding or based on expressions applied to existing columns. For instance, we have a column of dissolved oxygen in milligrams per liter (mg/L), but we would like to add a column with dissolved oxygen in milligrams per milliliter (mg/mL). 
+
+```{r mutate_example}
+#Add a column with dissolved oxygen in mg/mL instead of mg/L
+intro_df_newcolumn <- mutate(intro_df, DO_mgmL = DO_Inst/1000)
+head(intro_df_newcolumn)
+```
+
+Let's take a quick detour and learn about how to apply conditional statements to our data cleaning workflows.
+
+## Using if-else statements with dplyr
+If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is tell your code how to make decisions, and they come in handy when cleaning up data frames. For instance, you might want to make a new column of data based on some condition applied to an existing column. That's easy with if-else control structures. Here's the basic syntax of an if-else statement:
+
+```
+if(some condition){
+  do something
+} else {
+  do something different
+}
+```
+
+Let's first go through basic if-else structures before using them with data frame manipulation.
+
+```{r if_else_examp}
+x <- 2
+
+# logical statement inside of () needs to return ONE logical value - TRUE or FALSE. TRUE means it will enter the following {}, FALSE means it won't.
+if(x < 0){
+  print("negative")
+} 
+
+# you can also specify something to do when the logical statement is FALSE by adding `else`
+if(x < 0){
+  print("negative")
+} else {
+  print("positive")
+}
+```
+
+The key to if-else is using a logical statement that only returns a single TRUE or FALSE, not a vector of trues or falses. The if statement needs to know if it should enter the `{}` or not, and therefore needs a single answer - yes or no. Here are some useful functions that allow you to use vectors in if-else:
+
+```{r if_else_functions}
+y <- 1:7
+
+# use "any" if you want to see if at least one of the values meets a condition
+any(y > 5)
+
+# use "!any" if you don't want any of the values to meet some condition (e.g. vector can't have negatives)
+!any(y < 0) 
+
+# use "all" when every value in a vector must meet a condition
+all(y > 5)
+
+# using these in the if-else statement
+if(any(y < 0)){
+  print("some values are negative")
+} 
+```
+
+And you can you use multiple `if` statements by stringing them together with `else`
+
+```{r if_else_examp2}
+num <- 198
+
+if(num > 0) {
+  print("positive")
+} else if (num < 0) {
+  print("negative")
+} else {
+  print("zero")
+}
+```
+
+Now that you have a basic understanding of if-else structures, let's use them with `dplyr` to manipulate a data frame. We want to add a new column if some condition is met, or filter a column if the condition is not met. We can use the `if-else` structure along with `mutate` and `select` from `dplyr` to accomplish this. 
+
+```{r if_else_dplyr}
+# if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
+if(!'DO_mgmL' %in% names(intro_df)){
+  mutate(intro_df, DO_mgmL = DO_Inst/1000)
+} 
+
+# if there are more than 1000 observations, we want to filter out high temperature observations
+if(nrow(intro_df) > 1000){
+  filter(intro_df, Wtemp_Inst >= 15)
+}
+```
+
+### Optional: the `ifelse` function
+
+Let's learn a new way to apply if-else logic - the function `ifelse`. This function is similar to the previous if-else structure syntax, but the function can only return one value (rather than doing a series of commands within `{}`). See `?ifelse` for more information. Basic syntax for `ifelse()`:
+
+`ifelse(condition, yesValue, noValue)`
+
+Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value. 
+
+```{r ifelse_dplyr}
+#use mutate along with ifelse to add a new column
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
+```
+
+## Three ways to string `dplyr` commands together
+
+But what if I wanted to select and filter the same data frame? There are three ways to do this: use intermediate steps, nested functions, or pipes.  With the intermediate steps, you essentially create a temporary data frame and use that as input to the next function.  You can also nest functions (i.e. one function inside of another).  This is handy, but can be difficult to read if too many functions are nested from inside out.  The last option, pipes, are a fairly recent addition to R.  Pipes in the Unix/Linux world are not new and allow you to chain commands together where the output of one command is the input to the next.  This provides a more natural way to read the commands in that they are executed in the way you conceptualize it and make the interpretation of the code a bit easier.  Pipes in R look like `%>%` and are made available via the `magrittr` package, which is installed as part of `dplyr`.  Let's try all three with the same analysis: selecting out a subset of columns but only for the discharge qualifier (`Flow_Inst_cd`) indicating an erroneous value, "X".
 
 ```{r combine_commands}
 #Intermediate data frames
-#Select First: note the order of the output, neat too!
-dplyr_bedrock_tmp1 <- select(PugetNitrate, surfgeo, date, nitrate)
-dplyr_bedrock_tmp <- filter(dplyr_bedrock_tmp1, surfgeo == "BedRock")
-head(dplyr_bedrock_tmp)
+dplyr_error_tmp1 <- select(intro_df, site_no, dateTime, Flow_Inst, Flow_Inst_cd)
+dplyr_error_tmp <- filter(dplyr_error_tmp1, Flow_Inst_cd == "X")
+head(dplyr_error_tmp)
 
 #Nested function
-dplyr_bedrock_nest <- filter(
-  select(PugetNitrate, surfgeo, date, nitrate),
-  surfgeo == "BedRock")
-head(dplyr_bedrock_nest)
+dplyr_error_nest <- filter(
+  select(intro_df, site_no, dateTime, Flow_Inst, Flow_Inst_cd),
+  Flow_Inst_cd == "X")
+head(dplyr_error_nest)
 
 #Pipes
-dplyr_bedrock_pipe <- 
-  PugetNitrate %>% 
-  select(surfgeo, date, nitrate) %>%
-  filter(surfgeo == "BedRock")
-head(dplyr_bedrock_pipe)
+dplyr_error_pipe <- intro_df %>% 
+  select(site_no, dateTime, Flow_Inst, Flow_Inst_cd) %>%
+  filter(Flow_Inst_cd == "X")
+head(dplyr_error_pipe)
+
+# Every function, including head(), can be chained
+intro_df %>% 
+  select(site_no, dateTime, Flow_Inst, Flow_Inst_cd) %>%
+  filter(Flow_Inst_cd == "X") %>% 
+  head()
 ```
+
+Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material. 
+
+##Cleaning up dataset 
+Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Notice anything strange? Hint: why are the pH values character? That shouldn't be the case; there should be numeric values in that column. If there are any entries that are not numeric values or `NA`, R will treat the entire column as character. You can coerce them to numeric (so anything that is not NA or a number will be coerced into NA), but you should investigate what values are causing the issue first. To do this, we coerce to numeric and look at what values were considered NA in the numeric column, but not in the character column.
+
+```{r pH_wrong_intro_df}
+pH_df <- select(intro_df, pH_Inst)
+pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
+filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
+```
+
+Looks like the culprits are entries of `None` and blank spaces. These are both scenarios that I would feel comfortable setting to NA, so using `as.numeric` will suffice. However, there could have been a symbol that indicated the value should be something other than missing. That's why it is important to check. Let's actually clean up that column and create a new data.frame. Then use `summary()` to verify that the columns are correct. 
+
+```{r cleaning_up_intro_df}
+intro_df <- mutate(intro_df, pH_Inst = as.numeric(pH_Inst))
+summary(intro_df)
+```
+
+You might have noticed that the date column is treated as character and not Date or POSIX. Handling dates are beyond this course, but they are available in this dataset if you would like to work with them.
 
 ```{r Exercise1, echo=FALSE}
 ```
 
 ##Exercise 1
+
+For the remainder of the exercises in this course, we will be using prefabricated datasets from the `smwrData` package. This package is a collection of real hydrologic data that can be loaded into your R workspace and used. It is similar to the stock R datasets (type `data()` into your console to see stock datasets), but with USGS-relevant data. So don't forget to load the package before the exercise.
+
 This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset.  Remember to use the stickies: green when you're done, red if you have a problem.
 
 1. If it isn't already open, make sure you have the script we created, "usgs_analysis.R" opened up.
 2. Start a new section of code in this script by simply putting in a line or two of comments indicating what it is this set of code does. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data. 
-3. First, we want a new data frame based on the PugetNitrate dataset from the `smwrData` package (don't forget to load your package!). Load the data by executing `data(PugetNitrate)`. You'll see that it says `<Promise>` next to your object in the Environment. That just means it has delayed evaluation until you use it (no need to worry about that). Start typing `PugetNitrate` into the console and it should then show the dataset. 
+3. First, we want a new data frame based on the PugetNitrate dataset from the `smwrData` package (don't forget to load your package!). Load the data by executing `data(PugetNitrate)`. 
 4. Using dplyr, remove the landuse columns (l10, l20, and l40). Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data. 
-5. Lastly, we are going to get a subset of the observations. We only want wells where the surficial geology is Alluvium or Fine. Also give this data frame a different name than before.
+5. Next, we are going to get a subset of the observations. We only want wells where the surficial geology is Alluvium or Fine. Also give this data frame a different name than before.
+6. Lastly, add a new column using an `ifelse` function that tells us if the well depth is "shallow" or "deep" based on the well depth column values `wellmet`. Hint: use `summary(PugetNitrate)` to determine what threshold would determine "shallow" vs "deep" based on the data.
 
 ##Merging Data
-Joining data in `dplyr` is accomplished via the various `x_join()` commands (e.g., `inner_join`, `left_join`, `anti_join`, etc).  These are very SQL-esque so if you speak SQL (I am far from fluent!) then these will be pretty easy for you.  If not then they aren't immediately intuitive.  For our purposes, the base functions `rbind()` and `merge()` are adequate.  
+Joining data in `dplyr` is accomplished via the various `x_join()` commands (e.g., `inner_join`, `left_join`, `anti_join`, etc).  These are very SQL-esque so if you speak SQL then these will be pretty easy for you.  If not then they aren't immediately intuitive.  There are also the base functions `rbind()` and `merge()`, but we won't be covering these because they are redundant with the faster, more readable `dplyr` functions.  
 
 We are going to talk about several different ways to do this.  First, let's add some new rows to a data frame.  This is very handy as you might have data collected and entered at one time, and then additional observations made later that need to be added.  So with `rbind()` we can stack two data frames with the same columns to store more observations.  
 
-```{r rbind_examp}
+In this example, let's imagine we collected 3 new observations for water temperature and pH at the site "00000001". Notice that we did not collect anything for discharge or dissolved oxygen. What happens in the columns that don't match when the we bind the rows of these two data frames? 
+
+```{r bind_rows_examp}
 #Let's first create a new small example data.frame
-rbind_df <- data.frame(a=1:3, b=c("a","b","c"), c=c(T,T,F), d=rnorm(3))
-#Now an example df to add
-rbind_df2 <- data.frame(a=10:12, b=c("x","y","z"), c=c(F,F,F), d=rnorm(3))
-rbind_df <- rbind(rbind_df, rbind_df2)
-rbind_df
+new_data <- data.frame(site_no=rep("00000001", 3), 
+                       dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00"), 
+                       Wtemp_Inst=c(14.0, 16.4, 16.0),
+                       pH_Inst = c(7.8, 8.5, 8.3),
+                       stringsAsFactors = FALSE)
+head(new_data)
+#Now add this to our existing df (intro_df)
+bind_rows_df <- bind_rows(intro_df, new_data)
+tail(bind_rows_df)
 ```
 
-Now something to think about.  Could you add a vector as a new row?  Why/Why not? When/When not?
+Now something to think about. Could you add a vector as a new row? Why/Why not? When/When not?
 
-Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows.  What we want to do in that case is going to be more of a database type function and join two tables based on a common column.  A common way to do that in base R is with `merge()`.   So let's contrive another example by creating a dataset to merge to `rbind_df` that we created above.
+Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows.  What we want to do in that case is going to be more of a database type function and join two tables based on a common column.  We can achieve this by using `x_join` functions. So let's imagine that we did actually collect dissolved oxygen, discharge, and chloride concentration on our observation dates. Also, we collected on some additional dates. We don't care about the additional dates, so use the `left_join` function from `dplyr`, which keeps all rows from the first (left) data frame. See `?left_join` for more information.
 
 ```{r merge_example}
-# Contrived data frame
-rbind_df_merge_me <- data.frame(
-  a=c(1,3,10,11,14,6,23), x=rnorm(7), 
-  names=c("bob","joe","sue",NA,NA,"jeff",NA))
-# Create merge of matches
-rbind_df_merge_match <- merge(rbind_df, rbind_df_merge_me, by="a")
-rbind_df_merge_match
-# Create merge of matches and all of the first data frame
-rbind_df_merge_allx <- merge(rbind_df, rbind_df_merge_me, by="a", all.x=TRUE)
-rbind_df_merge_allx
+# DO and discharge data
+forgotten_data <- data.frame(site_no=rep("00000001", 5),
+                             dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00",
+                                        "2016-09-04 07:45:00", "2016-09-05 07:45:00"),
+                             DO_Inst=c(10.2,8.7,9.3,9.2,8.9),
+                             Cl_conc=c(15.6,11.0,14.2,13.6,13.7),
+                             Flow_Inst=c(25,54,67,60,59),
+                             stringsAsFactors = FALSE)
 
-# dplyr is faster
-rbind_df_merge_allx_dplyr <- left_join(rbind_df, rbind_df_merge_me, by="a")
-all.equal(rbind_df_merge_allx_dplyr, rbind_df_merge_allx)
+left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
+
 ```
+
+Notice that the `left_join` kept only the matching rows (September 1-3), but kept all columns. If we wanted to remove the chloride concentration column, we can use `select` which we learned earlier in this lesson.
 
 ```{r Exercise2, echo=FALSE}
 ```
@@ -230,57 +365,75 @@ In this exercise we are going to practice merging data. We will be using two dat
 4. If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
 
 ##Modify and Summarize
-Now back to `dplyr`.  One area where it really shines is in modifying and summarizing.   We will do more here than we did with base, but first let's walk through one of the examples we did previously, aggregating.  We can do this with `group_by()` and  `summarize()`.
+One area where `dplyr` really shines is in modifying and summarizing. First, we'll look at an example of grouping a data frame and summarizing the data within those groups. We do this with `group_by()` and  `summarize()`. You won't notice much of change between this new data frame and the original because `group_by` is changing the class of the data frame so that `dplyr` handles it appropriately in the next function. Let's look at the average discharge and water temperature by site.
 
-First, we'll look at an example of grouping a data frame and summarizing the data within those groups.
 
-```{r aggregate_examp}
-#Chained with Pipes
-PugetNitrate %>%
-  group_by(surfgeo) %>%
-  summarize(mean(nitrate),
-            mean(wellmet))
+```{r group_by_examp}
+class(intro_df)
+
+# Group the data frame
+intro_df_grouped <- group_by(intro_df, site_no)
+class(intro_df_grouped)
 ```
 
-There are many other functions in `dplyr` that are useful.  Much of what they do, can certainly be accomplished with base R, but not quite as intuitively.  Let's run through some examples with `arrange()`, `slice()`,  and `mutate()`.
+Now we can summarize the data frame by the groups established previously.
 
-First `arrange()` will re-order a data frame based on the values in a specified column.  It will take multiple columns and can be in descending or ascending order. Let's try a different `smwrData` data frame this time:  `TNLoads`.  
+```{r summarize_examp_NA}
+intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst), mean(Wtemp_Inst))
+intro_df_summary
+```
+
+Notice that this summary just returns NAs. We need the mean calculations to ignore the NA values. We could remove the NAs using `filter()` and then pass that data.frame into `summarize`, or we can tell the mean function to ignore the NAs using the argument `na.rm=TRUE` in the `mean` function. See `?mean` to learn more about this argument.
+
+```{r summarize_examp}
+intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst, na.rm=TRUE), mean(Wtemp_Inst, na.rm=TRUE))
+intro_df_summary
+```
+
+There are many other functions in `dplyr` that are useful. Let's run through some examples with `arrange()` and `slice()`.
+
+First `arrange()` will re-order a data frame based on the values in a specified column.  It will take multiple columns and can be in descending or ascending order. 
 
 ```{r arrange_example}
-data("TNLoads")
-
-head(TNLoads)
-# every function, including head(), can be chained
-TNLoads %>% head()
 #ascending order is default
-arrange(TNLoads, LOGTN) %>% head()
+head(arrange(intro_df, DO_Inst))
 #descending
-arrange(TNLoads, desc(LOGTN)) %>% head()
-#multiple columns: most nitrogen with lowest rainfall at top
-arrange(TNLoads, desc(LOGTN), MSRAIN) %>% head()
+head(arrange(intro_df, desc(DO_Inst)))
+#multiple columns: lowest flow with highest temperature at top
+head(arrange(intro_df, Flow_Inst, desc(Wtemp_Inst)))
 ```
 
-Now `slice()` which accomplishes what we did with the numeric indices before. Remembering back to that, we could grab rows of the data frame with something like `x[3:10,]`.  
+Now `slice()`, which accomplishes what we did with the numeric indices before. Remembering back to that, we could grab rows of the data frame with something like `intro_df[3:10,]` or we can use `slice`:  
 
 ```{r slice_example}
 #grab rows 3 through 10
-slice(TNLoads, 3:10)
+slice(intro_df, 3:10)
 ```
 
-`mutate()` allows us to add new columns based on expressions applied to existing columns
+Lastly, one more function, `rowwise()`, allows us to run rowwise, operations. Let's say we had two dissolved oxygen columns, and we only wanted to keep the maximum value out of the two for each observation. This can easily be accomplished using`rowwise`. First, add a new dissolved oxygen column with random values (see `?runif`). 
 
-```{r mutate_example}
-mutate(TNLoads, TN=exp(LOGTN)) %>% head()
+```{r add_do_random}
+intro_df_2DO <- mutate(intro_df, DO_2 = runif(n=nrow(intro_df), min = 5.0, max = 18.0))
+head(intro_df_2DO)
 ```
 
-Lastly, one more function, `rowwise()` allows us run rowwise, operations. Let's use this to test if the percent landuse observations in `TNLoads` are reasonable (they should total to 100). Landuse columns are PRES (residential), PNON (non-urban), PCOMM (commercial), PIND (industrial).
+Now, let's use `rowwise` to find the maximum dissolved oxygen for each observation.
+
+```{r no_rowwise_examp}
+head(mutate(intro_df_2DO, max_DO = max(DO_Inst, DO_2)))
+```
+
+The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow_Inst, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function. 
 
 ```{r rowwise_examp}
+class(intro_df_2DO)
+
+intro_df_2DO_byrow <- rowwise(intro_df_2DO)
+class(intro_df_2DO_byrow)
+
 #Add a column that totals landuse for each observation
-landuse_sum <- TNLoads %>% 
-  rowwise() %>% 
-  mutate(landuse_total = sum(PRES, PNON, PCOMM, PIND))
-head(landuse_sum)
+intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO_Inst, DO_2))
+head(intro_df_DO_max)
 ```
 
 We now have quite a few tools that we can use to clean and manipulate data in R.  We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on. 
@@ -298,5 +451,4 @@ Next, we're going to practice summarizing large datasets. We will use the `MC11_
 
 2. Now add a new column that is the average soil temperature at each depth (do not include `TEMP.REF`). Then, sort the resulting data.frame in descending order. Name this new data.frame `MC11_1993_daily_avg_temp`. Hint: use `rowwise` to compute at each depth.
 
-3. Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`. 
-
+3. Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`.

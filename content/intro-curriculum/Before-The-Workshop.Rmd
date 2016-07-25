@@ -1,17 +1,27 @@
 ---
 title: "Before The Workshop"
-author: Jeffrey W. Hollister & Luke Winslow
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
-  rmarkdown::html_vignette:
-    toc: true
-    fig_width: 6
-    fig_height: 6
-vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Before The Workshop}
-  \usepackage[utf8]{inputenc}
+author: "Jeffrey W. Hollister & Luke Winslow"
+date: "2016-07-21"
+slug: "Before"
+output: USGSmarkdowntemplates::hugo
 ---
+
+```{r setup, echo=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='/%s%s-%d.%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/Before/",
+  fig.width = 6,
+  fig.height = 6
+)
+```
 
 Prior to the start of the workshop everyone will need to have had the software 
 installed and tested.  Below are the instructions for installing R and RStudio. 
@@ -68,14 +78,25 @@ version$version.string
 ```
 
 ## Verify your installed R version
-It should be of version 3.1.X (where X can be any number) or higher. 
-3.2.X is fine as well. If you have an older version, please install the newest version 
-using the instructions above.
+Ideally you should be running the latest stable release (3.3.X as of July 2016, where X can be any number), although 3.2.X is also ok. If you have an older version, please install the newest version using the instructions above.
 
 Here is what my R version looks like.
 ```{r echo=FALSE}
 version$version.string
 ```
 
+## Add GRAN as a default repository
+Modifying the .Rprofile file will tell your R environment to always look in the GRAN repository when installing packages and updating packages. This is the preferred method because of the ability to automatically get GRAN updates. Paste the following code into the Rstudio console to update your .Rprofile:
 
+```{r eval = FALSE}
+rprofile_path = file.path(Sys.getenv("HOME"), ".Rprofile")
+write('\noptions(repos=c(getOption(\'repos\'),
+    CRAN=\'https://cloud.r-project.org\',
+    USGS=\'http://owi.usgs.gov/R\'))\n',
+      rprofile_path, 
+      append =  TRUE)
+
+cat('Your Rprofile has been updated to include GRAN.
+    Please restart R for changes to take effect.')
+```
 

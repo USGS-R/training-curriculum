@@ -7,6 +7,8 @@ title: J. Parting Thoughts
 menu:
 image: img/main/intro-icons-300px/r-logo.png
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 Parting Thoughts
 ----------------
 

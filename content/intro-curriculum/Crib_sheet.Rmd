@@ -1,0 +1,180 @@
+---
+title: "Crib Sheet"
+author: "Lindsay R. Carr"
+date: "2016-07-21"
+slug: "Crib"
+output: USGSmarkdowntemplates::hugo
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='/%s%s-%d.%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/Crib/",
+  fig.width = 6,
+  fig.height = 6
+)
+set.seed(3)
+```
+
+Function/operator	| Description	| Package (if not base R)	| Lesson Introduced
+--- | ---------- | ---------- | ---------- 
+`# my comment `	| Comment	| 	| A
+`myfunction()`	| Function call	| 	| A
+`mydata[1,4]`	| Indexing [row, col]	| 	| A
+`{ my...code }`	| Code block (function definitions, etc.)	| 	| A
+`options(repos=c("https://cran.rstudio.com/","http://owi.usgs.gov/R"))`	| Include GRAN as a source of packages	| 	| A
+`install.packages`	| Install a package (like installing a software program)	| 	| A
+`library`	| Load a package (like opening a program)	| 	| A
+`mylib::myfun()`	| Call the version of the function myfun that's defined in the library mylib	| 	| A
+`help("print")`	| Get the help page for a topic	| 	| A
+`?print`	| Get the help page for a topic	| 	| A
+`apropos("print")`	| Search help topics containing "print"	| 	| A
+`??"print"`	| Search help topics containing "print"	| 	| A
+`ls("package:stats")`	| List the functions defined in the stats package	| 	| A
+`pri - Tab`	| When you press the Tab key, RStudio tries to complete your word	| 	| A
+`1+1 `	| Add	| 	| B
+`10-4`	| Subtract	| 	| B
+`3*2 `	| Multiply	| 	| B
+`3^3 `	| Exponents	| 	| B
+`100/10 `	| Divide	| 	| B
+`5%%2 `	| Modulus	| 	| B
+`5>2 `	| Greater than	| 	| B
+`4<5 `	| Less than	| 	| B
+`5<=5 `	| Less than or equal	| 	| B
+`8>=2 `	| Greater than or equal	| 	| B
+`2==2 `	| Equality	| 	| B
+`5!=7 `	| Not Equals	| 	| B
+`x <- 8`	| Assignment operator	| 	| B
+`z <- 8 + x`	| 	| 	| B
+`a <- "R Class"`	| 	| 	| B
+`print(x)`	| Print objects or values in the console	| 	| B
+`x`	| 	| 	| B
+`ls()`	| List objects in the current workspace	| 	| B
+`rm(x)`	| Remove an object	| 	| B
+`getwd()`	| See what file directory your workspace is currently set to	| 	| B
+`setwd()`	| Change the working directory -- be careful with this!	| 	| B
+`list.files()`	| See the names of files in your current directory	| 	| B
+`is.na()`	| Says whether a value(s) is missing (NA) or not	| 	| B
+`na.omit()`	| Removes an missing (NA) values	| 	| B
+`c()`	| Combine arguments into a vector (or combine lists)	| 	| B
+`class()`	| Tells you the R data type 	| 	| B
+`str()`	| Says the class and gives a small summary	| 	| B
+`length()`	| Gives the number of elements 	| 	| B
+`seq()`	| Create a series of numbers (or dates)	| 	| B
+`1:10`	| 	| 	| B
+`rep()`	| Repeat individual values, vectors, or lists	| 	| B
+`paste()`	| Combine multiple character strings	| 	| B
+`factor()`	| Create factors from character or numeric vectors	| 	| B
+`data.frame()`	| Create a data frame, don't forget this is a default arg: `stringsAsFactors = TRUE`	| 	| B
+`head()`	| Look at the top 6 rows of a data frame (unless n is specified)	| 	| B
+`tail()`	| Look at the bottom 6 rows of a data frame (unless n is specified) 	| 	| B
+`names()`	| Get the names of an R object	| 	| B
+`colnames()`	| Get column names of data frame	| 	| B
+`rownames()`	| Get row names of data frame	| 	| B
+`dim()`	| Tells the number of rows and/or columns in a data frame	| 	| B
+`nrow()`	| 	| 	| B
+`ncol()`	| 	| 	| B
+`summary()`	| Summarizes each column of a data frame, gives basic stats for numeric columns	| 	| B
+`list()`	| Create lists	| 	| B
+`read.csv()`	| Load data into R from a filepath or URL	| 	| B
+`read.table()`	| 	| 	| B
+`write.csv()`	| Save R objects as files	| 	| B
+`write.table()`	| 	| 	| B
+`readNWISdata()`	| Read in data from NWIS	| dataRetrieval	| B
+`readNWISqw()`	| Read in water quality data from NWIS 	| dataRetrieval	| B
+`x[7]`	| Get the seventh element of a vector	| 	| C
+`x[8:10]`	| Get a elements from index 8 though 10	| 	| C
+`x[c(2, 3, 5)]`	| Get elements 2, 3, and 5	| 	| C
+`x[c(TRUE, FALSE)]`	| Subset with logicals	| 	| C
+`x[x %% 2 == 0]`	| Example of subsetting with a "filter"	| 	| C
+`select()`	| Select columns out of a data frame	| dplyr	| C
+`filter()`	| Filter data based on some condition	| dplyr	| C
+`rbind()`	| Combine two R objects either row- or column-wise	| 	| C
+`merge()`	| Merge two data frames on a column	| 	| C
+`all.equal()`	| Test if two objects are equal	| 	| C
+`inner_join()`	| Inner join between two data frames	| dplyr	| C
+`left_join()`	| Left outer join between two data frames	| dplyr	| C
+`right_join()`	| Right outer join between two data frames	| dplyr	| C
+`full_join()`	| Full outer join between two data frames	| dplyr	| C
+`anti_join()`	| Drop all rows in the first data frame that has a match in the second	| dplyr	| C
+`group()`	| Group data by a specified column in a data frame	| dplyr	| C
+`summarize()`	| Summarize multiple values into a single value	| dplyr	| C
+`arrange()`	| Arrange rows by variables. Defaults to ascending order	| dplyr	| C
+`slice()`	| Slice an object	| dplyr	| C
+`mutate()`	| Create a new column based on some operation on an existing column	| dplyr	| C
+`rowwise()`	| Apply some operation to each row	| dplyr	| C
+`range()`	| Find the range of a vector	| 	| D
+`IQR()`	| Get the interquartile range of a vector	| 	| D
+`quantile()`	| Defaults to 0, 25, 50, 75, and 100% quantiles of a vector 	| 	| D
+`plot()`	| Basic function for creating scatterplots, can also take data frames as inputs	| 	| D
+`abline()`	| Add a line to a plot using slope + y-intercept,vertical or horizontal value, or a linear model	| 	| D
+`lm()`	| Find the regression line for a dataset	| 	| D
+`boxplot()`	| Create boxplots	| 	| D
+`hist()`	| Create histograms	| 	| D
+`ecdf()`	| Empirical cumulative distribution (can be used as an input to plot() )	| 	| D
+`t.test()`	| t-test	| 	| E
+`cor()`	| Correlation (several methods available)	| 	| E
+`cor.test()`	| Correlation test	| 	| E
+`lm()`	| Linear regression model	| 	| E
+`summary(lm())`	| Summarize a linear regression model	| 	| E
+`readNWISDaily()`	| Get NWIS daily data	| EGRET	| F
+`readNWISInfo()`	| Get NWIS site information	| EGRET	| F
+`as.egret()`	| Create an EGRET data object	| EGRET	| F
+`plotFlowSingle()`	| Make a 1-panel plot of flow	| EGRET	| F
+`setPA()`	| Set the period of analysis for a WRTDS model	| EGRET	| F
+`plotFourStats()`	| Plot mean, max, median, and 7-day minimum stats for discharge	| EGRET	| F
+`readNWISSample()`	| Get NWIS sample data	| EGRET	| F
+`mergeReport()`	| Combine EGRET data objects	| EGRET	| F
+`multiPlotDataOverview()`	| Inspect solute data in 4 plots	| EGRET	| F
+`modelEstimation()`	| Fit a WRTDS model	| EGRET	| F
+`vignette()`	| Run a vignette or list the vignettes in a package	| 	| F
+`plot()`	| Make a basic plot	| 	| G
+`points()`	| Add points to a plot	| 	| G
+`par()`	| Set plotting parameters	| 	| G
+`par(las=)`	| Set axis label orientation	| 	| G
+`par(tck=)`	| Set tick length	| 	| G
+`par(bg=)`	| Set background color	| 	| G
+`legend()`	| Add a legend to a plot	| 	| G
+`curve()`	| Plot an expression	| 	| G
+`rect()`	| Add a rectangle to a plot	| 	| G
+`polygon()`	| Add a polygon to a plot	| 	| G
+`symbols()`	| Add symbols to a plot	| 	| G
+`axis()`	| Add tick marks and labels to an axis	| 	| G
+`layout()`	| Specify a layout for multiple plots on a figure	| 	| G
+`png()`	| Open a .png plotting device	| 	| G
+`svg()`	| Open an .svg plotting device	| 	| G
+`jpeg()`	| Open a .jpeg plotting device	| 	| G
+`pdf()`	| Open a .pdf plotting device	| 	| G
+`dev.off()`	| Save and close one or more plotting devices	| 	| G
+`ggplot()`	| Start a plot	| ggplot2	| H
+`ggplot(aes())`	| Set the aesthetics (variables for x, y, groups, colors, etc.) for a plot	| ggplot2	| H
+`g + geom_point()`	| Add points to a plot	| ggplot2	| H
+`labs()`	| Set main and axis labels for a plot	| ggplot2	| H
+`ggtitle()`	| Set the main title of a plot	| ggplot2	| H
+`xlab()`	| Set the x axis label for a plot	| ggplot2	| H
+`ylab()`	| Set the y axis label for a plot	| ggplot2	| H
+`geom_smooth()`	| Add a smoother or regression line to a plot	| ggplot2	| H
+`geom_boxplot()`	| Add boxes to a plot	| ggplot2	| H
+`geom_histogram()`	| Add a histogram to a plot	| ggplot2	| H
+`geom_bar()`	| Add bars to a plot	| ggplot2	| H
+`theme()`	| Set thematic traits of a plot	| ggplot2	| H
+`theme_bw()`	| A simple black and white plot theme	| ggplot2	| H
+`theme_classic()`	| A very simple black and white plot theme	| ggplot2	| H
+`ggsave()`	| Save a ggplot	| ggplot2	| H
+`function()`	| Define a function	| 	| I
+`if`	| Conditional control structure	| 	| I
+`ifelse`	| Conditional control structure	| 	| I
+`else`	| Conditional control structure	| 	| I
+`for`	| Control structure for a loop	| 	| I
+`system.time()`	| Return CPU time	| 	| I
+`return()`	| Include in a function to reply with a specific value to the caller	| 	| I
+`jitter()`	| Add some random noise to a numeric vector	| 	| I
+
