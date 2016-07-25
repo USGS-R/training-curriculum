@@ -1,7 +1,6 @@
 ---
 title: "Crib Sheet"
 author: "Lindsay R. Carr"
-date: "2016-07-21"
 slug: "Crib"
 output: USGSmarkdowntemplates::hugo
 ---

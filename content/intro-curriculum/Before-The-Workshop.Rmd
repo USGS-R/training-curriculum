@@ -1,7 +1,6 @@
 ---
 title: "Before The Workshop"
 author: "Jeffrey W. Hollister & Luke Winslow"
-date: "2016-07-21"
 slug: "Before"
 output: USGSmarkdowntemplates::hugo
 ---

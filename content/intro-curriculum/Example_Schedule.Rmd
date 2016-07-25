@@ -1,7 +1,6 @@
 ---
 title: "Example Schedule"
 author: "Lindsay R. Carr"
-date: "2016-07-21"
 slug: "Schedule"
 output: USGSmarkdowntemplates::hugo
 ---

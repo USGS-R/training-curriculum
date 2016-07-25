@@ -1,6 +1,5 @@
 ---
 author: Lindsay R. Carr
-date: 2016-07-21
 slug: Additional
 draft: True
 title: Additional Topics in R

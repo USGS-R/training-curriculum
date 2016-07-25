@@ -1,6 +1,6 @@
 ---
 title: "Data"
-date: "2016-07-22"
+author: "Lindsay R. Carr"
 slug: "data"
 output: USGSmarkdowntemplates::hugo
 ---

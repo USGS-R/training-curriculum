@@ -1,6 +1,5 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
-date: 2016-07-21
 slug: Before
 draft: True
 title: Before The Workshop
