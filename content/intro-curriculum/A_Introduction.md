@@ -5,6 +5,7 @@ slug: Introduction
 draft: True
 title: A. Introduction to R
 menu: 
+image: img/main/intro-icons-300px/r-logo.png
 ---
 Over the course of the next 2.5 days we are going to walk through a typical data analysis workflow in R. But, with this first lesson we are going to focus on making sure everything is working and getting some basic orientation in R. The real fun will start in the lessons to come.
 
