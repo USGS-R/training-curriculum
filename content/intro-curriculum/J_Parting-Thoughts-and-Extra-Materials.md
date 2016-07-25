@@ -5,6 +5,7 @@ slug: Parting-Thoughts
 draft: True
 title: J. Parting Thoughts
 menu:
+image: img/main/intro-icons-300px/r-logo.png
 ---
 Parting Thoughts
 ----------------
