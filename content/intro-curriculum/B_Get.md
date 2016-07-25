@@ -4,8 +4,10 @@ date: 2016-07-09
 slug: Get
 draft: True
 title: B. Get
-menu: 
+menu:
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 The second lesson is going to start to lay the foundation for working with data in R. We will cover some of the very basics of R first, then move on to how you get data into R and how you work with some of the basic data structures. Lastly, we will cover some ways to find relevant data and pull it directly into R.
 
 Quick Links to Exercises and R code
@@ -168,7 +170,7 @@ In short it has a lot to do with data types. Let's learn some more.
 Data types and data structures in R
 -----------------------------------
 
-*Borrowed liberally from Jenny Bryan's [course materials on r](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) and Karthik Ram's [material from the Canberra Software Carpentry R Bootcamp](https://github.com/swcarpentry/2013-10-09-canberra). Anything good is because of Jenny and Karthik. Mistakes are all mine.*
+*Borrowed liberally from Jenny Bryan's [course materials on R](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) and Karthik Ram's [material from the Canberra Software Carpentry R Bootcamp](https://github.com/swcarpentry/2013-10-09-canberra). Anything good is because of Jenny and Karthik. Mistakes are all mine.*
 
 Remember that everything in R is an object. With regards to data, those objects have some specific characteristics that help R (and us) know what kind of data we are dealing with and what kind of operations can be done on that data. This stuff may be a bit dry, but a basic understanding will help as so much of what we do with analysis has to do with the organization and type of data we have. First, lets discuss the atomic data types.
 
@@ -608,98 +610,113 @@ If you want to learn more about lists or any other data structure, [Hadley Wickh
 Reading data into R
 -------------------
 
-All of the examples so far have relied on entering data directly into the console or a script. That mode is certainly useful for demonstrating data structures, but would be a nightmare if you were dealing with a real dataset. What we generally want to do is read in data from a file or from a database that resides on your local machine or on the web. There are a gazillion ways that this can be accomplished, right now, we are going to work with one, `read.csv()`. If there is time later, we may talk about some others.
+All of the examples so far have relied on entering data directly into the console or a script. That mode is certainly useful for demonstrating data structures, but would be a nightmare if you were dealing with a real dataset. What we generally want to do is read in data from a file or from a database that resides on your local machine or on the web. There are a gazillion ways that this can be accomplished, right now, we are going to work with one, `read.csv()`. It's worth mentioning that many people want to read data from Excel files. There are a variety of ways to pull data from Excel, but we recommend saving it as a csv and reading it in using `read.csv`.
 
 `read.csv()` is a specialized version of `read.table()` that focuses on, big surprise here, `.csv` files. This command assumes a header row with column names and that the delimiter is a comma. The expected
 no data value is `NA` and by default, strings are converted to factors (this can trip people up).
 
-Source files for `read.csv()` can either be on a local hard drive or, and this is pretty cool, on the web. We will be using the later for our examples and exercises. If you had a local file it would be accessed like `mydf <- read.csv("C:/path/to/local/file.csv")`. As an aside, paths and use of forward vs back slash is important. R is looking for forward slashes ("/"), or unix-like paths. You can use these in place of the back slash and be fine. You can use a back slash but it needs to be a double back slash ("\\"). This is because the single backslash in an escape character that is used to indicate things like newlines or tabs. Doesn't really matter which one you use, I would just select one and be consistent.
+Source files for `read.csv()` can either be on a local hard drive or, and this is pretty cool, on the web. If you had a local file it would be accessed like `mydf <- read.csv("C:/path/to/local/file.csv")`. If you are grabbing data from a website, just put the URL in the function like `mydf <- read.csv("http://www.mywebsitewithadataset.com/thecsvfileIwant.csv")`. As an aside, paths and use of forward vs back slash is important. R is looking for forward slashes ("/"), or Unix-like paths. You can use these in place of the back slash and be fine. You can use a back slash but it needs to be a double back slash ("\\"). This is because the single backslash in an escape character that is used to indicate things like newlines or tabs. Doesn't really matter which one you use, I would just select one and be consistent.
 
-For now we are going to be focusing on grabbing data from a website, which just requires using an URL in the `read.csv()` function.
-
-``` r
-#Grab data from the web
-web_df <- read.csv("http://usgs-r.github.io/introR/figure/example.csv")
-head(web_df)
-```
-
-    ##   X id      data1    data2 groups
-    ## 1 1  1  0.1739595 54.21928      1
-    ## 2 2  2  0.4947904 69.92845      1
-    ## 3 3  3  2.1739104 47.50045      1
-    ## 4 4  4 -2.1275110 30.16031      1
-    ## 5 5  5  0.5302878 84.45975      1
-    ## 6 6  6  0.3000054 56.41225      1
+We are going to use the same dataset for the rest of this course (exercises will use different datasets). This dataset is originally from NWIS and was altered using [this R code](https://github.com/USGS-R/gsIntroR/blob/master/R/create_df.R). Download the required csv from [here](http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/Data/). Put the file in your current working directory or include the entire filepath any palce we specify only the filename.
 
 ``` r
-str(web_df)
+# Read in the data and take a look at it
+intro_df <- read.csv("data/course_NWISdata.csv")
+head(intro_df)
 ```
 
-    ## 'data.frame':    100 obs. of  5 variables:
-    ##  $ X     : int  1 2 3 4 5 6 7 8 9 10 ...
-    ##  $ id    : int  1 2 3 4 5 6 7 8 9 10 ...
-    ##  $ data1 : num  0.174 0.495 2.174 -2.128 0.53 ...
-    ##  $ data2 : num  54.2 69.9 47.5 30.2 84.5 ...
-    ##  $ groups: int  1 1 1 1 1 1 1 1 1 1 ...
+    ##   site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
+    ## 1 2336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
+    ## 2 2336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
+    ## 3 2337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
+    ## 4 2203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 5 2336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
+    ## 6 2336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
+    ##   DO_Inst
+    ## 1     8.1
+    ## 2     7.1
+    ## 3     7.6
+    ## 4     6.2
+    ## 5     7.6
+    ## 6     8.1
 
 ``` r
-dim(web_df)
+str(intro_df)
 ```
 
-    ## [1] 100   5
+    ## 'data.frame':    3000 obs. of  7 variables:
+    ##  $ site_no     : int  2336360 2336300 2337170 2203655 2336120 2336120 2336120 2336300 2336360 2336120 ...
+    ##  $ dateTime    : Factor w/ 1958 levels "2011-05-01 04:00:00",..: 184 13 1825 1525 80 721 726 126 1676 1703 ...
+    ##  $ Flow_Inst   : num  14 32 1470 7.5 16 14 14 32 162 162 ...
+    ##  $ Flow_Inst_cd: Factor w/ 4 levels "A","A e","E",..: 4 4 1 2 1 2 1 4 2 3 ...
+    ##  $ Wtemp_Inst  : num  21.4 19.1 24 23.1 19.7 22.3 23.4 22.3 21 21.2 ...
+    ##  $ pH_Inst     : Factor w/ 32 levels " ","6.2","6.3",..: 12 12 9 10 11 12 13 13 6 4 ...
+    ##  $ DO_Inst     : num  8.1 7.1 7.6 6.2 7.6 8.1 8.5 7.5 7.6 7.2 ...
 
 ``` r
-summary(web_df)
+dim(intro_df)
 ```
 
-    ##        X                id             data1              data2      
-    ##  Min.   :  1.00   Min.   :  1.00   Min.   :-2.12751   Min.   :11.13  
-    ##  1st Qu.: 25.75   1st Qu.: 25.75   1st Qu.:-0.57451   1st Qu.:31.47  
-    ##  Median : 50.50   Median : 50.50   Median :-0.02109   Median :52.09  
-    ##  Mean   : 50.50   Mean   : 50.50   Mean   : 0.07867   Mean   :54.14  
-    ##  3rd Qu.: 75.25   3rd Qu.: 75.25   3rd Qu.: 0.79215   3rd Qu.:78.42  
-    ##  Max.   :100.00   Max.   :100.00   Max.   : 2.20980   Max.   :99.52  
-    ##      groups    
-    ##  Min.   :1.00  
-    ##  1st Qu.:1.00  
-    ##  Median :2.00  
-    ##  Mean   :2.30  
-    ##  3rd Qu.:3.25  
-    ##  Max.   :4.00
-
-There are a variety of ways to pull data from Excel. We are going to show you our recommended way, which involves saving the data to a CSV.
-
-Let's give it a try. Download the example excel sheet [here](http://usgs-r.github.io/introR/figure/example.xlsx).
-
-Now, open the example in Excel, make sure you're on the first worksheet, and go to File &gt; Save As. Select CSV in the drop-down menu and save the file as "example.csv" in your usgs\_r\_workshop directory.
-
-![How to save csv](figure/excel_to_csv.png)
+    ## [1] 3000    7
 
 ``` r
-first_sheet <- read.csv("example.csv")
-#Did it work?
-first_sheet
+summary(intro_df)
 ```
 
-A common issue in reading in data is getting the column formats right. For example, the `first_sheet$Names` column is a factor by default (can you confirm this?). If you want it to be a character column instead, you can prevent it ever becoming a factor with the `stringsAsFactors` argument to `read.csv`, `data.frame`, and other data.frame-making functions:
+    ##     site_no                        dateTime      Flow_Inst       
+    ##  Min.   : 2203655   2011-05-05 02:45:00:   5   Min.   :-90800.0  
+    ##  1st Qu.: 2336240   2011-05-10 23:30:00:   5   1st Qu.:     5.1  
+    ##  Median : 2336360   2011-05-14 09:00:00:   5   Median :    12.0  
+    ##  Mean   : 4217421   2011-05-16 09:00:00:   5   Mean   :   488.2  
+    ##  3rd Qu.: 2336728   2011-05-21 10:00:00:   5   3rd Qu.:    25.0  
+    ##  Max.   :21989773   2011-05-24 14:45:00:   5   Max.   : 92100.0  
+    ##                     (Other)            :2970   NA's   :90        
+    ##  Flow_Inst_cd   Wtemp_Inst      pH_Inst       DO_Inst      
+    ##  A  :1500     Min.   :11.9   7.2    :574   Min.   : 3.200  
+    ##  A e: 500     1st Qu.:18.2   7.1    :435   1st Qu.: 6.800  
+    ##  E  : 500     Median :21.2   7      :385   Median : 7.700  
+    ##  X  : 500     Mean   :20.7   7.3    :376   Mean   : 7.692  
+    ##               3rd Qu.:23.2   7.4    :274   3rd Qu.: 8.600  
+    ##               Max.   :28.0   (Other):856   Max.   :12.600  
+    ##               NA's   :90     NA's   :100   NA's   :90
+
+A common issue in reading in data is getting the column formats right. For example, the `dateTime` and `Flow_Inst_cd` columns in `intro_df` are factors by default (can you confirm this?). If you want it to be a character column instead, you can prevent it ever becoming a factor with the `stringsAsFactors` argument to `read.csv`, `data.frame`, and other data.frame-making functions:
 
 ``` r
-str(read.csv("example.csv"))
-str(read.csv("example.csv", stringsAsFactors=FALSE))
+str(read.csv("data/course_NWISdata.csv"))
+str(read.csv("data/course_NWISdata.csv", stringsAsFactors=FALSE))
 ```
+
+Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column, using NA for ones that you would like R to choose. In our dataset, we know that site numbers (column one) should be treated as character. We aren't positive about the other six, so we say `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. See `?read.table` for more information about how that how that works.
+
+``` r
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
+str(intro_df)
+```
+
+    ## 'data.frame':    3000 obs. of  7 variables:
+    ##  $ site_no     : chr  "02336360" "02336300" "02337170" "02203655" ...
+    ##  $ dateTime    : chr  "2011-05-03 21:45:00" "2011-05-01 08:00:00" "2011-05-29 22:45:00" "2011-05-25 01:30:00" ...
+    ##  $ Flow_Inst   : num  14 32 1470 7.5 16 14 14 32 162 162 ...
+    ##  $ Flow_Inst_cd: chr  "X" "X" "A" "A e" ...
+    ##  $ Wtemp_Inst  : num  21.4 19.1 24 23.1 19.7 22.3 23.4 22.3 21 21.2 ...
+    ##  $ pH_Inst     : chr  "7.2" "7.2" "6.9" "7" ...
+    ##  $ DO_Inst     : num  8.1 7.1 7.6 6.2 7.6 8.1 8.5 7.5 7.6 7.2 ...
+
+Now our data frame is read in with columns as numeric, integer, or character, and the site numbers still have their leading zeros.
 
 You can also save objects in your R workspace as csv files.
 
 ``` r
-write.table(web_df, file = "example_data_frame.csv", sep=",")
+write.table(intro_df, file = "example_data_frame.csv", sep=",")
 # or
-write.csv(web_df, file="example_data_frame.csv")
+write.csv(intro_df, file="example_data_frame.csv")
 ```
 
-Reading NWIS data into R
-------------------------
+Optional: Reading NWIS data into R
+----------------------------------
 
-The USGS has created an R package to directly link NWIS with R. It is called `dataRetrieval`. With it, you can quickly and easily get NWIS data into R. Go ahead and experiment with it.
+The USGS has created an R package to directly link NWIS with R. It is called `dataRetrieval`. With it, you can quickly and easily get NWIS data into R. The package functions are designed to handle the data types when pulling the data, so you don't need to worry about it. Go ahead and experiment with it.
 
 ``` r
 library(dataRetrieval)
@@ -720,13 +737,7 @@ For this exercise we are going to read in data from a csv file, look at that dat
 
 1.  Create a new script in RStudio. Name it “usgs\_analysis.R”
 2.  As you write the script comment as you go.
-3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. The file is stored in the `gsIntroR` package. To get the filepath for this csv file use the following code:
-
-``` r
-filepath <- system.file("IonBalance.csv", package = "gsIntroR")
-filepath_complete <- file.path(filepath, "IonBalance.csv")
-```
-
-1.  Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
-2.  Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
-3.  If you still have some time, explore the data frame using some of the commands we covered.
+3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. Download this file from the curriculum website: \_\_. Be sure you put the file in your current working directory or include the entire filepath.
+4.  Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
+5.  Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
+6.  If you still have some time, explore the data frame using some of the commands we covered.

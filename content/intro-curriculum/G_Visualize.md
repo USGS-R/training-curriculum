@@ -6,7 +6,11 @@ draft: True
 title: G. Visualize - Plotting with base R
 menu:
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
+
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -33,14 +37,7 @@ First, let's start with two sets of random data and plot them using different co
 -   you can use the function `colors()` to get a list of R colors
 
 ``` r
-#Load the data package!
-library(smwrData)
-
-#Use the dataset MenomineeMajorIons from smwrData
-data("MenomineeMajorIons")
-
-#plot Magnesium vs Calcium (winter and summer different colors)
-#Create two data frames using dplyr (winter & summer)
+#Create two data frames using dplyr (estimated & erroneous flows)
 library(dplyr)
 ```
 
@@ -56,16 +53,14 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
-winter <- MenomineeMajorIons %>% 
-  filter(season == "winter") %>% 
-  select(Magnesium, Calcium)
-summer <- MenomineeMajorIons %>% 
-  filter(season == "summer") %>% 
-  select(Magnesium, Calcium)
+intro_df_est <- filter(intro_df, Flow_Inst_cd == "E")
+intro_df_est_QpH <- select(intro_df_est, Flow_Inst, DO_Inst)
+intro_df_err <-filter(intro_df, Flow_Inst_cd == "X") 
+intro_df_err_QpH <- select(intro_df_err, Flow_Inst, DO_Inst)
 
-#Now, plot winter and summer points in different colors
-plot(summer$Calcium, summer$Magnesium, pch=16, col='#FF5034')
-points(winter$Calcium, winter$Magnesium, pch=16, col='skyblue')
+#Now, plot estimated and erroneous points in different colors
+plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034')
+points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
 ```
 
 <img src='/static/Visualize/pch_col_examp-1.png'/>
@@ -79,11 +74,17 @@ Graphical parameters also apply to the overall graph. For instance, `las` is use
 -   `bg` can change the entire graphics device background color
 
 ``` r
+#save par arguments before changing them
+default_par <- par()
+
+#change par
 par(las=2, tck=0.01, bg="darkseagreen")
-plot(summer$Calcium, summer$Magnesium, pch=6)
+plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=6)
 ```
 
 <img src='/static/Visualize/par_example-1.png'/>
+
+Make sure to reset par if you want to go back to the original plot style. You can do this by turning off the current graphics device, `dev.off()`, or you can use the `default_par` object created previously, `par(default_par)`.
 
 ### Legends
 
@@ -91,11 +92,11 @@ Legends are an obvious necessity for publishing plots built in R. Adding legends
 
 ``` r
 #use the same plot and add a legend to illustrate color and point type
-plot(summer$Calcium, summer$Magnesium, pch=16, col='#FF5034')
-points(winter$Calcium, winter$Magnesium, pch=16, col='skyblue')
+plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034')
+points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
 
 #add a legend
-legend(x="topright", legend=c("Summer", "Winter"),
+legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
        pch=16, col=c('#FF5034', 'skyblue'), title="Legend")
 ```
 
@@ -103,7 +104,7 @@ legend(x="topright", legend=c("Summer", "Winter"),
 
 ### Additional Plotting Features
 
-R base plotting offers features other than points and lines, such as symbols, rectangles, polygons, and curves. Their usage is illustrated in the example below.
+R base plotting offers features other than points and lines, such as symbols, rectangles, polygons, and curves.
 
 ``` r
 #plot formulas using curve()
@@ -127,18 +128,6 @@ polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
 
 <img src='/static/Visualize/add_features_example-3.png'/>
 
-``` r
-#use symbols to plot circles (and more) based on data
-#plot of Uranium concentration as a function of TDS w/ circle radii as high or low bicarbonate concentration
-data("UraniumTDS")
-x <- UraniumTDS$TDS
-y <- UraniumTDS$Uranium
-radii <- UraniumTDS$HCO3
-symbols(x, y, circles = radii)
-```
-
-<img src='/static/Visualize/add_features_example-4.png'/>
-
 Exercise 1
 ----------
 
@@ -160,8 +149,7 @@ P_site2 <- readNWISqw("01656725", parameterCd = "00665")
 You can also customize your plot axes using the `axis()` function and specifying which axis by using the `side=` argument. Add ticks at specific values, and add second x and y axes (side=3 or side=4). To make a log-scale axis, use the argument `log=` and specify the x or y axis.
 
 ``` r
-#plot Uranium vs total dissolved solids from the smwrData::UraniumTDS dataset
-plot(UraniumTDS$TDS, UraniumTDS$Uranium, pch=20)
+plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, pch=20)
 #add a second y-axis
 axis(side=4)
 ```
@@ -170,9 +158,15 @@ axis(side=4)
 
 ``` r
 #now log the x axis
-plot(UraniumTDS$TDS, UraniumTDS$Uranium,  pch=20, log='x')
+plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst,  pch=20, log='x')
+```
+
+    ## Warning in xy.coords(x, y, xlabel, ylabel, log): 137 x values <= 0 omitted
+    ## from logarithmic plot
+
+``` r
 #format the second y-axis to have tick marks at every concentration (not just every 5) & no labels
-axis(side=4, at=1:15, labels=FALSE)
+axis(side=4, at=1:20, labels=FALSE)
 #add a second x-axis
 axis(side=3) #this axis is also logged
 ```
@@ -183,34 +177,35 @@ axis(side=3) #this axis is also logged
 
 It is often useful to have multiple plots shown in one image. There are a few ways to accomplish this: par arguments mfcol or mfrow, `layout`, or `split.screen`. We are only going to discuss `layout`.
 
-To use layout, you must first create a matrix specifying the location of each plot. For instance, if you want plot 1 above the second plot, you would set up this matrix: `matrix(c(1,2), 2, 1)`. If you wanted a gap in between your two plots, you could say "0", meaning no plot will be in that location: `matrix(c(1,0,2), 3, 1)`. Then you simply use the function `layout()` with your matrix as the function argument.
+To use layout, you must first create a matrix specifying the location of each plot. For instance, if you want plot 1 above the second plot, you would set up this matrix: `matrix(c(1,2), 2, 1)`. If you wanted a gap in between your two plots, you could say "0", meaning no plot will be in that location: `matrix(c(1,0,2), 3, 1)`. Then you simply use the function `layout()` with your matrix as the function argument. When you are done plotting with `layout`, make sure to use `dev.off()` in order to reset the plotting region. Otherwise, any subsequent plots will use your defined layout.
 
 ``` r
-#use the smwrData dataset, "MenomineeMajorIons"
-
 layout_matrix <- matrix(c(1:4), nrow=2, ncol=2, byrow=TRUE)
 layout(layout_matrix)
 
 #four boxplots:
-plot1 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Magnesium, ylab="Concentration", main="Magnesium")
-plot2 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Calcium, ylab="Concentration", main="Calcium")
-plot3 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Chloride, ylab="Concentration", main="Chloride")
-plot4 <- plot(MenomineeMajorIons$season, MenomineeMajorIons$Sulfate, ylab="Concentration", main="Sulfate")
+plot1 <- boxplot(intro_df$Flow_Inst ~ intro_df$site_no, ylab="Discharge, cfs", main="Discharge")
+plot2 <- boxplot(intro_df$Wtemp_Inst ~ intro_df$site_no, ylab="Temperature, deg C", main="Water Temp")
+plot3 <- boxplot(intro_df$pH_Inst ~ intro_df$site_no, ylab="pH", main="pH")
+plot4 <- boxplot(intro_df$DO_Inst ~ intro_df$site_no, ylab="D.O. Concentration, mg/L", main="Dissolved Oxygen")
 ```
 
 <img src='/static/Visualize/multiple_plots_example-1.png'/>
+
+``` r
+dev.off()
+```
+
+    ## null device 
+    ##           1
 
 ### Saving Plots
 
 It is very simple to save your plots as images. In RStudio's "Plots" window, you can select the "Export" drop down and say "Save as Image" or "Save as PDF". Alternatively, you can use the following functions: `png()`, `jpeg()`, `pdf()`, `svg()`, and the list goes on. To use, call `png()`, etc. to open a plotting canvas (i.e., a "graphics device"), make your plot on that canvas, then call `dev.off()` to close and save the canvas.
 
 ``` r
-#Using the MiscGW dataset from smwrData
-data("MiscGW")
-ions_to_plot <- MenomineeMajorIons %>% select(Magnesium, Potassium, Chloride, Sulfate)
-
-png("gw_ion_pairs.png", width=5, height=6, res=300, units="in") # see ?png
-plot(ions_to_plot)
+png("do_vs_wtemp.png", width=5, height=6, res=300, units="in") # see ?png
+plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 dev.off()
 ```
 

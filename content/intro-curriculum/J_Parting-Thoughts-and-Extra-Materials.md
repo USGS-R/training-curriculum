@@ -6,6 +6,8 @@ draft: True
 title: J. Parting Thoughts
 menu:
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 Parting Thoughts
 ----------------
 

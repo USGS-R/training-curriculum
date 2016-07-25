@@ -6,7 +6,11 @@ draft: True
 title: H. Visualize - Plotting with ggplot2
 menu:
 ---
+    ## Warning: package 'knitr' was built under R version 3.2.5
+
 One of the frequently touted strong points of R is data visualization. We saw some of that with our use of base graphics, but those plots were, frankly, a bit pedestrian. More and more users are moving away from base graphics and using the `ggplot2` package. I would even go as far to say that it has almost become the default plotting mechanism in R. This whole lesson we will focus on creating, modifying, and saving plots with `ggplot2`.
+
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -33,20 +37,16 @@ Before we start developing some graphics, we need to do a bit of package mainten
 # install.packages("ggplot2") # if needed
 library(ggplot2)
 library(dplyr)
-
-#Load the data package!
-library(smwrData)
 ```
 
-First thing we need to do is to create our ggplot object. Everything we do will build off of this object. The bare minimum for this is the data (handily, `ggplot()` is expecting a data frame) and `aes()`, or the aesthetics layers. Oddly (at least to me), this is the main place you specify your x and y data values.
+First thing we need to do is to create our ggplot object. Everything we do will build off of this object. The bare minimum for this is the data (handily, `ggplot()` is expecting a data frame) and `aes()`, or the aesthetics layers. This is the main place you specify your x and y data values.
 
 ``` r
 # aes() are the "aesthetics" info.  When you simply add the x and y
 # that can seem a bit of a confusing term.  You also use aes() to 
-# change clor, shape, size etc. of some items
-data("MenomineeMajorIons")
-ion_gg <- ggplot(MenomineeMajorIons, aes(x=Magnesium, y=Potassium))
-ion_gg
+# change color, shape, size etc. of some items
+qtemp_gg <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst))
+qtemp_gg
 ```
 
 <img src='/static/ggplot2/ggplot_examp-1.png'/>
@@ -59,18 +59,22 @@ A side note on syntax. You will notice that we add new "things" to a ggplot obje
 
 ``` r
 #Different syntax than you are used to
-ion_gg + geom_point()
+qtemp_gg + geom_point()
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/points_examp-1.png'/>
 
 ``` r
 #This too can be saved to an object
-ion_scatter <- ion_gg + geom_point()
+qtemp_scatter <- qtemp_gg + geom_point()
 
 #Call it to create the plot
-ion_scatter
+qtemp_scatter
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/points_examp-2.png'/>
 
@@ -79,69 +83,127 @@ Not appreciably better than base, in my opinion. But what if we want to add some
 First a title and some axis labels. These are part of `labs()` (or can be assigned separately with `ggtitle()`, `xlab()`, and `ylab()`).
 
 ``` r
-ion_scatter <- ion_scatter +
-  labs(title="Potassium vs Magnesium Concentrations in Menominee River",
-       x="Magnesium Concentration", y="Potassium Concentration")
+qtemp_scatter <- qtemp_scatter +
+  labs(title="Water temperature vs Flow",
+       x="Discharge, cfs", y="Water temperature, deg C")
 # same thing, different commands
-ion_scatter <- ion_scatter +
-  ggtitle("Potassium vs Magnesium Concentrations in Menominee River") +
-  xlab("Magnesium Concentration") + ylab("Potassium Concentration")
-ion_scatter
+qtemp_scatter <- qtemp_scatter +
+  ggtitle("Water temperature vs Flow") +
+  xlab("Discharge, cfs") + ylab("Water temperature, deg C")
+qtemp_scatter
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/ion_labels-1.png'/>
 
 Now to add some colors, shapes, etc. to the point. Look at the `geom_point()` documentation for this. Notice that ggplot2 makes the correct legend for us without help!
 
 ``` r
-ion_scatter <- ion_scatter +
-  geom_point(aes(color=season, shape=season), size=5)
-ion_scatter
+qtemp_scatter <- qtemp_scatter +
+  geom_point(aes(color=Flow_Inst_cd, shape=site_no), size=2)
+qtemp_scatter
 ```
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/ion_colors-1.png'/>
 
-Much easier than using base. Now `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.).
-
-Lets add a loess line with 95% confidence intervals
+Much easier than using base, but `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.). Lets add a loess line with 95% confidence intervals
 
 ``` r
-ion_scatter_loess <- ion_scatter +
-  geom_smooth()
-ion_scatter_loess
+qtemp_scatter + geom_smooth()
 ```
 
-<img src='/static/ggplot2/ion_loess-1.png'/>
+    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
 
-Try that in `base` with so little code!
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+<img src='/static/ggplot2/ion_loess-1.png'/>
 
 Or we could add a simple linear regression line with:
 
 ``` r
-ion_scatter_lm <- ion_scatter +
-  geom_smooth(method="lm")
-ion_scatter_lm
+qtemp_scatter + geom_smooth(method="lm")
 ```
+
+    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/ion_lm-1.png'/>
 
 And if we are interested in the regressions by group we could do it this way.
 
 ``` r
-ion_scatter_lm_group <- ion_scatter +
-  geom_smooth(method="lm", aes(group=season))
-ion_scatter_lm_group
+qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
 ```
+
+    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/ion_lm_groups-1.png'/>
 
 Or, if we wanted our regression lines to match the color.
 
 ``` r
-ion_scatter_lm_color <- ion_scatter +
-  geom_smooth(method="lm", aes(color=season, fill=season))
-ion_scatter_lm_color
+qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_cd))
 ```
+
+    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/ion_lm_color-1.png'/>
 
@@ -156,9 +218,10 @@ Before we get into another exercise, let's look at some of the other geometries.
 A simple boxplot with groups looks like this:
 
 ``` r
-ggplot(MenomineeMajorIons, aes(x=season, y=Sodium)) +
-  geom_boxplot()
+ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 ```
+
+    ## Warning: Removed 90 rows containing non-finite values (stat_boxplot).
 
 <img src='/static/ggplot2/gg_box_examp-1.png'/>
 
@@ -167,22 +230,23 @@ ggplot(MenomineeMajorIons, aes(x=season, y=Sodium)) +
 Histograms only need a single variable (x).
 
 ``` r
-ggplot(MenomineeMajorIons, aes(x=Sodium))+
-  geom_histogram(binwidth=1)
+ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 ```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 120 rows containing non-finite values (stat_bin).
 
 <img src='/static/ggplot2/gg_hist_examp-1.png'/>
 
 ### Barplots
 
-Barplots can be done easily but often you want to plot a summary statistic (e.g. mean value) for different groups. This requires setting up the data in the correct format first. We can do that with `dplyr` first, then pass the result to `ggplot()`. Let's try this with a different dataset: `MiningIron` from `smwrData`.
+Barplots can be done easily but often you want to plot a summary statistic (e.g. mean value) for different groups. This requires setting up the data in the correct format first. We can do that with `dplyr` first, then pass the result to `ggplot()`.
 
 ``` r
-data("MiningIron")
-
-iron_minetype_mean <- group_by(MiningIron, MineType) %>%
-  summarize(mean_iron=mean(Iron))
-ggplot(iron_minetype_mean, aes(x=MineType, y=mean_iron)) +
+intro_df_grouped <- group_by(intro_df, site_no)
+intro_df_flow_mean <- summarize(intro_df_grouped, mean_flow=mean(Flow_Inst, na.rm=TRUE))
+ggplot(intro_df_flow_mean, aes(x=site_no, y=mean_flow)) +
   geom_bar(stat="identity")
 ```
 
@@ -204,26 +268,46 @@ Customizing plots with themes
 
 I am certain there are some opinions (good and bad) about the default look and feel of a `ggplot2` plot. Personally, I think it is an improvement over `base`, but generally not what I want for my plots. The `theme()` function (and related functions), give us the ability to completely customize the plot. A great place to start with this is the [themes vignette](http://docs.ggplot2.org/dev/vignettes/themes.html) within `ggplot2`. We could spend a whole day just on this, so for this class we are going to look at the very basics and then use some of the canned themes.
 
-Let's first recreate our Potassium vs Magnesium scatterplot from earlier.
+Let's first recreate our Water temperature versus scatterplot from earlier.
 
 ``` r
-scatter_ions <- ggplot(MenomineeMajorIons, aes(x=Magnesium, y=Potassium)) +
-  geom_point(aes(color=season, shape=season))
-scatter_ions
+qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
+  geom_point(aes(color=Flow_Inst_cd, shape=site_no))
+qtemp_scatter
 ```
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/themes_examp-1.png'/>
 
 Nothing new there. Let's now edit some of this theme by dropping the grey background and the grid, and changing our font.
 
 ``` r
-scatter_ions_base <- scatter_ions + 
+qtemp_scatter_base <- qtemp_scatter + 
   theme(panel.background = element_blank(), 
         panel.grid = element_blank(),
         panel.border = element_rect(fill = NA),
-        text = element_text(family="serif", color="red", size=24))
-scatter_ions_base
+        text = element_text(family="serif", color="blue", size=15))
+qtemp_scatter_base
 ```
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/themes_examp_custom-1.png'/>
 
@@ -232,34 +316,63 @@ Still not great, but it shows the basics. You can build on this and edit EVERYTH
 There are a few alterantive themes available by default (use `help("ggtheme")`) that save some time and typing. Let's look at two.
 
 ``` r
-scatter_ions + theme_bw()
+qtemp_scatter + theme_bw()
 ```
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/themes_examp_stock-1.png'/>
 
 ``` r
-scatter_ions + theme_classic()
+qtemp_scatter + theme_classic()
 ```
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/themes_examp_stock-2.png'/>
 
-Let's build on one of the default themes to create a more polished plot. We will start from scratch and add in some custom colors too.
+Let's build on one of the default themes to create a more polished plot.
 
 ``` r
 #Now Let's start over, with some new colors and regression lines
-scatter_ions_polished <- ggplot(MenomineeMajorIons, aes(x=Magnesium, y=Potassium)) +
-  geom_point(aes(color=season, shape=season)) +
-  stat_smooth(method="lm", aes(color=season)) +
-  scale_color_manual(
-    breaks=c("summer", "winter"), 
-    values=c("steelblue1", "sienna")) + 
-  theme_classic(18, "serif") +
-  theme(text=element_text(color="slategray")) +
-  labs(title="Relationship between Potassium and Magnesium",
-       x="Magnesium Concentration", y="Potassium Concentration")
+qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
+  geom_point(aes(color=Flow_Inst_cd, shape=site_no)) +
+  stat_smooth(method="lm", aes(color=Flow_Inst_cd)) + 
+  theme_bw(15, "serif") +
+  theme(text=element_text(color="slategray"), panel.grid = element_blank()) +
+  labs(title="Relationship between Water temperature and Discharge",
+       x="Discharge, cfs", y="Water temp, deg C")
 
-scatter_ions_polished 
+qtemp_scatter_polished 
 ```
+
+    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
+
+    ## Warning: Removed 1616 rows containing missing values (geom_point).
+
+    ## Warning: The shape palette can deal with a maximum of 6 discrete values
+    ## because more than 6 becomes difficult to discriminate; you have
+    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/static/ggplot2/themes_examp_polished-1.png'/>
 
@@ -271,9 +384,9 @@ Last thing we probably want to do now is to save the plot. Since we have our plo
 
 ``` r
 #Save as jpg, with 600dpi, and set width and height (see ?ggsave)
-ggsave(plot=scatter_ions_polished, file="Fig1.jpg", dpi=600, width=8, height=5)
+ggsave(plot=qtemp_scatter_polished, file="Fig1.jpg", dpi=600, width=8, height=5)
 #Save as PDF
-ggsave(plot=scatter_ions_polished, file="Fig1.pdf")
+ggsave(plot=qtemp_scatter_polished, file="Fig1.pdf")
 ```
 
 Exercise 2
@@ -300,29 +413,35 @@ There are even more amazing themes on the web. See the [ggthemes](https://github
 Facets allow you to lay out multiple plots in a grid. With a single facet the result is similar to what we already accomplished by coloring/sizing points based on a factor in the dataset, but it separates into different plots and we can easily add an additional factor to organize by column. Looking at some of the examples provided with `facet_grid()` shows us how these can work.
 
 ``` r
-#Return to Magnesium vs Potassium scatter plot
-ions <- ggplot(MenomineeMajorIons, aes(x=Magnesium, y=Potassium)) +
+#Return to Water temp vs Flow scatter plot
+qtemp <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
   geom_point() 
-ions
+qtemp
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/facet_grid_example-1.png'/>
 
 ``` r
 # Faceting with one variable 
-# season = row faceting
+# site_no = row faceting
 # . = no column faceting
-ions + facet_grid(season ~ .)
+qtemp + facet_grid(site_no ~ .)
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/facet_grid_example-2.png'/>
 
 ``` r
-# Faceting with two variables (remark codes of "<" indicate the sample was below the detection limit)
-#Nitrate.rmk = row faceting
-#Fluoride.rmk = column faceting
-ions + facet_grid(Nitrate.rmk ~ Fluoride.rmk)
+# Faceting with two variables
+#site_no = row faceting
+#Flow_Inst_cd = column faceting
+qtemp + facet_grid(site_no ~ Flow_Inst_cd)
 ```
+
+    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/static/ggplot2/facet_grid_example-3.png'/>
 
