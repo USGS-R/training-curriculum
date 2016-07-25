@@ -618,7 +618,7 @@ no data value is `NA` and by default, strings are converted to factors (this can
 
 Source files for `read.csv()` can either be on a local hard drive or, and this is pretty cool, on the web. If you had a local file it would be accessed like `mydf <- read.csv("C:/path/to/local/file.csv")`. If you are grabbing data from a website, just put the URL in the function like `mydf <- read.csv("http://www.mywebsitewithadataset.com/thecsvfileIwant.csv")`. As an aside, paths and use of forward vs back slash is important. R is looking for forward slashes ("/"), or Unix-like paths. You can use these in place of the back slash and be fine. You can use a back slash but it needs to be a double back slash ("\\"). This is because the single backslash in an escape character that is used to indicate things like newlines or tabs. Doesn't really matter which one you use, I would just select one and be consistent.
 
-We are going to use the same dataset for the rest of this course (exercises will use different datasets). This dataset is originally from NWIS and was altered using [this R code](https://github.com/USGS-R/gsIntroR/blob/master/R/create_df.R). Download the required csv from [here](http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/Data/). Put the file in your current working directory or include the entire filepath any palce we specify only the filename.
+We are going to use the same dataset for the rest of this course (exercises will use different datasets). This dataset is originally from NWIS and was altered using [this R code](https://github.com/USGS-R/gsIntroR/blob/master/R/create_df.R). Download the required csv from [here](/intro-curriculum/data). Put the file in your current working directory or include the entire filepath any palce we specify only the filename.
 
 ``` r
 # Read in the data and take a look at it
@@ -738,7 +738,7 @@ For this exercise we are going to read in data from a csv file, look at that dat
 
 1.  Create a new script in RStudio. Name it “usgs\_analysis.R”
 2.  As you write the script comment as you go.
-3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. Download this file from the curriculum website: \_\_. Be sure you put the file in your current working directory or include the entire filepath.
+3.  Add commands to create a new data frame named `ion_balance` that contains all the data in the IonBalance.csv file. Download this file from [data section](/intro-curriculum/data). Be sure you put the file in your current working directory or include the entire filepath.
 4.  Add commands to your script that will provides details on the structure (hint: str) of this newly created data frame.
 5.  Run the script and make sure it doesn’t throw any errors and you do in fact get the data frame.
 6.  If you still have some time, explore the data frame using some of the commands we covered.

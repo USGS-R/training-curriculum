@@ -11,7 +11,7 @@ image: img/main/intro-icons-300px/ggplot.png
 
 One of the frequently touted strong points of R is data visualization. We saw some of that with our use of base graphics, but those plots were, frankly, a bit pedestrian. More and more users are moving away from base graphics and using the `ggplot2` package. I would even go as far to say that it has almost become the default plotting mechanism in R. This whole lesson we will focus on creating, modifying, and saving plots with `ggplot2`.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
