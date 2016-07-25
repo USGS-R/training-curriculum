@@ -7,7 +7,7 @@ output: USGSmarkdowntemplates::hugo
 ---
 
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {

@@ -7,7 +7,6 @@ title: Crib Sheet
 menu:
   weight=2
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
 
 <table style="width:51%;">
 <colgroup>

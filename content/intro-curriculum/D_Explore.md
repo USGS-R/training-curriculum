@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/explore.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
 
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
 

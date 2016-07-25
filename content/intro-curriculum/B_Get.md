@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/get.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
 
 The second lesson is going to start to lay the foundation for working with data in R. We will cover some of the very basics of R first, then move on to how you get data into R and how you work with some of the basic data structures. Lastly, we will cover some ways to find relevant data and pull it directly into R.
 

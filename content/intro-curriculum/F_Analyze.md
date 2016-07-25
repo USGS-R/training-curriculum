@@ -8,7 +8,6 @@ menu:
   weight=1
 image: img/main/intro-icons-300px/analyzewpackages.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
 
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 

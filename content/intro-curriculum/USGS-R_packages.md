@@ -7,7 +7,6 @@ title: USGS-R Packages
 menu:
   weight=2
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
 
 ### Find USGS-R package information
 
