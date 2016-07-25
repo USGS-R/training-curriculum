@@ -7,16 +7,10 @@
     <div class="col-md-9">
 
       <div class="row">
-        {{ range $key, $value := .Paginator.Pages }}
-        {{ if lt $key 10 }}
+        {{ range $key, $value := first 10 (.Data.Pages.ByDate).Reverse }}
         <div class="col-sm-6">
           {{ .Render "grid" }}
         </div>
-        {{ else }}
-        <div class="col-sm-4">
-          {{ .Render "grid" }}
-        </div>
-        {{ end }}
         {{ end }}
       </div>
 

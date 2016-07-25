@@ -2,9 +2,9 @@
   <a href="{{ .Permalink }}">
 <!--<div class="image" style="background-image: url({{ $.Site.BaseURL }}images/{{ with .Params.image }}{{ . }}{{ else }}default.jpg{{ end }});"></div>-->
     <footer>
-      <div class="date">
+      <!--<div class="date">
         <time>{{ with .Site.Params.DateForm }}{{ $.Date.Format . }}{{ else }}{{ $.Date.Format "Mon, Jan 2, 2006" }}{{ end }}</time>
-      </div>
+      </div>-->
       <h2 class="title">{{ .Title }}</h2>
       <div class="image" style="background-image: url({{ $.Site.BaseURL }}{{ with .Params.image }}{{ . }}{{ else }}images/owi-mobile.png{{ end }});"></div>
       <!--<h4 class="author">{{ .Params.author }}</h4>-->
