@@ -4,8 +4,7 @@ date: 2016-07-06
 slug: Analyze
 draft: True
 title: E. Analyze
-tags: 
-  - E. Analyze
+menu:
 ---
 The focus of this workshop hasn't really been statistics, it's been more about R, the language. But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it. In this lesson we will touch on some very simple stats that we can do with base R.
 
