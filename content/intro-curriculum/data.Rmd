@@ -1,0 +1,10 @@
+---
+title: "Data"
+date: "2016-07-22"
+slug: "data"
+output: USGSmarkdowntemplates::hugo
+---
+
+[course_NWISdata.csv](data/course_NWISdata.csv)
+
+[course_NWISdata_cleaned.csv](data/course_NWISdata_cleaned.csv)

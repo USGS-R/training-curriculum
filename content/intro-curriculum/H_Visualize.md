@@ -3,7 +3,7 @@ author: Jeffrey W. Hollister
 date: 2016-07-03
 slug: ggplot2
 draft: True
-title: H. Visualize - Advanced plotting with ggplot2
+title: H. Visualize - Plotting with ggplot2
 menu:
 image: img/main/intro-icons-300px/ggplot.png
 ---

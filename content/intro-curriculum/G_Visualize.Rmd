@@ -1,5 +1,5 @@
 ---
-title: "G. Visualize - Advanced plotting with base R"
+title: "G. Visualize - Plotting with base R"
 author: "Lindsay R. Carr"
 date: "2016-07-04"
 slug: "Visualize"

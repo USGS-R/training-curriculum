@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 2016-07-04
 slug: Visualize
 draft: True
-title: G. Visualize - Advanced plotting with base R
+title: G. Visualize - Plotting with base R
 menu:
 image: img/main/intro-icons-300px/visualize.png
 ---
