@@ -23,8 +23,9 @@ opts_chunk$set(
 )
 ```
 
-
 You now have a basic understanding of how to conduct a typical data analysis workflow in R.  All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports.  This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
+
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 ##Quick Links to Exercises and R code
 - [Exercise 1](#exercise-1): Writing functions and control structures
@@ -74,7 +75,6 @@ print_twice("Howdy, Texas")
 Functions are most useful when we want to repeat a general procedure with different specifics each time. Since we have been working most recently with creating plots, I could imagine us wanting to create a plot with a similar layout, but with different source data and then save that plot to a file, all with a single function call.  That might look like:
 
 ```{r plot_function_examp}
-library(ggplot2)
 myplot <- function(x, y, grp, file) {
   my_dat <- data.frame(X=x, Y=y, Grp=grp)
   my_p <- ggplot(my_dat, aes(x=X, y=Y)) +
@@ -85,57 +85,15 @@ myplot <- function(x, y, grp, file) {
   return(my_p)
 }
 
-#Call the function using a smwrData dataset
+#Call the function using intro_df
 
-#Load the data package!
-library(smwrData)
-
-data("MenomineeMajorIons")
-
-myplot(MenomineeMajorIons$Magnesium, MenomineeMajorIons$Potassium, 
-       MenomineeMajorIons$season, "Mg_K.jpg")
-myplot(MenomineeMajorIons$Calcium, MenomineeMajorIons$Sodium, 
-       MenomineeMajorIons$season, "Ca_Na.jpg")
+myplot(intro_df$Flow_Inst, intro_df$pH_Inst, 
+       intro_df$Flow_Inst_cd, "q_pH.jpg")
+myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
+       intro_df$Flow_Inst_cd, "q_do.jpg")
 ```
 
-Cool, a function, that does something useful.  It still is just a collection of functions at this point though.  What if we wanted to repeat something or have the function make some decisions and do one thing given a set of criteria and something else for a different set?  Well we need to look more at some of the classic programming structures in R.  For this introduction, I am going to look just at `if-else` statements, `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but I think the concept useful and I M writing this, so there!),  and `return()`.  
-
-
-###if-else
-If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is allow us to tell the function how to make some decisions.  
-
-I will show the examples in the context of a function as that is how they are most commonly used. So, we can implement them in R like:
-
-```{r if_else_examp}
-odd_even <- function(num) {
-  if(num %% 2 == 0){
-    print("EVEN")
-  } else {
-    print("ODD")
-  }
-}
-
-odd_even(27)
-odd_even(34)
-```
-
-And you can you use multiple `if` statements
-
-```{r if_else_examp2}
-plus_minus <- function(num) {
-  if(num > 0) {
-    print("plus")
-  } else if (num < 0) {
-    print("minus")
-  } else {
-    print("zero")
-  }
-}
- 
-plus_minus(198)
-plus_minus(-44)
-plus_minus(37*0)
-```
+Cool, a function, that does something useful.  It still is just a collection of functions at this point though.  What if we wanted to repeat something?  Well we need to look more at some of the classic programming structures in R.  For this introduction, I am going to look just at `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but the concept is useful),  and `return()`.  
 
 ###for
 A `for` loop allows you to repeat code.  You specify a variable and a range of values and the `for` loop runs the code for each value in your range.  The basic structure looks like:
@@ -162,7 +120,7 @@ sum_vec(1:2)
 sum_vec(1:10)
 ```
 
-Again a bit of a silly example since all it is doing is looping through a list of values and summing it.  In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).  
+Again a bit of a silly example since all it is doing is looping through a list of values and summing it.  In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley Wickham's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).  
 
 Let's dig a bit more into this issue with another example.  This time, let's look at adding two vectors together.  We haven't touched on this yet, but R is really good at dealing with this kind of operation.  It is what people mean when they talk about "vectorized" operations.  For instance:
 
@@ -403,8 +361,8 @@ In this document we can see a couple of things.  First at the top we see:
 
     ---
     title: "My First Reproducible Document"
-    author: "Jeff W. Hollister"
-    date: "1/6/2015"
+    author: "Author Name"
+    date: "1/1/2016"
     output: html_document
     ---
 
@@ -433,3 +391,7 @@ I know you will probably wonder whether you can change the look and feel of this
 3. Push the `Knit` button to see the outcome.
 4. Challenge: use the `Qall` dataset from `smwrData` to add a plot. Try changing the plot size (hint: chunk options).
 
+
+```{r echo=FALSE}
+gsIntroR::navigation_array(title)
+```

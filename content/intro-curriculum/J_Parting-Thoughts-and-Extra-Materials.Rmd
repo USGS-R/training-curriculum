@@ -29,3 +29,6 @@ It is impossible to become proficient at anything over the course of 2.5 days, a
 
 In addition to an immersion approach, another REALLY good thing to do is to find a problem that you need to solve and force yourself to solve it with R.  I know most everyone has had many years of experience with data analysis with other software.  When you have this background, it is certainly easy to fall back on what you know, but use this opportunity to not only get something done, but make sure you allow additional time to also learn R.  A warning though, I would not recommend going cold turkey and just diving into R.  Ramp up slowly over the next year or so and try to keep solving one more problem with R.  This allows you to keep working while also slowly building your profeciency. In short, slow and steady.
 
+```{r echo=FALSE}
+gsIntroR::navigation_array(title)
+```
