@@ -5,6 +5,7 @@ slug: Reproduce
 draft: True
 title: I. Repeat and Reproduce
 menu:
+image: img/main/intro-icons-300px/repeat.png
 ---
 You now have a basic understanding of how to conduct a typical data analysis workflow in R. All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports. This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
 

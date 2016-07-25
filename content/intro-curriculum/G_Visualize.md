@@ -5,6 +5,7 @@ slug: Visualize
 draft: True
 title: G. Visualize - Advanced plotting with base R
 menu:
+image: img/main/intro-icons-300px/visualize.png
 ---
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
 

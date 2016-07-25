@@ -5,6 +5,7 @@ slug: AnalyzeII
 draft: True
 title: F. Analyze with packages
 menu:
+image: img/main/intro-icons-300px/analyzewpackages.png
 ---
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. We'll be moving away from the GAGES-II sites in NM to focus on some other sites of interest. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
 
