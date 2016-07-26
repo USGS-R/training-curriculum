@@ -6,24 +6,25 @@ slug: "ggplot2"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/ggplot2/",
+  fig.path="static/ggplot2/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE}
+```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
@@ -48,7 +49,7 @@ A lot has been written and discussed about `ggplot2`.  In particular see [here](
 
 Before we start developing some graphics, we need to do a bit of package maintenance as `ggplot2` is not installed by default.
 
-```{r ggplot_install, message=FALSE}
+```{r ggplot_install, warning=FALSE, message=FALSE}
 # install.packages("ggplot2") # if needed
 library(ggplot2)
 library(dplyr)
@@ -56,7 +57,7 @@ library(dplyr)
 
 First thing we need to do is to create our ggplot object.  Everything we do will build off of this object.  The bare minimum for this is the data (handily, `ggplot()` is expecting a data frame) and `aes()`, or the aesthetics layers. This is the main place you specify your x and y data values.
 
-```{r ggplot_examp}
+```{r ggplot_examp, warning=FALSE, message=FALSE, fig.cap="Blank ggplot2 plot"}
 # aes() are the "aesthetics" info.  When you simply add the x and y
 # that can seem a bit of a confusing term.  You also use aes() to 
 # change color, shape, size etc. of some items
@@ -70,27 +71,27 @@ So if we want to simply plot points we can add it to the ggplot object.  These a
 
 A side note on syntax.  You will notice that we add new "things" to a ggplot object by adding new functions.  In concept this is very similar to the piping we talked about earlier.  Essentially it takes the output from the first function as the input to the second.  So to add points and create the plot, we would do:
 
-```{r points_examp}
+```{r points_examp, warning=FALSE, message=FALSE, fig.cap=c("ggplot2 scatter plot", "ggplot2 scatter plot rendered from object")}
 #Different syntax than you are used to
 qtemp_gg + geom_point()
 
 #This too can be saved to an object
-qtemp_scatter <- qtemp_gg + geom_point()
+qtemp_scatter_bw <- qtemp_gg + geom_point()
 
 #Call it to create the plot
-qtemp_scatter
+qtemp_scatter_bw
 ```
 
 Not appreciably better than base, in my opinion.  But what if we want to add some stuff...
 
 First a title and some axis labels. These are part of `labs()` (or can be assigned separately with `ggtitle()`, `xlab()`, and `ylab()`).
 
-```{r ion_labels}
-qtemp_scatter <- qtemp_scatter +
+```{r ion_labels, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with title and xy axis labels"}
+qtemp_scatter <- qtemp_gg +
   labs(title="Water temperature vs Flow",
        x="Discharge, cfs", y="Water temperature, deg C")
 # same thing, different commands
-qtemp_scatter <- qtemp_scatter +
+qtemp_scatter <- qtemp_gg +
   ggtitle("Water temperature vs Flow") +
   xlab("Discharge, cfs") + ylab("Water temperature, deg C")
 qtemp_scatter
@@ -98,7 +99,7 @@ qtemp_scatter
 
 Now to add some colors, shapes, etc. to the point.  Look at the `geom_point()` documentation for this. Notice that ggplot2 makes the correct legend for us without help!
 
-```{r ion_colors}
+```{r ion_colors, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter with colors based on Flow code and point type based on site"}
 qtemp_scatter <- qtemp_scatter +
   geom_point(aes(color=Flow_Inst_cd, shape=site_no), size=2)
 qtemp_scatter
@@ -106,25 +107,25 @@ qtemp_scatter
 
 Much easier than using base, but `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.). Lets add a loess line with 95% confidence intervals
 
-```{r ion_loess}
+```{r ion_loess, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with default smooth line"}
 qtemp_scatter + geom_smooth()
 ```
 
 Or we could add a simple linear regression line with:
 
-```{r ion_lm}
+```{r ion_lm, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with linear regression line"}
 qtemp_scatter + geom_smooth(method="lm")
 ```
 
 And if we are interested in the regressions by group we could do it this way.
 
-```{r ion_lm_groups}
+```{r ion_lm_groups, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with linear regression line grouped by site"}
 qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
 ```
 
 Or, if we wanted our regression lines to match the color.
 
-```{r ion_lm_color}
+```{r ion_lm_color, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with linear regression line colored by Flow code"}
 qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_cd))
 ```
 
@@ -139,7 +140,7 @@ Before we get into another exercise, let's look at some of the other geometries.
 ###Boxplots
 A simple boxplot with groups looks like this:
 
-```{r gg_box_examp}
+```{r gg_box_examp, warning=FALSE, message=FALSE, fig.cap="ggplot2 boxplot of dissolved oxygen by site"}
 ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 ```
 
@@ -148,7 +149,7 @@ ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 
 Histograms only need a single variable (x).
 
-```{r gg_hist_examp}
+```{r gg_hist_examp, warning=FALSE, message=FALSE, fig.cap="ggplot2 histogram of pH"}
 ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 ```
 
@@ -157,7 +158,7 @@ ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 
 Barplots can be done easily but often you want to plot a summary statistic (e.g. mean value) for different groups.  This requires setting up the data in the correct format first.  We can do that with `dplyr` first, then pass the result to `ggplot()`. 
 
-```{r gg_bar_examp2}
+```{r gg_bar_examp2, warning=FALSE, message=FALSE, fig.cap="ggplot2 barplot of average discharge by site"}
 intro_df_grouped <- group_by(intro_df, site_no)
 intro_df_flow_mean <- summarize(intro_df_grouped, mean_flow=mean(Flow_Inst, na.rm=TRUE))
 ggplot(intro_df_flow_mean, aes(x=site_no, y=mean_flow)) +
@@ -183,7 +184,7 @@ I am certain there are some opinions (good and bad) about the default look and f
 
 Let's first recreate our Water temperature versus scatterplot from earlier.
 
-```{r themes_examp}
+```{r themes_examp, warning=FALSE, message=FALSE, fig.cap="recreated ggplot2 scatter plot of water temperature versus flow with color based on Flow code and point type based on site"}
 qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
   geom_point(aes(color=Flow_Inst_cd, shape=site_no))
 qtemp_scatter
@@ -191,7 +192,7 @@ qtemp_scatter
 
 Nothing new there.  Let's now edit some of this theme by dropping the grey background and the grid, and changing our font.
 
-```{r themes_examp_custom}
+```{r themes_examp_custom, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with custom theme"}
 qtemp_scatter_base <- qtemp_scatter + 
   theme(panel.background = element_blank(), 
         panel.grid = element_blank(),
@@ -204,14 +205,14 @@ Still not great, but it shows the basics.  You can build on this and edit EVERYT
 
 There are a few alterantive themes available by default (use `help("ggtheme")`) that save some time and typing.  Let's look at two.
 
-```{r themes_examp_stock}
+```{r themes_examp_stock, warning=FALSE, message=FALSE, fig.cap=c("ggplot2 scatter plot with black and white theme", "ggplot2 scatter plot with classic theme")}
 qtemp_scatter + theme_bw()
 qtemp_scatter + theme_classic()
 ```
 
 Let's build on one of the default themes to create a more polished plot. 
 
-```{r themes_examp_polished}
+```{r themes_examp_polished, warning=FALSE, message=FALSE, fig.cap="ggplot2 scatter plot with customized black and white theme, plus smooth curve, color/shaped points, a title, and xy axis labels"}
 #Now Let's start over, with some new colors and regression lines
 qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
   geom_point(aes(color=Flow_Inst_cd, shape=site_no)) +
@@ -258,7 +259,7 @@ There are even more amazing themes on the web. See the [ggthemes](https://github
 
 Facets allow you to lay out multiple plots in a grid.  With a single facet the result is similar to what we already accomplished by coloring/sizing points based on a factor in the dataset, but it separates into different plots and we can easily add an additional factor to organize by column.  Looking at some of the examples provided with `facet_grid()` shows us how these can work.
 
-```{r facet_grid_example}
+```{r facet_grid_example, warning=FALSE, message=FALSE, fig.cap=c("ggplot2 scatter plot of water temperature versus discharge", "ggplot2 faceted scatter plot with rows for sites", "ggplot2 faceted scatter plot with rows for sites and columns for flow code")}
 #Return to Water temp vs Flow scatter plot
 qtemp <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
   geom_point() 

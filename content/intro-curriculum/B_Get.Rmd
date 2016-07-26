@@ -6,20 +6,21 @@ slug: "Get"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Get/",
+  fig.path="static/Get/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 ```
 
@@ -157,14 +158,14 @@ Remember that everything in R is an object.  With regards to data, those objects
 ###Data Types
 There are 6 basic atomic classes: character, numeric (real or decimal), integer, logical, complex, and raw.
 
-| Example 				 | Type 		 |
-| :--------------- | --------: |
-| "a", "swc" 			 | character |
-| 2, 15.5 				 | numeric 	 | 
-| 2L 							 | integer 	 |
-| `TRUE`, `FALSE`  | logical 	 |
-| 1+4i 						 | complex 	 |
-| 62 6f 62         | raw			 |
+| Example | Type |
+| ---------------- | ---------- |
+| "a", "swc" | character |
+| 2, 15.5 | numeric |
+| 2L | integer |
+| `TRUE`, `FALSE` | logical |
+| 1+4i | complex |
+| 62 6f 62 | raw |
 
 In this workshop we will deal almost exclusively with three (and these are, in my experience, by far the most common): character, numeric, and logical.  
 
@@ -181,14 +182,14 @@ is.na() #Will tell you if a value is NA
 
 `Inf` is infinity. You can have positive or negative infinity.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 1 / 0
 1 / Inf
 ```
 
 `NaN` means Not a number. it's an undefined value.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 0 / 0
 NaN
 ```
@@ -214,7 +215,7 @@ A vector can be a vector of characters, logical, integers or numeric and all val
 
 There are many ways to create vectors, but we will focus on one, `c()`, which is a very common way to create a vector from a set of values.  `c()` combines a set of arguments into a single vector.  For instance,
 
-```{r use_c}
+```{r use_c, warning=FALSE, message=FALSE}
 char_vector <- c("Joe", "Bob", "Sue")
 num_vector <- c(1, 6, 99, -2)
 logical_vector <- c(TRUE, FALSE, FALSE, TRUE, T, F)
@@ -222,7 +223,7 @@ logical_vector <- c(TRUE, FALSE, FALSE, TRUE, T, F)
 
 Now that we have these we can use some functions to examine the vectors. 
 
-```{r examine_vector}
+```{r examine_vector, warning=FALSE, message=FALSE}
 #Print the vector
 print(char_vector)
 char_vector
@@ -236,14 +237,14 @@ str(char_vector)
 
 We can also add to existing vectors using `c()`.
 
-```{r add_to_vec}
+```{r add_to_vec, warning=FALSE, message=FALSE}
 char_vector <- c(char_vector, "Jeff")
 char_vector
 ```
 
 There are some ways to speed up entry of values.
 
-```{r vector_shortcuts}
+```{r vector_shortcuts, warning=FALSE, message=FALSE}
 #Create a series
 series <- 1:10
 seq(10)
@@ -258,7 +259,7 @@ laugh
 
 Lastly, R can operate directly on vectors.  This means we can use use our arithmetic functions on vectors and also many functions can deal with vectors directly.  The result of this is another vector, equal to the length of the longest one.
 
-```{r vectorized_examp}
+```{r vectorized_examp, warning=FALSE, message=FALSE}
 #A numeric example
 x <- 1:10
 y <- 10:1
@@ -288,7 +289,7 @@ Factors may be ordered (e.g., low, medium, high) or unordered (e.g. male, female
 
 Factors can be created with `factor()`. Input is a character vector.
 
-```{r factor_examples}
+```{r factor_examples, warning=FALSE, message=FALSE}
 #An unordered factor
 yn <- factor(c("yes", "no", "no", "yes", "yes"))
 yn
@@ -307,7 +308,7 @@ Data frames are made up of rows and columns.  Each column is a vector and those 
 
 So one way to create a data frame is from some vectors and the `data.frame()` command:
 
-```{r create_data_frame}
+```{r create_data_frame, warning=FALSE, message=FALSE}
 numbers <- c(1:26, NA)
 lettersNew <- c(NA, letters) #letters is a special object available from base R
 logical <- c(rep(TRUE, 13), NA, rep(FALSE, 13))
@@ -316,7 +317,7 @@ examp_df <- data.frame(lettersNew, numbers, logical, stringsAsFactors = FALSE)
 
 Now that we have this data frame we probably want to do something with it.  We can examine it in many ways.
 
-```{r examine_data_frame}
+```{r examine_data_frame, warning=FALSE, message=FALSE}
 #See the first 6 rows
 head(examp_df)
 #See the last 6 rows
@@ -346,7 +347,7 @@ Also, lists don't print out like a vector. They print a new line for each elemen
 
 Lists are made simply with the `list()` function.
 
-```{r list_examples}
+```{r list_examples, warning=FALSE, message=FALSE}
 examp_list <- list(
   letters=c("x","y","z"),
   animals=c("cat","dog","bird","fish"),
@@ -367,7 +368,7 @@ Source files for `read.csv()` can either be on a local hard drive or, and this i
 
 We are going to use the same dataset for the rest of this course (exercises will use different datasets). This dataset is originally from NWIS and was altered using [this R code](https://github.com/USGS-R/gsIntroR/blob/master/R/create_df.R). Download the required csv from [here](/intro-curriculum/data). Put the file in your current working directory or include the entire filepath any palce we specify only the filename.
 
-```{r read_csv_examp}
+```{r read_csv_examp, warning=FALSE, message=FALSE}
 # Read in the data and take a look at it
 intro_df <- read.csv("data/course_NWISdata.csv")
 head(intro_df)
@@ -384,7 +385,7 @@ str(read.csv("data/course_NWISdata.csv", stringsAsFactors=FALSE))
 
 Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column, using NA for ones that you would like R to choose. In our dataset, we know that site numbers (column one) should be treated as character. We aren't positive about the other six, so we say `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. See `?read.table` for more information about how that how that works.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
 str(intro_df)
 ```

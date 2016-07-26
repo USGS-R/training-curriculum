@@ -6,25 +6,26 @@ slug: "Analyze"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Analyze/",
+  fig.path="static/Analyze/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 set.seed(5)
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE}
+```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
@@ -48,7 +49,7 @@ We will talk about a few analyses just to show the tip of the iceberg of what is
 ### t-tests
 A t-test is done simply with `t.test()` and you control the specifics (paired, two-sided, etc.) with options.  For the simple case of comparing the difference of two means we can use all of the defaults:
 
-```{r ttest_examp }
+```{r ttest_examp, warning=FALSE, message=FALSE }
 pop1 <- rnorm(30, mean=3, sd=2)
 pop2 <- rnorm(30, mean=10, sd=5)
 pop_ttest <- t.test(pop1, pop2)
@@ -57,7 +58,7 @@ pop_ttest
 
 `t.test()` can also take a formula specification as input. For a t-test that is all we need to know. R formulas were described in the "Basic Visualization" section of Analyze. Use a t.test to compare discharge between Erroneous and estimated qualifiers (these serve as your two populations). You cannot use `t.test()` to compare more than two groups.
 
-```{r ttest_formula_examp}
+```{r ttest_formula_examp, warning=FALSE, message=FALSE}
 #Filter so that there are only two Flow_Inst_cd groups
 #You might have to load dplyr
 library(dplyr)
@@ -70,7 +71,7 @@ There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.te
 ### Correlation
 Next let's take a look at correlations. To handle missing values in `cor`, `na.rm` will not work. If you look at the help for `cor()`, you'll see two main optional arguments.  First is the `use` argument which allows you to use the entire dataset or select complete cases which is useful when you have `NA` values.  There are several options. Also, the default correlation method is for Pearson's.  If you would like to use non-parametric correlations (e.g. rank), you specify that here. See `?cor` for more information. `cor.test` already has a default way of omitting NAs using the `na.action` argument. See `?cor.test`. 
 
-```{r corr_examp,message=FALSE,warning=FALSE}
+```{r corr_examp, warning=FALSE, message=FALSE}
 #A simple correlation
 cor(intro_df$Wtemp_Inst, intro_df$DO_Inst, use="complete.obs")
 #And a test of that correlation
@@ -87,7 +88,7 @@ cor(intro_df_onlynumeric, use="complete.obs")
 ### Linear Regression
 Next let's take a look at linear regression.  One of the common ways of fitting linear regressions is with `lm()`.  We have already seen the formula object so there isn't too much that is new here.  Some of the options are new and useful, though.  Let's take a look:
 
-```{r lm_examp}
+```{r lm_examp, warning=FALSE, message=FALSE}
 lm(pH_Inst ~ Flow_Inst, data=intro_df)
 #Not much info, so save to object and use summary
 lm_gwq1 <- lm(pH_Inst ~ Flow_Inst, data=intro_df)
@@ -99,7 +100,7 @@ summary(lm_gwq2)
 
 We can also put a regression line on the plot:
 
-```{r abline_examp_lm}
+```{r abline_examp_lm, warning=FALSE, message=FALSE, fig.cap="Scatter plot of pH versus flow with regression line"}
 plot(intro_df$Flow_Inst, intro_df$pH_Inst)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
@@ -108,7 +109,7 @@ abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
 
 We can also just add a straight line defined by slope and intercept.  We do this with `abline()`. This is useful if you have a known value that you want to compare to your data. 
 
-```{r abline_examp}
+```{r abline_examp, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus water temperature scatter plot with lines using abline"}
 plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 #horizontal line at specified y value
 abline(h=11)

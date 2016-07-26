@@ -38,20 +38,6 @@ First, let's start with two sets of random data and plot them using different co
 ``` r
 #Create two data frames using dplyr (estimated & erroneous flows)
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 intro_df_est <- filter(intro_df, Flow_Inst_cd == "E")
 intro_df_est_QpH <- select(intro_df_est, Flow_Inst, DO_Inst)
 intro_df_err <-filter(intro_df, Flow_Inst_cd == "X") 
@@ -62,7 +48,7 @@ plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034'
 points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
 ```
 
-<img src='/intro-curriculum/static/Visualize/pch_col_examp-1.png'/>
+<img src='../static/Visualize/pch_col_examp-1.png'/ alt='/Dissolved oxygen versus flow for estimated and erroneous flows'/>
 
 Similarly, you can change linetypes (`lty`), linewidths (`lwd`), and point size (`cex`). These all refer to graphical parameters and there are many more. Use `?par` to read about the others.
 
@@ -81,7 +67,7 @@ par(las=2, tck=0.01, bg="darkseagreen")
 plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=6)
 ```
 
-<img src='/intro-curriculum/static/Visualize/par_example-1.png'/>
+<img src='../static/Visualize/par_example-1.png'/ alt='/Dissolved oxygen versus erroneous flows with green background'/>
 
 Make sure to reset par if you want to go back to the original plot style. You can do this by turning off the current graphics device, `dev.off()`, or you can use the `default_par` object created previously, `par(default_par)`.
 
@@ -99,7 +85,7 @@ legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
        pch=16, col=c('#FF5034', 'skyblue'), title="Legend")
 ```
 
-<img src='/intro-curriculum/static/Visualize/legend_example-1.png'/>
+<img src='../static/Visualize/legend_example-1.png'/ alt='/Dissolved oxygen versus flow for estimated and erroneous flows with legend'/>
 
 ### Additional Plotting Features
 
@@ -110,13 +96,13 @@ R base plotting offers features other than points and lines, such as symbols, re
 curve(x^2, from=0, to=10)
 ```
 
-<img src='/intro-curriculum/static/Visualize/add_features_example-1.png'/>
+<img src='../static/Visualize/add_features_example-1.png'/ alt='/x squared curve'/>
 
 ``` r
 curve(sin(x), from=-pi, to=pi)
 ```
 
-<img src='/intro-curriculum/static/Visualize/add_features_example-2.png'/>
+<img src='../static/Visualize/add_features_example-2.png'/ alt='/sine curve'/>
 
 ``` r
 #plot rectangles or polygons
@@ -125,7 +111,7 @@ rect(xleft=6, xright=10, ybottom=5, ytop=11, density=5, col="orange")
 polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
 ```
 
-<img src='/intro-curriculum/static/Visualize/add_features_example-3.png'/>
+<img src='../static/Visualize/add_features_example-3.png'/ alt='/plot with a line, rectangle, and triangle'/>
 
 Exercise 1
 ----------
@@ -153,24 +139,18 @@ plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, pch=20)
 axis(side=4)
 ```
 
-<img src='/intro-curriculum/static/Visualize/axis_example-1.png'/>
+<img src='../static/Visualize/axis_example-1.png'/ alt='/Water temperature versus flow with a second y-axis'/>
 
 ``` r
 #now log the x axis
 plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst,  pch=20, log='x')
-```
-
-    ## Warning in xy.coords(x, y, xlabel, ylabel, log): 137 x values <= 0 omitted
-    ## from logarithmic plot
-
-``` r
 #format the second y-axis to have tick marks at every concentration (not just every 5) & no labels
 axis(side=4, at=1:20, labels=FALSE)
 #add a second x-axis
 axis(side=3) #this axis is also logged
 ```
 
-<img src='/intro-curriculum/static/Visualize/axis_example-2.png'/>
+<img src='../static/Visualize/axis_example-2.png'/ alt='/Water temperature versus flow with logged x axis and second y and x axes'/>
 
 ### Multiple Plots in One Graphics Device
 
@@ -189,7 +169,7 @@ plot3 <- boxplot(intro_df$pH_Inst ~ intro_df$site_no, ylab="pH", main="pH")
 plot4 <- boxplot(intro_df$DO_Inst ~ intro_df$site_no, ylab="D.O. Concentration, mg/L", main="Dissolved Oxygen")
 ```
 
-<img src='/intro-curriculum/static/Visualize/multiple_plots_example-1.png'/>
+<img src='../static/Visualize/multiple_plots_example-1.png'/ alt='/One figure with 4 different boxplots'/>
 
 ``` r
 dev.off()

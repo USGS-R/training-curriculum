@@ -5,11 +5,10 @@ title: Crib Sheet
 menu:
   weight=2
 ---
-
-<table style="width:51%;">
+<table style="width:89%;">
 <colgroup>
-<col width="5%" />
-<col width="15%" />
+<col width="29%" />
+<col width="29%" />
 <col width="15%" />
 <col width="15%" />
 </colgroup>

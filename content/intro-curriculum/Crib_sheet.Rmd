@@ -5,12 +5,12 @@ slug: "Crib"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
@@ -18,13 +18,14 @@ opts_chunk$set(
   echo=TRUE,
   fig.path="static/Crib/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 set.seed(3)
 ```
 
 Function/operator	| Description	| Package (if not base R)	| Lesson Introduced
---- | ---------- | ---------- | ---------- 
+-------------------- | -------------------- | ---------- | ---------- 
 `# my comment `	| Comment	| 	| A
 `myfunction()`	| Function call	| 	| A
 `mydata[1,4]`	| Indexing [row, col]	| 	| A

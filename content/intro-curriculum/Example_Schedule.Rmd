@@ -5,20 +5,21 @@ slug: "Schedule"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Schedule/",
+  fig.path="static/Schedule/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 set.seed(3)
 ```

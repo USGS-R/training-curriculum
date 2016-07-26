@@ -1,12 +1,11 @@
 ---
 title: "Data"
-author: "Lindsay R. Carr"
 slug: "data"
 output: USGSmarkdowntemplates::hugo
 ---
 
-[IonBalance.csv](data/IonBalance.csv)
+[IonBalance.csv](../data/IonBalance.csv)
 
-[course_NWISdata.csv](data/course_NWISdata.csv)
+[course_NWISdata.csv](../data/course_NWISdata.csv)
 
-[course_NWISdata_cleaned.csv](data/course_NWISdata_cleaned.csv)
+[course_NWISdata_cleaned.csv](../data/course_NWISdata_cleaned.csv)

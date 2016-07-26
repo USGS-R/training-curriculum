@@ -58,20 +58,6 @@ pop_ttest
 #Filter so that there are only two Flow_Inst_cd groups
 #You might have to load dplyr
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 err_est_df <- filter(intro_df, Flow_Inst_cd %in% c("X", "E"))
 t.test(err_est_df$Flow_Inst ~ err_est_df$Flow_Inst_cd)
 ```
@@ -212,7 +198,7 @@ plot(intro_df$Flow_Inst, intro_df$pH_Inst)
 abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
 ```
 
-<img src='/intro-curriculum/static/Analyze/abline_examp_lm-1.png'/>
+<img src='../static/Analyze/abline_examp_lm-1.png'/ alt='/Scatter plot of pH versus flow with regression line'/>
 
 We can also just add a straight line defined by slope and intercept. We do this with `abline()`. This is useful if you have a known value that you want to compare to your data.
 
@@ -226,7 +212,7 @@ abline(v=15)
 abline(7, 0.5)
 ```
 
-<img src='/intro-curriculum/static/Analyze/abline_examp-1.png'/>
+<img src='../static/Analyze/abline_examp-1.png'/ alt='/Dissolved oxygen versus water temperature scatter plot with lines using abline'/>
 
 All of your standard modeling approaches (and then some) are available in R, including typical variable selection techniques (e.g. stepwise with AIC) and logistic regression, which is implemented with the rest of the generalized linear models in `glm()`. Interaction terms can be specified directly in the model, but we won't be covering them in this course.. Lastly, if you are interested in more involved or newer approaches these are likely implemented in additional packages, beyond base R and `stats`, which you can find on a repository such as [CRAN](https://cran.rstudio.com), [GRAN](http://owi.usgs.gov/R/gran.html), or [Bioconductor](https://www.bioconductor.org/packages/release/BiocViews.html#___Software). You can also check out task pages such as the [CRAN Environmetrics Task View](https://cran.r-project.org/web/views/Environmetrics.html) for more ideas.
 

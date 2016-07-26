@@ -543,12 +543,6 @@ Before moving on to merging, let's try cleaning up our `intro_df` data.frame. Fi
 ``` r
 pH_df <- select(intro_df, pH_Inst)
 pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
-```
-
-    ## Warning in eval(substitute(expr), envir, enclos): NAs introduced by
-    ## coercion
-
-``` r
 filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
 ```
 
@@ -578,12 +572,6 @@ Looks like the culprits are entries of `None` and blank spaces. These are both s
 
 ``` r
 intro_df <- mutate(intro_df, pH_Inst = as.numeric(pH_Inst))
-```
-
-    ## Warning in eval(substitute(expr), envir, enclos): NAs introduced by
-    ## coercion
-
-``` r
 summary(intro_df)
 ```
 
