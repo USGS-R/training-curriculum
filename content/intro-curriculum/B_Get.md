@@ -177,14 +177,14 @@ Remember that everything in R is an object. With regards to data, those objects 
 
 There are 6 basic atomic classes: character, numeric (real or decimal), integer, logical, complex, and raw.
 
-| Example         |       Type|
-|:----------------|----------:|
-| "a", "swc"      |  character|
-| 2, 15.5         |    numeric|
-| 2L              |    integer|
-| `TRUE`, `FALSE` |    logical|
-| 1+4i            |    complex|
-| 62 6f 62        |        raw|
+| Example         | Type      |
+|-----------------|-----------|
+| "a", "swc"      | character |
+| 2, 15.5         | numeric   |
+| 2L              | integer   |
+| `TRUE`, `FALSE` | logical   |
+| 1+4i            | complex   |
+| 62 6f 62        | raw       |
 
 In this workshop we will deal almost exclusively with three (and these are, in my experience, by far the most common): character, numeric, and logical.
 
