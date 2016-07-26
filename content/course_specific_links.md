@@ -1,6 +1,4 @@
 ---
-author: 
-date: 
 slug: course-specific
 title: Course Specific Links
 ---
