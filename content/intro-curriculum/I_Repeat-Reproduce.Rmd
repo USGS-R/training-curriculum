@@ -6,7 +6,7 @@ slug: "Reproduce"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -23,7 +23,7 @@ opts_chunk$set(
 )
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE}
+```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
@@ -55,7 +55,7 @@ function_name <- function(arguments) {
 
 So a real example with no arguments might look like:
 
-```{r function_create}
+```{r function_create, warning=FALSE, message=FALSE}
 say_hi <- function() {
   print("Hello, World!")
 }
@@ -66,7 +66,7 @@ Well that's nice...  Not really useful, but shows the main components, `function
 
 It would be a bit better if it were more flexible.  We can do that because we can specify our own arguments to use within the body of the function.  For example,
 
-```{r function2_create}
+```{r function2_create, warning=FALSE, message=FALSE}
 print_twice <- function(my_text) {
   print(my_text)
   print(my_text)
@@ -79,7 +79,7 @@ print_twice("Howdy, Texas")
 
 Functions are most useful when we want to repeat a general procedure with different specifics each time. Since we have been working most recently with creating plots, I could imagine us wanting to create a plot with a similar layout, but with different source data and then save that plot to a file, all with a single function call.  That might look like:
 
-```{r plot_function_examp}
+```{r plot_function_examp, warning=FALSE, message=FALSE}
 myplot <- function(x, y, grp, file) {
   my_dat <- data.frame(X=x, Y=y, Grp=grp)
   my_p <- ggplot(my_dat, aes(x=X, y=Y)) +
@@ -112,7 +112,7 @@ for(a_name in a_range) {
 
 And an example in a function.
 
-```{r for_examp}
+```{r for_examp, warning=FALSE, message=FALSE}
 sum_vec <- function(vec) {
   j <- 0
   for(i in vec) {
@@ -129,7 +129,7 @@ Again a bit of a silly example since all it is doing is looping through a list o
 
 Let's dig a bit more into this issue with another example.  This time, let's look at adding two vectors together.  We haven't touched on this yet, but R is really good at dealing with this kind of operation.  It is what people mean when they talk about "vectorized" operations.  For instance:
 
-```{r for_examp_print}
+```{r for_examp_print, warning=FALSE, message=FALSE}
 # A simple vectorize operation
 x <- 1:100
 y <- 100:1
@@ -139,7 +139,7 @@ z
 
 Pretty cool.  This kind of thing doesn't come easily with many languages.  You would need to program it yourself using a loop.  For the sake of argument (and practice), let's try the loop version with R.
 
-``` {r looping_vector_examp}
+``` {r looping_vector_examp, warning=FALSE, message=FALSE}
 #We will assume vectors of the same length...
 add_vecs <- function(vec1, vec2) {
   out<-NULL
@@ -153,7 +153,7 @@ add_vecs(x, y)
 
 So, these do the same thing, big deal.  It is big though when you look at the timing of the two.  Let's create two large vectors and see what happens.
 
-```{r for_vector_time}
+```{r for_vector_time, warning=FALSE, message=FALSE}
 large_vec1 <- as.numeric(1:100000)
 large_vec2 <- as.numeric(100000:1)
 #Different speed
@@ -165,7 +165,7 @@ loop_time
 
 Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping.  In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that.  That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up.  With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
 
-``` {r looping_vector_examp2}
+``` {r looping_vector_examp2, warning=FALSE, message=FALSE}
 #We will assume vectors of the same length...
 add_vecs2 <- function(vec1, vec2){
   out <- vector("numeric",length(vec1))
@@ -185,7 +185,7 @@ The last control structure we are going to talk about is `return()`.  All `retur
 
 First, `odd_even()`.
 
-```{r odd_even_return}
+```{r odd_even_return, warning=FALSE, message=FALSE}
 odd_even <- function(num) {
   if(num %% 2 == 0){
     return("EVEN")
@@ -197,7 +197,7 @@ odd_even <- function(num) {
 
 Now, `sum_vec()`.
 
-```{r sum_vec_return}
+```{r sum_vec_return, warning=FALSE, message=FALSE}
 sum_vec <- function(vec) {
   j <- 0
   for(i in vec) {

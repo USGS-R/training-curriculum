@@ -58,20 +58,6 @@ pop_ttest
 #Filter so that there are only two Flow_Inst_cd groups
 #You might have to load dplyr
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 err_est_df <- filter(intro_df, Flow_Inst_cd %in% c("X", "E"))
 t.test(err_est_df$Flow_Inst ~ err_est_df$Flow_Inst_cd)
 ```

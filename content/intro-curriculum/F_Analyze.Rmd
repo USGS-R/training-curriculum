@@ -6,7 +6,7 @@ slug: "AnalyzeII"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -38,7 +38,7 @@ The R Exploration and Graphics for RivEr Trends (EGRET) package was developed by
 
 The `EGRET` package expands and formalizes some of the flow and water quality analyses that we scratched the surface on in [E. Analyze - base](E_Analyze.html). The implementation in R is accessed through the `EGRET` package.  If you have not already, let's install this, load it up and start to look around.
 
-```{r rf_actual_install, echo=FALSE, include=FALSE, purl=FALSE}
+```{r rf_actual_install, echo=FALSE, include=FALSE, purl=FALSE, warning=FALSE, message=FALSE}
 if(!require("EGRET")){
   options(repos=c("https://cran.rstudio.com/","http://owi.usgs.gov/R"))
   install.packages("EGRET")
@@ -56,7 +56,7 @@ help(package="EGRET")
 #Flow history
 There are quite a few functions included with this package. First let's take a look at the flow history for a site in California with an observational record of more than 100 years:
 
-```{r flow_history_example}
+```{r flow_history_example, warning=FALSE, message=FALSE}
 # Merced River at Happy Isles Bridge, CA:
 siteNumber <- "11264500"
 Daily <- readNWISDaily(siteNumber, "00060", startDate="", endDate="")
@@ -74,13 +74,13 @@ The two plots produced here show us that although annual mean discharge does not
 
 Next, let's take a closer look at the distribution of discharge at this site: 
 
-```{r plotFourStats_example}
+```{r plotFourStats_example, warning=FALSE, message=FALSE}
 plotFourStats(eListMerced, qUnit=3)
 ```
 
 What do you notice about changes in maximum, minimum, median, and 7-day minimum?
 
-```{r Exercise1, echo=FALSE}
+```{r Exercise1, echo=FALSE, warning=FALSE, message=FALSE}
 ```
 ##Exercise 1
 Use the `plotFourStats` function to look at the spring, summer, and fall seasons. How do those trends compare to what you observed for winter? Hint: use the `setPA` function. Did you notice that the RStudio Plots tab lets you click back to previous plots?
@@ -90,7 +90,7 @@ Use the `plotFourStats` function to look at the spring, summer, and fall seasons
 
 Next, let's consider water quality without using WRTDS:
 
-```{r Choptank_noWRTDS}
+```{r Choptank_noWRTDS, warning=FALSE, message=FALSE}
 #Choptank River at Greensboro, MD:
 siteNumber <- "01491000"
 startDate <- "1979-10-01"
@@ -105,7 +105,7 @@ eList <- mergeReport(INFO, Daily, Sample)
 
 Now the analysis is done, but we still need to do some plotting. 
 
-```{r Choptank_noWRTDS_plotexample}
+```{r Choptank_noWRTDS_plotexample, warning=FALSE, message=FALSE}
 multiPlotDataOverview(eList, qUnit=1)
 ```
 

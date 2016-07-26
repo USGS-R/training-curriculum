@@ -43,7 +43,7 @@ siteNumber <- "11264500"
 Daily <- readNWISDaily(siteNumber, "00060", startDate="", endDate="")
 ```
 
-    ## There are 36862 data points, and 36862 days.
+    ## There are 36863 data points, and 36863 days.
 
 ``` r
 INFO <- readNWISInfo(siteNumber, "", interactive=FALSE)
@@ -136,7 +136,7 @@ Next, use 'EGRET' functions to take a look at how well WRTDS predicts inorganic 
 Learning a New Package
 ----------------------
 
-As of Jul 25, 2016, there were 8825 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
+As of Jul 26, 2016, there were 8831 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
 
 First, if a package has a vignette that is usually a good first place to start. To list the vignettes for a given package you can use the `vignette()` function. For instance:
 

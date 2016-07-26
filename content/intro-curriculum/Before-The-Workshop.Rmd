@@ -5,7 +5,7 @@ slug: "Before"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -80,7 +80,7 @@ version$version.string
 Ideally you should be running the latest stable release (3.3.X as of July 2016, where X can be any number), although 3.2.X is also ok. If you have an older version, please install the newest version using the instructions above.
 
 Here is what my R version looks like.
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 version$version.string
 ```
 

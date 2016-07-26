@@ -61,8 +61,6 @@ A side note on syntax. You will notice that we add new "things" to a ggplot obje
 qtemp_gg + geom_point()
 ```
 
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
 <img src='/intro-curriculum/static/ggplot2/points_examp-1.png'/>
 
 ``` r
@@ -72,8 +70,6 @@ qtemp_scatter <- qtemp_gg + geom_point()
 #Call it to create the plot
 qtemp_scatter
 ```
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/intro-curriculum/static/ggplot2/points_examp-2.png'/>
 
@@ -92,8 +88,6 @@ qtemp_scatter <- qtemp_scatter +
 qtemp_scatter
 ```
 
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
 <img src='/intro-curriculum/static/ggplot2/ion_labels-1.png'/>
 
 Now to add some colors, shapes, etc. to the point. Look at the `geom_point()` documentation for this. Notice that ggplot2 makes the correct legend for us without help!
@@ -104,18 +98,6 @@ qtemp_scatter <- qtemp_scatter +
 qtemp_scatter
 ```
 
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/ion_colors-1.png'/>
 
 Much easier than using base, but `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.). Lets add a loess line with 95% confidence intervals
@@ -123,20 +105,6 @@ Much easier than using base, but `ggplot2` really shines when you want to add st
 ``` r
 qtemp_scatter + geom_smooth()
 ```
-
-    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/intro-curriculum/static/ggplot2/ion_loess-1.png'/>
 
@@ -146,20 +114,6 @@ Or we could add a simple linear regression line with:
 qtemp_scatter + geom_smooth(method="lm")
 ```
 
-    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/ion_lm-1.png'/>
 
 And if we are interested in the regressions by group we could do it this way.
@@ -168,20 +122,6 @@ And if we are interested in the regressions by group we could do it this way.
 qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
 ```
 
-    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/ion_lm_groups-1.png'/>
 
 Or, if we wanted our regression lines to match the color.
@@ -189,20 +129,6 @@ Or, if we wanted our regression lines to match the color.
 ``` r
 qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_cd))
 ```
-
-    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/intro-curriculum/static/ggplot2/ion_lm_color-1.png'/>
 
@@ -220,8 +146,6 @@ A simple boxplot with groups looks like this:
 ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 ```
 
-    ## Warning: Removed 90 rows containing non-finite values (stat_boxplot).
-
 <img src='/intro-curriculum/static/ggplot2/gg_box_examp-1.png'/>
 
 ### Histograms
@@ -231,10 +155,6 @@ Histograms only need a single variable (x).
 ``` r
 ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 ```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-    ## Warning: Removed 120 rows containing non-finite values (stat_bin).
 
 <img src='/intro-curriculum/static/ggplot2/gg_hist_examp-1.png'/>
 
@@ -275,16 +195,6 @@ qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
 qtemp_scatter
 ```
 
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/themes_examp-1.png'/>
 
 Nothing new there. Let's now edit some of this theme by dropping the grey background and the grid, and changing our font.
@@ -298,16 +208,6 @@ qtemp_scatter_base <- qtemp_scatter +
 qtemp_scatter_base
 ```
 
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/themes_examp_custom-1.png'/>
 
 Still not great, but it shows the basics. You can build on this and edit EVERYTHING in the plot. To get an idea of what you have access to, take a look at the help on `theme()` (e.g. `help("theme")`).
@@ -318,31 +218,11 @@ There are a few alterantive themes available by default (use `help("ggtheme")`) 
 qtemp_scatter + theme_bw()
 ```
 
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
 <img src='/intro-curriculum/static/ggplot2/themes_examp_stock-1.png'/>
 
 ``` r
 qtemp_scatter + theme_classic()
 ```
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/intro-curriculum/static/ggplot2/themes_examp_stock-2.png'/>
 
@@ -360,18 +240,6 @@ qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) 
 
 qtemp_scatter_polished 
 ```
-
-    ## Warning: Removed 177 rows containing non-finite values (stat_smooth).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
-
-    ## Warning: Removed 1616 rows containing missing values (geom_point).
-
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values
-    ## because more than 6 becomes difficult to discriminate; you have
-    ## 12. Consider specifying shapes manually if you must have them.
 
 <img src='/intro-curriculum/static/ggplot2/themes_examp_polished-1.png'/>
 
@@ -418,8 +286,6 @@ qtemp <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
 qtemp
 ```
 
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
 <img src='/intro-curriculum/static/ggplot2/facet_grid_example-1.png'/>
 
 ``` r
@@ -429,8 +295,6 @@ qtemp
 qtemp + facet_grid(site_no ~ .)
 ```
 
-    ## Warning: Removed 177 rows containing missing values (geom_point).
-
 <img src='/intro-curriculum/static/ggplot2/facet_grid_example-2.png'/>
 
 ``` r
@@ -439,8 +303,6 @@ qtemp + facet_grid(site_no ~ .)
 #Flow_Inst_cd = column faceting
 qtemp + facet_grid(site_no ~ Flow_Inst_cd)
 ```
-
-    ## Warning: Removed 177 rows containing missing values (geom_point).
 
 <img src='/intro-curriculum/static/ggplot2/facet_grid_example-3.png'/>
 

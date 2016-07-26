@@ -6,7 +6,7 @@ slug: "Introduction"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, include=FALSE, warning=FALSE}
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -120,7 +120,7 @@ install.packages(c("dplyr", "ggplot2"))
 ###Loading packages
 One source of confusion that many have is when they cannot access functions from a package that they just installed. This is because getting to this point requires an extra step, loading (or attaching) the package. 
 
-```{r load_package}
+```{r load_package, warning=FALSE, message=FALSE}
 #Add libraries to your R Session
 library("dataRetrieval")
 library("EGRET")

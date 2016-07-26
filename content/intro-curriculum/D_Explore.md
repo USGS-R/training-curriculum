@@ -125,20 +125,6 @@ Not sure if this will apply to everyone, but I use scatterplots ALL the time. So
 ``` r
 #get a data frame with only the measured values
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
 plot(intro_df_data)
 ```

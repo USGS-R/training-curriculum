@@ -38,20 +38,6 @@ First, let's start with two sets of random data and plot them using different co
 ``` r
 #Create two data frames using dplyr (estimated & erroneous flows)
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 intro_df_est <- filter(intro_df, Flow_Inst_cd == "E")
 intro_df_est_QpH <- select(intro_df_est, Flow_Inst, DO_Inst)
 intro_df_err <-filter(intro_df, Flow_Inst_cd == "X") 
@@ -158,12 +144,6 @@ axis(side=4)
 ``` r
 #now log the x axis
 plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst,  pch=20, log='x')
-```
-
-    ## Warning in xy.coords(x, y, xlabel, ylabel, log): 137 x values <= 0 omitted
-    ## from logarithmic plot
-
-``` r
 #format the second y-axis to have tick marks at every concentration (not just every 5) & no labels
 axis(side=4, at=1:20, labels=FALSE)
 #add a second x-axis

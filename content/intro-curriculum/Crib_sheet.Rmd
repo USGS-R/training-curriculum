@@ -5,7 +5,7 @@ slug: "Crib"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -24,7 +24,7 @@ set.seed(3)
 ```
 
 Function/operator	| Description	| Package (if not base R)	| Lesson Introduced
---- | ---------- | ---------- | ---------- 
+-------------------- | -------------------- | ---------- | ---------- 
 `# my comment `	| Comment	| 	| A
 `myfunction()`	| Function call	| 	| A
 `mydata[1,4]`	| Indexing [row, col]	| 	| A
