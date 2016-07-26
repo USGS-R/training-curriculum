@@ -65,10 +65,10 @@ qtemp_gg + geom_point()
 
 ``` r
 #This too can be saved to an object
-qtemp_scatter <- qtemp_gg + geom_point()
+qtemp_scatter_bw <- qtemp_gg + geom_point()
 
 #Call it to create the plot
-qtemp_scatter
+qtemp_scatter_bw
 ```
 
 <img src='../static/ggplot2/points_examp-2.png'/ alt='/ggplot2 scatter plot rendered from object'/>
@@ -78,11 +78,11 @@ Not appreciably better than base, in my opinion. But what if we want to add some
 First a title and some axis labels. These are part of `labs()` (or can be assigned separately with `ggtitle()`, `xlab()`, and `ylab()`).
 
 ``` r
-qtemp_scatter <- qtemp_scatter +
+qtemp_scatter <- qtemp_gg +
   labs(title="Water temperature vs Flow",
        x="Discharge, cfs", y="Water temperature, deg C")
 # same thing, different commands
-qtemp_scatter <- qtemp_scatter +
+qtemp_scatter <- qtemp_gg +
   ggtitle("Water temperature vs Flow") +
   xlab("Discharge, cfs") + ylab("Water temperature, deg C")
 qtemp_scatter
