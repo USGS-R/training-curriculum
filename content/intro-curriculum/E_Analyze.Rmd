@@ -10,8 +10,8 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
@@ -19,7 +19,8 @@ opts_chunk$set(
   echo=TRUE,
   fig.path="intro-curriculum/static/Analyze/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 set.seed(5)
 ```
@@ -99,7 +100,7 @@ summary(lm_gwq2)
 
 We can also put a regression line on the plot:
 
-```{r abline_examp_lm, warning=FALSE, message=FALSE}
+```{r abline_examp_lm, warning=FALSE, message=FALSE, fig.cap="Scatter plot of pH versus flow with regression line"}
 plot(intro_df$Flow_Inst, intro_df$pH_Inst)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
@@ -108,7 +109,7 @@ abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
 
 We can also just add a straight line defined by slope and intercept.  We do this with `abline()`. This is useful if you have a known value that you want to compare to your data. 
 
-```{r abline_examp, warning=FALSE, message=FALSE}
+```{r abline_examp, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus water temperature scatter plot with lines using abline"}
 plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 #horizontal line at specified y value
 abline(h=11)

@@ -10,8 +10,8 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
@@ -19,7 +19,8 @@ opts_chunk$set(
   echo=TRUE,
   fig.path="intro-curriculum/static/Reproduce/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 ```
 
@@ -79,7 +80,7 @@ print_twice("Howdy, Texas")
 
 Functions are most useful when we want to repeat a general procedure with different specifics each time. Since we have been working most recently with creating plots, I could imagine us wanting to create a plot with a similar layout, but with different source data and then save that plot to a file, all with a single function call.  That might look like:
 
-```{r plot_function_examp, warning=FALSE, message=FALSE}
+```{r plot_function_examp, warning=FALSE, message=FALSE, fig.cap=c("ggplot2 scatter plot of pH versus flow", "ggplot2 scatter plot of dissolved oxygen versus flow")}
 myplot <- function(x, y, grp, file) {
   my_dat <- data.frame(X=x, Y=y, Grp=grp)
   my_p <- ggplot(my_dat, aes(x=X, y=Y)) +

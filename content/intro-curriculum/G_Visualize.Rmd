@@ -10,8 +10,8 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
@@ -19,7 +19,8 @@ opts_chunk$set(
   echo=TRUE,
   fig.path="intro-curriculum/static/Visualize/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 ```
 
@@ -51,7 +52,7 @@ First, let's start with two sets of random data and plot them using different co
 - `col` can be a character string or hexadecimal color (#RRGGBB)
 - you can use the function `colors()` to get a list of R colors
 
-```{r pch_col_examp, warning=FALSE, message=FALSE}
+```{r pch_col_examp, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus flow for estimated and erroneous flows"}
 #Create two data frames using dplyr (estimated & erroneous flows)
 library(dplyr)
 intro_df_est <- filter(intro_df, Flow_Inst_cd == "E")
@@ -72,7 +73,7 @@ Graphical parameters also apply to the overall graph. For instance, `las` is use
 - `tck` changes the tick length (negative is outside of the plot region)
 - `bg` can change the entire graphics device background color
 
-```{r par_example, warning=FALSE, message=FALSE}
+```{r par_example, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus erroneous flows with green background"}
 #save par arguments before changing them
 default_par <- par()
 
@@ -87,7 +88,7 @@ Make sure to reset par if you want to go back to the original plot style. You ca
 
 Legends are an obvious necessity for publishing plots built in R. Adding legends is a straightforward process: use the `legend()` function and include vectors of the legend names (`legend`), colors, point/line types, and also the location of the legend (`x`). Including a title is optional. Additional arguments used to customize legends can be found in the help file (`?legend`). Below, is a simple example: 
 
-```{r legend_example, warning=FALSE, message=FALSE}
+```{r legend_example, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus flow for estimated and erroneous flows with legend"}
 #use the same plot and add a legend to illustrate color and point type
 plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034')
 points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
@@ -101,7 +102,7 @@ legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
 
 R base plotting offers features other than points and lines, such as symbols, rectangles, polygons, and curves.
 
-```{r add_features_example, warning=FALSE, message=FALSE}
+```{r add_features_example, warning=FALSE, message=FALSE, fig.cap=c("x squared curve", "sine curve", "plot with a line, rectangle, and triangle")}
 #plot formulas using curve()
 curve(x^2, from=0, to=10)
 curve(sin(x), from=-pi, to=pi)
@@ -132,7 +133,7 @@ P_site2 <- readNWISqw("01656725", parameterCd = "00665")
 
 You can also customize your plot axes using the `axis()` function and specifying which axis by using the `side=` argument. Add ticks at specific values, and add second x and y axes (side=3 or side=4). To make a log-scale axis, use the argument `log=` and specify the x or y axis.   
 
-```{r axis_example, warning=FALSE, message=FALSE}
+```{r axis_example, warning=FALSE, message=FALSE, fig.cap=c("Water temperature versus flow with a second y-axis", "Water temperature versus flow with logged x axis and second y and x axes")}
 plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, pch=20)
 #add a second y-axis
 axis(side=4)
@@ -152,7 +153,7 @@ It is often useful to have multiple plots shown in one image. There are a few wa
 
 To use layout, you must first create a matrix specifying the location of each plot. For instance, if you want plot 1 above the second plot, you would set up this matrix: `matrix(c(1,2), 2, 1)`. If you wanted a gap in between your two plots, you could say "0", meaning no plot will be in that location: `matrix(c(1,0,2), 3, 1)`. Then you simply use the function `layout()` with your matrix as the function argument. When you are done plotting with `layout`, make sure to use `dev.off()` in order to reset the plotting region. Otherwise, any subsequent plots will use your defined layout.
 
-```{r multiple_plots_example, warning=FALSE, message=FALSE}
+```{r multiple_plots_example, warning=FALSE, message=FALSE, fig.cap="One figure with 4 different boxplots"}
 layout_matrix <- matrix(c(1:4), nrow=2, ncol=2, byrow=TRUE)
 layout(layout_matrix)
 

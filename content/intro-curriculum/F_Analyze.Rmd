@@ -10,8 +10,8 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext)
+  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
@@ -19,7 +19,8 @@ opts_chunk$set(
   echo=TRUE,
   fig.path="intro-curriculum/static/AnalyzeII/",
   fig.width = 6,
-  fig.height = 6
+  fig.height = 6,
+  fig.cap = "TODO"
 )
 ```
 
@@ -56,7 +57,7 @@ help(package="EGRET")
 #Flow history
 There are quite a few functions included with this package. First let's take a look at the flow history for a site in California with an observational record of more than 100 years:
 
-```{r flow_history_example, warning=FALSE, message=FALSE}
+```{r flow_history_example, warning=FALSE, message=FALSE, fig.cap=c("Flow trend by water year for Merced River", "Flow trend by season - December, January, February - for Merced River")}
 # Merced River at Happy Isles Bridge, CA:
 siteNumber <- "11264500"
 Daily <- readNWISDaily(siteNumber, "00060", startDate="", endDate="")
@@ -74,7 +75,7 @@ The two plots produced here show us that although annual mean discharge does not
 
 Next, let's take a closer look at the distribution of discharge at this site: 
 
-```{r plotFourStats_example, warning=FALSE, message=FALSE}
+```{r plotFourStats_example, warning=FALSE, message=FALSE, fig.cap="Four flow trends in Merced River for Dec, Jan, and Feb using maximum, mean, median, and 7-day minimum daily flows"}
 plotFourStats(eListMerced, qUnit=3)
 ```
 
@@ -105,7 +106,7 @@ eList <- mergeReport(INFO, Daily, Sample)
 
 Now the analysis is done, but we still need to do some plotting. 
 
-```{r Choptank_noWRTDS_plotexample, warning=FALSE, message=FALSE}
+```{r Choptank_noWRTDS_plotexample, warning=FALSE, message=FALSE, fig.cap="Four summary plots for inorganic nitrogen in Choptank River: nitrogen vs discharge, nitrogen timeseries, nitrogen boxplots by month, discharge boxplots of sampled vs all data"}
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
