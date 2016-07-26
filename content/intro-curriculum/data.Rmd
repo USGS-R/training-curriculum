@@ -1,9 +1,11 @@
 ---
 title: "Data"
-date: "2016-07-22"
+author: "Lindsay R. Carr"
 slug: "data"
 output: USGSmarkdowntemplates::hugo
 ---
+
+[IonBalance.csv](data/IonBalance.csv)
 
 [course_NWISdata.csv](data/course_NWISdata.csv)
 

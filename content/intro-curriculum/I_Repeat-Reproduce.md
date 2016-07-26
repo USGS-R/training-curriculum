@@ -5,13 +5,12 @@ slug: Reproduce
 draft: True
 title: I. Repeat and Reproduce
 menu:
+  weight=1
 image: img/main/intro-icons-300px/repeat.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
-
 You now have a basic understanding of how to conduct a typical data analysis workflow in R. All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports. This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version using this filepath `data/course_NWISdata_cleaned.csv`, and `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -107,7 +106,7 @@ myplot(intro_df$Flow_Inst, intro_df$pH_Inst,
 
     ## Warning: Removed 207 rows containing missing values (geom_point).
 
-<img src='/static/Reproduce/plot_function_examp-1.png'/>
+<img src='/intro-curriculum/static/Reproduce/plot_function_examp-1.png'/>
 
 ``` r
 myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
@@ -124,7 +123,7 @@ myplot(intro_df$Flow_Inst, intro_df$DO_Inst,
 
     ## Warning: Removed 178 rows containing missing values (geom_point).
 
-<img src='/static/Reproduce/plot_function_examp-2.png'/>
+<img src='/intro-curriculum/static/Reproduce/plot_function_examp-2.png'/>
 
 Cool, a function, that does something useful. It still is just a collection of functions at this point though. What if we wanted to repeat something? Well we need to look more at some of the classic programming structures in R. For this introduction, I am going to look just at `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but the concept is useful), and `return()`.
 
@@ -228,7 +227,7 @@ loop_time
 ```
 
     ##    user  system elapsed 
-    ##   21.22    0.15   21.43
+    ##   21.25    0.05   21.42
 
 Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping. In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that. That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up. With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
 
@@ -246,7 +245,7 @@ system.time(add_vecs2(large_vec1,large_vec2))
 ```
 
     ##    user  system elapsed 
-    ##    0.17    0.00    0.17
+    ##    0.14    0.00    0.14
 
 Now that's better. In short, if an obvious vector or primitive solution exists, use that. If those aren't clear and you need to use a loop, don't be afraid to use one. There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand. Personally, I think it is possible to go too far down the vectorized path. Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
 

@@ -1,13 +1,11 @@
 ---
 author: Lindsay R. Carr
-date: 2016-07-21
 slug: Additional
 draft: True
 title: Additional Topics in R
 menu:
+  weight=2
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
-
 Spatial Analyses
 ----------------
 

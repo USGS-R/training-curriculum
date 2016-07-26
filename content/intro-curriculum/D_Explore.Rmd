@@ -6,7 +6,7 @@ slug: "Explore"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -17,7 +17,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/Explore/",
+  fig.path="intro-curriculum/static/Explore/",
   fig.width = 6,
   fig.height = 6
 )
@@ -30,7 +30,7 @@ intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALS
 
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups.  That being said, I will try my best, but there will be overlap.  For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/Data/), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 ##Quick Links to Exercises and R code
 - [Exercise 1](#exercise-1): Exploring data with basic summary statistics

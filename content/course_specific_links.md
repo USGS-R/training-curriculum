@@ -1,6 +1,6 @@
 ---
 author: 
-date: 2016-07-22
+date: 
 slug: 
 draft: true
 title: Course Specific Links

@@ -1,11 +1,13 @@
 ---
-author: 
-date: 2016-07-22
+author: Lindsay R. Carr
 slug: data
-draft: true
+draft: True
 title: Data
 menu:
+  weight=2
 ---
+
+[IonBalance.csv](data/IonBalance.csv)
 
 [course\_NWISdata.csv](data/course_NWISdata.csv)
 

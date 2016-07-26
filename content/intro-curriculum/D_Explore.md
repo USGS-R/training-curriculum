@@ -2,16 +2,15 @@
 author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-07
 slug: Explore
-draft: True
+draft: TRUE
 title: D. Explore
 menu:
+  weight=1
 image: img/main/intro-icons-300px/explore.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
-
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](http://dev-owi.usgs.gov-website.s3-website-us-west-2.amazonaws.com/R/intro-curriculum/Data/), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -110,7 +109,7 @@ The workhorse function for plotting data in R is `plot()`. With this one command
 plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 ```
 
-<img src='/static/Explore/plot_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/plot_examp-1.png'/>
 
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
@@ -120,7 +119,7 @@ plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
      xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
 
-<img src='/static/Explore/plot_examp_2-1.png'/>
+<img src='/intro-curriculum/static/Explore/plot_examp_2-1.png'/>
 
 Not sure if this will apply to everyone, but I use scatterplots ALL the time. So, for me I could almost (not really) stop here. But lets move on. Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
 
@@ -145,7 +144,7 @@ intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
 plot(intro_df_data)
 ```
 
-<img src='/static/Explore/pairs_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/pairs_examp-1.png'/>
 
 Let's look at boxplots, histograms, and cumulative distribution functions.
 
@@ -155,7 +154,7 @@ Two great ways to use boxplots are straight up and then by groups in a factor. F
 boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
-<img src='/static/Explore/boxplot_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/boxplot_examp-1.png'/>
 
 As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`. The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable\[s\] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
@@ -164,7 +163,7 @@ boxplot(intro_df$DO_Inst ~ intro_df$site_no,
         main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
-<img src='/static/Explore/boxplot_grps_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/boxplot_grps_examp-1.png'/>
 
 Lastly, let's look at two other ways to plot our distributions. First, histograms.
 
@@ -172,13 +171,13 @@ Lastly, let's look at two other ways to plot our distributions. First, histogram
 hist(intro_df$pH_Inst)
 ```
 
-<img src='/static/Explore/base_hist_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/base_hist_examp-1.png'/>
 
 ``` r
 hist(intro_df$pH_Inst, breaks=4)
 ```
 
-<img src='/static/Explore/base_hist_examp-2.png'/>
+<img src='/intro-curriculum/static/Explore/base_hist_examp-2.png'/>
 
 And finally, cumulative distribution functions. Since CDF's are actually a function of the distribution we need to get that function first. This requires that we combine `plot()` and `ecdf()`, the emprical CDF function.
 
@@ -187,7 +186,7 @@ wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
 plot(wtemp_ecdf)
 ```
 
-<img src='/static/Explore/cdf_examp-1.png'/>
+<img src='/intro-curriculum/static/Explore/cdf_examp-1.png'/>
 
 Exercise 2
 ----------

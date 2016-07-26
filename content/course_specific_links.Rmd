@@ -1,6 +1,5 @@
 ---
 title: "Course Specific Links"
-date: "2016-07-22"
 output: USGSmarkdowntemplates::hugo
 ---
 

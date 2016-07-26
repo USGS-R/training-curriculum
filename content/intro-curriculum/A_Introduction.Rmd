@@ -6,7 +6,7 @@ slug: "Introduction"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -17,7 +17,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/Introduction/",
+  fig.path="intro-curriculum/static/Introduction/",
   fig.width = 6,
   fig.height = 6
 )

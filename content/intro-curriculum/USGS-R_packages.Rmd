@@ -1,12 +1,11 @@
 ---
 title: "USGS-R Packages"
 author: "Lindsay R. Carr"
-date: "2016-07-21"
 slug: "USGS"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -17,7 +16,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/USGS/",
+  fig.path="intro-curriculum/static/USGS/",
   fig.width = 6,
   fig.height = 6
 )

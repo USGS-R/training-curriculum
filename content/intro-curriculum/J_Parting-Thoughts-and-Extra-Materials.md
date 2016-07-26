@@ -5,12 +5,9 @@ slug: Parting-Thoughts
 draft: True
 title: J. Parting Thoughts
 menu:
+  weight=1
 image: img/main/intro-icons-300px/r-logo.png
 ---
-    ## Warning: package 'knitr' was built under R version 3.2.5
-
-Parting Thoughts
-----------------
 
 It is impossible to become proficient at anything over the course of 2.5 days, and R certainly is not an exception to this. What I do hope this workshop and/or website has provided is a starting point. The only way to get better with R is to keep using it. The best way I know of to do this is to keep reading, taking workshops, and trying to solve problems with R. A diversity of approaches is not only a good idea but with something as broad as R I think it is required. And you will always pick up new tricks.
 

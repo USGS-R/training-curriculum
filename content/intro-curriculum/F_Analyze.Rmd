@@ -6,7 +6,7 @@ slug: "AnalyzeII"
 output: USGSmarkdowntemplates::hugo
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -17,7 +17,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/AnalyzeII/",
+  fig.path="intro-curriculum/static/AnalyzeII/",
   fig.width = 6,
   fig.height = 6
 )
