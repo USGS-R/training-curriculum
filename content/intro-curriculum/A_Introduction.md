@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister & Luke Winslow
 date: 2016-07-10
 slug: Introduction
-draft: True
 title: A. Introduction to R
 menu: 
   weight=1

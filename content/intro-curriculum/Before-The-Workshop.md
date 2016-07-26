@@ -1,7 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
 slug: Before
-draft: True
 title: Before The Workshop
 menu:
   weight=2

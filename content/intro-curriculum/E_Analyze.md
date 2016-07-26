@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-06
 slug: Analyze
-draft: True
 title: E. Analyze
 menu:
   weight=1

@@ -2,7 +2,6 @@
 author: Lindsay R. Carr
 date: 2016-07-04
 slug: Visualize
-draft: True
 title: G. Visualize - Plotting with base R
 menu:
   weight=1

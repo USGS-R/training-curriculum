@@ -1,8 +1,7 @@
 ---
 author: 
 date: 
-slug: 
-draft: true
+slug: course-specific
 title: Course Specific Links
 ---
 Southwest Florida Water Management District

@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister
 date: 2016-07-03
 slug: ggplot2
-draft: True
 title: H. Visualize - Plotting with ggplot2
 menu:
   weight=1

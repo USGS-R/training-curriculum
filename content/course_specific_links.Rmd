@@ -1,5 +1,6 @@
 ---
 title: "Course Specific Links"
+slug: "course-specific"
 output: USGSmarkdowntemplates::hugo
 ---
 

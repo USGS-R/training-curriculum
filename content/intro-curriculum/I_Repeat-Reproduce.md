@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister
 date: 2016-07-02
 slug: Reproduce
-draft: True
 title: I. Repeat and Reproduce
 menu:
   weight=1

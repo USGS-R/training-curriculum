@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister & Luke Winslow
 date: 2016-07-08
 slug: Clean
-draft: True
 title: C. Clean
 menu:
   weight=1

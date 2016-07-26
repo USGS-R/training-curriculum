@@ -1,7 +1,6 @@
 ---
 author: Lindsay R. Carr
 slug: Schedule
-draft: TRUE
 title: Example Schedule
 menu:
   weight=2
