@@ -1,7 +1,6 @@
 ---
 author: Lindsay R. Carr
 slug: Crib
-draft: True
 title: Crib Sheet
 menu:
   weight=2

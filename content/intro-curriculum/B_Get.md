@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister & Luke Winslow
 date: 2016-07-09
 slug: Get
-draft: True
 title: B. Get
 menu: 
   weight=1

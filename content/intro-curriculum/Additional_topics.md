@@ -1,7 +1,6 @@
 ---
 author: Lindsay R. Carr
 slug: Additional
-draft: True
 title: Additional Topics in R
 menu:
   weight=2

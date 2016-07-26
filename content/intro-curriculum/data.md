@@ -1,7 +1,6 @@
 ---
 author: Lindsay R. Carr
 slug: data
-draft: True
 title: Data
 menu:
   weight=2

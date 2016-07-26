@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister
 date: 2016-07-01
 slug: Parting-Thoughts
-draft: True
 title: J. Parting Thoughts
 menu:
   weight=1

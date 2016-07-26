@@ -1,7 +1,6 @@
 ---
 author: Lindsay R. Carr
 slug: USGS
-draft: True
 title: USGS-R Packages
 menu:
   weight=2

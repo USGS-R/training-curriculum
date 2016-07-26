@@ -2,7 +2,6 @@
 author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-05
 slug: AnalyzeII
-draft: True
 title: F. Analyze with packages
 menu:
   weight=1
