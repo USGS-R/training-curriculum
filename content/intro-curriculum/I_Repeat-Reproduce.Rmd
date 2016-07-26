@@ -10,14 +10,14 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
           options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Reproduce/",
+  fig.path="static/Reproduce/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"
@@ -316,11 +316,11 @@ By itself Markdown is pretty cool, but doesn't really provide any value added to
 
 In short, these three tools allow us to write up documents, embed code via "code chunks", run that code and render the final document with nicely formatted text, results, figures, etc. into a final format of our choosing.  We can create `.html`, `.docx`, `.pdf`, ...  The benefit of doing this is that all of our data and code are a part of the document.  I share my source document, then anyone can reproduce all of our calculations.  For instance, I can make a manuscript that looks like this:
 
-[![Rendered Manuscript](figure/rendered.jpg)](figure/manuscript.pdf)
+[![Rendered Manuscript](../static/img/rendered.jpg)](figure/manuscript.pdf)
 
 from a source markdown document that looks like:
 
-[![Raw RMarkdown](figure/source.jpg)](figure/manuscript.Rmd)
+[![Raw RMarkdown](../static/img/source.jpg)](figure/manuscript.Rmd)
 
 While we can't get to this level of detail with just the stock RStudio tools, we can still do some pretty cool stuff.  We are not going to do an exercise on this one, but we will walk through an example to create a simple reproducible research document and a presentation using the RStudio interface.
 
@@ -359,7 +359,7 @@ Now, let's get started and actually create a reproducible document
 ###Create a Document
 To create your document, go to File: New File : R Markdown.  You should get a window that looks something like:
 
-![New RMarkdown](figure/newrmarkdown.jpg)
+![New RMarkdown](../static/img/newrmarkdown.jpg)
 
 Add title and author, select "HTML" as the output and click "OK".  RStudio will open a new tab in the editor and in it will be your new document, with some very useful examples.
 
@@ -376,7 +376,7 @@ This is the YAML(YAML Ain't Markup Language) header or front-matter.  It is meta
 
 If you look near the top of the editor window you will see:
 
-![knit it](figure/knit.jpg)
+![knit it](../static/img/knit.jpg)
 
 Click this and behold the magic! It should be easy to see how this could be used to write the text describing an analysis, embed the analysis and figure creation directly in the document, and render a final document.  You share the source and rendered document and anyone has access to your full record of that research!
 

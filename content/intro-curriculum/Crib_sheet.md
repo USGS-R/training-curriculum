@@ -1,6 +1,5 @@
 ---
 author: Lindsay R. Carr
-date: 
 slug: Crib
 title: Crib Sheet
 menu:

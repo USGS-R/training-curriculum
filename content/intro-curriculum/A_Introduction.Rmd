@@ -10,14 +10,14 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
           options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Introduction/",
+  fig.path="static/Introduction/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"
@@ -155,11 +155,11 @@ ls("package:stats") #Lists all functions in the stats package (which is always l
 
 One nice way to explore the features of a package is to see a list of all the functions. In the lower right-hand corner, there is a "Packages" tab. From this tab, if you click on the name of a package, you will get a list of all the documentation for that package. 
 
-![Package List](figure/rstudio_packages.png)
+![Package List](../static/img/rstudio_packages.png)
 
 This is very helpful if you've forgotten the name of a function or just want to see a quick overview of everything a package has to offer. 
 
-![Package List](figure/rstudio_dataRetrieval.png)
+![Package List](../static/img/rstudio_dataRetrieval.png)
 
 
 ###Official R Resources
@@ -193,7 +193,6 @@ There are too many resources to mention and everyone has their favorites.  Below
 For this second exercise we are going to get used to using some basic functions, working with scripts and not just the console, and look through some task views and get used to basic navigation around packages.  Use the green stickies when you have completed, and red stickies if you are running into problems.
 
 1. If it is not already open, open the "lessonA.R" file you created in Exercise 1. Enter your commands into this script. As you go, place your cursor on a line and run that line by pressing Ctrl+Enter (or Cmd+Enter on Macs) or clicking the Run button at the top right of the editor window.
-![Run Button](figure/rstudio_runbutton.png)
 2. Use the `print` function to print something to the screen.
 3. Combine `mean` and `rnorm` to return the mean value of a set of random numbers.
 4. Open up a [task view](http://cran.r-project.org/web/views/) of your choosing.  Select a package and install it. 

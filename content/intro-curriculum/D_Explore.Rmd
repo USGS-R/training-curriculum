@@ -4,20 +4,23 @@ author: "Jeffrey W. Hollister & Emily Read"
 date: "2016-07-07"
 slug: "Explore"
 output: USGSmarkdowntemplates::hugo
+menu:
+  weight=1
+image: "img/main/intro-icons-300px/explore.png"
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='/%s%s-%d.%s'/ alt='/%s'/>", 
+  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
           options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="intro-curriculum/static/Explore/",
+  fig.path="static/Explore/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"

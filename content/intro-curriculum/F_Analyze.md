@@ -52,7 +52,7 @@ eListMerced <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eListMerced, istat=5)
 ```
 
-<img src='/intro-curriculum/static/AnalyzeII/flow_history_example-1.png'/ alt='/Flow trend by water year for Merced River'/>
+<img src='../static/AnalyzeII/flow_history_example-1.png'/ alt='/Flow trend by water year for Merced River'/>
 
 ``` r
 # Then run the same function after setting the Period of Analysis to December
@@ -61,7 +61,7 @@ eListMerced <- setPA(eListMerced, paStart=12, paLong=3)
 plotFlowSingle(eListMerced, istat=5, qMax=200)
 ```
 
-<img src='/intro-curriculum/static/AnalyzeII/flow_history_example-2.png'/ alt='/Flow trend by season - December, January, February - for Merced River'/>
+<img src='../static/AnalyzeII/flow_history_example-2.png'/ alt='/Flow trend by season - December, January, February - for Merced River'/>
 
 The two plots produced here show us that although annual mean discharge does not have a strong trend at this location over the past century, discharge during the winter season appears to be increasing. This may be related to changing patterns in the fraction of precipitation that falls in this region as snow versus rain.
 
@@ -71,7 +71,7 @@ Next, let's take a closer look at the distribution of discharge at this site:
 plotFourStats(eListMerced, qUnit=3)
 ```
 
-<img src='/intro-curriculum/static/AnalyzeII/plotFourStats_example-1.png'/ alt='/Four flow trends in Merced River for Dec, Jan, and Feb using maximum, mean, median, and 7-day minimum daily flows'/>
+<img src='../static/AnalyzeII/plotFourStats_example-1.png'/ alt='/Four flow trends in Merced River for Dec, Jan, and Feb using maximum, mean, median, and 7-day minimum daily flows'/>
 
 What do you notice about changes in maximum, minimum, median, and 7-day minimum?
 
@@ -118,7 +118,7 @@ Now the analysis is done, but we still need to do some plotting.
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
-<img src='/intro-curriculum/static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/ alt='/Four summary plots for inorganic nitrogen in Choptank River: nitrogen vs discharge, nitrogen timeseries, nitrogen boxplots by month, discharge boxplots of sampled vs all data'/>
+<img src='../static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/ alt='/Four summary plots for inorganic nitrogen in Choptank River: nitrogen vs discharge, nitrogen timeseries, nitrogen boxplots by month, discharge boxplots of sampled vs all data'/>
 
 This four panel plot shows the relationship between discharge, concentration of inorganic N, and season. Upon examination of the lower left hand plot, you may notice seasonal changes in the distribution of inorganic N observed. Next, let's use WRTDS to look further into seasonal changes.
 

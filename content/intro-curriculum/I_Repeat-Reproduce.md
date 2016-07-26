@@ -95,14 +95,14 @@ myplot(intro_df$Flow_Inst, intro_df$pH_Inst,
        intro_df$Flow_Inst_cd, "q_pH.jpg")
 ```
 
-<img src='/intro-curriculum/static/Reproduce/plot_function_examp-1.png'/ alt='/ggplot2 scatter plot of pH versus flow'/>
+<img src='../static/Reproduce/plot_function_examp-1.png'/ alt='/ggplot2 scatter plot of pH versus flow'/>
 
 ``` r
 myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
        intro_df$Flow_Inst_cd, "q_do.jpg")
 ```
 
-<img src='/intro-curriculum/static/Reproduce/plot_function_examp-2.png'/ alt='/ggplot2 scatter plot of dissolved oxygen versus flow'/>
+<img src='../static/Reproduce/plot_function_examp-2.png'/ alt='/ggplot2 scatter plot of dissolved oxygen versus flow'/>
 
 Cool, a function, that does something useful. It still is just a collection of functions at this point though. What if we wanted to repeat something? Well we need to look more at some of the classic programming structures in R. For this introduction, I am going to look just at `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but the concept is useful), and `return()`.
 
@@ -206,7 +206,7 @@ loop_time
 ```
 
     ##    user  system elapsed 
-    ##   21.13    0.28   21.46
+    ##   21.82    0.25   22.37
 
 Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping. In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that. That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up. With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
 
@@ -224,7 +224,7 @@ system.time(add_vecs2(large_vec1,large_vec2))
 ```
 
     ##    user  system elapsed 
-    ##    0.17    0.00    0.17
+    ##    0.16    0.00    0.16
 
 Now that's better. In short, if an obvious vector or primitive solution exists, use that. If those aren't clear and you need to use a loop, don't be afraid to use one. There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand. Personally, I think it is possible to go too far down the vectorized path. Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
 
@@ -357,11 +357,11 @@ By itself Markdown is pretty cool, but doesn't really provide any value added to
 
 In short, these three tools allow us to write up documents, embed code via "code chunks", run that code and render the final document with nicely formatted text, results, figures, etc. into a final format of our choosing. We can create `.html`, `.docx`, `.pdf`, ... The benefit of doing this is that all of our data and code are a part of the document. I share my source document, then anyone can reproduce all of our calculations. For instance, I can make a manuscript that looks like this:
 
-[![Rendered Manuscript](figure/rendered.jpg)](figure/manuscript.pdf)
+[![Rendered Manuscript](../static/img/rendered.jpg)](figure/manuscript.pdf)
 
 from a source markdown document that looks like:
 
-[![Raw RMarkdown](figure/source.jpg)](figure/manuscript.Rmd)
+[![Raw RMarkdown](../static/img/source.jpg)](figure/manuscript.Rmd)
 
 While we can't get to this level of detail with just the stock RStudio tools, we can still do some pretty cool stuff. We are not going to do an exercise on this one, but we will walk through an example to create a simple reproducible research document and a presentation using the RStudio interface.
 
@@ -404,7 +404,7 @@ Now, let's get started and actually create a reproducible document
 
 To create your document, go to File: New File : R Markdown. You should get a window that looks something like:
 
-![New RMarkdown](figure/newrmarkdown.jpg)
+![New RMarkdown](../static/img/newrmarkdown.jpg)
 
 Add title and author, select "HTML" as the output and click "OK". RStudio will open a new tab in the editor and in it will be your new document, with some very useful examples.
 
@@ -421,7 +421,7 @@ This is the YAML(YAML Ain't Markup Language) header or front-matter. It is metad
 
 If you look near the top of the editor window you will see:
 
-![knit it](figure/knit.jpg)
+![knit it](../static/img/knit.jpg)
 
 Click this and behold the magic! It should be easy to see how this could be used to write the text describing an analysis, embed the analysis and figure creation directly in the document, and render a final document. You share the source and rendered document and anyone has access to your full record of that research!
 
