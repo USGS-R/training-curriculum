@@ -1,7 +1,7 @@
 ---
 author: 
 date: 
-slug: 
+slug: course-specific
 draft: true
 title: Course Specific Links
 ---
