@@ -1,5 +1,4 @@
 ---
-author: Lindsay R. Carr
 slug: data
 title: Data
 menu:
