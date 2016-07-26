@@ -2,7 +2,7 @@
 author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-07
 slug: Explore
-draft: TRUE
+draft: True
 title: D. Explore
 menu:
   weight=1
