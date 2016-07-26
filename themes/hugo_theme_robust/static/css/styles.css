@@ -22,6 +22,25 @@
    margin:-12px 5px 0 0;
  }
  
+ .hljs{
+  background:#f7f7f7 !important;
+  color:#000;
+  font-size:1.2em;
+  line-height:1.5em;
+}
+
+.hljs-string{
+  color:#183691;
+}
+
+.hljs-variable{
+  color:#a71d61;
+}
+
+.hljs-built_in{
+  color:#ed6a43;
+}
+ 
  
  @media screen and (min-width:768px){
    .sideBySide{
