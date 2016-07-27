@@ -54,7 +54,8 @@
 
 p,
 h2,
-h4{
+h4,
+li{
   word-break: keep-all;
 }
 
@@ -519,7 +520,7 @@ section>div {
 
 /* Parts:article */
 article {
-  word-break: break-all;
+  word-break: keep-all;
   position:relative;
 }
 
