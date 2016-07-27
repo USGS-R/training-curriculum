@@ -5,7 +5,7 @@ preserveTaxonomyNames = true
 paginate = 100
 canonifyurls = true
 [[menu.main]]
-  name = "Home"
+  name = "Home: R Training Curriculum"
   url = "/"
   weight = -1
 [[menu.main]]
