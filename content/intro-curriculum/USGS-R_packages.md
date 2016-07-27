@@ -5,7 +5,7 @@ title: USGS-R Packages
 menu: 
   main:
     parent: Introduction to R Course
-    weight: 1
+    weight: 2
 ---
 ### Find USGS-R package information
 
