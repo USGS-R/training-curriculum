@@ -10,7 +10,7 @@
           {{ range . }}
           <li>
             {{ if .HasChildren }}
-            <a href="#">{{ .Pre }} {{ .Name }}</a>
+            <a href="{{ .URL }}">{{ .Pre }} {{ .Name }}</a>
             <ul>
               {{ range .Children }}
               <li><a href="{{ .URL }}">{{ .Name }}</a></li>
