@@ -585,7 +585,7 @@ article>a {
 }
 
 .blogTeaser{
-  margin-top:20px;
+  margin-top:25px;
 }
 
 article .image {
@@ -630,7 +630,7 @@ article.li .title {
 article.grid {
   margin-bottom: 2rem;
   background-color: #fff;
-  height: 320px;
+  height: 340px;
   max-height: 24rem;
   overflow: hidden;
   border:1px solid #bebebe;
