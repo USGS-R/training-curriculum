@@ -9,11 +9,10 @@ canonifyurls = true
   url = "/"
   weight = -1
 [[menu.main]]
-  name = "Course Specific Materials"
-  url = "/course-specific-links/"
-  weight = 1
-[[menu.main]]
   name = "Introduction to R Course"
   url = "/intro-curriculum/"
   weight = 1
-
+[[menu.main]]
+  name = "Course Specific Material"
+  url = "/course-specific-material/"
+  weight = 1
