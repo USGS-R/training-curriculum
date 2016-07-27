@@ -6,6 +6,10 @@ paginate = 100
 canonifyurls = true
 [[menu.main]]
   name = "Home"
-  identifier = "post"
   url = "/"
   weight = -1
+[[menu.main]]
+  name = "Course Specific Materials"
+  url = "/course-specific-links/"
+  weight = 1
+
