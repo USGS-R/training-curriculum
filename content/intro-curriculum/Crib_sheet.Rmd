@@ -25,12 +25,11 @@ set.seed(3)
 ```
 
 Function/operator	| Description	| Package (if not base R)	| Lesson Introduced
--------------------- | -------------------- | ---------- | ---------- 
+----------------- | ----------------- | ----------------- | -----------------
 `# my comment `	| Comment	| 	| A
 `myfunction()`	| Function call	| 	| A
 `mydata[1,4]`	| Indexing [row, col]	| 	| A
 `{ my...code }`	| Code block (function definitions, etc.)	| 	| A
-`options(repos=c("https://cran.rstudio.com/","http://owi.usgs.gov/R"))`	| Include GRAN as a source of packages	| 	| A
 `install.packages`	| Install a package (like installing a software program)	| 	| A
 `library`	| Load a package (like opening a program)	| 	| A
 `mylib::myfun()`	| Call the version of the function myfun that's defined in the library mylib	| 	| A

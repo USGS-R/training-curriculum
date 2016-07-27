@@ -4,7 +4,7 @@ slug: introR-SWFLWMD-Sep16
 title: SW FL Water Management District
 menu: 
   main:
-    parent: Course Specific Materials
+    parent: Course Specific Material
     weight: 1
 ---
 ### September 13th - 15th in Tampa, FL
