@@ -3,7 +3,7 @@
 To test locally, run:
 
 ```
-export HUGO_BASEURL="intro-curriculum/"
+export HUGO_BASEURL="training-curriculum/"
 hugo server --theme=hugo_theme_robust --buildDrafts
 ```
 
