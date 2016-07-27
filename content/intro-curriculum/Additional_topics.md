@@ -3,7 +3,9 @@ author: Lindsay R. Carr
 slug: Additional
 title: Additional Topics in R
 menu:
-  weight=2
+  main:
+    parent: Introduction to R Course
+    weight: 2
 ---
 Spatial Analyses
 ----------------

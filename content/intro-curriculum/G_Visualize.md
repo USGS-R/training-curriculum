@@ -3,8 +3,10 @@ author: Lindsay R. Carr
 date: 2016-07-04
 slug: Visualize
 title: G. Visualize - Plotting with base R
-menu:
-  weight=1
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 1
 image: img/main/intro-icons-300px/visualize.png
 ---
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.

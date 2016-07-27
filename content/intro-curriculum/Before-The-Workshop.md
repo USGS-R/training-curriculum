@@ -2,8 +2,10 @@
 author: Jeffrey W. Hollister & Luke Winslow
 slug: Before
 title: Before The Workshop
-menu:
-  weight=2
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 2
 ---
 Prior to the start of the workshop everyone will need to have had the software installed and tested. Below are the instructions for installing R and RStudio. If you do not have install access to your computer (often called "PR access"), you will need to contact your IT representative to have them install it. You can give them a link to this page for instructions.sdkjflsd
 

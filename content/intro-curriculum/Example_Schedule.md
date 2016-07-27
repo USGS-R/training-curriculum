@@ -2,8 +2,10 @@
 author: Lindsay R. Carr
 slug: Schedule
 title: Example Schedule
-menu:
-  weight=2
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 2
 ---
 Day 1
 -----

@@ -1,8 +1,10 @@
 ---
 slug: data
 title: Data
-menu:
-  weight=2
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 2
 ---
 [IonBalance.csv](../data/IonBalance.csv)
 
