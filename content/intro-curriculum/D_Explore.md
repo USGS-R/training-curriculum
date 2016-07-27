@@ -3,8 +3,10 @@ author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-07
 slug: Explore
 title: D. Explore
-menu:
-  weight=1
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 1
 image: img/main/intro-icons-300px/explore.png
 ---
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.

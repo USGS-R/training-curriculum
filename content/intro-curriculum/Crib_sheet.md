@@ -2,8 +2,10 @@
 author: Lindsay R. Carr
 slug: Crib
 title: Crib Sheet
-menu:
-  weight=2
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 2
 ---
 <table style="width:89%;">
 <colgroup>

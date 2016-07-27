@@ -2,8 +2,10 @@
 author: Lindsay R. Carr
 slug: USGS
 title: USGS-R Packages
-menu:
-  weight=2
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 1
 ---
 ### Find USGS-R package information
 

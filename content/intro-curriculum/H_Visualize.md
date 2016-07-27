@@ -3,8 +3,10 @@ author: Jeffrey W. Hollister
 date: 2016-07-03
 slug: ggplot2
 title: H. Visualize - Plotting with ggplot2
-menu:
-  weight=1
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 1
 image: img/main/intro-icons-300px/ggplot.png
 ---
 One of the frequently touted strong points of R is data visualization. We saw some of that with our use of base graphics, but those plots were, frankly, a bit pedestrian. More and more users are moving away from base graphics and using the `ggplot2` package. I would even go as far to say that it has almost become the default plotting mechanism in R. This whole lesson we will focus on creating, modifying, and saving plots with `ggplot2`.

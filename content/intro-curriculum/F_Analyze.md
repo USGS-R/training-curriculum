@@ -3,8 +3,10 @@ author: Jeffrey W. Hollister & Emily Read
 date: 2016-07-05
 slug: AnalyzeII
 title: F. Analyze with packages
-menu:
-  weight=1
+menu: 
+  main:
+    parent: Introduction to R Course
+    weight: 1
 image: img/main/intro-icons-300px/analyzewpackages.png
 ---
 The second section will run through a fairly quick example of using a package, `EGRET`, for some analysis. I've included this section just to show how (relatively) trivial it is to add an advanced capability to R via packages.
