@@ -19,20 +19,20 @@ Download and install R
 
 Go to [CRAN and download](http://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Once the installer downloads, Right-click on it and select "Run as administrator".
 
-Type in your PR credentials and click yes. ![Run as admin](figure/install_open_as_admin.png)
+Type in your PR credentials and click yes. ![Run as admin](../static/img/install_open_as_admin.png)
 
-You can click next through the standard dialogs and accept most defaults. But at the destination screen, please verify that it is installing it to C:Files(version number may vary) ![Install Destination screen](figure/install_destination.png)
+You can click next through the standard dialogs and accept most defaults. But at the destination screen, please verify that it is installing it to C:Files(version number may vary) ![Install Destination screen](../static/img/install_destination.png)
 
-At the "Select Components" screen, you can accept the default and install both 32-bit and 64-bit versions. ![Select Architecture](figure/install_arch_window.png)
+At the "Select Components" screen, you can accept the default and install both 32-bit and 64-bit versions. ![Select Architecture](../static/img/install_arch_window.png)
 
-At this screen, uncheck 'Create a desktop icon' because non-admin users in Windows will be unable to delete it. ![Uncheck desktop icon](figure/install_tasks.png)
+At this screen, uncheck 'Create a desktop icon' because non-admin users in Windows will be unable to delete it. ![Uncheck desktop icon](../static/img/install_tasks.png)
 
 Download and install RStudio
 ----------------------------
 
 [Download RStudio Desktop](http://www.rstudio.com/products/rstudio/download/)
 
-Double-click the installer. It will ask for your administrator credentials to install. Accept all the default options for the RStudio install. ![RStudio install screen](figure/install_rstudio.png)
+Double-click the installer. It will ask for your administrator credentials to install. Accept all the default options for the RStudio install. ![RStudio install screen](../static/img/install_rstudio.png)
 
 Check Install
 =============
@@ -42,14 +42,14 @@ Open RStudio
 
 Once installed, RStudio should be accessible from the start menu. Start up RStudio. Once running it should look something like:
 
-![RStudio Window](figure/rstudio.png)
+![RStudio Window](../static/img/rstudio.png)
 
 Find "Console" window
 ---------------------
 
 By default the console window will be on the left side of RStudio. Find that window. It will looking something like:
 
-![RStudio Console](figure/rstudio_console.png)
+![RStudio Console](../static/img/rstudio_console.png)
 
 Copy and paste the code
 -----------------------
