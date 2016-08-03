@@ -8,7 +8,6 @@
 	 font-family:"Open Sans", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	 }
  
- 
  aside.site header{
    color:#003366;
  }
@@ -450,6 +449,20 @@ h5 { font-size: 1rem; line-height: 1rem; }
 }
     
 /* Parts:menu */
+
+.accordionSignal{
+  float:right;
+  background:url('../../images/plus.png') no-repeat;
+  width:20px;
+  height:20px;
+}
+
+.minus{
+  background:url('../../images/minus.png') no-repeat;
+  width:20px;
+  height:20px;
+}
+
 .p-menu {
   line-height: 1.5rem;
 }
@@ -470,6 +483,7 @@ h5 { font-size: 1rem; line-height: 1rem; }
 
 .p-menu ul ul {
   padding-left: 1rem;
+  display:none;
 }
 
 /* Parts:share */

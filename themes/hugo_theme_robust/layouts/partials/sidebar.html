@@ -10,6 +10,7 @@
           {{ range . }}
           <li>
             {{ if .HasChildren }}
+            <span class="accordionSignal"></span>
             <a href="{{ .URL }}">{{ .Pre }} {{ .Name }}</a>
             <ul>
               {{ range .Children }}
@@ -36,3 +37,12 @@
   {{ end }}
 
 </aside>
+
+<script>
+  $('.accordionSignal').each(function(){
+    $(this).on('click', function(){
+      $(this).toggleClass('minus');
+      $(this).parents('li').children('ul').toggle('slow');
+    });
+  });
+</script>
