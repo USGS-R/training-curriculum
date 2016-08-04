@@ -7,6 +7,10 @@
 	 background: #e8e6e1 !important;
 	 font-family:"Open Sans", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	 }
+	 
+#customBody{
+  padding-top:10px;
+}
  
  aside.site header{
    color:#003366;
@@ -452,13 +456,13 @@ h5 { font-size: 1rem; line-height: 1rem; }
 
 .accordionSignal{
   float:right;
-  background:url('../../images/plus.png') no-repeat;
+  background:url('../images/plus.png') no-repeat;
   width:20px;
   height:20px;
 }
 
 .minus{
-  background:url('../../images/minus.png') no-repeat;
+  background:url('../images/minus.png') no-repeat;
   width:20px;
   height:20px;
 }
