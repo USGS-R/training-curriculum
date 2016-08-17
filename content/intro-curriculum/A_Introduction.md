@@ -3,11 +3,11 @@ author: Jeffrey W. Hollister & Luke Winslow
 date: 2016-07-10
 slug: Introduction
 title: A. Introduction to R
+image: img/main/intro-icons-300px/r-logo.png
 menu: 
   main:
     parent: Introduction to R Course
     weight: 1
-image: img/main/intro-icons-300px/r-logo.png
 ---
 Over the course of the next 2.5 days we are going to walk through a typical data analysis workflow in R. But, with this first lesson we are going to focus on making sure everything is working and getting some basic orientation in R. The real fun will start in the lessons to come.
 
@@ -41,7 +41,7 @@ The primary reason R is widely used is that it is free, has a large and vibrant 
 
 Lastly, R has become the standard for any data analysis or visualization task in many fields. A great site [r4stats.com](http://r4stats.com) has an [article](http://r4stats.com/articles/popularity/) on data analysis software popularity that is kept up to date on the relative popularity of different languages. One striking figure is the comparison of Google Scholar hits for each of the most popular languages:
 
-[![r4stats.com web site link graph](http://i1.wp.com/datasciencepopularity.com/wp-content/uploads/2015/05/fig_2f_scholarlyimpactallstat21.png)](http://r4stats.com/articles/popularity/)
+[![r4stats.com web site link graph](http://i1.wp.com/datasciencepopularity.com/wp-content/uploads/2015/05/fig_2f_scholarlyimpactallstat21.png "popular programming langages")](http://r4stats.com/articles/popularity/)
 
 <caption align="bottom">
 source: r4stats.com - The Popularity of Data Analysis Software
@@ -127,13 +127,13 @@ library("EGRET")
 dataRetrieval::readNWISuv
 ```
 
-    ## function (siteNumbers,parameterCd,startDate="",endDate="", tz=""){  
-    ##   
-    ##   url <- constructNWISURL(siteNumbers,parameterCd,startDate,endDate,"uv",format="xml")
-    ## 
-    ##   data <- importWaterML1(url,asDateTime=TRUE,tz=tz)
-    ##   
-    ##   return (data)
+    ## function (siteNumbers, parameterCd, startDate = "", endDate = "", 
+    ##     tz = "") 
+    ## {
+    ##     url <- constructNWISURL(siteNumbers, parameterCd, startDate, 
+    ##         endDate, "uv", format = "xml")
+    ##     data <- importWaterML1(url, asDateTime = TRUE, tz = tz)
+    ##     return(data)
     ## }
     ## <environment: namespace:dataRetrieval>
 
@@ -165,11 +165,11 @@ ls("package:stats") #Lists all functions in the stats package (which is always l
 
 One nice way to explore the features of a package is to see a list of all the functions. In the lower right-hand corner, there is a "Packages" tab. From this tab, if you click on the name of a package, you will get a list of all the documentation for that package.
 
-![Package List](../static/img/rstudio_packages.png)
+![Package List](../static/img/rstudio_packages.png "list of packages")
 
 This is very helpful if you've forgotten the name of a function or just want to see a quick overview of everything a package has to offer.
 
-![Package List](../static/img/rstudio_dataRetrieval.png)
+![Package List](../static/img/rstudio_dataRetrieval.png "package documentation")
 
 ### Official R Resources
 

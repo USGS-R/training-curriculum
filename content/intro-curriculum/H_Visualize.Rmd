@@ -3,7 +3,7 @@ title: "H. Visualize - Plotting with ggplot2"
 author: "Jeffrey W. Hollister"
 date: "2016-07-03"
 slug: "ggplot2"
-image: "img/main/intro-icons-300px/ggplot.png"
+image: img/main/intro-icons-300px/ggplot.png
 output: USGSmarkdowntemplates::hugo
 ---
 
