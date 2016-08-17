@@ -3,6 +3,7 @@ title: "G. Visualize - Plotting with base R"
 author: "Lindsay R. Carr"
 date: "2016-07-04"
 slug: "Visualize"
+image: img/main/intro-icons-300px/visualize.png
 output: USGSmarkdowntemplates::hugo
 ---
 
@@ -10,7 +11,7 @@ output: USGSmarkdowntemplates::hugo
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ alt='/%s'/>", 
+  sprintf("<img src='../%s%s-%d.%s'/ title='/%s'/>", 
           options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
 
 })

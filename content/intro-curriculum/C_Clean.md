@@ -3,11 +3,11 @@ author: Jeffrey W. Hollister & Luke Winslow
 date: 2016-07-08
 slug: Clean
 title: C. Clean
+image: img/main/intro-icons-300px/clean.png
 menu: 
   main:
     parent: Introduction to R Course
     weight: 1
-image: img/main/intro-icons-300px/clean.png
 ---
 In this third lesson we are going to start working on manipulating and cleaning up our data frames. We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze. However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R. We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package. There are many ways to do this type of work in R, many of which are available from base R, but I heard from many focusing on one way to do this is best, so `dplyr` it is!
 
@@ -719,8 +719,7 @@ intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst), mean(Wtemp_Inst
 intro_df_summary
 ```
 
-    ## Source: local data frame [12 x 3]
-    ## 
+    ## # A tibble: 12 x 3
     ##      site_no mean(Flow_Inst) mean(Wtemp_Inst)
     ##        <chr>           <dbl>            <dbl>
     ## 1  021989773              NA               NA
@@ -743,8 +742,7 @@ intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst, na.rm=TRUE), mea
 intro_df_summary
 ```
 
-    ## Source: local data frame [12 x 3]
-    ## 
+    ## # A tibble: 12 x 3
     ##      site_no mean(Flow_Inst, na.rm = TRUE) mean(Wtemp_Inst, na.rm = TRUE)
     ##        <chr>                         <dbl>                          <dbl>
     ## 1  021989773                  1913.8848921                       24.41783
@@ -914,8 +912,7 @@ intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO_Inst, DO_2))
 head(intro_df_DO_max)
 ```
 
-    ## Source: local data frame [6 x 9]
-    ## 
+    ## # A tibble: 6 x 9
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
     ##      <chr>               <chr>     <dbl>        <chr>      <dbl>   <dbl>
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
@@ -924,7 +921,7 @@ head(intro_df_DO_max)
     ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
-    ## Variables not shown: DO_Inst <dbl>, DO_2 <dbl>, max_DO <dbl>.
+    ## # ... with 3 more variables: DO_Inst <dbl>, DO_2 <dbl>, max_DO <dbl>
 
 We now have quite a few tools that we can use to clean and manipulate data in R. We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on.
 
