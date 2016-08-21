@@ -22,7 +22,7 @@ Time | Topic
 
 
 ### Installation
-See [Before the Workshop](/intro-curriculum/Before) for information on what software should be installed prior to the course.
+See [Before the Workshop](/intro-curriculum/Before-The-Workshop.Rmd) for information on what software should be installed prior to the course.
 
 ### Data files
 
