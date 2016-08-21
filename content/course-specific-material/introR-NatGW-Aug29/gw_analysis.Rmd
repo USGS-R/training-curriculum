@@ -1,0 +1,118 @@
+---
+title: "R Crash Course @ USGS Groundwater Workshop"
+subtitle: "Nevada Groundwater Example"
+author: "Data Science Team, USGS Office of Water Information"
+date: "Reno, NV, August 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get
+
+Load data into R from .csv files
+
+```{r}
+# load the data and metadata
+library(data.table)
+gwlevels <- fread(input = 'gwlevels.csv', data.table=FALSE)
+gwsiteinfo <- fread(input = 'gwsiteinfo.csv', data.table=FALSE)
+paraminfo <- fread(input = 'paraminfo.csv', data.table=FALSE)
+
+# display
+## gwlevels # very long
+head(gwlevels)
+str(gwlevels)
+names(gwlevels)
+nrow(gwlevels)
+```
+
+Load data from .xlsx file. See also http://www.milanor.net/blog/steps-connect-r-excel-xlconnect/
+
+```{r}
+# load the data and metadata
+library(XLConnect)
+workbook <- loadWorkbook('gwlevels.xlsx')
+gwlevels <- readWorksheet(workbook, 'gwlevels')
+gwsiteinfo <- readWorksheet(workbook, 'gwsiteinfo', startRow = 3, startCol = 2)
+paraminfo <- readWorksheet(workbook, 'paraminfo')
+
+# display
+## gwlevels # very long
+head(gwlevels)
+str(gwlevels)
+names(gwlevels)
+nrow(gwlevels)
+```
+
+
+## Clean
+
+Get to know the data:
+
+```{r}
+library(dplyr)
+# select: look at fewer columns
+select(gwsiteinfo, site_no, dec_lat_va, dec_long_va, station_nm)
+
+# filter: find out more about the groundwater measurements
+## paraminfo # too long
+filter(paraminfo, parameter_cd == '72019') # just right
+
+# use summary(). note that there are 24 NA values and that date_time is class 'character'
+summary(gwlevels)
+```
+
+Clean up the data:
+
+```{r}
+# filter: clean away the NA values
+gwlevels_clean1 <- filter(gwlevels, !is.na(level_ft))
+
+# mutate: parse the date-time text into POSIXct date-time format
+gwlevels_clean2 <- mutate(gwlevels_clean1, date_time=as.POSIXct(date_time, tz='Etc/GMT+8'))
+
+# left_join: merge with metadata
+gwsiteinfo_clean1 <- select(gwsiteinfo, site_no, station_nm)
+gwlevels_clean3 <- left_join(gwlevels_clean2, gwsiteinfo_clean1, by='site_no')
+```
+
+
+## Explore
+
+```{r}
+# summarize: 
+summarize(gwlevels_clean3, mean_level_ft = mean(level_ft))
+
+# summarize + group_by:
+gwlevels_grouped <- group_by(gwlevels_clean3, site_no)
+summarize(gwlevels_grouped, mean_level_ft = mean(level_ft))
+```
+
+
+## Visualize
+
+See also the ggplot2 documentation at http://docs.ggplot2.org/current/ and a gallery of nifty plots at http://www.r-graph-gallery.com/portfolio/ggplot2-package/.
+
+```{r}
+library(ggplot2)
+# ?qplot
+
+# plot the groundwater levels over time
+qplot(data=gwlevels_clean3, x=date_time, y=level_ft, color=site_no, geom='line') + scale_y_reverse()
+
+# combine filter and qplot to plot just one site
+gwlevels_blm1 <- filter(gwlevels_clean3, site_no == '412910117321001')
+qplot(data=gwlevels_blm1, x=date_time, y=level_ft, color=site_no, geom='line') + scale_y_reverse()
+
+# combine mutate and qplot to make a histogram by month
+# ?format
+# ?format.POSIXct
+gwlevels_blm2 <- mutate(gwlevels_blm1, month=format(date_time, '%m'))
+qplot(data=gwlevels_blm2, x=month, y=level_ft, geom='boxplot')
+
+# more advanced plotting options
+# ?ggplot
+```
