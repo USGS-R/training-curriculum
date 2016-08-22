@@ -33,11 +33,12 @@ Load data from .xlsx file. See also http://www.milanor.net/blog/steps-connect-r-
 
 ```{r}
 # load the data and metadata
-library(XLConnect)
-workbook <- loadWorkbook('gwlevels.xlsx')
-gwlevels <- readWorksheet(workbook, 'gwlevels')
-gwsiteinfo <- readWorksheet(workbook, 'gwsiteinfo', startRow = 3, startCol = 2)
-paraminfo <- readWorksheet(workbook, 'paraminfo')
+library(readxl)
+workbookpath <- 'gwlevels.xlsx'
+sheetnames <- excel_sheets(workbookpath)
+gwlevels <- read_excel(workbookpath, sheet='gwlevels')
+gwsiteinfo <- read_excel(workbookpath, sheet='gwsiteinfo', col_names = TRUE)
+paraminfo <- read_excel(workbookpath, sheet='paraminfo')
 
 # display
 ## gwlevels # very long
