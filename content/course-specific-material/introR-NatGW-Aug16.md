@@ -1,11 +1,7 @@
 ---
-author: 
 date: 2016-08-29
 slug: introR-NatGW-Aug16
-status: draft
 title: National GW Workshop
-categories:
-  - r
 ---
 August 29th in Reno, NV
 
@@ -27,3 +23,10 @@ August 29th in Reno, NV
 See [Before the Workshop](/intro-curriculum/Before) for information on what software should be installed prior to the course.
 
 ### Data files
+
+-   [gwlevels.csv](../introR-NatGW-Aug29/gwlevels.csv)
+-   [gwsiteinfo.csv](../introR-NatGW-Aug29/gwsiteinfo.csv)
+-   [paraminfo.csv](../introR-NatGW-Aug29/paraminfo.csv)
+-   [gwlevels.xlsx](../introR-NatGW-Aug29/gwlevels.xlsx)
+
+This data was pulled from NWIS and manipulated to create datasets that highlight some of the troublesome characteristics of working with data in R (such as empty or missing values). As such, these datasets do not accurately represent what is stored in NWIS. Take a look at the [script used to create these data files](../introR-NatGW-Aug29/create_data.R) to see exactly how the NWIS data was changed.
