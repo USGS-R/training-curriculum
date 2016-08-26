@@ -1,15 +1,11 @@
 ---
-author: 
 date: 2016-08-29
 slug: introR-NatGW-Aug16
-draft: True
 title: National GW Workshop
-categories: Data Science
- 
-tags: 
-  - R
- 
- 
+menu: 
+  main:
+    parent: Course Specific Material
+    weight: 1
 ---
 August 29th in Reno, NV
 
