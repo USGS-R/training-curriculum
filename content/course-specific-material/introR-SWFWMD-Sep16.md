@@ -1,7 +1,7 @@
 ---
 date: 2016-09-13
-slug: introR-SWFLWMD-Sep16
-title: SW FL Water Management District
+slug: introR-SWFWMD-Sep16
+title: SWFWMD
 menu: 
   main:
     parent: Course Specific Material
