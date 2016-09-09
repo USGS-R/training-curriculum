@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-us" xml:lang="en-us">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8">
     {{ .Hugo.Generator }}
 
@@ -17,13 +18,18 @@
     <title>{{ .Title }}</title>
     <meta property='og:title' content="{{ .Title }}">
     <meta property="og:type" content="website">
+    <meta property='twitter:title' content="{{ .Title }}">
     {{ else }}
     <title>{{ .Title }} - {{ .Site.Title }}</title>
     <meta property='og:title' content="{{ .Title }} - {{ .Site.Title }}">
     <meta property="og:type" content="article">
+    <meta property='twitter:title' content="{{ .Title }} - {{ .Site.Title }}">
     {{ end }}
 
-    <meta property="og:url" content="{{ .Permalink }}">
-    {{ with .Description }}<meta name="description" content="{{ . }}">{{ end }}
-    {{ with .Params.image }}<meta property="og:image" content="{{ $.Site.BaseURL }}images/{{ . }}">{{ end }}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@USGS_WaterData" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    
+    
+      <meta property="og:image" name="twitter:image" content="{{ $.Site.BaseURL }}{{ with .Params.image }}{{ . }}{{ else }}images/owi-mobile.png{{ end }}">
 
