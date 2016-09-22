@@ -32,13 +32,13 @@ Get live, chat-style help by typing your questions here: [Ask the instructors](h
 
 ### Data files
 
--   [gwlevels.csv](../introR-NatGW-Aug29/gwlevels.csv)
--   [gwsiteinfo.csv](../introR-NatGW-Aug29/gwsiteinfo.csv)
--   [paraminfo.csv](../introR-NatGW-Aug29/paraminfo.csv)
--   [gwlevels.xlsx](../introR-NatGW-Aug29/gwlevels.xlsx)
--   [gwlevels\_clean3.Rds](../introR-NatGW-Aug29/gwlevels_clean3.Rds)
+-   [gwlevels.csv](../introR-NatGW-Aug16/gwlevels.csv)
+-   [gwsiteinfo.csv](../introR-NatGW-Aug16/gwsiteinfo.csv)
+-   [paraminfo.csv](../introR-NatGW-Aug16/paraminfo.csv)
+-   [gwlevels.xlsx](../introR-NatGW-Aug16/gwlevels.xlsx)
+-   [gwlevels\_clean3.Rds](../introR-NatGW-Aug16/gwlevels_clean3.Rds)
 
-This data was pulled from NWIS and manipulated to create datasets that highlight some of the troublesome characteristics of working with data in R (such as empty or missing values). As such, these datasets do not accurately represent what is stored in NWIS. Take a look at the [script used to create these data files](../introR-NatGW-Aug29/create_data.R) to see exactly how the NWIS data was changed.
+This data was pulled from NWIS and manipulated to create datasets that highlight some of the troublesome characteristics of working with data in R (such as empty or missing values). As such, these datasets do not accurately represent what is stored in NWIS. Take a look at the [script used to create these data files](../introR-NatGW-Aug16/create_data.R) to see exactly how the NWIS data was changed.
 
 ### Instructors
 
