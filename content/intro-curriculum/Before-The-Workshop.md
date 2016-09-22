@@ -78,7 +78,7 @@ Install general packages
 Install packages available for all R users from [CRAN](https://cran.r-project.org/) by pasting the following code and hitting `ENTER`.
 
 ``` r
-install.packages(c("dplyr","dataRetrieval","ggplot2","tidyr","RColorBrewer","EGRET"))
+install.packages(c("dplyr","dataRetrieval","ggplot2","tidyr","RColorBrewer","EGRET", "rmarkdown"))
 ```
 
 If you see
