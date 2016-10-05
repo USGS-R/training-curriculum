@@ -35,7 +35,7 @@ intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALS
 ```
 
 ##Quick Links to Exercises and R code
-- [Exercise 1](#exercise-1): 
+- [Exercise 1](#exercise-1): Using for loops and conditionals
 - [Exercise 2](#exercise-2): Writing functions
 - [Exercise 3](#exercise-3): Creating an RMarkdown document
 
