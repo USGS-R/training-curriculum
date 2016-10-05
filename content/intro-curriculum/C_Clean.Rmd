@@ -1,7 +1,7 @@
 ---
 title: "C. Clean"
 author: "Jeffrey W. Hollister, Luke Winslow, Lindsay Carr"
-date: "2016-07-08"
+date: "2016-10-05"
 slug: "Clean"
 image: img/main/intro-icons-300px/clean.png
 output: USGSmarkdowntemplates::hugo
@@ -44,7 +44,6 @@ intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALS
 ##Lesson Goals
 - Show and tell on using base R for data manipulation
 - Better understand data cleaning through use of `dplyr`
-- Use conditional statements to further manipulate data
 - Use `merge()` to combine data frames by a common key
 - Do some basic reshaping and summarizing data frames
 - Know what pipes are and why you might want to use them
@@ -156,97 +155,6 @@ intro_df_newcolumn <- mutate(intro_df, DO_mgmL = DO_Inst/1000)
 head(intro_df_newcolumn)
 ```
 
-Let's take a quick detour and learn about how to apply conditional statements to our data cleaning workflows.
-
-## Using if-else statements with dplyr
-If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is tell your code how to make decisions, and they come in handy when cleaning up data frames. For instance, you might want to make a new column of data based on some condition applied to an existing column. That's easy with if-else control structures. Here's the basic syntax of an if-else statement:
-
-```
-if(some condition){
-  do something
-} else {
-  do something different
-}
-```
-
-Let's first go through basic if-else structures before using them with data frame manipulation.
-
-```{r if_else_examp, warning=FALSE, message=FALSE}
-x <- 2
-
-# logical statement inside of () needs to return ONE logical value - TRUE or FALSE. TRUE means it will enter the following {}, FALSE means it won't.
-if(x < 0){
-  print("negative")
-} 
-
-# you can also specify something to do when the logical statement is FALSE by adding `else`
-if(x < 0){
-  print("negative")
-} else {
-  print("positive")
-}
-```
-
-The key to if-else is using a logical statement that only returns a single TRUE or FALSE, not a vector of trues or falses. The if statement needs to know if it should enter the `{}` or not, and therefore needs a single answer - yes or no. Here are some useful functions that allow you to use vectors in if-else:
-
-```{r if_else_functions, warning=FALSE, message=FALSE}
-y <- 1:7
-
-# use "any" if you want to see if at least one of the values meets a condition
-any(y > 5)
-
-# use "!any" if you don't want any of the values to meet some condition (e.g. vector can't have negatives)
-!any(y < 0) 
-
-# use "all" when every value in a vector must meet a condition
-all(y > 5)
-
-# using these in the if-else statement
-if(any(y < 0)){
-  print("some values are negative")
-} 
-```
-
-And you can you use multiple `if` statements by stringing them together with `else`
-
-```{r if_else_examp2, warning=FALSE, message=FALSE}
-num <- 198
-
-if(num > 0) {
-  print("positive")
-} else if (num < 0) {
-  print("negative")
-} else {
-  print("zero")
-}
-```
-
-Now that you have a basic understanding of if-else structures, let's use them with `dplyr` to manipulate a data frame. We want to add a new column if some condition is met, or filter a column if the condition is not met. We can use the `if-else` structure along with `mutate` and `select` from `dplyr` to accomplish this. 
-
-```{r if_else_dplyr, warning=FALSE, message=FALSE}
-# if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
-if(!'DO_mgmL' %in% names(intro_df)){
-  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
-} 
-
-# if there are more than 1000 observations, we want to filter out high temperature observations
-if(nrow(intro_df) > 1000){
-  head(filter(intro_df, Wtemp_Inst >= 15))
-}
-```
-
-### Optional: the `ifelse` function
-
-Let's learn a new way to apply if-else logic - the function `ifelse`. This function is similar to the previous if-else structure syntax, but the function can only return one value (rather than doing a series of commands within `{}`). See `?ifelse` for more information. Basic syntax for `ifelse()`:
-
-`ifelse(condition, yesValue, noValue)`
-
-Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value. 
-
-```{r ifelse_dplyr, warning=FALSE, message=FALSE}
-#use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
-```
 
 ## Three ways to string `dplyr` commands together
 
@@ -279,7 +187,7 @@ intro_df %>%
 
 Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material. 
 
-##Cleaning up dataset 
+## Cleaning up dataset 
 Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Notice anything strange? Hint: why are the pH values character? That shouldn't be the case; there should be numeric values in that column. If there are any entries that are not numeric values or `NA`, R will treat the entire column as character. You can coerce them to numeric (so anything that is not NA or a number will be coerced into NA), but you should investigate what values are causing the issue first. To do this, we coerce to numeric and look at what values were considered NA in the numeric column, but not in the character column.
 
 ```{r pH_wrong_intro_df, warning=FALSE, message=FALSE}
