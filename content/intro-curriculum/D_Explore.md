@@ -110,7 +110,7 @@ The workhorse function for plotting data in R is `plot()`. With this one command
 plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 ```
 
-<img src='../static/Explore/plot_examp-1.png'/ title='/Scatter plot of dissolved oxygen vs water temperature'/>
+<img src='../static/Explore/plot_examp-1.png'/ title='Scatter plot of dissolved oxygen vs water temperature'/>
 
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
@@ -120,9 +120,9 @@ plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
      xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
 
-<img src='../static/Explore/plot_examp_2-1.png'/ title='/Basic scatter plot with title and xy axis labels'/>
+<img src='../static/Explore/plot_examp_2-1.png'/ title='Basic scatter plot with title and xy axis labels'/>
 
-Not sure if this will apply to everyone, but I use scatterplots ALL the time. So, for me I could almost (not really) stop here. But lets move on. Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
+Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
 
 ``` r
 #get a data frame with only the measured values
@@ -131,9 +131,27 @@ intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
 plot(intro_df_data)
 ```
 
-<img src='../static/Explore/pairs_examp-1.png'/ title='/Pairs plot using intro_df'/>
+<img src='../static/Explore/pairs_examp-1.png'/ title='Pairs plot using intro_df'/>
 
-Let's look at boxplots, histograms, and cumulative distribution functions.
+The plots look a bit strange - we'd expect to see a stronger relationship between water temperature and dissolved oxygen. Let's explore the data to figure out why. Using `head(intro_df)`, I immediately notice that the site numbers are different. That is already a good explanation for why some of these plots are not turning out as we'd expect. Let's try to do a pairs plot for a single site.
+
+``` r
+#get a data frame with only the first site values
+sites <- unique(intro_df$site_no)
+intro_df_site1 <- filter(intro_df, site_no == sites[1])
+
+#now keep only measured values
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_Inst_cd)
+
+#create the pairs plot
+plot(intro_df_site1_data)
+```
+
+<img src='../static/Explore/pairs_examp_single_site-1.png'/ title='Pairs plot for one site'/>
+
+Ah! Now that water temperature and DO plot makes a bit more sense.
+
+Let's move on to boxplots, histograms, and cumulative distribution functions.
 
 Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input.
 
@@ -141,7 +159,7 @@ Two great ways to use boxplots are straight up and then by groups in a factor. F
 boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
-<img src='../static/Explore/boxplot_examp-1.png'/ title='/Boxplot of dissolved oxygen concentration'/>
+<img src='../static/Explore/boxplot_examp-1.png'/ title='Boxplot of dissolved oxygen concentration'/>
 
 As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`. The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable\[s\] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
@@ -150,7 +168,7 @@ boxplot(intro_df$DO_Inst ~ intro_df$site_no,
         main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
-<img src='../static/Explore/boxplot_grps_examp-1.png'/ title='/Boxplot of dissolved oxygen grouped by site'/>
+<img src='../static/Explore/boxplot_grps_examp-1.png'/ title='Boxplot of dissolved oxygen grouped by site'/>
 
 Lastly, let's look at two other ways to plot our distributions. First, histograms.
 
@@ -158,13 +176,13 @@ Lastly, let's look at two other ways to plot our distributions. First, histogram
 hist(intro_df$pH_Inst)
 ```
 
-<img src='../static/Explore/base_hist_examp-1.png'/ title='/Histogram of pH'/>
+<img src='../static/Explore/base_hist_examp-1.png'/ title='Histogram of pH'/>
 
 ``` r
 hist(intro_df$pH_Inst, breaks=4)
 ```
 
-<img src='../static/Explore/base_hist_examp-2.png'/ title='/Histogram of pH specifying 4 breaks'/>
+<img src='../static/Explore/base_hist_examp-2.png'/ title='Histogram of pH specifying 4 breaks'/>
 
 And finally, cumulative distribution functions. Since CDF's are actually a function of the distribution we need to get that function first. This requires that we combine `plot()` and `ecdf()`, the empirical CDF function.
 
@@ -173,7 +191,7 @@ wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
 plot(wtemp_ecdf)
 ```
 
-<img src='../static/Explore/cdf_examp-1.png'/ title='/Empirical cumulative distribution plot for water temperature'/>
+<img src='../static/Explore/cdf_examp-1.png'/ title='Empirical cumulative distribution plot for water temperature'/>
 
 Exercise 2
 ----------
