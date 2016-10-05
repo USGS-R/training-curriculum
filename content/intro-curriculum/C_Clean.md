@@ -1,5 +1,5 @@
 ---
-author: Jeffrey W. Hollister & Luke Winslow
+author: Jeffrey W. Hollister, Luke Winslow, Lindsay Carr
 date: 2016-07-08
 slug: Clean
 title: C. Clean
@@ -11,9 +11,12 @@ menu:
 ---
 In this third lesson we are going to start working on manipulating and cleaning up our data frames. We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze. However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R. We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package. There are many ways to do this type of work in R, many of which are available from base R, but I heard from many focusing on one way to do this is best, so `dplyr` it is!
 
-Remember our NWIS data we loaded in the `Get` lesson? That's the dataset we will use here. If it's no longer loaded, go back to the [Reading data into R](/intro-curriculum/Get/#reading-data-into-r) section and read the data into R as a data frame (remember that we named it `intro_df`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
 
-Before we jump into the lesson, quick links and lesson goals are:
+``` r
+intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -111,7 +114,7 @@ head(intro_df)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -153,7 +156,7 @@ intro_df[3:7,]
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ## 7 02336120 2011-05-12 18:00:00      14.0            A       23.4     7.3
@@ -217,7 +220,7 @@ head(high_temp)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -272,7 +275,7 @@ head(dplyr_high_temp)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -316,7 +319,7 @@ head(intro_df_newcolumn)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst DO_mgmL
@@ -421,7 +424,7 @@ if(!'DO_mgmL' %in% names(intro_df)){
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst DO_mgmL
@@ -443,7 +446,7 @@ if(nrow(intro_df) > 1000){
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -548,27 +551,8 @@ pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
 filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
 ```
 
-    ##    pH_Inst pH_Inst_numeric
-    ## 1     None              NA
-    ## 2     None              NA
-    ## 3                       NA
-    ## 4     None              NA
-    ## 5                       NA
-    ## 6     None              NA
-    ## 7                       NA
-    ## 8     None              NA
-    ## 9     None              NA
-    ## 10                      NA
-    ## 11                      NA
-    ## 12                      NA
-    ## 13    None              NA
-    ## 14                      NA
-    ## 15                      NA
-    ## 16                      NA
-    ## 17    None              NA
-    ## 18                      NA
-    ## 19    None              NA
-    ## 20    None              NA
+    ## [1] pH_Inst         pH_Inst_numeric
+    ## <0 rows> (or 0-length row.names)
 
 Looks like the culprits are entries of `None` and blank spaces. These are both scenarios that I would feel comfortable setting to NA, so using `as.numeric` will suffice. However, there could have been a symbol that indicated the value should be something other than missing. That's why it is important to check. Let's actually clean up that column and create a new data.frame. Then use `summary()` to verify that the columns are correct.
 

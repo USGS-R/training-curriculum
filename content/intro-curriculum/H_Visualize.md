@@ -1,5 +1,5 @@
 ---
-author: Jeffrey W. Hollister
+author: Jeffrey W. Hollister & Lindsay Carr
 date: 2016-07-03
 slug: ggplot2
 title: H. Visualize - Plotting with ggplot2
@@ -11,7 +11,12 @@ menu:
 ---
 One of the frequently touted strong points of R is data visualization. We saw some of that with our use of base graphics, but those plots were, frankly, a bit pedestrian. More and more users are moving away from base graphics and using the `ggplot2` package. I would even go as far to say that it has almost become the default plotting mechanism in R. This whole lesson we will focus on creating, modifying, and saving plots with `ggplot2`.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+``` r
+intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -50,7 +55,7 @@ qtemp_gg <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst))
 qtemp_gg
 ```
 
-<img src='../static/ggplot2/ggplot_examp-1.png'/ title='/Blank ggplot2 plot'/>
+<img src='../static/ggplot2/ggplot_examp-1.png'/ title='Blank ggplot2 plot'/>
 
 All we did at this point is create a blank slate that contains our data and knows what we want on the x and y axes. We haven't said anything about what type of plot we want to make. That comes next with the use of geometries.
 
@@ -63,7 +68,7 @@ A side note on syntax. You will notice that we add new "things" to a ggplot obje
 qtemp_gg + geom_point()
 ```
 
-<img src='../static/ggplot2/points_examp-1.png'/ title='/ggplot2 scatter plot'/>
+<img src='../static/ggplot2/points_examp-1.png'/ title='ggplot2 scatter plot'/>
 
 ``` r
 #This too can be saved to an object
@@ -73,7 +78,7 @@ qtemp_scatter_bw <- qtemp_gg + geom_point()
 qtemp_scatter_bw
 ```
 
-<img src='../static/ggplot2/points_examp-2.png'/ title='/ggplot2 scatter plot rendered from object'/>
+<img src='../static/ggplot2/points_examp-2.png'/ title='ggplot2 scatter plot rendered from object'/>
 
 Not appreciably better than base, in my opinion. But what if we want to add some stuff...
 
@@ -90,7 +95,7 @@ qtemp_scatter <- qtemp_gg +
 qtemp_scatter
 ```
 
-<img src='../static/ggplot2/ion_labels-1.png'/ title='/ggplot2 scatter plot with title and xy axis labels'/>
+<img src='../static/ggplot2/ion_labels-1.png'/ title='ggplot2 scatter plot with title and xy axis labels'/>
 
 Now to add some colors, shapes, etc. to the point. Look at the `geom_point()` documentation for this. Notice that ggplot2 makes the correct legend for us without help!
 
@@ -100,7 +105,7 @@ qtemp_scatter <- qtemp_scatter +
 qtemp_scatter
 ```
 
-<img src='../static/ggplot2/ion_colors-1.png'/ title='/ggplot2 scatter with colors based on Flow code and point type based on site'/>
+<img src='../static/ggplot2/ion_colors-1.png'/ title='ggplot2 scatter with colors based on Flow code and point type based on site'/>
 
 Much easier than using base, but `ggplot2` really shines when you want to add stats (regression lines, intervals, etc.). Lets add a loess line with 95% confidence intervals
 
@@ -108,7 +113,7 @@ Much easier than using base, but `ggplot2` really shines when you want to add st
 qtemp_scatter + geom_smooth()
 ```
 
-<img src='../static/ggplot2/ion_loess-1.png'/ title='/ggplot2 scatter plot with default smooth line'/>
+<img src='../static/ggplot2/ion_loess-1.png'/ title='ggplot2 scatter plot with default smooth line'/>
 
 Or we could add a simple linear regression line with:
 
@@ -116,7 +121,7 @@ Or we could add a simple linear regression line with:
 qtemp_scatter + geom_smooth(method="lm")
 ```
 
-<img src='../static/ggplot2/ion_lm-1.png'/ title='/ggplot2 scatter plot with linear regression line'/>
+<img src='../static/ggplot2/ion_lm-1.png'/ title='ggplot2 scatter plot with linear regression line'/>
 
 And if we are interested in the regressions by group we could do it this way.
 
@@ -124,7 +129,7 @@ And if we are interested in the regressions by group we could do it this way.
 qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
 ```
 
-<img src='../static/ggplot2/ion_lm_groups-1.png'/ title='/ggplot2 scatter plot with linear regression line grouped by site'/>
+<img src='../static/ggplot2/ion_lm_groups-1.png'/ title='ggplot2 scatter plot with linear regression line grouped by site'/>
 
 Or, if we wanted our regression lines to match the color.
 
@@ -132,7 +137,7 @@ Or, if we wanted our regression lines to match the color.
 qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_cd))
 ```
 
-<img src='../static/ggplot2/ion_lm_color-1.png'/ title='/ggplot2 scatter plot with linear regression line colored by Flow code'/>
+<img src='../static/ggplot2/ion_lm_color-1.png'/ title='ggplot2 scatter plot with linear regression line colored by Flow code'/>
 
 You'll notice that I had to specify the `aes()` again, but for `geom_smooth()`. We only specified the x and y in the original `ggplot` object, so if want to do something different in the subsequent functions we need to overwrite it for the function in which we want a different mapping (i.e. groups).
 
@@ -148,7 +153,7 @@ A simple boxplot with groups looks like this:
 ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 ```
 
-<img src='../static/ggplot2/gg_box_examp-1.png'/ title='/ggplot2 boxplot of dissolved oxygen by site'/>
+<img src='../static/ggplot2/gg_box_examp-1.png'/ title='ggplot2 boxplot of dissolved oxygen by site'/>
 
 ### Histograms
 
@@ -158,7 +163,7 @@ Histograms only need a single variable (x).
 ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
 ```
 
-<img src='../static/ggplot2/gg_hist_examp-1.png'/ title='/ggplot2 histogram of pH'/>
+<img src='../static/ggplot2/gg_hist_examp-1.png'/ title='ggplot2 histogram of pH'/>
 
 ### Barplots
 
@@ -171,7 +176,7 @@ ggplot(intro_df_flow_mean, aes(x=site_no, y=mean_flow)) +
   geom_bar(stat="identity")
 ```
 
-<img src='../static/ggplot2/gg_bar_examp2-1.png'/ title='/ggplot2 barplot of average discharge by site'/>
+<img src='../static/ggplot2/gg_bar_examp2-1.png'/ title='ggplot2 barplot of average discharge by site'/>
 
 Exercise 1
 ----------
@@ -197,7 +202,7 @@ qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
 qtemp_scatter
 ```
 
-<img src='../static/ggplot2/themes_examp-1.png'/ title='/recreated ggplot2 scatter plot of water temperature versus flow with color based on Flow code and point type based on site'/>
+<img src='../static/ggplot2/themes_examp-1.png'/ title='recreated ggplot2 scatter plot of water temperature versus flow with color based on Flow code and point type based on site'/>
 
 Nothing new there. Let's now edit some of this theme by dropping the grey background and the grid, and changing our font.
 
@@ -210,7 +215,7 @@ qtemp_scatter_base <- qtemp_scatter +
 qtemp_scatter_base
 ```
 
-<img src='../static/ggplot2/themes_examp_custom-1.png'/ title='/ggplot2 scatter plot with custom theme'/>
+<img src='../static/ggplot2/themes_examp_custom-1.png'/ title='ggplot2 scatter plot with custom theme'/>
 
 Still not great, but it shows the basics. You can build on this and edit EVERYTHING in the plot. To get an idea of what you have access to, take a look at the help on `theme()` (e.g. `help("theme")`).
 
@@ -220,13 +225,13 @@ There are a few alterantive themes available by default (use `help("ggtheme")`) 
 qtemp_scatter + theme_bw()
 ```
 
-<img src='../static/ggplot2/themes_examp_stock-1.png'/ title='/ggplot2 scatter plot with black and white theme'/>
+<img src='../static/ggplot2/themes_examp_stock-1.png'/ title='ggplot2 scatter plot with black and white theme'/>
 
 ``` r
 qtemp_scatter + theme_classic()
 ```
 
-<img src='../static/ggplot2/themes_examp_stock-2.png'/ title='/ggplot2 scatter plot with classic theme'/>
+<img src='../static/ggplot2/themes_examp_stock-2.png'/ title='ggplot2 scatter plot with classic theme'/>
 
 Let's build on one of the default themes to create a more polished plot.
 
@@ -243,7 +248,7 @@ qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) 
 qtemp_scatter_polished 
 ```
 
-<img src='../static/ggplot2/themes_examp_polished-1.png'/ title='/ggplot2 scatter plot with customized black and white theme, plus smooth curve, color/shaped points, a title, and xy axis labels'/>
+<img src='../static/ggplot2/themes_examp_polished-1.png'/ title='ggplot2 scatter plot with customized black and white theme, plus smooth curve, color/shaped points, a title, and xy axis labels'/>
 
 A bit complicated for some of the custom stuff, but that is the price you have to pay to get complete control over the output.
 
@@ -288,7 +293,7 @@ qtemp <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
 qtemp
 ```
 
-<img src='../static/ggplot2/facet_grid_example-1.png'/ title='/ggplot2 scatter plot of water temperature versus discharge'/>
+<img src='../static/ggplot2/facet_grid_example-1.png'/ title='ggplot2 scatter plot of water temperature versus discharge'/>
 
 ``` r
 # Faceting with one variable 
@@ -297,7 +302,7 @@ qtemp
 qtemp + facet_grid(site_no ~ .)
 ```
 
-<img src='../static/ggplot2/facet_grid_example-2.png'/ title='/ggplot2 faceted scatter plot with rows for sites'/>
+<img src='../static/ggplot2/facet_grid_example-2.png'/ title='ggplot2 faceted scatter plot with rows for sites'/>
 
 ``` r
 # Faceting with two variables
@@ -306,7 +311,7 @@ qtemp + facet_grid(site_no ~ .)
 qtemp + facet_grid(site_no ~ Flow_Inst_cd)
 ```
 
-<img src='../static/ggplot2/facet_grid_example-3.png'/ title='/ggplot2 faceted scatter plot with rows for sites and columns for flow code'/>
+<img src='../static/ggplot2/facet_grid_example-3.png'/ title='ggplot2 faceted scatter plot with rows for sites and columns for flow code'/>
 
 Documentation
 -------------
