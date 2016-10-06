@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Lindsay Carr
-date: 2016-07-03
+date: 2016-10-06
 slug: ggplot2
 title: H. Visualize - Plotting with ggplot2
 image: img/main/intro-icons-300px/ggplot.png
@@ -183,11 +183,11 @@ Exercise 1
 
 Let's now build some plots with `ggplot2`.
 
-1.  Load the `CuyahogaTDS` dataset from the `smwrData` package.
-2.  Create a scatter plot of total dissolved solids (`TDS`) response to flow (`Q`).
-3.  Create a histogram for total dissolved solids.
-4.  Create a boxplot comparing the flow grouped by month.
-5.  Challenge: recreate the scatter plot where flow is logged.
+1.  Subset `intro_df` to be only one site.
+2.  Create a scatter plot of dissolved oxygen response to discharge.
+3.  Create a histogram for discharge.
+4.  Challenge: recreate the scatter plot where discharge is logged.
+5.  Using `intro_df`, create a boxplot comparing the flow grouped by site.
 
 Customizing plots with themes
 -----------------------------
@@ -268,7 +268,7 @@ Exercise 2
 
 Let's create a simple scatter plot and spice it up.
 
-1.  Use the `SaddlePeaks` dataset from `smwrData` and create a scatter plot of flow vs time.
+1.  Use a single site subset of `intro_df` and create a scatter plot of dissolved oxygen vs water temperature.
 2.  Change up the theme of your plot. This is your plot, so experiment. Experiment with fonts, colors, backgrounds, etc. Remember that all of the things you can change are listed in the help (`help("theme")`). You can also run `names(theme_get())` for a list of arguments allowed in `theme()`. Also the various `element_xxx()` functions will be needed; try `??element_` . Remember that the [online help](http://docs.ggplot2.org/current/) is the best for `ggplot2`.
 3.  If you have time, try to edit the colors of your points (hint: revisit `geom_point`). Also, try adding a plot title.
 4.  When you get the plot to a point where you are happy, save the plot to a file. Use a file format of your liking.

@@ -1,7 +1,7 @@
 ---
 title: "G. Visualize - Plotting with base R"
 author: "Lindsay R. Carr"
-date: "2016-07-04"
+date: "2016-10-06"
 slug: "Visualize"
 image: img/main/intro-icons-300px/visualize.png
 output: USGSmarkdowntemplates::hugo
@@ -117,18 +117,11 @@ polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
 
 ##Exercise 1
 
-1. Copy and paste the following code to get two data frames of USGS phosphorus data. 
+1. Create two different data frames from `intro_df` with dissolved oxygen and water temperature data for two sites. 
 
-```{r, warning = FALSE, message = FALSE}
-library(dataRetrieval)
-# Gather NWIS data:
-P_site1 <- readNWISqw("01656960", parameterCd = "00665")
-P_site2 <- readNWISqw("01656725", parameterCd = "00665")
-```
+2. Using the base R plotting features just discussed, plot a dissolved oxygen vs water temperature for two different sites. Show the different sites in different colors, linetypes, or linewidths. Include a legend. 
 
-2. Using the base R plotting features just discussed, plot a timeseries (see dates column `sample_dt`) for two different sites phosphorus data (see column `result_va`). Show the different timeseries in different colors, linetypes, or linewidths. Include a legend. 
-
-3. Challenge: add points to show the maximum for each timeseries.
+3. Challenge: add points to show the maximum dissolved oxygen for each timeseries. Hint: use `arrange()` from dplyr. You might notice that you cannot see your second site's maximum point. This is because the plot is scaled to the first data that was added. We will learn how to adjust axes in the next section.
 
 ###Axes
 
@@ -181,10 +174,10 @@ The default for `dev.off()` is to turn off the most current device, but you can 
 
 
 ##Exercise 2
-using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks: 
+Using data for only one site in `intro_df`, complete the following:
 
-1. Make a timeseries plot for total dissolved solids (`TDS`). Make the points red and add secondary x and y axes.
-2. Now make a second timeseries plot with flow (`Q`) and color the points blue. Use a log scale (hint: use the argument `log`).
+1. Make a plot of dissolved oxygen vs flow. Make the points red and add secondary x and y axes. Use a log scale for flow (hint: use the argument `log` in your plot call).
+2. Now make a second plot with pH vs flow and color the points blue. Use a log scale for flow.
 3. Using `layout`, place the second plot below the first. Plus, have the top plot span the whole device and leave an empty region next to the lower plot. 
 4. Save this image as a png.
 5. If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!

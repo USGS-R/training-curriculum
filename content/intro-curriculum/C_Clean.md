@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister, Luke Winslow, Lindsay Carr
-date: 2016-10-05
+date: 2016-10-06
 slug: Clean
 title: C. Clean
 image: img/main/intro-icons-300px/clean.png
@@ -11,10 +11,10 @@ menu:
 ---
 In this third lesson we are going to start working on manipulating and cleaning up our data frames. We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze. However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R. We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package. There are many ways to do this type of work in R, many of which are available from base R, but I heard from many focusing on one way to do this is best, so `dplyr` it is!
 
-Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Get](/intro-curriculum/Get) lesson, then you should have the NWIS data frame. If you did not complete the Get lesson (or are starting in a new R session), just load in the `course_NWISdata.csv` by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
 
 ``` r
-intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
 
@@ -113,7 +113,7 @@ head(intro_df)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -155,7 +155,7 @@ intro_df[3:7,]
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ## 7 02336120 2011-05-12 18:00:00      14.0            A       23.4     7.3
@@ -219,7 +219,7 @@ head(high_temp)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -274,7 +274,7 @@ head(dplyr_high_temp)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst
@@ -318,7 +318,7 @@ head(intro_df_newcolumn)
     ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
     ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
     ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
+    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1       7
     ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
     ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
     ##   DO_Inst DO_mgmL
@@ -410,8 +410,27 @@ pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
 filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
 ```
 
-    ## [1] pH_Inst         pH_Inst_numeric
-    ## <0 rows> (or 0-length row.names)
+    ##    pH_Inst pH_Inst_numeric
+    ## 1     None              NA
+    ## 2     None              NA
+    ## 3                       NA
+    ## 4     None              NA
+    ## 5                       NA
+    ## 6     None              NA
+    ## 7                       NA
+    ## 8     None              NA
+    ## 9     None              NA
+    ## 10                      NA
+    ## 11                      NA
+    ## 12                      NA
+    ## 13    None              NA
+    ## 14                      NA
+    ## 15                      NA
+    ## 16                      NA
+    ## 17    None              NA
+    ## 18                      NA
+    ## 19    None              NA
+    ## 20    None              NA
 
 Looks like the culprits are entries of `None` and blank spaces. These are both scenarios that I would feel comfortable setting to NA, so using `as.numeric` will suffice. However, there could have been a symbol that indicated the value should be something other than missing. That's why it is important to check. Let's actually clean up that column and create a new data.frame. Then use `summary()` to verify that the columns are correct.
 
@@ -442,16 +461,11 @@ You might have noticed that the date column is treated as character and not Date
 Exercise 1
 ----------
 
-For the remainder of the exercises in this course, we will be using prefabricated datasets from the `smwrData` package. This package is a collection of real hydrologic data that can be loaded into your R workspace and used. It is similar to the stock R datasets (type `data()` into your console to see stock datasets), but with USGS-relevant data. So don't forget to load the package before the exercise.
+This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data.
 
-This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset. Remember to use the stickies: green when you're done, red if you have a problem.
-
-1.  If it isn't already open, make sure you have the script we created, "usgs\_analysis.R" opened up.
-2.  Start a new section of code in this script by simply putting in a line or two of comments indicating what it is this set of code does. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data.
-3.  First, we want a new data frame based on the PugetNitrate dataset from the `smwrData` package (don't forget to load your package!). Load the data by executing `data(PugetNitrate)`.
-4.  Using dplyr, remove the landuse columns (l10, l20, and l40). Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data.
-5.  Next, we are going to get a subset of the observations. We only want wells where the surficial geology is Alluvium or Fine. Also give this data frame a different name than before.
-6.  Lastly, add a new column using an `ifelse` function that tells us if the well depth is "shallow" or "deep" based on the well depth column values `wellmet`. Hint: use `summary(PugetNitrate)` to determine what threshold would determine "shallow" vs "deep" based on the data.
+1.  Using dplyr, remove the `Flow_Inst_cd` column. Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data.
+2.  Next, we are going to get a subset of the observations. We only want data where flow was greater than 10 cubic feet per second. Also give this data frame a different name than before.
+3.  Lastly, add a new column with flow in units of cubic meters per second. Hint: there are 3.28 feet in a meter.
 
 Merging Data
 ------------
@@ -529,12 +543,52 @@ Notice that the `left_join` kept only the matching rows (September 1-3), but kep
 Exercise 2
 ----------
 
-In this exercise we are going to practice merging data. We will be using two datasets from the `smwrData` package.
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below).
 
-1.  Load `ChoptankFlow` and `ChoptankNH3` into your environment from the `smwrData` package by using `data()`.
-2.  Add to your script a line (or more if you need it) to create a new data frame, `Choptank_Flow_NH3`, that is a merge of `ChoptankFlow` and `ChoptankNH3`, but with only lines in `ChoptankNH3` preserved in the output. The column to merge on is the date column (although named differently in each data frame, but they will need to have the same name to merge).
-3.  This data frame may have some `NA` values. Add another line to your code and create a data frame that removes all NA values from `Choptank_Flow_NH3`.
-4.  If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
+``` r
+# could use sample_n() to select random rows, but we want everyone in the class to have the same values
+# e.g. sample_n(intro_df, size=20)
+
+#subset intro_df
+rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357, 
+               1290, 225, 479, 1678, 274, 1816, 418, 1777, 611, 2993)
+intro_df_subset <- intro_df[rows2keep,]
+
+# keep only flow for one dataframe
+Q <- select(intro_df_subset, site_no, dateTime, Flow_Inst)
+
+# select 8 values and only keep DO for second dataframe
+DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
+DO <- select(DO, site_no, dateTime, DO_Inst)
+
+head(Q)
+```
+
+    ##        site_no            dateTime Flow_Inst
+    ## 1634  02336120 2011-05-26 21:45:00      98.0
+    ## 1123 021989773 2011-05-26 08:15:00  -17500.0
+    ## 2970  02336526 2011-05-31 14:30:00       4.6
+    ## 1052 021989773 2011-05-10 15:30:00  -51900.0
+    ## 2527  02336300 2011-05-20 23:15:00      24.0
+    ## 1431  02336240 2011-05-16 00:00:00      10.0
+
+``` r
+head(DO)
+```
+
+    ##       site_no            dateTime DO_Inst
+    ## 1634 02336120 2011-05-26 21:45:00     7.6
+    ## 2527 02336300 2011-05-20 23:15:00     8.7
+    ## 2437 02336360 2011-05-08 20:45:00     8.9
+    ## 2718 02203700 2011-05-04 19:45:00     7.4
+    ## 225  02336313 2011-05-19 00:45:00     7.7
+    ## 1816 02336410 2011-05-17 18:15:00    10.1
+
+1.  Run the lines above to create the two data frames we will be working with.
+2.  Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.
+3.  Now try merging, but keeping all `Q` observations, and call it `Q_DO`. You should notice a lot of `NA` values where the `DO` dataframe did not have a matching observation.
+4.  Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
+5.  If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
 
 Modify and Summarize
 --------------------
@@ -768,15 +822,15 @@ head(intro_df_DO_max)
 
 We now have quite a few tools that we can use to clean and manipulate data in R. We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on.
 
-Let's practice some of these last functions with other `smwrData` datasets.
+Let's practice some of these last functions.
 
 Exercise 3
 ----------
 
-Next, we're going to practice summarizing large datasets. We will use the `MC11_1993` soil temperature dataset from the `smwrdata` package (271 rows, 10 columns). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done.
+Next, we're going to practice summarizing large datasets (using `intro_df`). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done.
 
-1.  Create a new data.frame that gives the maximum reference temperature (`TEMP.REF`) for each month and name it `MC11_1993_max_monthly_ref_temp`. Hint: don't forget about `group_by()`!
+1.  Create a new data.frame that gives the maximum water temperature (`Wtemp_Inst`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
 
-2.  Now add a new column that is the average soil temperature at each depth (do not include `TEMP.REF`). Then, sort the resulting data.frame in descending order. Name this new data.frame `MC11_1993_daily_avg_temp`. Hint: use `rowwise` to compute at each depth.
+2.  Next, create a new data.frame that gives the average water temperature (`Wtemp_Inst`) for each pH value and name it `intro_df_mean_pH_temp`.
 
-3.  Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`.
+3.  Challenge: Find the minimum flow, water temperature, and dissolved oxygen for each site using `summarize_at`.
