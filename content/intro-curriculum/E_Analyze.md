@@ -1,6 +1,6 @@
 ---
-author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-06
+author: Jeffrey W. Hollister, Emily Read, Lindsay Carr
+date: 2016-10-06
 slug: Analyze
 title: E. Analyze
 image: img/main/intro-icons-300px/analyze.png
@@ -11,7 +11,12 @@ menu:
 ---
 The focus of this workshop hasn't really been statistics, it's been more about R, the language. But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it. In this lesson we will touch on some very simple stats that we can do with base R.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+``` r
+intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -126,81 +131,80 @@ cor(intro_df_onlynumeric, use="complete.obs")
 Next let's take a look at linear regression. One of the common ways of fitting linear regressions is with `lm()`. We have already seen the formula object so there isn't too much that is new here. Some of the options are new and useful, though. Let's take a look:
 
 ``` r
-lm(pH_Inst ~ Flow_Inst, data=intro_df)
+lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = pH_Inst ~ Flow_Inst, data = intro_df)
+    ## lm(formula = DO_Inst ~ Wtemp_Inst, data = intro_df)
     ## 
     ## Coefficients:
-    ## (Intercept)    Flow_Inst  
-    ##   7.160e+00   -2.078e-07
+    ## (Intercept)   Wtemp_Inst  
+    ##     11.3049      -0.1747
 
 ``` r
 #Not much info, so save to object and use summary
-lm_gwq1 <- lm(pH_Inst ~ Flow_Inst, data=intro_df)
+lm_gwq1 <- lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
 summary(lm_gwq1)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = pH_Inst ~ Flow_Inst, data = intro_df)
+    ## lm(formula = DO_Inst ~ Wtemp_Inst, data = intro_df)
     ## 
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.95970 -0.15977  0.04023  0.14023  1.94023 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -4.4055 -0.6783 -0.1055  0.7510  5.4808 
     ## 
     ## Coefficients:
-    ##               Estimate Std. Error  t value Pr(>|t|)    
-    ## (Intercept)  7.160e+00  5.740e-03 1247.274   <2e-16 ***
-    ## Flow_Inst   -2.078e-07  3.457e-07   -0.601    0.548    
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) 11.304895   0.148356    76.2   <2e-16 ***
+    ## Wtemp_Inst  -0.174729   0.007075   -24.7   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.3033 on 2791 degrees of freedom
-    ##   (207 observations deleted due to missingness)
-    ## Multiple R-squared:  0.0001294,  Adjusted R-squared:  -0.0002289 
-    ## F-statistic: 0.3612 on 1 and 2791 DF,  p-value: 0.5479
+    ## Residual standard error: 1.241 on 2820 degrees of freedom
+    ##   (178 observations deleted due to missingness)
+    ## Multiple R-squared:  0.1778, Adjusted R-squared:  0.1775 
+    ## F-statistic: 609.9 on 1 and 2820 DF,  p-value: < 2.2e-16
 
 ``` r
 #And now a multiple linear regression
-lm_gwq2 <- lm(pH_Inst ~ Flow_Inst + DO_Inst + Wtemp_Inst, data=intro_df)
+lm_gwq2 <- lm(DO_Inst ~ Wtemp_Inst + Flow_Inst, data=intro_df)
 summary(lm_gwq2)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = pH_Inst ~ Flow_Inst + DO_Inst + Wtemp_Inst, data = intro_df)
+    ## lm(formula = DO_Inst ~ Wtemp_Inst + Flow_Inst, data = intro_df)
     ## 
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.90116 -0.15046 -0.01061  0.14245  1.60553 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -4.4067 -0.6817 -0.1067  0.7537  5.4795 
     ## 
     ## Coefficients:
     ##               Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  5.738e+00  5.993e-02  95.734   <2e-16 ***
-    ## Flow_Inst   -2.761e-07  3.206e-07  -0.861    0.389    
-    ## DO_Inst      8.384e-02  4.338e-03  19.330   <2e-16 ***
-    ## Wtemp_Inst   3.767e-02  1.802e-03  20.899   <2e-16 ***
+    ## (Intercept)  1.131e+01  1.512e-01  74.787   <2e-16 ***
+    ## Wtemp_Inst  -1.747e-01  7.216e-03 -24.211   <2e-16 ***
+    ## Flow_Inst    2.033e-06  1.415e-06   1.436    0.151    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.2753 on 2627 degrees of freedom
-    ##   (369 observations deleted due to missingness)
-    ## Multiple R-squared:  0.1783, Adjusted R-squared:  0.1773 
-    ## F-statistic:   190 on 3 and 2627 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 1.245 on 2733 degrees of freedom
+    ##   (264 observations deleted due to missingness)
+    ## Multiple R-squared:  0.1773, Adjusted R-squared:  0.1767 
+    ## F-statistic: 294.6 on 2 and 2733 DF,  p-value: < 2.2e-16
 
 We can also put a regression line on the plot:
 
 ``` r
-plot(intro_df$Flow_Inst, intro_df$pH_Inst)
+plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
-abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
+abline(lm(DO_Inst ~ Wtemp_Inst, data=intro_df))
 ```
 
-<img src='../static/Analyze/abline_examp_lm-1.png'/ title='/Scatter plot of pH versus flow with regression line'/>
+<img src='../static/Analyze/abline_examp_lm-1.png'/ title='Scatter plot of pH versus flow with regression line'/>
 
 We can also just add a straight line defined by slope and intercept. We do this with `abline()`. This is useful if you have a known value that you want to compare to your data.
 
@@ -214,7 +218,7 @@ abline(v=15)
 abline(7, 0.5)
 ```
 
-<img src='../static/Analyze/abline_examp-1.png'/ title='/Dissolved oxygen versus water temperature scatter plot with lines using abline'/>
+<img src='../static/Analyze/abline_examp-1.png'/ title='Dissolved oxygen versus water temperature scatter plot with lines using abline'/>
 
 All of your standard modeling approaches (and then some) are available in R, including typical variable selection techniques (e.g. stepwise with AIC) and logistic regression, which is implemented with the rest of the generalized linear models in `glm()`. Interaction terms can be specified directly in the model, but we won't be covering them in this course.. Lastly, if you are interested in more involved or newer approaches these are likely implemented in additional packages, beyond base R and `stats`, which you can find on a repository such as [CRAN](https://cran.rstudio.com), [GRAN](http://owi.usgs.gov/R/gran.html), or [Bioconductor](https://www.bioconductor.org/packages/release/BiocViews.html#___Software). You can also check out task pages such as the [CRAN Environmetrics Task View](https://cran.r-project.org/web/views/Environmetrics.html) for more ideas.
 
@@ -223,10 +227,8 @@ Exercise 1
 
 For this exercise, let's start to look at some of the statistical tests and relationships.
 
-1.  First, let's take a look at the relationship between ammonia and organic nitrogen concentration across land-use types (`PrecipNitrogen` dataset from `smwrData`). Add a section to your script that tests for a difference in the mean value across these parameters between industrial sites and residential sites. What is the conclusion? Are the means statistically different?
+1.  First, let's take a look at the relationship between pH and low or high temperatures. Add a section to your script that tests for a difference in the mean value across these parameters between low temperature observations and high temperature observations (high is greater than or equal to 20). What is the conclusion? Are the means statistically different?
 
-2.  Challenge: Recreate step 1, but use a formula rather than two vectors as input to `t.test`. You should get the same results.
+2.  Next, let's build a linear model that predicts pH from discharge at a single site (pick any site). Use discharge as the explanatory variable. Add a line to extract the r-squared value from the linear model.
 
-3.  Next, let's build a linear model that predicts phosphorus concentrations at a USGS site on Klamath River (`KlamathTP` dataset from `smwrData`). Use flow as the explanatory variable. Add a line to extract the r-squared value from the linear model.
-
-4.  Challenge: Create a multivariate linear model relating total nitrogen to two or three explanatory variables in the `TNLoads` dataset from `smwrData`. Extract the adjusted r-squared value. If there's time, try to figure out which variables maximize the r-squared.
+3.  Challenge: Create a multivariate linear model relating pH to two other explanatory variables. Extract the adjusted r-squared value.

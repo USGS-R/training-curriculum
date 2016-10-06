@@ -1,7 +1,7 @@
 ---
 title: "E. Analyze"
-author: "Jeffrey W. Hollister & Emily Read"
-date: "2016-07-06"
+author: "Jeffrey W. Hollister, Emily Read, Lindsay Carr"
+date: "2016-10-05"
 slug: "Analyze"
 image: img/main/intro-icons-300px/analyze.png
 output: USGSmarkdowntemplates::hugo
@@ -26,14 +26,14 @@ opts_chunk$set(
 set.seed(5)
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
+The focus of this workshop hasn't really been statistics, it's been more about R, the language.  But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it.  In this lesson we will touch on some very simple stats that we can do with base R.  
+
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+```{r load_data, echo=TRUE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
-
-The focus of this workshop hasn't really been statistics, it's been more about R, the language.  But it's pretty much impossible to talk a lot about R without getting into stats, as that is what draws most people to R in the first place. So we will spend a little bit of time on it.  In this lesson we will touch on some very simple stats that we can do with base R.  
-
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
 
 ##Quick Links to Exercises and R code
 - [Exercise 1](#exercise-1): Compute basic statistics and build a simple model with USGS data
@@ -90,22 +90,22 @@ cor(intro_df_onlynumeric, use="complete.obs")
 Next let's take a look at linear regression.  One of the common ways of fitting linear regressions is with `lm()`.  We have already seen the formula object so there isn't too much that is new here.  Some of the options are new and useful, though.  Let's take a look:
 
 ```{r lm_examp, warning=FALSE, message=FALSE}
-lm(pH_Inst ~ Flow_Inst, data=intro_df)
+lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
 #Not much info, so save to object and use summary
-lm_gwq1 <- lm(pH_Inst ~ Flow_Inst, data=intro_df)
+lm_gwq1 <- lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
 summary(lm_gwq1)
 #And now a multiple linear regression
-lm_gwq2 <- lm(pH_Inst ~ Flow_Inst + DO_Inst + Wtemp_Inst, data=intro_df)
+lm_gwq2 <- lm(DO_Inst ~ Wtemp_Inst + Flow_Inst, data=intro_df)
 summary(lm_gwq2)
 ```
 
 We can also put a regression line on the plot:
 
 ```{r abline_examp_lm, warning=FALSE, message=FALSE, fig.cap="Scatter plot of pH versus flow with regression line"}
-plot(intro_df$Flow_Inst, intro_df$pH_Inst)
+plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
-abline(lm(pH_Inst ~ Flow_Inst, data=intro_df))
+abline(lm(DO_Inst ~ Wtemp_Inst, data=intro_df))
 ```
 
 We can also just add a straight line defined by slope and intercept.  We do this with `abline()`. This is useful if you have a known value that you want to compare to your data. 
@@ -128,10 +128,8 @@ All of your standard modeling approaches (and then some) are available in R, inc
 ##Exercise 1
 For this exercise, let's start to look at some of the statistical tests and relationships. 
 
-1. First, let's take a look at the relationship between ammonia and organic nitrogen concentration across land-use types (`PrecipNitrogen` dataset from `smwrData`).  Add a section to your script that tests for a difference in the mean value across these parameters between industrial sites and residential sites. What is the conclusion? Are the means statistically different?
+1. First, let's take a look at the relationship between pH and low or high temperatures.  Add a section to your script that tests for a difference in the mean value across these parameters between low temperature observations and high temperature observations (high is greater than or equal to 20). What is the conclusion? Are the means statistically different?
 
-2. Challenge: Recreate step 1, but use a formula rather than two vectors as input to `t.test`. You should get the same results.
+2. Next, let's build a linear model that predicts pH from discharge at a single site (pick any site). Use discharge as the explanatory variable. Add a line to extract the r-squared value from the linear model. 
 
-3. Next, let's build a linear model that predicts phosphorus concentrations at a USGS site on Klamath River (`KlamathTP` dataset from `smwrData`). Use flow as the explanatory variable. Add a line to extract the r-squared value from the linear model. 
-
-4. Challenge: Create a multivariate linear model relating total nitrogen to two or three explanatory variables in the `TNLoads` dataset from `smwrData`. Extract the adjusted r-squared value. If there's time, try to figure out which variables maximize the r-squared.
+4. Challenge: Create a multivariate linear model relating pH to two other explanatory variables. Extract the adjusted r-squared value. 

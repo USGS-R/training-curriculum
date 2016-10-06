@@ -1,7 +1,7 @@
 ---
 title: "C. Clean"
-author: "Jeffrey W. Hollister & Luke Winslow"
-date: "2016-07-08"
+author: "Jeffrey W. Hollister, Luke Winslow, Lindsay Carr"
+date: "2016-10-05"
 slug: "Clean"
 image: img/main/intro-icons-300px/clean.png
 output: USGSmarkdowntemplates::hugo
@@ -26,16 +26,14 @@ opts_chunk$set(
 set.seed(3)
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
-intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
-```
-
-
 In this third lesson we are going to start working on manipulating and cleaning up our data frames.  We are spending some time on this because, in my experience, most data analysis and statistics classes seem to assume that 95% of the time spent working with data is on the analysis and interpretation of that analysis and little time is spent getting data ready to analyze.  However, in reality, the time spent is flipped with most time spent on cleaning up data and significantly less time on the analysis. We will just be scratching the surface of the many ways you can work with data in R.  We will show the basics of subsetting, merging, modifying, and sumarizing data and our examples will all use Hadley Wickham and Romain Francois' `dplyr` package.  There are many ways to do this type of work in R, many of which are available from base R, but I heard from many focusing on one way to do this is best, so `dplyr` it is!
 
-Remember our NWIS data we loaded in the `Get` lesson? That's the dataset we will use here. If it's no longer loaded, go back to the [Reading data into R](/intro-curriculum/Get/#reading-data-into-r) section and read the data into R as a data frame (remember that we named it `intro_df`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Get](/intro-curriculum/Get) lesson, then you should have the NWIS data frame. If you did not complete the Get lesson (or are starting in a new R session), just load in the `course_NWISdata.csv` by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
 
-Before we jump into the lesson, quick links and lesson goals are:
+```{r load_data, echo=TRUE, warning=FALSE, message=FALSE}
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 ##Quick Links to Exercises and R code
 - [Exercise 1](#exercise-1): Subsetting data with `dplyr`.
@@ -46,7 +44,6 @@ Before we jump into the lesson, quick links and lesson goals are:
 ##Lesson Goals
 - Show and tell on using base R for data manipulation
 - Better understand data cleaning through use of `dplyr`
-- Use conditional statements to further manipulate data
 - Use `merge()` to combine data frames by a common key
 - Do some basic reshaping and summarizing data frames
 - Know what pipes are and why you might want to use them
@@ -158,97 +155,6 @@ intro_df_newcolumn <- mutate(intro_df, DO_mgmL = DO_Inst/1000)
 head(intro_df_newcolumn)
 ```
 
-Let's take a quick detour and learn about how to apply conditional statements to our data cleaning workflows.
-
-## Using if-else statements with dplyr
-If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is tell your code how to make decisions, and they come in handy when cleaning up data frames. For instance, you might want to make a new column of data based on some condition applied to an existing column. That's easy with if-else control structures. Here's the basic syntax of an if-else statement:
-
-```
-if(some condition){
-  do something
-} else {
-  do something different
-}
-```
-
-Let's first go through basic if-else structures before using them with data frame manipulation.
-
-```{r if_else_examp, warning=FALSE, message=FALSE}
-x <- 2
-
-# logical statement inside of () needs to return ONE logical value - TRUE or FALSE. TRUE means it will enter the following {}, FALSE means it won't.
-if(x < 0){
-  print("negative")
-} 
-
-# you can also specify something to do when the logical statement is FALSE by adding `else`
-if(x < 0){
-  print("negative")
-} else {
-  print("positive")
-}
-```
-
-The key to if-else is using a logical statement that only returns a single TRUE or FALSE, not a vector of trues or falses. The if statement needs to know if it should enter the `{}` or not, and therefore needs a single answer - yes or no. Here are some useful functions that allow you to use vectors in if-else:
-
-```{r if_else_functions, warning=FALSE, message=FALSE}
-y <- 1:7
-
-# use "any" if you want to see if at least one of the values meets a condition
-any(y > 5)
-
-# use "!any" if you don't want any of the values to meet some condition (e.g. vector can't have negatives)
-!any(y < 0) 
-
-# use "all" when every value in a vector must meet a condition
-all(y > 5)
-
-# using these in the if-else statement
-if(any(y < 0)){
-  print("some values are negative")
-} 
-```
-
-And you can you use multiple `if` statements by stringing them together with `else`
-
-```{r if_else_examp2, warning=FALSE, message=FALSE}
-num <- 198
-
-if(num > 0) {
-  print("positive")
-} else if (num < 0) {
-  print("negative")
-} else {
-  print("zero")
-}
-```
-
-Now that you have a basic understanding of if-else structures, let's use them with `dplyr` to manipulate a data frame. We want to add a new column if some condition is met, or filter a column if the condition is not met. We can use the `if-else` structure along with `mutate` and `select` from `dplyr` to accomplish this. 
-
-```{r if_else_dplyr, warning=FALSE, message=FALSE}
-# if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
-if(!'DO_mgmL' %in% names(intro_df)){
-  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
-} 
-
-# if there are more than 1000 observations, we want to filter out high temperature observations
-if(nrow(intro_df) > 1000){
-  head(filter(intro_df, Wtemp_Inst >= 15))
-}
-```
-
-### Optional: the `ifelse` function
-
-Let's learn a new way to apply if-else logic - the function `ifelse`. This function is similar to the previous if-else structure syntax, but the function can only return one value (rather than doing a series of commands within `{}`). See `?ifelse` for more information. Basic syntax for `ifelse()`:
-
-`ifelse(condition, yesValue, noValue)`
-
-Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value. 
-
-```{r ifelse_dplyr, warning=FALSE, message=FALSE}
-#use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
-```
 
 ## Three ways to string `dplyr` commands together
 
@@ -281,7 +187,7 @@ intro_df %>%
 
 Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material. 
 
-##Cleaning up dataset 
+## Cleaning up dataset 
 Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Notice anything strange? Hint: why are the pH values character? That shouldn't be the case; there should be numeric values in that column. If there are any entries that are not numeric values or `NA`, R will treat the entire column as character. You can coerce them to numeric (so anything that is not NA or a number will be coerced into NA), but you should investigate what values are causing the issue first. To do this, we coerce to numeric and look at what values were considered NA in the numeric column, but not in the character column.
 
 ```{r pH_wrong_intro_df, warning=FALSE, message=FALSE}
@@ -304,16 +210,11 @@ You might have noticed that the date column is treated as character and not Date
 
 ##Exercise 1
 
-For the remainder of the exercises in this course, we will be using prefabricated datasets from the `smwrData` package. This package is a collection of real hydrologic data that can be loaded into your R workspace and used. It is similar to the stock R datasets (type `data()` into your console to see stock datasets), but with USGS-relevant data. So don't forget to load the package before the exercise.
+This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data. 
 
-This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset.  Remember to use the stickies: green when you're done, red if you have a problem.
-
-1. If it isn't already open, make sure you have the script we created, "usgs_analysis.R" opened up.
-2. Start a new section of code in this script by simply putting in a line or two of comments indicating what it is this set of code does. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data. 
-3. First, we want a new data frame based on the PugetNitrate dataset from the `smwrData` package (don't forget to load your package!). Load the data by executing `data(PugetNitrate)`. 
-4. Using dplyr, remove the landuse columns (l10, l20, and l40). Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data. 
-5. Next, we are going to get a subset of the observations. We only want wells where the surficial geology is Alluvium or Fine. Also give this data frame a different name than before.
-6. Lastly, add a new column using an `ifelse` function that tells us if the well depth is "shallow" or "deep" based on the well depth column values `wellmet`. Hint: use `summary(PugetNitrate)` to determine what threshold would determine "shallow" vs "deep" based on the data.
+1. Using dplyr, remove the `Flow_Inst_cd` column. Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data. 
+2. Next, we are going to get a subset of the observations. We only want data where flow was greater than 10 cubic feet per second. Also give this data frame a different name than before.
+3. Lastly, add a new column with flow in units of cubic meters per second. Hint: there are 3.28 feet in a meter. 
 
 ##Merging Data
 Joining data in `dplyr` is accomplished via the various `x_join()` commands (e.g., `inner_join`, `left_join`, `anti_join`, etc).  These are very SQL-esque so if you speak SQL then these will be pretty easy for you.  If not then they aren't immediately intuitive.  There are also the base functions `rbind()` and `merge()`, but we won't be covering these because they are redundant with the faster, more readable `dplyr` functions.  
@@ -359,11 +260,32 @@ Notice that the `left_join` kept only the matching rows (September 1-3), but kep
 ```
 
 ##Exercise 2
-In this exercise we are going to practice merging data. We will be using two datasets from the `smwrData` package.
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below).
 
-1. Load `ChoptankFlow` and `ChoptankNH3` into your environment from the `smwrData` package by using `data()`. 
-2. Add to your script a line (or more if you need it) to create a new data frame, `Choptank_Flow_NH3`, that is a merge of `ChoptankFlow` and `ChoptankNH3`, but with only lines in `ChoptankNH3` preserved in the output. The column to merge on is the date column (although named differently in each data frame, but they will need to have the same name to merge).  
-3. This data frame may have some `NA` values. Add another line to your code and create a data frame that removes all NA values from `Choptank_Flow_NH3`.
+```{r exercise2, warning=FALSE, message=FALSE}
+# could use sample_n() to select random rows, but we want everyone in the class to have the same values
+# e.g. sample_n(intro_df, size=20)
+
+#subset intro_df
+rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357, 
+               1290, 225, 479, 1678, 274, 1816, 418, 1777, 611, 2993)
+intro_df_subset <- intro_df[rows2keep,]
+
+# keep only flow for one dataframe
+Q <- select(intro_df_subset, site_no, dateTime, Flow_Inst)
+
+# select 8 values and only keep DO for second dataframe
+DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
+DO <- select(DO, site_no, dateTime, DO_Inst)
+
+head(Q)
+head(DO)
+```
+
+1. Run the lines above to create the two data frames we will be working with.
+2. Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.  
+3. Now try merging, but keeping all `Q` observations, and call it `Q_DO`. You should notice a lot of `NA` values where the `DO` dataframe did not have a matching observation. 
+3. Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
 4. If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
 
 ##Modify and Summarize
@@ -440,17 +362,17 @@ head(intro_df_DO_max)
 
 We now have quite a few tools that we can use to clean and manipulate data in R.  We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on. 
 
-Let's practice some of these last functions with other `smwrData` datasets.
+Let's practice some of these last functions.
 
 ```{r Exercise3, echo=FALSE}
 ```
 
 ##Exercise 3
 
-Next, we're going to practice summarizing large datasets. We will use the `MC11_1993` soil temperature dataset from the `smwrdata` package (271 rows, 10 columns). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done. 
+Next, we're going to practice summarizing large datasets (using `intro_df`). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done. 
 
-1. Create a new data.frame that gives the maximum reference temperature (`TEMP.REF`) for each month and name it `MC11_1993_max_monthly_ref_temp`. Hint: don't forget about `group_by()`!
+1. Create a new data.frame that gives the maximum water temperature (`Wtemp_Inst`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
 
-2. Now add a new column that is the average soil temperature at each depth (do not include `TEMP.REF`). Then, sort the resulting data.frame in descending order. Name this new data.frame `MC11_1993_daily_avg_temp`. Hint: use `rowwise` to compute at each depth.
+2. Next, create a new data.frame that gives the average water temperature (`Wtemp_Inst`) for each pH value and name it `intro_df_mean_pH_temp`. 
 
-3. Challenge: Find the average and minimum temperatures (for each month) at depths of 0.5, 1.5, and 2.5 using `summarize_each`.
+3. Challenge: Find the minimum flow, water temperature, and dissolved oxygen for each site using `summarize_at`.

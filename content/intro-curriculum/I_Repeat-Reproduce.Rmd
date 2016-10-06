@@ -1,7 +1,7 @@
 ---
 title: "I. Repeat and Reproduce"
-author: "Jeffrey W. Hollister"
-date: "2016-07-02"
+author: "Jeffrey W. Hollister & Lindsay Carr"
+date: "2016-10-05"
 slug: "Reproduce"
 image: img/main/intro-icons-300px/repeat.png
 output: USGSmarkdowntemplates::hugo
@@ -25,27 +25,206 @@ opts_chunk$set(
 )
 ```
 
-```{r load_data, echo=FALSE, warning=FALSE, message=FALSE}
+You now have a basic understanding of how to conduct a typical data analysis workflow in R.  All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports.  This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
+
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+```{r load_data, echo=TRUE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
                      colClasses = c("character", rep(NA, 6)))
 ```
 
-You now have a basic understanding of how to conduct a typical data analysis workflow in R.  All that is left is to be able to write it up in such a way that others can not only understand what we did, but repeat it exactly on their own machines. To do this effectively we need to understand how to create reusable R code and create reproducible reports.  This will be a very high level introduction to both concepts, but should hopefully give you a jumping off place for more learning.
-
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
-
 ##Quick Links to Exercises and R code
-- [Exercise 1](#exercise-1): Writing functions and control structures
-- [Exercise 2](#exercise-2): Creating an RMarkdown document
+- [Exercise 1](#exercise-1): Using for loops and conditionals
+- [Exercise 2](#exercise-2): Writing functions
+- [Exercise 3](#exercise-3): Creating an RMarkdown document
 
 
 ##Lesson Goals
+- Be able to use basic programming control structures (loops, conditional statements)
 - Understand how to create your own functions
-- Be able to use basic programming control structures
 - Gain familiarity with Markdown and `knitr`
 - Create a simple, reproducible document and presentation
 
-##Functions and Programming with R
+## Using conditional (if-else) statements
+If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is tell your code how to make decisions. For instance, you might want a subroutine only applied to certain sites or when certain data is (or is not) present. That's easy with if-else control structures. Here's the basic syntax of an if-else statement:
+
+```
+if(some condition){
+  do something
+} else {
+  do something different
+}
+```
+
+Let's first go through basic if-else structures.
+
+```{r if_else_examp, warning=FALSE, message=FALSE}
+x <- 2
+
+# logical statement inside of () needs to return ONE logical value - TRUE or FALSE. TRUE means it will enter the following {}, FALSE means it won't.
+if(x < 0){
+  print("negative")
+} 
+
+# you can also specify something to do when the logical statement is FALSE by adding `else`
+if(x < 0){
+  print("negative")
+} else {
+  print("positive")
+}
+```
+
+The key to if-else is using a logical statement that only returns a single TRUE or FALSE, not a vector of trues or falses. The if statement needs to know if it should enter the `{}` or not, and therefore needs a single answer - yes or no. Here are some useful functions that allow you to use vectors in if-else, but still return a single yes or no:
+
+```{r if_else_functions, warning=FALSE, message=FALSE}
+y <- 1:7
+
+# use "any" if you want to see if at least one of the values meets a condition
+any(y > 5)
+
+# use "!any" if you don't want any of the values to meet some condition (e.g. vector can't have negatives)
+!any(y < 0) 
+
+# use "all" when every value in a vector must meet a condition
+all(y > 5)
+
+# using these in the if-else statement
+if(any(y < 0)){
+  print("some values are negative")
+} 
+```
+
+And you can you use multiple `if` statements by stringing them together with `else`
+
+```{r if_else_examp2, warning=FALSE, message=FALSE}
+num <- 198
+
+if(num > 0) {           # first condition
+  print("positive")
+} else if (num < 0) {   # second condition
+  print("negative")
+} else {                # everything else
+  print("zero")
+}
+```
+
+Now that you have a basic understanding of if-else structures, let's use them with `dplyr` to manipulate a data frame. We want to add a new column if some condition is met, or filter a column if the condition is not met. We can use the `if-else` structure along with `mutate` and `select` from `dplyr` to accomplish this (see the [Clean](/intro-curriculum/clean) lesson to learn about dplyr).
+
+```{r if_else_dplyr, warning=FALSE, message=FALSE}
+# first, make sure dplyr is loaded
+library(dplyr)
+
+# if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
+if(!'DO_mgmL' %in% names(intro_df)){
+  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
+} 
+
+# if there are more than 1000 observations, we want to filter out high temperature observations
+if(nrow(intro_df) > 1000){
+  head(filter(intro_df, Wtemp_Inst >= 15))
+}
+```
+
+### Optional: the `ifelse` function
+
+Let's learn a new way to apply if-else logic - the function `ifelse`. This function is similar to the previous if-else structure syntax, but the function can only return one value (rather than doing a series of commands within `{}`). See `?ifelse` for more information. Basic syntax for `ifelse()`:
+
+`ifelse(condition, yesValue, noValue)`
+
+Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value. 
+
+```{r ifelse_dplyr, warning=FALSE, message=FALSE}
+#use mutate along with ifelse to add a new column
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
+```
+
+## Looping
+
+A `for` loop allows you to repeat code.  You specify a variable and a range of values and the `for` loop runs the code for each value in your range. There are other ways to repeat code (e.g. apply suite of functions), but we are only going to discuss for loops (some in the R world think loops are be bad since R is optimized for working on vectors, but the concept is useful). The basic structure looks like:
+
+```
+for(a_name in a_range) {
+  code you want to run
+  may or may not use a_name
+}
+```
+
+```{r for_examp, warning=FALSE, message=FALSE}
+# sequentially increase the value of some number
+vec <- 1:10
+j <- 0 # variables used in loops must exist already - so we initialize them
+for(i in vec) {
+  j <- i + j
+  print(j)
+}
+
+```
+
+Again a bit of a silly example since all it is doing is looping through a list of values and summing it.  In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley Wickham's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).  
+
+Let's dig a bit more into this issue with another example.  This time, let's look at adding two vectors together.  We haven't touched on this yet, but R is really good at dealing with this kind of operation.  It is what people mean when they talk about "vectorized" operations.  For instance:
+
+```{r for_examp_print, warning=FALSE, message=FALSE}
+# A simple vectorize operation
+x <- 1:100
+y <- 100:1
+z <- x + y
+z
+```
+
+Pretty cool.  This kind of thing doesn't come easily with many languages.  You would need to program it yourself using a loop.  For the sake of argument (and practice), let's try the loop version with R. You'll notice that we have set `out <- NULL` at the beginning. We are adding values to `out` using the loop, but the object must exist first. Thus, we make it NULL or you can use `out <- c()` if you know it will be a vector.
+
+``` {r looping_vector_examp, warning=FALSE, message=FALSE}
+#We will assume vectors of the same length...
+out <- NULL 
+for(i in 1:length(x)) {
+  out[i] <- x[i] + y[i]
+}
+
+```
+
+So, these do the same thing, big deal.  It is big though when you look at the timing of the two.  Let's create two large vectors and see what happens.
+
+```{r for_vector_time, warning=FALSE, message=FALSE}
+large_vec1 <- as.numeric(1:100000)
+large_vec2 <- as.numeric(100000:1)
+
+# vectorized happens almost instaneously
+vec_time <- large_vec1 + large_vec2
+
+# we have to wait for this loop (~17 seconds)
+out <- NULL
+for(i in 1:length(large_vec1)) {
+  out[i] <- large_vec1[i] + large_vec2[i]
+}
+
+```
+
+Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping.  In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that.  That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up.  With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
+
+``` {r looping_vector_examp2, warning=FALSE, message=FALSE}
+#We will assume vectors of the same length...
+out <- vector("numeric",length(large_vec1))
+for(i in 1:length(large_vec1)) {
+  out[i] <- large_vec2[i] + large_vec2[i]
+}
+
+```
+
+Now that's better.  In short, if an obvious vector or primitive solution exists, use that.  If those aren't clear and you need to use a loop, don't be afraid to use one.  There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand.  Personally, I think it is possible to go too far down the vectorized path.  Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
+
+```{r Exercise1, echo=FALSE}
+```
+
+##Exercise 1
+For this exercise we are going to practice using control structures. We are going to make a plot of DO vs water temperature for each site in our dataset. 
+
+1. Create a for loop that loops through each site and creates a plot. Don't save the plot, just have it render in the plot window. Hint: use `unique(intro_df$site_no)` to get a vector of sites.
+2. Let's imagine that we had one site that we knew had bad data, and we don't want to render a plot for it. Add a conditional statement to your loop that skips the plotting code for this particular site.
+
+
+## Functions in R
 At this point we should be pretty well versed at using functions.  They have a name and some arguments, and they do something.  Some return a value, some don't.  In short they form the basic structure of R.  One of the cool things about R (and programming in general), is that we are not stuck with the functions provided to us.  We can and should develop our own, as we often want to do things repeatedly, and in slightly different contexts.  Creating a function to deal with this fact helps us a great deal because we do not have to repeat ourselves, we can just use what we have already written.  Creating a function is really easy.  We use the `function()` function.  It has the basic structure of: 
 
 ```
@@ -94,93 +273,13 @@ myplot <- function(x, y, grp, file) {
 
 #Call the function using intro_df
 library(ggplot2)
-myplot(intro_df$Flow_Inst, intro_df$pH_Inst, 
-       intro_df$Flow_Inst_cd, "q_pH.jpg")
+myplot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, 
+       intro_df$Flow_Inst_cd, "q_Wtemp.jpg")
 myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
        intro_df$Flow_Inst_cd, "q_do.jpg")
 ```
 
-Cool, a function, that does something useful.  It still is just a collection of functions at this point though.  What if we wanted to repeat something?  Well we need to look more at some of the classic programming structures in R.  For this introduction, I am going to look just at `for` loops (some in the R world think this to be bad since R is optimized for working on vectors, but the concept is useful),  and `return()`.  
-
-###for
-A `for` loop allows you to repeat code.  You specify a variable and a range of values and the `for` loop runs the code for each value in your range.  The basic structure looks like:
-
-```
-for(a_name in a_range) {
-  code you want to run
-  may or may not use a_name
-}
-```
-
-And an example in a function.
-
-```{r for_examp, warning=FALSE, message=FALSE}
-sum_vec <- function(vec) {
-  j <- 0
-  for(i in vec) {
-    j <- i + j
-    print(j)
-  }
-}
-
-sum_vec(1:2)
-sum_vec(1:10)
-```
-
-Again a bit of a silly example since all it is doing is looping through a list of values and summing it.  In reality you would just use `sum()` or `cumsum()`. This also highlights the fact that loops in R can be slow compared to vector operations and/or primitive operations (see Hadley Wickham's section on [Primitive functions](http://adv-r.had.co.nz/Functions.html#function-components)).  
-
-Let's dig a bit more into this issue with another example.  This time, let's look at adding two vectors together.  We haven't touched on this yet, but R is really good at dealing with this kind of operation.  It is what people mean when they talk about "vectorized" operations.  For instance:
-
-```{r for_examp_print, warning=FALSE, message=FALSE}
-# A simple vectorize operation
-x <- 1:100
-y <- 100:1
-z <- x + y
-z
-```
-
-Pretty cool.  This kind of thing doesn't come easily with many languages.  You would need to program it yourself using a loop.  For the sake of argument (and practice), let's try the loop version with R.
-
-``` {r looping_vector_examp, warning=FALSE, message=FALSE}
-#We will assume vectors of the same length...
-add_vecs <- function(vec1, vec2) {
-  out<-NULL
-  for(i in 1:length(vec1)) {
-    out[i] <- vec1[i] + vec2[i]
-  }
-  out
-}
-add_vecs(x, y)
-```
-
-So, these do the same thing, big deal.  It is big though when you look at the timing of the two.  Let's create two large vectors and see what happens.
-
-```{r for_vector_time, warning=FALSE, message=FALSE}
-large_vec1 <- as.numeric(1:100000)
-large_vec2 <- as.numeric(100000:1)
-#Different speed
-vec_time <- system.time(large_vec1 + large_vec2)
-loop_time <- system.time(add_vecs(large_vec1, large_vec2))
-vec_time
-loop_time
-```
-
-Wow, quite a difference in time! It is examples like this that lead to all the talk around why R is slow at looping.  In general I agree that if there is an obvious vectorized/base solution (in this case simply adding the two vectors) use that.  That being said, it isn't always obvious what the vectorized solution would be. In that case there are some easy things to do to speed this up.  With loops that write to an object and that object is getting re-sized, we may also know the final size of that object so we can do one simple thing to dramatically improve perfomance: pre-allocate your memory, like this:
-
-``` {r looping_vector_examp2, warning=FALSE, message=FALSE}
-#We will assume vectors of the same length...
-add_vecs2 <- function(vec1, vec2){
-  out <- vector("numeric",length(vec1))
-  for(i in 1:length(vec1)) {
-    out[i] <- vec1[i] + vec2[i]
-  }
-  out
-}
-
-system.time(add_vecs2(large_vec1,large_vec2))
-```
-
-Now that's better.  In short, if an obvious vector or primitive solution exists, use that.  If those aren't clear and you need to use a loop, don't be afraid to use one.  There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand.  Personally, I think it is possible to go too far down the vectorized path.  Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
+Cool, a function, that does something useful.  
 
 ###return
 The last control structure we are going to talk about is `return()`.  All `return()` does is provide a result from a function and terminates the function.  You may be asking yourself, didn't we terminate and get a value from the functions we just created?  We did, and `return()` is not mandatory for R functions as they will return the last calculation. Some people argue that using `return()` is good practice because it allows us to be more explicit. Others argue that concise is beautiful and that it's not hard to see what is being implicitly returned. Think about it for yourself as you learn more R. To see how `return()` can be used, let's take a look at the `odd_even()` and `sum_vec()` functions from before and make simple changes to take advantage of `return()`.
@@ -212,8 +311,8 @@ sum_vec <- function(vec) {
 ```{r Exercise1, echo=FALSE}
 ```
 
-##Exercise 1
-For this exercise we are going to practice with functions and some of the control structures.
+##Exercise 2
+For this exercise we are going to practice with functions.
 
 1. Our first task is to create a simple function. Create ONE function that allows you to calculate the mean or standard deviation (hint: sd()) of an input vector.
 2. Our second task is going to be to make a function that returns a simple `ggplot2` or base scatter plot. The function should take an x and y as input, and have an optional argument for a file name to save it as an image.  Depending on how complex your plot was you may need to add in some additional arguments.  To help things along, I have provided some starter code:
@@ -388,10 +487,10 @@ Repeat the steps from above, but this time instead of selecting "Document", sele
 
 I know you will probably wonder whether you can change the look and feel of this presentation, and the answer is yes.  I have done that, but using a different method for creating slides by using the `slidify` package.  An example of that presentation is in a talk I gave on [Social Media and Blogging](http://jwhollister.com/epablogpresent).  It does take a bit more work to set this up, but you can make stylish and reproducible slides this way.
 
-```{r Exercise2, echo=FALSE}
+```{r Exercise3, echo=FALSE}
 ```
 
-##Exercise 2
+##Exercise 3
 
 1. Follow the 'Create a Document' example above to create a new RMarkdown document of your own.
 2. Spend some time playing around with this document. Add in some markdown (e.g., section titles), text, and a code chunk.

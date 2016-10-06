@@ -1,6 +1,6 @@
 ---
-author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-07
+author: Jeffrey W. Hollister, Emily Read, Lindsay Carr
+date: 2016-10-06
 slug: Explore
 title: D. Explore
 image: img/main/intro-icons-300px/explore.png
@@ -11,7 +11,12 @@ menu:
 ---
 Our next three lessons (Explore, Analyze, and Visualize) don't actually split neatly into groups. That being said, I will try my best, but there will be overlap. For this lesson we are going to focus on some of the first things you do when you start to explore a dataset including basic summary statistics and simple visualizations with base R.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+``` r
+intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -89,15 +94,13 @@ quantile(intro_df$pH_Inst, probs=c(0.025, 0.975), na.rm=TRUE)
 Exercise 1
 ----------
 
-Next, we're going to explore the distribution of the MenomineeMajorIons data from `smwrData` using base R statistical functions. We want a data frame that has mean, median, and IQR for four of the major ions in this data set. We will use `dplyr` to help make this easier.
+Next, we're going to explore `intro_df` using base R statistical functions. We want a data frame that has mean, median, and IQR for each of the measured values in this data set. We will use `dplyr` to help make this easier.
 
-1.  Create a new data.frame that has only these variables: HCO3, Calcium, Magnesium, and Chloride. Think `select()`. Don't forget to remove an missing values (`na.omit`)!
+1.  Summarize each variable by the summary statistics mean, median, and interquartile range. In the end, you should have a data.frame with 1 row and 12 columns. Hint: use `summarize_at` - the arguments for this function can be pretty tricky, so try to follow the examples in the help file. And don't forget the argument `na.rm=TRUE` for the stats functions!
 
-2.  Now, summarize each variable by the summary statistics mean, median, and interquartile range. In the end, you should have a data.frame with 1 row and 12 columns.
+2.  Challenge: Add a calculation for the 90th percentile into your code for step 2. Hint: this requires an additional argument to the `quantile` function. This should result in a data.frame with 1 row and 16 columns.
 
-3.  Challenge: Add a calculation for the 90th percentile into your code for step 2. Hint: this requires an additional argument to the `quantile` function.
-
-4.  Challenge: It is difficult to read a data.frame that has 12 columns (or 16 if you completed step 3) and only one row. Make the data.frame more readable by transposing it.
+3.  Challenge: It is difficult to read a data.frame that has 12 columns (or 16 if you completed step 3) and only one row. Make the data.frame more readable by transposing it.
 
 Basic Visualization
 -------------------
@@ -110,7 +113,7 @@ The workhorse function for plotting data in R is `plot()`. With this one command
 plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 ```
 
-<img src='../static/Explore/plot_examp-1.png'/ title='/Scatter plot of dissolved oxygen vs water temperature'/>
+<img src='../static/Explore/plot_examp-1.png'/ title='Scatter plot of dissolved oxygen vs water temperature'/>
 
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
@@ -120,9 +123,9 @@ plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
      xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
 
-<img src='../static/Explore/plot_examp_2-1.png'/ title='/Basic scatter plot with title and xy axis labels'/>
+<img src='../static/Explore/plot_examp_2-1.png'/ title='Basic scatter plot with title and xy axis labels'/>
 
-Not sure if this will apply to everyone, but I use scatterplots ALL the time. So, for me I could almost (not really) stop here. But lets move on. Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
+Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
 
 ``` r
 #get a data frame with only the measured values
@@ -131,9 +134,27 @@ intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
 plot(intro_df_data)
 ```
 
-<img src='../static/Explore/pairs_examp-1.png'/ title='/Pairs plot using intro_df'/>
+<img src='../static/Explore/pairs_examp-1.png'/ title='Pairs plot using intro_df'/>
 
-Let's look at boxplots, histograms, and cumulative distribution functions.
+The plots look a bit strange - we'd expect to see a stronger relationship between water temperature and dissolved oxygen. Let's explore the data to figure out why. Using `head(intro_df)`, I immediately notice that the site numbers are different. That is already a good explanation for why some of these plots are not turning out as we'd expect. Let's try to do a pairs plot for a single site.
+
+``` r
+#get a data frame with only the first site values
+sites <- unique(intro_df$site_no)
+intro_df_site1 <- filter(intro_df, site_no == sites[1])
+
+#now keep only measured values
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_Inst_cd)
+
+#create the pairs plot
+plot(intro_df_site1_data)
+```
+
+<img src='../static/Explore/pairs_examp_single_site-1.png'/ title='Pairs plot for one site'/>
+
+Ah! Now that water temperature and DO plot makes a bit more sense.
+
+Let's move on to boxplots, histograms, and cumulative distribution functions.
 
 Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input.
 
@@ -141,7 +162,7 @@ Two great ways to use boxplots are straight up and then by groups in a factor. F
 boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
-<img src='../static/Explore/boxplot_examp-1.png'/ title='/Boxplot of dissolved oxygen concentration'/>
+<img src='../static/Explore/boxplot_examp-1.png'/ title='Boxplot of dissolved oxygen concentration'/>
 
 As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`. The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable\[s\] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
@@ -150,7 +171,7 @@ boxplot(intro_df$DO_Inst ~ intro_df$site_no,
         main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
-<img src='../static/Explore/boxplot_grps_examp-1.png'/ title='/Boxplot of dissolved oxygen grouped by site'/>
+<img src='../static/Explore/boxplot_grps_examp-1.png'/ title='Boxplot of dissolved oxygen grouped by site'/>
 
 Lastly, let's look at two other ways to plot our distributions. First, histograms.
 
@@ -158,13 +179,13 @@ Lastly, let's look at two other ways to plot our distributions. First, histogram
 hist(intro_df$pH_Inst)
 ```
 
-<img src='../static/Explore/base_hist_examp-1.png'/ title='/Histogram of pH'/>
+<img src='../static/Explore/base_hist_examp-1.png'/ title='Histogram of pH'/>
 
 ``` r
 hist(intro_df$pH_Inst, breaks=4)
 ```
 
-<img src='../static/Explore/base_hist_examp-2.png'/ title='/Histogram of pH specifying 4 breaks'/>
+<img src='../static/Explore/base_hist_examp-2.png'/ title='Histogram of pH specifying 4 breaks'/>
 
 And finally, cumulative distribution functions. Since CDF's are actually a function of the distribution we need to get that function first. This requires that we combine `plot()` and `ecdf()`, the empirical CDF function.
 
@@ -173,17 +194,15 @@ wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
 plot(wtemp_ecdf)
 ```
 
-<img src='../static/Explore/cdf_examp-1.png'/ title='/Empirical cumulative distribution plot for water temperature'/>
+<img src='../static/Explore/cdf_examp-1.png'/ title='Empirical cumulative distribution plot for water temperature'/>
 
 Exercise 2
 ----------
 
-Similar to before let's first just play around with some basic exploratory data visualization using the `TNLoads` dataset from `smwrData` for the first two steps.
+Similar to before let's first just play around with some basic exploratory data visualization using the `intro_df` dataset.
 
-1.  Make a scatter plot relating total nitrogen to drainage area.
+1.  Make a scatter plot relating pH to water temperature.
 
-2.  Create an impervious surface area histogram using the non-logged values. Explore different values for the argument `breaks`.
+2.  Create a discharge histogram. Explore different values for the argument `breaks`.
 
-Now, use the dataset `MiningIron` from `smwrData` for step 3.
-
-1.  Create a boxplot that compares iron concentrations based on stream rock types. If it is interpret the boxplot, try logging the iron concentrations.
+3.  Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Inst_Cd='X'`)?

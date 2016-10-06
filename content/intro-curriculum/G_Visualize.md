@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 2016-07-04
+date: 2016-10-06
 slug: Visualize
 title: G. Visualize - Plotting with base R
 image: img/main/intro-icons-300px/visualize.png
@@ -11,7 +11,12 @@ menu:
 ---
 Earlier, there was an introduction to simple plots using the base R features. This section will expand on base R plotting, and highlight its more advanced functions.
 
-Remember to load the NWIS dataset we have been use. If it's no longer loaded, load in the cleaned up version by downloading it from [here](/intro-curriculum/data), and using `read.csv` (remember that we named it `intro_df`, and don't forget `stringsAsFactors=FALSE`, and `colClasses`).
+Remember that we are using the NWIS dataset for all of these lessons. If you successfully completed the [Clean](/intro-curriculum/clean) lesson, then you should have the cleaned up version of the data frame. If you did not complete the Clean lesson (or are starting in a new R session), just load in the cleaned csv by downloading it from [here](/intro-curriculum/data), saving it in a folder called "data", and using `read.csv` (see below).
+
+``` r
+intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 6)))
+```
 
 Quick Links to Exercises and R code
 -----------------------------------
@@ -50,7 +55,7 @@ plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034'
 points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
 ```
 
-<img src='../static/Visualize/pch_col_examp-1.png'/ title='/Dissolved oxygen versus flow for estimated and erroneous flows'/>
+<img src='../static/Visualize/pch_col_examp-1.png'/ title='Dissolved oxygen versus flow for estimated and erroneous flows'/>
 
 Similarly, you can change linetypes (`lty`), linewidths (`lwd`), and point size (`cex`). These all refer to graphical parameters and there are many more. Use `?par` to read about the others.
 
@@ -69,7 +74,7 @@ par(las=2, tck=0.01, bg="darkseagreen")
 plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=6)
 ```
 
-<img src='../static/Visualize/par_example-1.png'/ title='/Dissolved oxygen versus erroneous flows with green background'/>
+<img src='../static/Visualize/par_example-1.png'/ title='Dissolved oxygen versus erroneous flows with green background'/>
 
 Make sure to reset par if you want to go back to the original plot style. You can do this by turning off the current graphics device, `dev.off()`, or you can use the `default_par` object created previously, `par(default_par)`.
 
@@ -87,7 +92,7 @@ legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
        pch=16, col=c('#FF5034', 'skyblue'), title="Legend")
 ```
 
-<img src='../static/Visualize/legend_example-1.png'/ title='/Dissolved oxygen versus flow for estimated and erroneous flows with legend'/>
+<img src='../static/Visualize/legend_example-1.png'/ title='Dissolved oxygen versus flow for estimated and erroneous flows with legend'/>
 
 ### Additional Plotting Features
 
@@ -98,13 +103,13 @@ R base plotting offers features other than points and lines, such as symbols, re
 curve(x^2, from=0, to=10)
 ```
 
-<img src='../static/Visualize/add_features_example-1.png'/ title='/x squared curve'/>
+<img src='../static/Visualize/add_features_example-1.png'/ title='x squared curve'/>
 
 ``` r
 curve(sin(x), from=-pi, to=pi)
 ```
 
-<img src='../static/Visualize/add_features_example-2.png'/ title='/sine curve'/>
+<img src='../static/Visualize/add_features_example-2.png'/ title='sine curve'/>
 
 ``` r
 #plot rectangles or polygons
@@ -113,23 +118,16 @@ rect(xleft=6, xright=10, ybottom=5, ytop=11, density=5, col="orange")
 polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
 ```
 
-<img src='../static/Visualize/add_features_example-3.png'/ title='/plot with a line, rectangle, and triangle'/>
+<img src='../static/Visualize/add_features_example-3.png'/ title='plot with a line, rectangle, and triangle'/>
 
 Exercise 1
 ----------
 
-1.  Copy and paste the following code to get two data frames of USGS phosphorus data.
+1.  Create two different data frames from `intro_df` with dissolved oxygen and water temperature data for two sites.
 
-``` r
-library(dataRetrieval)
-# Gather NWIS data:
-P_site1 <- readNWISqw("01656960", parameterCd = "00665")
-P_site2 <- readNWISqw("01656725", parameterCd = "00665")
-```
+2.  Using the base R plotting features just discussed, plot a dissolved oxygen vs water temperature for two different sites. Show the different sites in different colors, linetypes, or linewidths. Include a legend.
 
-1.  Using the base R plotting features just discussed, plot a timeseries (see dates column `sample_dt`) for two different sites phosphorus data (see column `result_va`). Show the different timeseries in different colors, linetypes, or linewidths. Include a legend.
-
-2.  Challenge: add points to show the maximum for each timeseries.
+3.  Challenge: add points to show the maximum dissolved oxygen for each timeseries. Hint: use `arrange()` from dplyr. You might notice that you cannot see your second site's maximum point. This is because the plot is scaled to the first data that was added. We will learn how to adjust axes in the next section.
 
 ### Axes
 
@@ -141,7 +139,7 @@ plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, pch=20)
 axis(side=4)
 ```
 
-<img src='../static/Visualize/axis_example-1.png'/ title='/Water temperature versus flow with a second y-axis'/>
+<img src='../static/Visualize/axis_example-1.png'/ title='Water temperature versus flow with a second y-axis'/>
 
 ``` r
 #now log the x axis
@@ -152,7 +150,7 @@ axis(side=4, at=1:20, labels=FALSE)
 axis(side=3) #this axis is also logged
 ```
 
-<img src='../static/Visualize/axis_example-2.png'/ title='/Water temperature versus flow with logged x axis and second y and x axes'/>
+<img src='../static/Visualize/axis_example-2.png'/ title='Water temperature versus flow with logged x axis and second y and x axes'/>
 
 ### Multiple Plots in One Graphics Device
 
@@ -171,7 +169,7 @@ plot3 <- boxplot(intro_df$pH_Inst ~ intro_df$site_no, ylab="pH", main="pH")
 plot4 <- boxplot(intro_df$DO_Inst ~ intro_df$site_no, ylab="D.O. Concentration, mg/L", main="Dissolved Oxygen")
 ```
 
-<img src='../static/Visualize/multiple_plots_example-1.png'/ title='/One figure with 4 different boxplots'/>
+<img src='../static/Visualize/multiple_plots_example-1.png'/ title='One figure with 4 different boxplots'/>
 
 ``` r
 dev.off()
@@ -195,10 +193,10 @@ The default for `dev.off()` is to turn off the most current device, but you can 
 Exercise 2
 ----------
 
-using the `CuyahogaTDS` dataset from `smwrData`, complete the following tasks:
+Using data for only one site in `intro_df`, complete the following:
 
-1.  Make a timeseries plot for total dissolved solids (`TDS`). Make the points red and add secondary x and y axes.
-2.  Now make a second timeseries plot with flow (`Q`) and color the points blue. Use a log scale (hint: use the argument `log`).
+1.  Make a plot of dissolved oxygen vs flow. Make the points red and add secondary x and y axes. Use a log scale for flow (hint: use the argument `log` in your plot call).
+2.  Now make a second plot with pH vs flow and color the points blue. Use a log scale for flow.
 3.  Using `layout`, place the second plot below the first. Plus, have the top plot span the whole device and leave an empty region next to the lower plot.
 4.  Save this image as a png.
 5.  If there is time, try and use some of the graphical parameters that was discussed in the first part of this lesson to change the look of the plots!
