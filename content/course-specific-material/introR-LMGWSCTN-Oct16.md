@@ -44,8 +44,11 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 -   08:00 am - 08:30 am -- Instructors available for questions
 -   08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
--   10:00 am - 10:30 am -- The importance of reproducibility
--   10:30 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+-   10:00 am - 10:15 am -- *Break*
+-   10:15 am - 10:30 am -- [The importance of reproducibility](https://owi.usgs.gov/blog/reproducibility)
+-   10:30 am - 10:45 am -- Automated reporting with R Markdown
+-   10:45 am - 11:00 am -- What is Shiny?
+-   11:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
@@ -69,3 +72,26 @@ Scott Worland (<scworland@usgs.gov>)
 ### Lesson scripts
 
 Instructors will be live coding during this course. Our code will be shared with you here at the end of each day.
+
+### What is Shiny?
+
+[Shiny]((http://shiny.rstudio.com/)) is a web application framework that allows you to present your data and results in an interactive web application. You can script the whole process in R and Shiny will convert that to an html document – no need to learn another computer language. There are lots of [example of shiny applications](www.rstudio.com/products/shiny/shiny-user-showcase/). These apps are useful for sharing results with others or exploring your data and results yourself.
+
+All shiny apps open in a web browser. At the most basic level, R runs in the background on a personal computer and serves the application to a web browser. The user can make changes on the webpage and these changes will be processed in R and updated on the webpage. The interaction allows the user to easily explore their data and analyses based a varying a set of pre-specified inputs.
+
+![](/course-specific-material/static/shiny1.png)
+
+When the shiny app is hosted on your computer and a colleague asks to use your app, you will need to send them the R files which they would download and run on their computer. However, if the app is hosted on a web server then the shiny app can be served to the internet and anyone with a computer and internet access can use it.
+
+![](/course-specific-material/static/shiny2.png)
+
+Shiny apps are built using 3 basic components: a user interface (UI), server instructions, and a function that ties the UI and server instructions together. The UI is a web document written in HTML that describes how the webpage should look. With Shiny you don’t actually have to learn HTML to generate this document, instead Shiny converts the script you write in R to HTML. The server instructors tell the app what to show and how to respond to changes made on the webpage by the user. Finally, the UI and the server instructions are joined together using a shiny-specific function.
+
+Spend some time exploring the different types of web applications:
+
+-   <http://www.rstudio.com/products/shiny/shiny-user-showcase/>
+-   <http://www.showmeshiny.com/>.
+
+And when you’re ready to try it out yourself use [this tutorial](http://shiny.rstudio.com/tutorial/) or follow [this cheat sheet](http://shiny.rstudio.com/images/shiny-cheatsheet.pdf) to get the basic steps.
+
+*Images from tutorial video at <http://shiny.rstudio.com/tutorial/>*
