@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister
-date: 2016-07-01
+date: 9999-01-01
 slug: Parting-Thoughts
 title: J. Parting Thoughts
 image: img/main/intro-icons-300px/r-logo.png

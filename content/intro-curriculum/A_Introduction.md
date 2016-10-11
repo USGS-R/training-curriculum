@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
-date: 2016-07-10
+date: 9999-01-10
 slug: Introduction
 title: A. Introduction to R
 image: img/main/intro-icons-300px/r-logo.png

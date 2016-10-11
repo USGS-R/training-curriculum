@@ -1,7 +1,7 @@
 ---
 title: "C. Clean"
 author: "Jeffrey W. Hollister, Luke Winslow, Lindsay Carr"
-date: "2016-10-05"
+date: "9999-01-08"
 slug: "Clean"
 image: img/main/intro-icons-300px/clean.png
 output: USGSmarkdowntemplates::hugo

@@ -1,7 +1,7 @@
 ---
 title: "G. Visualize - Plotting with base R"
 author: "Lindsay R. Carr"
-date: "2016-10-06"
+date: "9999-01-04"
 slug: "Visualize"
 image: img/main/intro-icons-300px/visualize.png
 output: USGSmarkdowntemplates::hugo

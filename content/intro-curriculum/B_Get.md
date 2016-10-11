@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
-date: 2016-07-09
+date: 9999-01-09
 slug: Get
 title: B. Get
 image: img/main/intro-icons-300px/get.png
