@@ -90,3 +90,4 @@ And when you’re ready to try it out yourself use [this tutorial](http://shiny.
 
 *Images from tutorial video at [http://shiny.rstudio.com/tutorial/](http://shiny.rstudio.com/tutorial/)*
 
+You can download the example shown in the course from [here](https://drive.google.com/drive/u/1/folders/0B54YFPSk4XN8NnFjUWE3MjVVRHc).
