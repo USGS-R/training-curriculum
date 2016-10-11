@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Lindsay Carr
-date: 2016-10-05
+date: 9999-01-02
 slug: Reproduce
 title: I. Repeat and Reproduce
 image: img/main/intro-icons-300px/repeat.png

@@ -95,3 +95,5 @@ Spend some time exploring the different types of web applications:
 And when you’re ready to try it out yourself use [this tutorial](http://shiny.rstudio.com/tutorial/) or follow [this cheat sheet](http://shiny.rstudio.com/images/shiny-cheatsheet.pdf) to get the basic steps.
 
 *Images from tutorial video at <http://shiny.rstudio.com/tutorial/>*
+
+You can download the example shown in the course from [here](https://drive.google.com/drive/u/1/folders/0B54YFPSk4XN8NnFjUWE3MjVVRHc).

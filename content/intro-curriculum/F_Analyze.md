@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Emily Read
-date: 2016-07-05
+date: 9999-01-05
 slug: AnalyzeII
 title: F. Analyze with packages
 image: img/main/intro-icons-300px/analyzewpackages.png

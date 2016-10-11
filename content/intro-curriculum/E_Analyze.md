@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister, Emily Read, Lindsay Carr
-date: 2016-10-06
+date: 9999-01-06
 slug: Analyze
 title: E. Analyze
 image: img/main/intro-icons-300px/analyze.png

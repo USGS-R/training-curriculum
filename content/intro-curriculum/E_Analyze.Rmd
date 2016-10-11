@@ -1,7 +1,7 @@
 ---
 title: "E. Analyze"
 author: "Jeffrey W. Hollister, Emily Read, Lindsay Carr"
-date: "2016-10-05"
+date: "9999-01-06"
 slug: "Analyze"
 image: img/main/intro-icons-300px/analyze.png
 output: USGSmarkdowntemplates::hugo

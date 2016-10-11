@@ -1,6 +1,6 @@
 ---
 author: Jeffrey W. Hollister & Lindsay Carr
-date: 2016-10-06
+date: 9999-01-03
 slug: ggplot2
 title: H. Visualize - Plotting with ggplot2
 image: img/main/intro-icons-300px/ggplot.png
