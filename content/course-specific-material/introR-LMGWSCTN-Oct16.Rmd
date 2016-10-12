@@ -14,8 +14,8 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 **Day 1**
 
-* 08:00 am - 08:30 am -- Instructors available for questions 
-* 08:30 am - 10:15 am -- [Introduction](/intro-curriculum/Introduction) 
+* 08:00 am - 09:00 am -- Instructors available for questions 
+* 09:00 am - 10:15 am -- [Introduction](/intro-curriculum/Introduction) 
 * 10:15 am - 10:30 am -- *Break*
 * 10:30 am - 12:00 pm -- [Get](/intro-curriculum/Get)
 * 12:00 pm - 01:00 pm -- *Lunch*
@@ -26,11 +26,11 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 **Day 2**
 
-* 08:00 am - 08:30 am -- Instructors available for questions
-* 08:30 am - 09:30 am -- [Explore](/intro-curriculum/Explore)
-* 09:30 am - 10:30 am -- [Analyze: Base](/intro-curriculum/Analyze)
-* 10:30 am - 10:45 am -- *Break*
-* 10:45 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf)
+* 08:30 am - 09:00 am -- Instructors available for questions
+* 09:00 am - 10:00 am -- [Explore](/intro-curriculum/Explore)
+* 10:00 am - 11:00 am -- [Analyze: Base](/intro-curriculum/Analyze)
+* 11:00 am - 11:15 am -- *Break*
+* 11:15 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf)
 * 12:00 pm - 01:00 pm -- *Lunch*
 * 01:00 pm - 02:30 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/)
 * 02:30 pm - 02:45 pm -- *Break*
@@ -39,13 +39,13 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 **Day 3**
 
-* 08:00 am - 08:30 am -- Instructors available for questions
-* 08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
-* 10:00 am - 10:15 am -- *Break*
-* 10:15 am - 10:30 am -- [The importance of reproducibility](https://owi.usgs.gov/blog/reproducibility)
-* 10:30 am - 10:45 am -- Automated reporting with R Markdown
-* 10:45 am - 11:00 am -- What is Shiny?
-* 11:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+* 08:00 am - 09:00 am -- Project work w/ instructors available for questions
+* 09:00 am - 10:30 am -- [Repeat](/intro-curriculum/Reproduce/)
+* 10:30 am - 10:45 am -- *Break*
+* 10:45 am - 11:00 am -- [The importance of reproducibility](https://owi.usgs.gov/blog/reproducibility)
+* 11:00 am - 11:15 am -- Automated reporting with R Markdown
+* 11:15 am - 11:30 am -- What is Shiny?
+* 11:30 am - 01:00 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 Download data from the [Data page](/intro-curriculum/data/). 
@@ -65,7 +65,7 @@ Scott Worland (scworland@usgs.gov)
 
 ### Lesson scripts
 
-Instructors will be live coding during this course. Our code will be shared with you here at the end of each day.
+[This zip file](https://drive.google.com/open?id=0B54YFPSk4XN8cnFBYWE4RXVlOUU) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
 
 ### What is Shiny?
 
