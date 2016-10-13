@@ -42,7 +42,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 * 08:00 am - 09:00 am -- Project work w/ instructors available for questions
 * 09:00 am - 10:30 am -- [Repeat](/intro-curriculum/Reproduce/)
 * 10:30 am - 10:45 am -- *Break*
-* 10:45 am - 11:00 am -- [The importance of reproducibility](https://owi.usgs.gov/blog/reproducibility)
+* 10:45 am - 11:00 am -- [The importance of reproducibility](https://owi.usgs.gov/blog/Reproducibility)
 * 11:00 am - 11:15 am -- Automated reporting with R Markdown
 * 11:15 am - 11:30 am -- What is Shiny?
 * 11:30 am - 01:00 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
@@ -55,6 +55,8 @@ Download data from the [Data page](/intro-curriculum/data/).
 * [USGS-R twitter](https://twitter.com/USGS_R)
 * [USGS-R GitHub](https://github.com/USGS-R) (package source code + bug/feature reporting)
 * [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (data wrangling, visualization, shiny, markdown, RStudio, etc)
+* [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
+* [Tutorial for updating packages when updating versions](https://www.datascienceriot.com/how-to-upgrade-r-without-losing-your-packages/kris/) (ask Scott for more info)
 
 ### Instructors
 Lindsay Carr (lcarr@usgs.gov) -- *primary contact*
@@ -69,7 +71,7 @@ Scott Worland (scworland@usgs.gov)
 
 ### What is Shiny?
 
-[Shiny]((http://shiny.rstudio.com/)) is a web application framework that allows you to present your data and results in an interactive web application.  You can script the whole process in R and Shiny will convert that to an html document – no need to learn another computer language.  There are lots of [example of shiny applications](www.rstudio.com/products/shiny/shiny-user-showcase/).  These apps are useful for sharing results with others or exploring your data and results yourself.  
+[Shiny](http://shiny.rstudio.com/) is a web application framework that allows you to present your data and results in an interactive web application.  You can script the whole process in R and Shiny will convert that to an html document – no need to learn another computer language.  There are lots of [example of shiny applications](www.rstudio.com/products/shiny/shiny-user-showcase/).  These apps are useful for sharing results with others or exploring your data and results yourself.  
 
 All shiny apps open in a web browser.  At the most basic level, R runs in the background on a personal computer and serves the application to a web browser.  The user can make changes on the webpage and these changes will be processed in R and updated on the webpage.  The interaction allows the user to easily explore their data and analyses based a varying a set of pre-specified inputs.  
 
