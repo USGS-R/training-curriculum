@@ -33,7 +33,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   09:00 am - 10:00 am -- [Explore](/intro-curriculum/Explore)
 -   10:00 am - 11:00 am -- [Analyze: Base](/intro-curriculum/Analyze)
 -   11:00 am - 11:15 am -- *Break*
--   11:15 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf)
+-   11:15 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), dataRetrieval [vignette](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf) and [presentation](https://owi.usgs.gov/R/dataRetrieval.html)
 -   12:00 pm - 01:00 pm -- *Lunch*
 -   01:00 pm - 02:30 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/)
 -   02:30 pm - 02:45 pm -- *Break*
