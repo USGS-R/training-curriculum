@@ -1,13 +1,13 @@
 ---
-date: 2016-10-25
-slug: introR-LMGWSCAR-Oct16
-title: LMGWSC - Arkansas
+date: 2016-11-01
+slug: introR-CRRL-Nov16
+title: Columbia River Research Lab
 menu: 
   main:
     parent: Course Specific Material
     weight: 1
 ---
-October 25th - 27th in Little Rock, AR
+November 1st - 3rd in Cook, WA
 
 ### Installation
 
@@ -33,7 +33,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   08:30 am - 09:30 am -- [Explore](/intro-curriculum/Explore)
 -   09:30 am - 10:30 am -- [Analyze: Base](/intro-curriculum/Analyze)
 -   10:30 am - 10:45 am -- *Break*
--   10:45 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://owi.usgs.gov/R/dataRetrieval.html)
+-   10:45 am - 12:00 pm -- Analyze w/ packages: TBD
 -   12:00 pm - 01:00 pm -- *Lunch*
 -   01:00 pm - 02:30 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/)
 -   02:30 pm - 02:45 pm -- *Break*
@@ -60,12 +60,12 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 ### Instructors
 
-Emily Read (<eread@usgs.gov>) -- *primary contact*
+Jordan Read (<jread@usgs.gov>)
 
-Brian Breaker (<bbreaker@usgs.gov>)
+Jordan Walker (<jiwalker@usgs.gov>)
 
-Lucas Driver (<ldriver@usgs.gov>)
+David Watkins (<wwatkins@usgs.gov>)
 
 ### Lesson scripts
 
-Instructors will be live coding during this course. Our code will be shared with you here at the end.
+[This zip file](https://drive.google.com/open?id=0B54YFPSk4XN8cnFBYWE4RXVlOUU) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
