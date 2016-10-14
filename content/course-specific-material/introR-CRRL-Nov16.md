@@ -68,4 +68,4 @@ David Watkins (<wwatkins@usgs.gov>)
 
 ### Lesson scripts
 
-[This zip file](https://drive.google.com/open?id=0B54YFPSk4XN8cnFBYWE4RXVlOUU) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
+Instructors will be live coding during this course. Our code will be shared with you here at the end.
