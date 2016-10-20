@@ -40,56 +40,64 @@ There are a number of ways to get at the basic summaries of a data frame in R. T
 summary(intro_df)
 ```
 
-    ##    site_no            dateTime           Flow_Inst       
-    ##  Length:3000        Length:3000        Min.   :-90800.0  
-    ##  Class :character   Class :character   1st Qu.:     5.1  
-    ##  Mode  :character   Mode  :character   Median :    12.0  
-    ##                                        Mean   :   488.2  
-    ##                                        3rd Qu.:    25.0  
-    ##                                        Max.   : 92100.0  
-    ##                                        NA's   :90        
-    ##  Flow_Inst_cd         Wtemp_Inst      pH_Inst         DO_Inst      
-    ##  Length:3000        Min.   :11.9   Min.   :6.200   Min.   : 3.200  
-    ##  Class :character   1st Qu.:18.2   1st Qu.:7.000   1st Qu.: 6.800  
-    ##  Mode  :character   Median :21.2   Median :7.200   Median : 7.700  
-    ##                     Mean   :20.7   Mean   :7.159   Mean   : 7.692  
-    ##                     3rd Qu.:23.2   3rd Qu.:7.300   3rd Qu.: 8.600  
-    ##                     Max.   :28.0   Max.   :9.100   Max.   :12.600  
-    ##                     NA's   :90     NA's   :120     NA's   :90
+    ##    site_no            dateTime              Flow        
+    ##  Length:3000        Length:3000        Min.   :   0.65  
+    ##  Class :character   Class :character   1st Qu.:   5.70  
+    ##  Mode  :character   Mode  :character   Median :  12.00  
+    ##                                        Mean   : 302.00  
+    ##                                        3rd Qu.:  22.00  
+    ##                                        Max.   :7340.00  
+    ##                                        NA's   :90       
+    ##    Flow_cd              Wtemp             pH              DO        
+    ##  Length:3000        Min.   :12.90   Min.   :6.200   Min.   : 3.200  
+    ##  Class :character   1st Qu.:17.80   1st Qu.:7.000   1st Qu.: 7.100  
+    ##  Mode  :character   Median :20.70   Median :7.100   Median : 7.900  
+    ##                     Mean   :20.29   Mean   :7.136   Mean   : 7.823  
+    ##                     3rd Qu.:22.60   3rd Qu.:7.300   3rd Qu.: 8.600  
+    ##                     Max.   :27.70   Max.   :9.100   Max.   :12.700  
+    ##                     NA's   :90      NA's   :90      NA's   :90      
+    ##   pH_det_lim       
+    ##  Length:3000       
+    ##  Class :character  
+    ##  Mode  :character  
+    ##                    
+    ##                    
+    ##                    
+    ## 
 
 If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. Also, don't forget to tell it to ignore NAs!
 
 ``` r
-range(intro_df$Flow_Inst, na.rm=TRUE)
+range(intro_df$Flow, na.rm=TRUE)
 ```
 
-    ## [1] -90800  92100
+    ## [1]    0.65 7340.00
 
 The interquartile range can be easily grabbed with `IQR()`, again a numeric vector is the input.
 
 ``` r
-IQR(intro_df$Wtemp_Inst, na.rm=TRUE)
+IQR(intro_df$Wtemp, na.rm=TRUE)
 ```
 
-    ## [1] 5
+    ## [1] 4.8
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
 
 ``` r
-quantile(intro_df$pH_Inst, na.rm=TRUE)
+quantile(intro_df$pH, na.rm=TRUE)
 ```
 
     ##   0%  25%  50%  75% 100% 
-    ##  6.2  7.0  7.2  7.3  9.1
+    ##  6.2  7.0  7.1  7.3  9.1
 
 I use quantile quite a bit, as it provides a bit more flexibility because you can specify the probabilities you want to return.
 
 ``` r
-quantile(intro_df$pH_Inst, probs=c(0.025, 0.975), na.rm=TRUE)
+quantile(intro_df$pH, probs=c(0.025, 0.975), na.rm=TRUE)
 ```
 
     ##  2.5% 97.5% 
-    ##   6.6   7.7
+    ##   6.6   7.8
 
 Exercise 1
 ----------
@@ -110,7 +118,7 @@ Exploratory data analysis tends to be a little bit about stats and a lot about v
 The workhorse function for plotting data in R is `plot()`. With this one command you can create almost any plot you can conceive of, but for this workshop we are just going to look at the very basics of the function. The most common way to use `plot()` is for scatterplots.
 
 ``` r
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 ```
 
 <img src='../static/Explore/plot_examp-1.png'/ title='Scatter plot of dissolved oxygen vs water temperature'/>
@@ -118,7 +126,7 @@ plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
 ``` r
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
+plot(intro_df$Wtemp, intro_df$DO,
      main="Changes in D.O. concentration as function of water temperature",
      xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
@@ -130,7 +138,7 @@ Let's say we want to look at more than just one relationship at a time with a pa
 ``` r
 #get a data frame with only the measured values
 library(dplyr)
-intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
+intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
 plot(intro_df_data)
 ```
 
@@ -144,7 +152,7 @@ sites <- unique(intro_df$site_no)
 intro_df_site1 <- filter(intro_df, site_no == sites[1])
 
 #now keep only measured values
-intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_Inst_cd)
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
 
 #create the pairs plot
 plot(intro_df_site1_data)
@@ -159,7 +167,7 @@ Let's move on to boxplots, histograms, and cumulative distribution functions.
 Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input.
 
 ``` r
-boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
+boxplot(intro_df$DO, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
 <img src='../static/Explore/boxplot_examp-1.png'/ title='Boxplot of dissolved oxygen concentration'/>
@@ -167,7 +175,7 @@ boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentrat
 As plots go, well, um, not great. Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`. The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable\[s\] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
 ``` r
-boxplot(intro_df$DO_Inst ~ intro_df$site_no, 
+boxplot(intro_df$DO ~ intro_df$site_no, 
         main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
@@ -176,13 +184,13 @@ boxplot(intro_df$DO_Inst ~ intro_df$site_no,
 Lastly, let's look at two other ways to plot our distributions. First, histograms.
 
 ``` r
-hist(intro_df$pH_Inst)
+hist(intro_df$pH)
 ```
 
 <img src='../static/Explore/base_hist_examp-1.png'/ title='Histogram of pH'/>
 
 ``` r
-hist(intro_df$pH_Inst, breaks=4)
+hist(intro_df$pH, breaks=4)
 ```
 
 <img src='../static/Explore/base_hist_examp-2.png'/ title='Histogram of pH specifying 4 breaks'/>
@@ -190,7 +198,7 @@ hist(intro_df$pH_Inst, breaks=4)
 And finally, cumulative distribution functions. Since CDF's are actually a function of the distribution we need to get that function first. This requires that we combine `plot()` and `ecdf()`, the empirical CDF function.
 
 ``` r
-wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
+wtemp_ecdf <- ecdf(intro_df$Wtemp)
 plot(wtemp_ecdf)
 ```
 
@@ -205,4 +213,4 @@ Similar to before let's first just play around with some basic exploratory data 
 
 2.  Create a discharge histogram. Explore different values for the argument `breaks`.
 
-3.  Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Inst_Cd='X'`)?
+3.  Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Cd='X'`)?

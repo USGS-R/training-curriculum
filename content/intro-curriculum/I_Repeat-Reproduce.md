@@ -120,46 +120,39 @@ library(dplyr)
 
 # if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
 if(!'DO_mgmL' %in% names(intro_df)){
-  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
+  head(mutate(intro_df, DO_mgmL = DO/1000))
 } 
 ```
 
-    ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
-    ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
-    ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
-    ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
-    ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
-    ##   DO_Inst DO_mgmL
-    ## 1     8.1  0.0081
-    ## 2     7.1  0.0071
-    ## 3     7.6  0.0076
-    ## 4     6.2  0.0062
-    ## 5     7.6  0.0076
-    ## 6     8.1  0.0081
+    ##   site_no            dateTime   Flow Flow_cd Wtemp  pH   DO pH_det_lim
+    ## 1 2337170 2011-05-19 01:00:00 4270.0       A  13.4 6.9 10.0       <NA>
+    ## 2 2336120 2011-05-19 02:30:00   13.0       E  16.9  NA  8.6       <NA>
+    ## 3 2336300 2011-05-12 22:00:00   27.0       X  26.4 7.5  8.5       <NA>
+    ## 4 2336526 2011-05-24 13:15:00    3.1       E  21.3 7.5  6.8       <NA>
+    ## 5 2336313 2011-05-08 14:30:00    1.1       A  17.7 7.2  8.9       <NA>
+    ## 6 2336360 2011-05-22 10:15:00    9.8       E  20.5 7.1  7.0       <NA>
+    ##   DO_mgmL
+    ## 1  0.0100
+    ## 2  0.0086
+    ## 3  0.0085
+    ## 4  0.0068
+    ## 5  0.0089
+    ## 6  0.0070
 
 ``` r
 # if there are more than 1000 observations, we want to filter out high temperature observations
 if(nrow(intro_df) > 1000){
-  head(filter(intro_df, Wtemp_Inst >= 15))
+  head(filter(intro_df, Wtemp >= 15))
 }
 ```
 
-    ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
-    ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
-    ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
-    ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
-    ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
-    ##   DO_Inst
-    ## 1     8.1
-    ## 2     7.1
-    ## 3     7.6
-    ## 4     6.2
-    ## 5     7.6
-    ## 6     8.1
+    ##   site_no            dateTime   Flow Flow_cd Wtemp  pH  DO pH_det_lim
+    ## 1 2336120 2011-05-19 02:30:00   13.0       E  16.9  NA 8.6       <NA>
+    ## 2 2336300 2011-05-12 22:00:00   27.0       X  26.4 7.5 8.5       <NA>
+    ## 3 2336526 2011-05-24 13:15:00    3.1       E  21.3 7.5 6.8       <NA>
+    ## 4 2336313 2011-05-08 14:30:00    1.1       A  17.7 7.2 8.9       <NA>
+    ## 5 2336360 2011-05-22 10:15:00    9.8       E  20.5 7.1 7.0       <NA>
+    ## 6 2337170 2011-05-26 08:00:00 1760.0       A  20.0 7.0 8.5       <NA>
 
 ### Optional: the `ifelse` function
 
@@ -171,7 +164,7 @@ Add a new column to `intro_df` that removes the flow value if it is erroneous (c
 
 ``` r
 #use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "X", NA, Flow))
 ```
 
 Looping
@@ -336,15 +329,15 @@ myplot <- function(x, y, grp, file) {
 
 #Call the function using intro_df
 library(ggplot2)
-myplot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, 
-       intro_df$Flow_Inst_cd, "q_Wtemp.jpg")
+myplot(intro_df$Flow, intro_df$Wtemp, 
+       intro_df$Flow_cd, "q_Wtemp.jpg")
 ```
 
 <img src='../static/Reproduce/plot_function_examp-1.png'/ title='ggplot2 scatter plot of pH versus flow'/>
 
 ``` r
-myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
-       intro_df$Flow_Inst_cd, "q_do.jpg")
+myplot(intro_df$Flow, intro_df$DO, 
+       intro_df$Flow_cd, "q_do.jpg")
 ```
 
 <img src='../static/Reproduce/plot_function_examp-2.png'/ title='ggplot2 scatter plot of dissolved oxygen versus flow'/>

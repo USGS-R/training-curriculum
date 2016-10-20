@@ -53,25 +53,25 @@ summary(intro_df)
 If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. Also, don't forget to tell it to ignore NAs!
 
 ```{r range_examp, warning=FALSE, message=FALSE}
-range(intro_df$Flow_Inst, na.rm=TRUE)
+range(intro_df$Flow, na.rm=TRUE)
 ```
 
 The interquartile range can be easily grabbed with `IQR()`, again a numeric vector is the input.
 
 ```{r iqr_examp, warning=FALSE, message=FALSE}
-IQR(intro_df$Wtemp_Inst, na.rm=TRUE)
+IQR(intro_df$Wtemp, na.rm=TRUE)
 ```
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
 
 ```{r quantile_example, warning=FALSE, message=FALSE}
-quantile(intro_df$pH_Inst, na.rm=TRUE)
+quantile(intro_df$pH, na.rm=TRUE)
 ```
 
 I use quantile quite a bit, as it provides a bit more flexibility because you can specify the probabilities you want to return.
 
 ```{r quantile_probs_examp, warning=FALSE, message=FALSE}
-quantile(intro_df$pH_Inst, probs=c(0.025, 0.975), na.rm=TRUE)
+quantile(intro_df$pH, probs=c(0.025, 0.975), na.rm=TRUE)
 ```
 
 ```{r Exercise1, echo=FALSE}
@@ -93,13 +93,13 @@ Exploratory data analysis tends to be a little bit about stats and a lot about v
 The workhorse function for plotting data in R is `plot()`.  With this one command you can create almost any plot you can conceive of, but for this workshop we are just going to look at the very basics of the function. The most common way to use `plot()` is for scatterplots.  
 
 ```{r plot_examp, warning=FALSE, message=FALSE, fig.cap="Scatter plot of dissolved oxygen vs water temperature"}
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 ```
 
 Hey, a plot! Not bad. Let's customize a bit because those axis labels aren't terribly useful and we need a title. For that we can use the `main`, `xlab`, and `ylab` arguments.
 
 ```{r plot_examp_2, warning=FALSE, message=FALSE, fig.cap="Basic scatter plot with title and xy axis labels"}
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst,
+plot(intro_df$Wtemp, intro_df$DO,
      main="Changes in D.O. concentration as function of water temperature",
      xlab="Water temperature, deg C", ylab="Dissolved oxygen concentration, mg/L")
 ```
@@ -109,7 +109,7 @@ Let's say we want to look at more than just one relationship at a time with a pa
 ```{r pairs_examp, warning=FALSE, message=FALSE, fig.cap="Pairs plot using intro_df"}
 #get a data frame with only the measured values
 library(dplyr)
-intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)
+intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
 plot(intro_df_data)
 ```
 
@@ -121,7 +121,7 @@ sites <- unique(intro_df$site_no)
 intro_df_site1 <- filter(intro_df, site_no == sites[1])
 
 #now keep only measured values
-intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_Inst_cd)
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
 
 #create the pairs plot
 plot(intro_df_site1_data)
@@ -134,27 +134,27 @@ Let's move on to boxplots, histograms, and cumulative distribution functions.
 Two great ways to use boxplots are straight up and then by groups in a factor. For this we will use `boxplot()` and in this case it is looking for a vector as input. 
 
 ```{r boxplot_examp, warning=FALSE, message=FALSE, fig.cap="Boxplot of dissolved oxygen concentration"}
-boxplot(intro_df$DO_Inst, main="Boxplot of D.O. Concentration", ylab="Concentration")
+boxplot(intro_df$DO, main="Boxplot of D.O. Concentration", ylab="Concentration")
 ```
 
 As plots go, well, um, not great.  Let's try it with a bit more info and create a boxplot for each of the groups. Note the use of an R formula. In R, a formula takes the form of `y ~ x`.  The tilde is used in place of the equals sign, the dependent variable is on the left, and the independent variable[s] are on the right. In boxplots, `y` is the numeric data variable, and `x` is the grouping variable (usually a factor).
 
 ```{r boxplot_grps_examp, warning=FALSE, message=FALSE, fig.cap="Boxplot of dissolved oxygen grouped by site"}
-boxplot(intro_df$DO_Inst ~ intro_df$site_no, 
+boxplot(intro_df$DO ~ intro_df$site_no, 
         main="Boxplot of D.O. Concentration by Site", ylab="Concentration")
 ```
 
 Lastly, let's look at two other ways to plot our distributions.  First, histograms.
 
 ```{r base_hist_examp, warning=FALSE, message=FALSE, fig.cap=c("Histogram of pH", "Histogram of pH specifying 4 breaks")}
-hist(intro_df$pH_Inst)
-hist(intro_df$pH_Inst, breaks=4)
+hist(intro_df$pH)
+hist(intro_df$pH, breaks=4)
 ```
 
 And finally, cumulative distribution functions.  Since CDF's are actually a function of the distribution we need to get that function first.  This requires that we combine `plot()` and `ecdf()`, the empirical CDF function.
 
 ```{r cdf_examp, warning=FALSE, message=FALSE, fig.cap="Empirical cumulative distribution plot for water temperature"}
-wtemp_ecdf <- ecdf(intro_df$Wtemp_Inst)
+wtemp_ecdf <- ecdf(intro_df$Wtemp)
 plot(wtemp_ecdf)
 ```
 
@@ -168,4 +168,4 @@ Similar to before let's first just play around with some basic exploratory data 
 
 2. Create a discharge histogram. Explore different values for the argument `breaks`. 
 
-3. Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Inst_Cd='X'`)?
+3. Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Cd='X'`)?

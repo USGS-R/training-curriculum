@@ -45,14 +45,14 @@ First, let's start with two sets of random data and plot them using different co
 ``` r
 #Create two data frames using dplyr (estimated & erroneous flows)
 library(dplyr)
-intro_df_est <- filter(intro_df, Flow_Inst_cd == "E")
-intro_df_est_QpH <- select(intro_df_est, Flow_Inst, DO_Inst)
-intro_df_err <-filter(intro_df, Flow_Inst_cd == "X") 
-intro_df_err_QpH <- select(intro_df_err, Flow_Inst, DO_Inst)
+intro_df_est <- filter(intro_df, Flow_cd == "E")
+intro_df_est_QpH <- select(intro_df_est, Flow, DO)
+intro_df_err <-filter(intro_df, Flow_cd == "X") 
+intro_df_err_QpH <- select(intro_df_err, Flow, DO)
 
 #Now, plot estimated and erroneous points in different colors
-plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034')
-points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
+plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=16, col='#FF5034')
+points(intro_df_est_QpH$Flow, intro_df_est_QpH$DO, pch=16, col='skyblue')
 ```
 
 <img src='../static/Visualize/pch_col_examp-1.png'/ title='Dissolved oxygen versus flow for estimated and erroneous flows'/>
@@ -71,7 +71,7 @@ default_par <- par()
 
 #change par
 par(las=2, tck=0.01, bg="darkseagreen")
-plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=6)
+plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=6)
 ```
 
 <img src='../static/Visualize/par_example-1.png'/ title='Dissolved oxygen versus erroneous flows with green background'/>
@@ -84,8 +84,8 @@ Legends are an obvious necessity for publishing plots built in R. Adding legends
 
 ``` r
 #use the same plot and add a legend to illustrate color and point type
-plot(intro_df_err_QpH$Flow_Inst, intro_df_err_QpH$DO_Inst, pch=16, col='#FF5034')
-points(intro_df_est_QpH$Flow_Inst, intro_df_est_QpH$DO_Inst, pch=16, col='skyblue')
+plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=16, col='#FF5034')
+points(intro_df_est_QpH$Flow, intro_df_est_QpH$DO, pch=16, col='skyblue')
 
 #add a legend
 legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
@@ -134,7 +134,7 @@ Exercise 1
 You can also customize your plot axes using the `axis()` function and specifying which axis by using the `side=` argument. Add ticks at specific values, and add second x and y axes (side=3 or side=4). To make a log-scale axis, use the argument `log=` and specify the x or y axis.
 
 ``` r
-plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, pch=20)
+plot(intro_df$Flow, intro_df$Wtemp, pch=20)
 #add a second y-axis
 axis(side=4)
 ```
@@ -143,7 +143,7 @@ axis(side=4)
 
 ``` r
 #now log the x axis
-plot(intro_df$Flow_Inst, intro_df$Wtemp_Inst,  pch=20, log='x')
+plot(intro_df$Flow, intro_df$Wtemp,  pch=20, log='x')
 #format the second y-axis to have tick marks at every concentration (not just every 5) & no labels
 axis(side=4, at=1:20, labels=FALSE)
 #add a second x-axis
@@ -163,10 +163,10 @@ layout_matrix <- matrix(c(1:4), nrow=2, ncol=2, byrow=TRUE)
 layout(layout_matrix)
 
 #four boxplots:
-plot1 <- boxplot(intro_df$Flow_Inst ~ intro_df$site_no, ylab="Discharge, cfs", main="Discharge")
-plot2 <- boxplot(intro_df$Wtemp_Inst ~ intro_df$site_no, ylab="Temperature, deg C", main="Water Temp")
-plot3 <- boxplot(intro_df$pH_Inst ~ intro_df$site_no, ylab="pH", main="pH")
-plot4 <- boxplot(intro_df$DO_Inst ~ intro_df$site_no, ylab="D.O. Concentration, mg/L", main="Dissolved Oxygen")
+plot1 <- boxplot(intro_df$Flow ~ intro_df$site_no, ylab="Discharge, cfs", main="Discharge")
+plot2 <- boxplot(intro_df$Wtemp ~ intro_df$site_no, ylab="Temperature, deg C", main="Water Temp")
+plot3 <- boxplot(intro_df$pH ~ intro_df$site_no, ylab="pH", main="pH")
+plot4 <- boxplot(intro_df$DO ~ intro_df$site_no, ylab="D.O. Concentration, mg/L", main="Dissolved Oxygen")
 ```
 
 <img src='../static/Visualize/multiple_plots_example-1.png'/ title='One figure with 4 different boxplots'/>
@@ -184,7 +184,7 @@ It is very simple to save your plots as images. In RStudio's "Plots" window, you
 
 ``` r
 png("do_vs_wtemp.png", width=5, height=6, res=300, units="in") # see ?png
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 dev.off()
 ```
 
