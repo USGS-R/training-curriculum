@@ -21,9 +21,10 @@ intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALS
 Quick Links to Exercises and R code
 -----------------------------------
 
--   [Exercise 1](#exercise-1): Using for loops and conditionals
--   [Exercise 2](#exercise-2): Writing functions
--   [Exercise 3](#exercise-3): Creating an RMarkdown document
+-   [Exercise 1](#exercise-1): Using current knowledge, make plots for multiple sites
+-   [Exercise 2](#exercise-2): Using for loops and conditionals
+-   [Exercise 3](#exercise-3): Writing functions
+-   [Exercise 4](#exercise-4): Creating an RMarkdown document
 
 Lesson Goals
 ------------
@@ -32,6 +33,16 @@ Lesson Goals
 -   Understand how to create your own functions
 -   Gain familiarity with Markdown and `knitr`
 -   Create a simple, reproducible document and presentation
+
+Exercise 1
+----------
+
+Let's start off with an exercise that uses the skills we've learned thus far.
+
+1.  Create a plot of DO vs water temperature for 4 of the sites in our dataset. Hint: use `unique()` to get a vector of site numbers, and don't forget to subset your data.
+2.  Now add a title to each one using the site number.
+
+You likely just went through a lot of copy/paste steps to get these plots. We are not going to learn programming structures that can help mitigate a lot of this repetitive code.
 
 Using conditional (if-else) statements
 --------------------------------------
@@ -286,13 +297,15 @@ for(i in 1:length(large_vec1)) {
 
 Now that's better. In short, if an obvious vector or primitive solution exists, use that. If those aren't clear and you need to use a loop, don't be afraid to use one. There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand. Personally, I think it is possible to go too far down the vectorized path. Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
 
-Exercise 1
+Exercise 2
 ----------
 
-For this exercise we are going to practice using control structures. We are going to make a plot of DO vs water temperature for each site in our dataset.
+For this exercise we are going to practice using control structures. Let's recreate the DO vs water temp scatter plots from Exercise 1, only complete them for every site in the data frame.
 
-1.  Create a for loop that loops through each site and creates a plot. Don't save the plot, just have it render in the plot window. Hint: use `unique(intro_df$site_no)` to get a vector of sites.
+1.  Create a for loop that loops through each site and creates a plot. Don't save the plot, just have it render in the plot window.
 2.  Let's imagine that we had one site that we knew had bad data, and we don't want to render a plot for it. Add a conditional statement to your loop that skips the plotting code for this particular site.
+
+You'll probably notice this takes a lot less code than in Exercise 1. Imagine if you had 50 sites to make plots for - manually creating them would take a long time. Plus, you can quickly change the format of plots in the loop and re-run them all.
 
 Functions in R
 --------------
@@ -402,7 +415,7 @@ sum_vec <- function(vec) {
 }
 ```
 
-Exercise 2
+Exercise 3
 ----------
 
 For this exercise we are going to practice with functions.
@@ -580,7 +593,7 @@ Repeat the steps from above, but this time instead of selecting "Document", sele
 
 I know you will probably wonder whether you can change the look and feel of this presentation, and the answer is yes. I have done that, but using a different method for creating slides by using the `slidify` package. An example of that presentation is in a talk I gave on [Social Media and Blogging](http://jwhollister.com/epablogpresent). It does take a bit more work to set this up, but you can make stylish and reproducible slides this way.
 
-Exercise 3
+Exercise 4
 ----------
 
 1.  Follow the 'Create a Document' example above to create a new RMarkdown document of your own.
