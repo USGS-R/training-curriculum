@@ -177,6 +177,37 @@ A `for` loop allows you to repeat code. You specify a variable and a range of va
       may or may not use a_name
     }
 
+Loops cycle through the "index" variable, which changes in each iteration. You must give this variable a name (often people use "i" for index), and then tell it what values to cycle through. Let's look at a loop that only prints the value of the index variable each time.
+
+``` r
+for(i in 1:3){
+  print(i)
+}
+```
+
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+
+You'll see that the value of `i` is printed at each loop iteration, and changes based on the values given after `in`. Let's try one more simple example, where we give nonconsecutive looping values.
+
+``` r
+looping_vector <- c('a', 'vector', 'of', 'character', 'values', 'works', 'too!')
+for(word in looping_vector){
+  print(word)
+}
+```
+
+    ## [1] "a"
+    ## [1] "vector"
+    ## [1] "of"
+    ## [1] "character"
+    ## [1] "values"
+    ## [1] "works"
+    ## [1] "too!"
+
+This just illustrates that you can use manye different vector types as the looping vector. The for loop will always use `looping_vector[1]` as the first value of the index, then `looping_vector[2]`, and so on until it gets to the last value of the looping vector. Now, let's do something a little more useful inside our loop.
+
 ``` r
 # sequentially increase the value of some number
 vec <- 1:10
