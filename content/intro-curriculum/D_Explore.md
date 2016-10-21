@@ -104,11 +104,11 @@ Exercise 1
 
 Next, we're going to explore `intro_df` using base R statistical functions. We want a data frame that has mean, median, and IQR for each of the measured values in this data set. We will use `dplyr` to help make this easier.
 
-1.  Summarize each variable by the summary statistics mean, median, and interquartile range. In the end, you should have a data.frame with 1 row and 12 columns. Hint: use `summarize_at` - the arguments for this function can be pretty tricky, so try to follow the examples in the help file. And don't forget the argument `na.rm=TRUE` for the stats functions!
+1.  Summarize DO and pH by the summary statistics mean, median, and interquartile range. Hint: don't forget the argument `na.rm=TRUE` for the stats functions!
 
-2.  Challenge: Add a calculation for the 90th percentile into your code for step 2. Hint: this requires an additional argument to the `quantile` function. This should result in a data.frame with 1 row and 16 columns.
+2.  Add a step to calculate the 90th percentile for pH and DO. Hint: this requires an additional argument to the `quantile` function.
 
-3.  Challenge: It is difficult to read a data.frame that has 12 columns (or 16 if you completed step 3) and only one row. Make the data.frame more readable by transposing it.
+*To get summary statistics for each variable, use the dplyr `summarize_at` function. The arguments for this function can be pretty tricky, so try to follow the examples in the help file. See `?summarize_at`*
 
 Basic Visualization
 -------------------
