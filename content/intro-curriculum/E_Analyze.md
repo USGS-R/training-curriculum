@@ -195,6 +195,8 @@ summary(lm_gwq2)
     ## Multiple R-squared:  0.1308, Adjusted R-squared:  0.1302 
     ## F-statistic: 205.9 on 2 and 2737 DF,  p-value: < 2.2e-16
 
+Some other helpful functions when using linear models are `coefficients()`, `residuals()`, and `fitted.values()`. See `?lm` for more information.
+
 We can also put a regression line on the plot:
 
 ``` r

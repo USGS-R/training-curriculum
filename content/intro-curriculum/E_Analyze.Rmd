@@ -99,6 +99,8 @@ lm_gwq2 <- lm(DO ~ Wtemp + Flow, data=intro_df)
 summary(lm_gwq2)
 ```
 
+Some other helpful functions when using linear models are `coefficients()`, `residuals()`, and `fitted.values()`. See `?lm` for more information.
+
 We can also put a regression line on the plot:
 
 ```{r abline_examp_lm, warning=FALSE, message=FALSE, fig.cap="Scatter plot of pH versus flow with regression line"}
