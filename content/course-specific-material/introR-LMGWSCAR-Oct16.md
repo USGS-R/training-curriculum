@@ -24,20 +24,19 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   12:00 pm - 01:00 pm -- *Lunch*
 -   01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 -   03:00 pm - 03:15 pm -- *Break*
--   03:15 pm - 04:15 pm -- [Clean](/intro-curriculum/Clean) continued
+-   03:15 pm - 04:15 pm -- [Explore](/intro-curriculum/Explore)
 -   04:15 pm - 04:30 pm -- End of day wrap-up
 
 **Day 2**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 09:30 am -- [Explore](/intro-curriculum/Explore)
--   09:30 am - 10:30 am -- [Analyze: Base](/intro-curriculum/Analyze)
--   10:30 am - 10:45 am -- *Break*
--   10:45 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://owi.usgs.gov/R/dataRetrieval.html)
+-   08:30 am - 10:15 am -- [Analyze: Base](/intro-curriculum/Analyze)
+-   10:15 am - 10:30 am -- *Break*
+-   10:30 am - 12:00 pm -- [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), [dataRetrieval](https://owi.usgs.gov/R/dataRetrieval.html)
 -   12:00 pm - 01:00 pm -- *Lunch*
 -   01:00 pm - 02:30 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/)
 -   02:30 pm - 02:45 pm -- *Break*
--   02:45 pm - 04:00 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/) continued
+-   02:45 pm - 04:00 pm -- Visualize: swmrQW for censored data and publication-quality graphs
 -   04:00 pm - 04:30 pm -- End of day wrap-up
 
 **Day 3**
