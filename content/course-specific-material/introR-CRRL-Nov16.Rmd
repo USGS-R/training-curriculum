@@ -2,7 +2,8 @@
 title: "Columbia River Research Lab"
 date: "2016-11-01"
 slug: "introR-CRRL-Nov16"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining_courseSpecific
+parent: Course Specific Material
 ---
 
 November 1st - 3rd in Cook, WA
@@ -32,9 +33,9 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 * 10:30 am - 10:45 am -- *Break*
 * 10:45 am - 12:00 pm -- Analyze w/ packages: TBD
 * 12:00 pm - 01:00 pm -- *Lunch*
-* 01:00 pm - 02:30 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/)
+* 01:00 pm - 02:30 pm -- [Visualize: Base](/intro-curriculum/Visualize/)
 * 02:30 pm - 02:45 pm -- *Break*
-* 02:45 pm - 04:00 pm -- Visualize: [ggplot2](/intro-curriculum/ggplot2/) continued
+* 02:45 pm - 04:00 pm -- [Visualize: Base](/intro-curriculum/Visualize/) continued
 * 04:00 pm - 04:30 pm -- End of day wrap-up
 
 **Day 3**
