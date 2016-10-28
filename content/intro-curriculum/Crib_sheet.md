@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 
+date: 9998-01-01
 slug: Crib
 title: Crib Sheet
 image: 

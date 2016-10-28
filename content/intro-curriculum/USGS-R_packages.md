@@ -1,8 +1,8 @@
 ---
 author: Lindsay R. Carr
-date: 
+date: 9998-01-01
 slug: USGS
-title: USGS-R Packages
+title: 
 image: 
 menu:
   main:
