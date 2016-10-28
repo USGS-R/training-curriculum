@@ -62,24 +62,24 @@ pop_ttest
 `t.test()` can also take a formula specification as input. For a t-test that is all we need to know. R formulas were described in the "Basic Visualization" section of Analyze. Use a t.test to compare discharge between Erroneous and estimated qualifiers (these serve as your two populations). You cannot use `t.test()` to compare more than two groups.
 
 ``` r
-#Filter so that there are only two Flow_Inst_cd groups
+#Filter so that there are only two Flow_cd groups
 #You might have to load dplyr
 library(dplyr)
-err_est_df <- filter(intro_df, Flow_Inst_cd %in% c("X", "E"))
-t.test(err_est_df$Flow_Inst ~ err_est_df$Flow_Inst_cd)
+err_est_df <- filter(intro_df, Flow_cd %in% c("X", "E"))
+t.test(err_est_df$Flow ~ err_est_df$Flow_cd)
 ```
 
     ## 
     ##  Welch Two Sample t-test
     ## 
-    ## data:  err_est_df$Flow_Inst by err_est_df$Flow_Inst_cd
-    ## t = -1.9985, df = 905.04, p-value = 0.04596
+    ## data:  err_est_df$Flow by err_est_df$Flow_cd
+    ## t = -0.43373, df = 951.49, p-value = 0.6646
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -4707.2882   -42.6546
+    ##  -160.9915  102.7102
     ## sample estimates:
     ## mean in group E mean in group X 
-    ##       -24.28272      2350.68869
+    ##        325.3077        354.4484
 
 There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info.
 
@@ -89,119 +89,121 @@ Next let's take a look at correlations. To handle missing values in `cor`, `na.r
 
 ``` r
 #A simple correlation
-cor(intro_df$Wtemp_Inst, intro_df$DO_Inst, use="complete.obs")
+cor(intro_df$Wtemp, intro_df$DO, use="complete.obs")
 ```
 
-    ## [1] -0.4216771
+    ## [1] -0.3014859
 
 ``` r
 #And a test of that correlation
-cor.test(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+cor.test(intro_df$Wtemp, intro_df$DO)
 ```
 
     ## 
     ##  Pearson's product-moment correlation
     ## 
-    ## data:  intro_df$Wtemp_Inst and intro_df$DO_Inst
-    ## t = -24.696, df = 2820, p-value < 2.2e-16
+    ## data:  intro_df$Wtemp and intro_df$DO
+    ## t = -16.791, df = 2820, p-value < 2.2e-16
     ## alternative hypothesis: true correlation is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.4515495 -0.3908605
+    ##  -0.3346611 -0.2675643
     ## sample estimates:
     ##        cor 
-    ## -0.4216771
+    ## -0.3014859
 
 ``` r
 #A data frame as input to cor returns a correlation matrix
 #Can't just do cor(intro_df) because intro_df has non-numeric columns:
 # cor(intro_df)
 # use dplyr to select the numeric columns of intro_df
-intro_df_onlynumeric <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)  
+intro_df_onlynumeric <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)  
 cor(intro_df_onlynumeric, use="complete.obs")
 ```
 
-    ##               Flow_Inst  Wtemp_Inst      pH_Inst     DO_Inst
-    ## Flow_Inst   1.000000000 -0.01760423 -0.008350327  0.03725997
-    ## Wtemp_Inst -0.017604230  1.00000000  0.247765343 -0.42596789
-    ## pH_Inst    -0.008350327  0.24776534  1.000000000  0.20347569
-    ## DO_Inst     0.037259972 -0.42596789  0.203475686  1.00000000
+    ##             Flow      Wtemp         pH         DO
+    ## Flow   1.0000000 -0.2841634 -0.2953464  0.2791687
+    ## Wtemp -0.2841634  1.0000000  0.1787089 -0.2958594
+    ## pH    -0.2953464  0.1787089  1.0000000  0.3181250
+    ## DO     0.2791687 -0.2958594  0.3181250  1.0000000
 
 ### Linear Regression
 
 Next let's take a look at linear regression. One of the common ways of fitting linear regressions is with `lm()`. We have already seen the formula object so there isn't too much that is new here. Some of the options are new and useful, though. Let's take a look:
 
 ``` r
-lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
+lm(DO ~ Wtemp, data=intro_df)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = DO_Inst ~ Wtemp_Inst, data = intro_df)
+    ## lm(formula = DO ~ Wtemp, data = intro_df)
     ## 
     ## Coefficients:
-    ## (Intercept)   Wtemp_Inst  
-    ##     11.3049      -0.1747
+    ## (Intercept)        Wtemp  
+    ##     10.3207      -0.1233
 
 ``` r
 #Not much info, so save to object and use summary
-lm_gwq1 <- lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
+lm_gwq1 <- lm(DO ~ Wtemp, data=intro_df)
 summary(lm_gwq1)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = DO_Inst ~ Wtemp_Inst, data = intro_df)
+    ## lm(formula = DO ~ Wtemp, data = intro_df)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -4.4055 -0.6783 -0.1055  0.7510  5.4808 
+    ## -4.5191 -0.6123 -0.0540  0.7217  5.0988 
     ## 
     ## Coefficients:
     ##              Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept) 11.304895   0.148356    76.2   <2e-16 ***
-    ## Wtemp_Inst  -0.174729   0.007075   -24.7   <2e-16 ***
+    ## (Intercept) 10.320689   0.150756   68.46   <2e-16 ***
+    ## Wtemp       -0.123300   0.007343  -16.79   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 1.241 on 2820 degrees of freedom
+    ## Residual standard error: 1.219 on 2820 degrees of freedom
     ##   (178 observations deleted due to missingness)
-    ## Multiple R-squared:  0.1778, Adjusted R-squared:  0.1775 
-    ## F-statistic: 609.9 on 1 and 2820 DF,  p-value: < 2.2e-16
+    ## Multiple R-squared:  0.09089,    Adjusted R-squared:  0.09057 
+    ## F-statistic: 281.9 on 1 and 2820 DF,  p-value: < 2.2e-16
 
 ``` r
 #And now a multiple linear regression
-lm_gwq2 <- lm(DO_Inst ~ Wtemp_Inst + Flow_Inst, data=intro_df)
+lm_gwq2 <- lm(DO ~ Wtemp + Flow, data=intro_df)
 summary(lm_gwq2)
 ```
 
     ## 
     ## Call:
-    ## lm(formula = DO_Inst ~ Wtemp_Inst + Flow_Inst, data = intro_df)
+    ## lm(formula = DO ~ Wtemp + Flow, data = intro_df)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -4.4067 -0.6817 -0.1067  0.7537  5.4795 
+    ## -4.4570 -0.5967  0.0239  0.6361  5.0508 
     ## 
     ## Coefficients:
     ##               Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  1.131e+01  1.512e-01  74.787   <2e-16 ***
-    ## Wtemp_Inst  -1.747e-01  7.216e-03 -24.211   <2e-16 ***
-    ## Flow_Inst    2.033e-06  1.415e-06   1.436    0.151    
+    ## (Intercept)  9.702e+00  1.582e-01   61.31   <2e-16 ***
+    ## Wtemp       -9.698e-02  7.611e-03  -12.74   <2e-16 ***
+    ## Flow         2.774e-04  2.421e-05   11.46   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 1.245 on 2733 degrees of freedom
-    ##   (264 observations deleted due to missingness)
-    ## Multiple R-squared:  0.1773, Adjusted R-squared:  0.1767 
-    ## F-statistic: 294.6 on 2 and 2733 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 1.193 on 2737 degrees of freedom
+    ##   (260 observations deleted due to missingness)
+    ## Multiple R-squared:  0.1308, Adjusted R-squared:  0.1302 
+    ## F-statistic: 205.9 on 2 and 2737 DF,  p-value: < 2.2e-16
+
+Some other helpful functions when using linear models are `coefficients()`, `residuals()`, and `fitted.values()`. See `?lm` for more information.
 
 We can also put a regression line on the plot:
 
 ``` r
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
-abline(lm(DO_Inst ~ Wtemp_Inst, data=intro_df))
+abline(lm(DO ~ Wtemp, data=intro_df))
 ```
 
 <img src='../static/Analyze/abline_examp_lm-1.png'/ title='Scatter plot of pH versus flow with regression line'/>
@@ -209,7 +211,7 @@ abline(lm(DO_Inst ~ Wtemp_Inst, data=intro_df))
 We can also just add a straight line defined by slope and intercept. We do this with `abline()`. This is useful if you have a known value that you want to compare to your data.
 
 ``` r
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 #horizontal line at specified y value
 abline(h=11)
 #a vertical line

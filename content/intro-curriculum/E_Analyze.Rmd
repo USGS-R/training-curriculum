@@ -60,11 +60,11 @@ pop_ttest
 `t.test()` can also take a formula specification as input. For a t-test that is all we need to know. R formulas were described in the "Basic Visualization" section of Analyze. Use a t.test to compare discharge between Erroneous and estimated qualifiers (these serve as your two populations). You cannot use `t.test()` to compare more than two groups.
 
 ```{r ttest_formula_examp, warning=FALSE, message=FALSE}
-#Filter so that there are only two Flow_Inst_cd groups
+#Filter so that there are only two Flow_cd groups
 #You might have to load dplyr
 library(dplyr)
-err_est_df <- filter(intro_df, Flow_Inst_cd %in% c("X", "E"))
-t.test(err_est_df$Flow_Inst ~ err_est_df$Flow_Inst_cd)
+err_est_df <- filter(intro_df, Flow_cd %in% c("X", "E"))
+t.test(err_est_df$Flow ~ err_est_df$Flow_cd)
 ```
 
 There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info.
@@ -74,15 +74,15 @@ Next let's take a look at correlations. To handle missing values in `cor`, `na.r
 
 ```{r corr_examp, warning=FALSE, message=FALSE}
 #A simple correlation
-cor(intro_df$Wtemp_Inst, intro_df$DO_Inst, use="complete.obs")
+cor(intro_df$Wtemp, intro_df$DO, use="complete.obs")
 #And a test of that correlation
-cor.test(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+cor.test(intro_df$Wtemp, intro_df$DO)
 
 #A data frame as input to cor returns a correlation matrix
 #Can't just do cor(intro_df) because intro_df has non-numeric columns:
 # cor(intro_df)
 # use dplyr to select the numeric columns of intro_df
-intro_df_onlynumeric <- select(intro_df, -site_no, -dateTime, -Flow_Inst_cd)  
+intro_df_onlynumeric <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)  
 cor(intro_df_onlynumeric, use="complete.obs")
 ```
 
@@ -90,28 +90,30 @@ cor(intro_df_onlynumeric, use="complete.obs")
 Next let's take a look at linear regression.  One of the common ways of fitting linear regressions is with `lm()`.  We have already seen the formula object so there isn't too much that is new here.  Some of the options are new and useful, though.  Let's take a look:
 
 ```{r lm_examp, warning=FALSE, message=FALSE}
-lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
+lm(DO ~ Wtemp, data=intro_df)
 #Not much info, so save to object and use summary
-lm_gwq1 <- lm(DO_Inst ~ Wtemp_Inst, data=intro_df)
+lm_gwq1 <- lm(DO ~ Wtemp, data=intro_df)
 summary(lm_gwq1)
 #And now a multiple linear regression
-lm_gwq2 <- lm(DO_Inst ~ Wtemp_Inst + Flow_Inst, data=intro_df)
+lm_gwq2 <- lm(DO ~ Wtemp + Flow, data=intro_df)
 summary(lm_gwq2)
 ```
+
+Some other helpful functions when using linear models are `coefficients()`, `residuals()`, and `fitted.values()`. See `?lm` for more information.
 
 We can also put a regression line on the plot:
 
 ```{r abline_examp_lm, warning=FALSE, message=FALSE, fig.cap="Scatter plot of pH versus flow with regression line"}
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 #abline accepts a linear model object as input
 #linear model is done with lm, and uses a formula as input
-abline(lm(DO_Inst ~ Wtemp_Inst, data=intro_df))
+abline(lm(DO ~ Wtemp, data=intro_df))
 ```
 
 We can also just add a straight line defined by slope and intercept.  We do this with `abline()`. This is useful if you have a known value that you want to compare to your data. 
 
 ```{r abline_examp, warning=FALSE, message=FALSE, fig.cap="Dissolved oxygen versus water temperature scatter plot with lines using abline"}
-plot(intro_df$Wtemp_Inst, intro_df$DO_Inst)
+plot(intro_df$Wtemp, intro_df$DO)
 #horizontal line at specified y value
 abline(h=11)
 #a vertical line

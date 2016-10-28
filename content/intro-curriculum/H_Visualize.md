@@ -51,7 +51,7 @@ First thing we need to do is to create our ggplot object. Everything we do will 
 # aes() are the "aesthetics" info.  When you simply add the x and y
 # that can seem a bit of a confusing term.  You also use aes() to 
 # change color, shape, size etc. of some items
-qtemp_gg <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst))
+qtemp_gg <- ggplot(data=intro_df, aes(x=Flow, y=Wtemp))
 qtemp_gg
 ```
 
@@ -101,7 +101,7 @@ Now to add some colors, shapes, etc. to the point. Look at the `geom_point()` do
 
 ``` r
 qtemp_scatter <- qtemp_scatter +
-  geom_point(aes(color=Flow_Inst_cd, shape=site_no), size=2)
+  geom_point(aes(color=Flow_cd, shape=site_no), size=2)
 qtemp_scatter
 ```
 
@@ -134,7 +134,7 @@ qtemp_scatter + geom_smooth(method="lm", aes(group=site_no))
 Or, if we wanted our regression lines to match the color.
 
 ``` r
-qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_Inst_cd, fill=Flow_Inst_cd))
+qtemp_scatter + geom_smooth(method="lm", aes(color=Flow_cd, fill=Flow_cd))
 ```
 
 <img src='../static/ggplot2/ion_lm_color-1.png'/ title='ggplot2 scatter plot with linear regression line colored by Flow code'/>
@@ -150,7 +150,7 @@ Before we get into another exercise, let's look at some of the other geometries.
 A simple boxplot with groups looks like this:
 
 ``` r
-ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
+ggplot(data=intro_df, aes(x=site_no, y=DO)) + geom_boxplot()
 ```
 
 <img src='../static/ggplot2/gg_box_examp-1.png'/ title='ggplot2 boxplot of dissolved oxygen by site'/>
@@ -160,7 +160,7 @@ ggplot(data=intro_df, aes(x=site_no, y=DO_Inst)) + geom_boxplot()
 Histograms only need a single variable (x).
 
 ``` r
-ggplot(data=intro_df, aes(x=pH_Inst))+ geom_histogram()
+ggplot(data=intro_df, aes(x=pH))+ geom_histogram()
 ```
 
 <img src='../static/ggplot2/gg_hist_examp-1.png'/ title='ggplot2 histogram of pH'/>
@@ -171,7 +171,7 @@ Barplots can be done easily but often you want to plot a summary statistic (e.g.
 
 ``` r
 intro_df_grouped <- group_by(intro_df, site_no)
-intro_df_flow_mean <- summarize(intro_df_grouped, mean_flow=mean(Flow_Inst, na.rm=TRUE))
+intro_df_flow_mean <- summarize(intro_df_grouped, mean_flow=mean(Flow, na.rm=TRUE))
 ggplot(intro_df_flow_mean, aes(x=site_no, y=mean_flow)) +
   geom_bar(stat="identity")
 ```
@@ -197,8 +197,8 @@ I am certain there are some opinions (good and bad) about the default look and f
 Let's first recreate our Water temperature versus scatterplot from earlier.
 
 ``` r
-qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
-  geom_point(aes(color=Flow_Inst_cd, shape=site_no))
+qtemp_scatter <- ggplot(data=intro_df, aes(x=Flow, y=Wtemp)) +
+  geom_point(aes(color=Flow_cd, shape=site_no))
 qtemp_scatter
 ```
 
@@ -237,9 +237,9 @@ Let's build on one of the default themes to create a more polished plot.
 
 ``` r
 #Now Let's start over, with some new colors and regression lines
-qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
-  geom_point(aes(color=Flow_Inst_cd, shape=site_no)) +
-  stat_smooth(method="lm", aes(color=Flow_Inst_cd)) + 
+qtemp_scatter_polished <- ggplot(data=intro_df, aes(x=Flow, y=Wtemp)) +
+  geom_point(aes(color=Flow_cd, shape=site_no)) +
+  stat_smooth(method="lm", aes(color=Flow_cd)) + 
   theme_bw(15, "serif") +
   theme(text=element_text(color="slategray"), panel.grid = element_blank()) +
   labs(title="Relationship between Water temperature and Discharge",
@@ -288,7 +288,7 @@ Facets allow you to lay out multiple plots in a grid. With a single facet the re
 
 ``` r
 #Return to Water temp vs Flow scatter plot
-qtemp <- ggplot(data=intro_df, aes(x=Flow_Inst, y=Wtemp_Inst)) +
+qtemp <- ggplot(data=intro_df, aes(x=Flow, y=Wtemp)) +
   geom_point() 
 qtemp
 ```
@@ -307,8 +307,8 @@ qtemp + facet_grid(site_no ~ .)
 ``` r
 # Faceting with two variables
 #site_no = row faceting
-#Flow_Inst_cd = column faceting
-qtemp + facet_grid(site_no ~ Flow_Inst_cd)
+#Flow_cd = column faceting
+qtemp + facet_grid(site_no ~ Flow_cd)
 ```
 
 <img src='../static/ggplot2/facet_grid_example-3.png'/ title='ggplot2 faceted scatter plot with rows for sites and columns for flow code'/>

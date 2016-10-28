@@ -21,6 +21,7 @@ getNWISdf <- function(stateCd, startDate, endDate){
   
   nwis_data <- readNWISdata(siteNumbers=sites, parameterCd=pcodes,
                             startDate=startDate, endDate=endDate, service="iv") %>% 
+    filter(site_no != '021989773') %>% 
     renameNWISColumns() %>% 
     select(site_no, dateTime, Flow_Inst, Flow_Inst_cd, Wtemp_Inst, pH_Inst, DO_Inst) %>% 
     na.omit()
@@ -28,7 +29,7 @@ getNWISdf <- function(stateCd, startDate, endDate){
   return(nwis_data)
 }
 
-createTrainingDF <- function(nwis_data, filename = "vignettes/data/course_NWISdata.csv"){
+createTrainingDF <- function(nwis_data, filename = "content/intro-curriculum/data/course_NWISdata.csv"){
   # Altering NWIS data for training example
   nwis_data_changed <- nwis_data %>% 
     sample_n(3000, replace=nrow(nwis_data) < 3000) %>% 
@@ -37,9 +38,7 @@ createTrainingDF <- function(nwis_data, filename = "vignettes/data/course_NWISda
            pH_Inst = insertRandomNAs(pH_Inst),
            DO_Inst = insertRandomNAs(DO_Inst)) %>% 
     mutate(Flow_Inst_cd = insertRandomValues(Flow_Inst_cd, percentChange = 0.5, 
-                                             values = c("A e", "E", "X")),
-           pH_Inst = insertRandomValues(pH_Inst, percentChange = 0.01, 
-                                        values = c("NA", "None", " ")))
+                                             values = c("A e", "E", "X")))
   
   write.csv(nwis_data_changed, filename, row.names=FALSE)
   
@@ -64,9 +63,22 @@ insertRandomValues <- function(orig_col, nrows = 3000, percentChange, values){
   return(new_col)
 }
 
-createDFCleanSubset <- function(intro_df, filename = "vignettes/data/course_NWISdata_cleaned.csv"){
+addLessThanObserved <- function(orig_col, nrows = 3000, percentChange){
+  new_col <- orig_col
+  nChange <- round(nrows*percentChange) 
+  nonNAs <- which(!is.na(new_col))
+  change_rows <- sample(nonNAs, size=nChange)
+  new_col[change_rows] <- "<0.01"
+  return(new_col)
+}
+
+createDFCleanSubset <- function(intro_df, filename = "content/intro-curriculum/data/course_NWISdata_cleaned.csv"){
   # data frame after subsetting section in Clean
-  cleaned_df <- mutate(intro_df, pH_Inst = as.numeric(pH_Inst))
+  cleaned_df <- intro_df %>% 
+    setNames(gsub('_Inst', '', names(.))) %>% 
+    mutate(pH_det_lim = ifelse(grepl('<', pH), '<', NA),
+           pH = as.numeric(gsub('<', '', pH))) 
+
   write.csv(cleaned_df, filename, row.names=FALSE)
   return(cleaned_df)
 }

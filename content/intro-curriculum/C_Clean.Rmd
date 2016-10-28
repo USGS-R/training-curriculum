@@ -188,19 +188,18 @@ intro_df %>%
 Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material. 
 
 ## Cleaning up dataset 
-Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Notice anything strange? Hint: why are the pH values character? That shouldn't be the case; there should be numeric values in that column. If there are any entries that are not numeric values or `NA`, R will treat the entire column as character. You can coerce them to numeric (so anything that is not NA or a number will be coerced into NA), but you should investigate what values are causing the issue first. To do this, we coerce to numeric and look at what values were considered NA in the numeric column, but not in the character column.
+Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Are the columns all of the classes that you would expect? Take note of how many missing values there are. We could remove them, but if there's a missing value in any of one of the columns for a single observation, the entire row is removed. So, let's leave NAs in our dataset for now.
 
-```{r pH_wrong_intro_df, warning=FALSE, message=FALSE}
-pH_df <- select(intro_df, pH_Inst)
-pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
-filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
-```
+The only cleaning to this dataset that we will do right now is to rename some of the columns. We are going to have to reference columns a lot, and might not want to type `_Inst` for every single one, especially since they are all `_Inst`, so it's not giving us additional information. Let's rename all columns with `_Inst` using the `rename` function from `dplyr`.
 
-Looks like the culprits are entries of `None` and blank spaces. These are both scenarios that I would feel comfortable setting to NA, so using `as.numeric` will suffice. However, there could have been a symbol that indicated the value should be something other than missing. That's why it is important to check. Let's actually clean up that column and create a new data.frame. Then use `summary()` to verify that the columns are correct. 
-
-```{r cleaning_up_intro_df, warning=FALSE, message=FALSE}
-intro_df <- mutate(intro_df, pH_Inst = as.numeric(pH_Inst))
-summary(intro_df)
+```{r cleaning_up_intro_df_colnames, warning=FALSE, message=FALSE}
+# the pattern is new_col_name = old_col_name
+intro_df <- rename(intro_df, 
+                   Flow = Flow_Inst,
+                   Flow_cd = Flow_Inst_cd,
+                   Wtemp = Wtemp_Inst,
+                   pH = pH_Inst,
+                   DO = DO_Inst)
 ```
 
 You might have noticed that the date column is treated as character and not Date or POSIX. Handling dates are beyond this course, but they are available in this dataset if you would like to work with them.
@@ -212,7 +211,7 @@ You might have noticed that the date column is treated as character and not Date
 
 This exercise is going to focus on using what we just covered on `dplyr` to start to clean up a dataset. Our goal for this is to create a new data frame that represents a subset of the observations as well as a subset of the data. 
 
-1. Using dplyr, remove the `Flow_Inst_cd` column. Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data. 
+1. Using dplyr, remove the `Flow_cd` column. Think `select()`. Give the new data frame a new name, so you can distinguish it from your raw data. 
 2. Next, we are going to get a subset of the observations. We only want data where flow was greater than 10 cubic feet per second. Also give this data frame a different name than before.
 3. Lastly, add a new column with flow in units of cubic meters per second. Hint: there are 3.28 feet in a meter. 
 
@@ -227,8 +226,8 @@ In this example, let's imagine we collected 3 new observations for water tempera
 #Let's first create a new small example data.frame
 new_data <- data.frame(site_no=rep("00000001", 3), 
                        dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00"), 
-                       Wtemp_Inst=c(14.0, 16.4, 16.0),
-                       pH_Inst = c(7.8, 8.5, 8.3),
+                       Wtemp=c(14.0, 16.4, 16.0),
+                       pH = c(7.8, 8.5, 8.3),
                        stringsAsFactors = FALSE)
 head(new_data)
 #Now add this to our existing df (intro_df)
@@ -245,9 +244,9 @@ Let's go back to the columns now. There are simple ways to add columns of the sa
 forgotten_data <- data.frame(site_no=rep("00000001", 5),
                              dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00",
                                         "2016-09-04 07:45:00", "2016-09-05 07:45:00"),
-                             DO_Inst=c(10.2,8.7,9.3,9.2,8.9),
+                             DO=c(10.2,8.7,9.3,9.2,8.9),
                              Cl_conc=c(15.6,11.0,14.2,13.6,13.7),
-                             Flow_Inst=c(25,54,67,60,59),
+                             Flow=c(25,54,67,60,59),
                              stringsAsFactors = FALSE)
 
 left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
@@ -272,11 +271,11 @@ rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357,
 intro_df_subset <- intro_df[rows2keep,]
 
 # keep only flow for one dataframe
-Q <- select(intro_df_subset, site_no, dateTime, Flow_Inst)
+Q <- select(intro_df_subset, site_no, dateTime, Flow)
 
 # select 8 values and only keep DO for second dataframe
 DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
-DO <- select(DO, site_no, dateTime, DO_Inst)
+DO <- select(DO, site_no, dateTime, DO)
 
 head(Q)
 head(DO)
@@ -303,14 +302,14 @@ class(intro_df_grouped)
 Now we can summarize the data frame by the groups established previously.
 
 ```{r summarize_examp_NA, warning=FALSE, message=FALSE}
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst), mean(Wtemp_Inst))
+intro_df_summary <- summarize(intro_df_grouped, mean(Flow), mean(Wtemp))
 intro_df_summary
 ```
 
 Notice that this summary just returns NAs. We need the mean calculations to ignore the NA values. We could remove the NAs using `filter()` and then pass that data.frame into `summarize`, or we can tell the mean function to ignore the NAs using the argument `na.rm=TRUE` in the `mean` function. See `?mean` to learn more about this argument.
 
 ```{r summarize_examp, warning=FALSE, message=FALSE}
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow_Inst, na.rm=TRUE), mean(Wtemp_Inst, na.rm=TRUE))
+intro_df_summary <- summarize(intro_df_grouped, mean(Flow, na.rm=TRUE), mean(Wtemp, na.rm=TRUE))
 intro_df_summary
 ```
 
@@ -320,11 +319,11 @@ First `arrange()` will re-order a data frame based on the values in a specified 
 
 ```{r arrange_example, warning=FALSE, message=FALSE}
 #ascending order is default
-head(arrange(intro_df, DO_Inst))
+head(arrange(intro_df, DO))
 #descending
-head(arrange(intro_df, desc(DO_Inst)))
+head(arrange(intro_df, desc(DO)))
 #multiple columns: lowest flow with highest temperature at top
-head(arrange(intro_df, Flow_Inst, desc(Wtemp_Inst)))
+head(arrange(intro_df, Flow, desc(Wtemp)))
 ```
 
 Now `slice()`, which accomplishes what we did with the numeric indices before. Remembering back to that, we could grab rows of the data frame with something like `intro_df[3:10,]` or we can use `slice`:  
@@ -344,10 +343,10 @@ head(intro_df_2DO)
 Now, let's use `rowwise` to find the maximum dissolved oxygen for each observation.
 
 ```{r no_rowwise_examp, warning=FALSE, message=FALSE}
-head(mutate(intro_df_2DO, max_DO = max(DO_Inst, DO_2)))
+head(mutate(intro_df_2DO, max_DO = max(DO, DO_2)))
 ```
 
-The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow_Inst, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function. 
+The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function. 
 
 ```{r rowwise_examp, warning=FALSE, message=FALSE}
 class(intro_df_2DO)
@@ -355,8 +354,8 @@ class(intro_df_2DO)
 intro_df_2DO_byrow <- rowwise(intro_df_2DO)
 class(intro_df_2DO_byrow)
 
-#Add a column that totals landuse for each observation
-intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO_Inst, DO_2))
+#Add a column that gives max DO
+intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO, DO_2))
 head(intro_df_DO_max)
 ```
 
@@ -371,8 +370,8 @@ Let's practice some of these last functions.
 
 Next, we're going to practice summarizing large datasets (using `intro_df`). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done. 
 
-1. Create a new data.frame that gives the maximum water temperature (`Wtemp_Inst`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
+1. Create a new data.frame that gives the maximum water temperature (`Wtemp`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
 
-2. Next, create a new data.frame that gives the average water temperature (`Wtemp_Inst`) for each pH value and name it `intro_df_mean_pH_temp`. 
+2. Next, create a new data.frame that gives the average water temperature (`Wtemp`) for each pH value and name it `intro_df_mean_pH_temp`. 
 
 3. Challenge: Find the minimum flow, water temperature, and dissolved oxygen for each site using `summarize_at`.

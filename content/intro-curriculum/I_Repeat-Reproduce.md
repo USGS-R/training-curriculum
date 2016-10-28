@@ -21,9 +21,10 @@ intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALS
 Quick Links to Exercises and R code
 -----------------------------------
 
--   [Exercise 1](#exercise-1): Using for loops and conditionals
--   [Exercise 2](#exercise-2): Writing functions
--   [Exercise 3](#exercise-3): Creating an RMarkdown document
+-   [Exercise 1](#exercise-1): Using current knowledge, make plots for multiple sites
+-   [Exercise 2](#exercise-2): Using for loops and conditionals
+-   [Exercise 3](#exercise-3): Writing functions
+-   [Exercise 4](#exercise-4): Creating an RMarkdown document
 
 Lesson Goals
 ------------
@@ -32,6 +33,16 @@ Lesson Goals
 -   Understand how to create your own functions
 -   Gain familiarity with Markdown and `knitr`
 -   Create a simple, reproducible document and presentation
+
+Exercise 1
+----------
+
+Let's start off with an exercise that uses the skills we've learned thus far.
+
+1.  Create a plot of DO vs water temperature for 4 of the sites in our dataset. Hint: use `unique()` to get a vector of site numbers, and don't forget to subset your data.
+2.  Now add a title to each one using the site number.
+
+You likely just went through a lot of copy/paste steps to get these plots. We are not going to learn programming structures that can help mitigate a lot of this repetitive code.
 
 Using conditional (if-else) statements
 --------------------------------------
@@ -120,46 +131,39 @@ library(dplyr)
 
 # if the column "DO_mgmL" (dissolved oxygen in mg/mL) does not exist, we want to add it
 if(!'DO_mgmL' %in% names(intro_df)){
-  head(mutate(intro_df, DO_mgmL = DO_Inst/1000))
+  head(mutate(intro_df, DO_mgmL = DO/1000))
 } 
 ```
 
-    ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
-    ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
-    ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
-    ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
-    ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
-    ##   DO_Inst DO_mgmL
-    ## 1     8.1  0.0081
-    ## 2     7.1  0.0071
-    ## 3     7.6  0.0076
-    ## 4     6.2  0.0062
-    ## 5     7.6  0.0076
-    ## 6     8.1  0.0081
+    ##   site_no            dateTime   Flow Flow_cd Wtemp  pH   DO pH_det_lim
+    ## 1 2337170 2011-05-19 01:00:00 4270.0       A  13.4 6.9 10.0       <NA>
+    ## 2 2336120 2011-05-19 02:30:00   13.0       E  16.9  NA  8.6       <NA>
+    ## 3 2336300 2011-05-12 22:00:00   27.0       X  26.4 7.5  8.5       <NA>
+    ## 4 2336526 2011-05-24 13:15:00    3.1       E  21.3 7.5  6.8       <NA>
+    ## 5 2336313 2011-05-08 14:30:00    1.1       A  17.7 7.2  8.9       <NA>
+    ## 6 2336360 2011-05-22 10:15:00    9.8       E  20.5 7.1  7.0       <NA>
+    ##   DO_mgmL
+    ## 1  0.0100
+    ## 2  0.0086
+    ## 3  0.0085
+    ## 4  0.0068
+    ## 5  0.0089
+    ## 6  0.0070
 
 ``` r
 # if there are more than 1000 observations, we want to filter out high temperature observations
 if(nrow(intro_df) > 1000){
-  head(filter(intro_df, Wtemp_Inst >= 15))
+  head(filter(intro_df, Wtemp >= 15))
 }
 ```
 
-    ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
-    ## 2 02336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
-    ## 3 02337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 02203655 2011-05-25 01:30:00       7.5          A e       23.1     7.0
-    ## 5 02336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
-    ## 6 02336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
-    ##   DO_Inst
-    ## 1     8.1
-    ## 2     7.1
-    ## 3     7.6
-    ## 4     6.2
-    ## 5     7.6
-    ## 6     8.1
+    ##   site_no            dateTime   Flow Flow_cd Wtemp  pH  DO pH_det_lim
+    ## 1 2336120 2011-05-19 02:30:00   13.0       E  16.9  NA 8.6       <NA>
+    ## 2 2336300 2011-05-12 22:00:00   27.0       X  26.4 7.5 8.5       <NA>
+    ## 3 2336526 2011-05-24 13:15:00    3.1       E  21.3 7.5 6.8       <NA>
+    ## 4 2336313 2011-05-08 14:30:00    1.1       A  17.7 7.2 8.9       <NA>
+    ## 5 2336360 2011-05-22 10:15:00    9.8       E  20.5 7.1 7.0       <NA>
+    ## 6 2337170 2011-05-26 08:00:00 1760.0       A  20.0 7.0 8.5       <NA>
 
 ### Optional: the `ifelse` function
 
@@ -171,7 +175,7 @@ Add a new column to `intro_df` that removes the flow value if it is erroneous (c
 
 ``` r
 #use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_Inst_cd == "X", NA, Flow_Inst))
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "X", NA, Flow))
 ```
 
 Looping
@@ -183,6 +187,37 @@ A `for` loop allows you to repeat code. You specify a variable and a range of va
       code you want to run
       may or may not use a_name
     }
+
+Loops cycle through the "index" variable, which changes in each iteration. You must give this variable a name (often people use "i" for index), and then tell it what values to cycle through. Let's look at a loop that only prints the value of the index variable each time.
+
+``` r
+for(i in 1:3){
+  print(i)
+}
+```
+
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+
+You'll see that the value of `i` is printed at each loop iteration, and changes based on the values given after `in`. Let's try one more simple example, where we give nonconsecutive looping values.
+
+``` r
+looping_vector <- c('a', 'vector', 'of', 'character', 'values', 'works', 'too!')
+for(word in looping_vector){
+  print(word)
+}
+```
+
+    ## [1] "a"
+    ## [1] "vector"
+    ## [1] "of"
+    ## [1] "character"
+    ## [1] "values"
+    ## [1] "works"
+    ## [1] "too!"
+
+This just illustrates that you can use manye different vector types as the looping vector. The for loop will always use `looping_vector[1]` as the first value of the index, then `looping_vector[2]`, and so on until it gets to the last value of the looping vector. Now, let's do something a little more useful inside our loop.
 
 ``` r
 # sequentially increase the value of some number
@@ -262,13 +297,15 @@ for(i in 1:length(large_vec1)) {
 
 Now that's better. In short, if an obvious vector or primitive solution exists, use that. If those aren't clear and you need to use a loop, don't be afraid to use one. There are plenty of examples where a vectorized solution exists for a loop, but it may be difficult to code and understand. Personally, I think it is possible to go too far down the vectorized path. Do it when it makes sense, otherwise take advantage of the `for` loop! You can always try and speed things up after you have got your code working the first time.
 
-Exercise 1
+Exercise 2
 ----------
 
-For this exercise we are going to practice using control structures. We are going to make a plot of DO vs water temperature for each site in our dataset.
+For this exercise we are going to practice using control structures. Let's recreate the DO vs water temp scatter plots from Exercise 1, only complete them for every site in the data frame.
 
-1.  Create a for loop that loops through each site and creates a plot. Don't save the plot, just have it render in the plot window. Hint: use `unique(intro_df$site_no)` to get a vector of sites.
+1.  Create a for loop that loops through each site and creates a plot. Don't save the plot, just have it render in the plot window.
 2.  Let's imagine that we had one site that we knew had bad data, and we don't want to render a plot for it. Add a conditional statement to your loop that skips the plotting code for this particular site.
+
+You'll probably notice this takes a lot less code than in Exercise 1. Imagine if you had 50 sites to make plots for - manually creating them would take a long time. Plus, you can quickly change the format of plots in the loop and re-run them all.
 
 Functions in R
 --------------
@@ -336,15 +373,15 @@ myplot <- function(x, y, grp, file) {
 
 #Call the function using intro_df
 library(ggplot2)
-myplot(intro_df$Flow_Inst, intro_df$Wtemp_Inst, 
-       intro_df$Flow_Inst_cd, "q_Wtemp.jpg")
+myplot(intro_df$Flow, intro_df$Wtemp, 
+       intro_df$Flow_cd, "q_Wtemp.jpg")
 ```
 
 <img src='../static/Reproduce/plot_function_examp-1.png'/ title='ggplot2 scatter plot of pH versus flow'/>
 
 ``` r
-myplot(intro_df$Flow_Inst, intro_df$DO_Inst, 
-       intro_df$Flow_Inst_cd, "q_do.jpg")
+myplot(intro_df$Flow, intro_df$DO, 
+       intro_df$Flow_cd, "q_do.jpg")
 ```
 
 <img src='../static/Reproduce/plot_function_examp-2.png'/ title='ggplot2 scatter plot of dissolved oxygen versus flow'/>
@@ -378,7 +415,7 @@ sum_vec <- function(vec) {
 }
 ```
 
-Exercise 2
+Exercise 3
 ----------
 
 For this exercise we are going to practice with functions.
@@ -556,7 +593,7 @@ Repeat the steps from above, but this time instead of selecting "Document", sele
 
 I know you will probably wonder whether you can change the look and feel of this presentation, and the answer is yes. I have done that, but using a different method for creating slides by using the `slidify` package. An example of that presentation is in a talk I gave on [Social Media and Blogging](http://jwhollister.com/epablogpresent). It does take a bit more work to set this up, but you can make stylish and reproducible slides this way.
 
-Exercise 3
+Exercise 4
 ----------
 
 1.  Follow the 'Create a Document' example above to create a new RMarkdown document of your own.
