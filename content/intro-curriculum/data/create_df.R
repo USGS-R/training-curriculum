@@ -38,8 +38,7 @@ createTrainingDF <- function(nwis_data, filename = "content/intro-curriculum/dat
            pH_Inst = insertRandomNAs(pH_Inst),
            DO_Inst = insertRandomNAs(DO_Inst)) %>% 
     mutate(Flow_Inst_cd = insertRandomValues(Flow_Inst_cd, percentChange = 0.5, 
-                                             values = c("A e", "E", "X")),
-           pH_Inst = addLessThanObserved(pH_Inst, percentChange = 0.01))
+                                             values = c("A e", "E", "X")))
   
   write.csv(nwis_data_changed, filename, row.names=FALSE)
   
@@ -69,7 +68,7 @@ addLessThanObserved <- function(orig_col, nrows = 3000, percentChange){
   nChange <- round(nrows*percentChange) 
   nonNAs <- which(!is.na(new_col))
   change_rows <- sample(nonNAs, size=nChange)
-  new_col[change_rows] <- paste0("<", new_col[change_rows])
+  new_col[change_rows] <- "<0.01"
   return(new_col)
 }
 
