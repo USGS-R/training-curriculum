@@ -2,7 +2,8 @@
 title: "SWFWMD"
 date: "2016-09-13"
 slug: "introR-SWFWMD-Sep16"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining_course
+parent: Course Specific Material
 ---
 
 September 13th - 15th in Tampa, FL

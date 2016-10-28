@@ -2,7 +2,7 @@
 title: "Columbia River Research Lab"
 date: "2016-11-01"
 slug: "introR-CRRL-Nov16"
-output: USGSmarkdowntemplates::hugoTraining_courseSpecific
+output: USGSmarkdowntemplates::hugoTraining_course
 parent: Course Specific Material
 ---
 

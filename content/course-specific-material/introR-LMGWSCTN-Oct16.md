@@ -2,7 +2,7 @@
 date: 2016-10-11
 slug: introR-LMGWSCTN-Oct16
 title: LMGWSC - Tennessee
-menu: 
+menu:
   main:
     parent: Course Specific Material
     weight: 1

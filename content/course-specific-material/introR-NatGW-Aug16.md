@@ -2,7 +2,7 @@
 date: 2016-08-29
 slug: introR-NatGW-Aug16
 title: National GW Workshop
-menu: 
+menu:
   main:
     parent: Course Specific Material
     weight: 1

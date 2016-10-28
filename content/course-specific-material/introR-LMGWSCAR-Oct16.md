@@ -2,7 +2,7 @@
 date: 2016-10-25
 slug: introR-LMGWSCAR-Oct16
 title: LMGWSC - Arkansas
-menu: 
+menu:
   main:
     parent: Course Specific Material
     weight: 1

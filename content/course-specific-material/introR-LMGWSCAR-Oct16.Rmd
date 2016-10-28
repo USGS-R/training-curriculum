@@ -2,7 +2,8 @@
 title: "LMGWSC - Arkansas"
 date: "2016-10-25"
 slug: "introR-LMGWSCAR-Oct16"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining_course
+parent: Course Specific Material
 ---
 
 October 25th - 27th in Little Rock, AR
