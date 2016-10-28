@@ -139,7 +139,7 @@ While you can do this directly from the console, it is going to be better practi
 ```
 
 ##Exercise 1
-For this first excercise I am actually going to ignore my workflow advice from above.  We are still in explore mode and saving this as a script doesn't yet make a whole lot of sense. Remember to use the green stickies when you have completed, and red stickies if you are running into problems. So, for this exercise:
+For this first excercise I am actually going to ignore my workflow advice from above.  We are still in explore mode and saving this as a script doesn't yet make a whole lot of sense. So, for this exercise:
 
 1. Create two objects named `number1` and `number2` and give them the values of 25 and 4, respectively 
 2. Create two more objects named `string1` and `string2`, give them any character string that you would like. 
