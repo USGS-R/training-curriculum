@@ -1,7 +1,10 @@
 ---
+author: 
+date: 
 slug: data
 title: Data
-menu: 
+image: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 2

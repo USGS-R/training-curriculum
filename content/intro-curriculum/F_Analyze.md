@@ -4,7 +4,7 @@ date: 9999-01-05
 slug: AnalyzeII
 title: F. Analyze with packages
 image: img/main/intro-icons-300px/analyzewpackages.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1
@@ -45,7 +45,7 @@ siteNumber <- "11264500"
 Daily <- readNWISDaily(siteNumber, "00060", startDate="", endDate="")
 ```
 
-    ## There are 36885 data points, and 36885 days.
+    ## There are 36957 data points, and 36957 days.
 
 ``` r
 INFO <- readNWISInfo(siteNumber, "", interactive=FALSE)
@@ -54,7 +54,7 @@ eListMerced <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eListMerced, istat=5)
 ```
 
-<img src='../static/AnalyzeII/flow_history_example-1.png'/ title='/Flow trend by water year for Merced River'/>
+<img src='../static/AnalyzeII/flow_history_example-1.png'/ title='Flow trend by water year for Merced River'/>
 
 ``` r
 # Then run the same function after setting the Period of Analysis to December
@@ -63,7 +63,7 @@ eListMerced <- setPA(eListMerced, paStart=12, paLong=3)
 plotFlowSingle(eListMerced, istat=5, qMax=200)
 ```
 
-<img src='../static/AnalyzeII/flow_history_example-2.png'/ title='/Flow trend by season - December, January, February - for Merced River'/>
+<img src='../static/AnalyzeII/flow_history_example-2.png'/ title='Flow trend by season - December, January, February - for Merced River'/>
 
 The two plots produced here show us that although annual mean discharge does not have a strong trend at this location over the past century, discharge during the winter season appears to be increasing. This may be related to changing patterns in the fraction of precipitation that falls in this region as snow versus rain.
 
@@ -73,7 +73,7 @@ Next, let's take a closer look at the distribution of discharge at this site:
 plotFourStats(eListMerced, qUnit=3)
 ```
 
-<img src='../static/AnalyzeII/plotFourStats_example-1.png'/ title='/Four flow trends in Merced River for Dec, Jan, and Feb using maximum, mean, median, and 7-day minimum daily flows'/>
+<img src='../static/AnalyzeII/plotFourStats_example-1.png'/ title='Four flow trends in Merced River for Dec, Jan, and Feb using maximum, mean, median, and 7-day minimum daily flows'/>
 
 What do you notice about changes in maximum, minimum, median, and 7-day minimum?
 
@@ -120,7 +120,7 @@ Now the analysis is done, but we still need to do some plotting.
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
-<img src='../static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/ title='/Four summary plots for inorganic nitrogen in Choptank River: nitrogen vs discharge, nitrogen timeseries, nitrogen boxplots by month, discharge boxplots of sampled vs all data'/>
+<img src='../static/AnalyzeII/Choptank_noWRTDS_plotexample-1.png'/ title='Four summary plots for inorganic nitrogen in Choptank River: nitrogen vs discharge, nitrogen timeseries, nitrogen boxplots by month, discharge boxplots of sampled vs all data'/>
 
 This four panel plot shows the relationship between discharge, concentration of inorganic N, and season. Upon examination of the lower left hand plot, you may notice seasonal changes in the distribution of inorganic N observed. Next, let's use WRTDS to look further into seasonal changes.
 
@@ -138,7 +138,7 @@ Next, use 'EGRET' functions to take a look at how well WRTDS predicts inorganic 
 Learning a New Package
 ----------------------
 
-As of Aug 17, 2016, there were 8979 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
+As of Oct 28, 2016, there were 9411 packages available on [CRAN](http://cran.r-project.org/web/packages/). Given this diversity and since these packages are created and maintained by many different authors, the ways in which you can get help on a specific package and the quality of that assistance can vary greatly. That being said, there are a few indicators of decent help for a given package.
 
 First, if a package has a vignette that is usually a good first place to start. To list the vignettes for a given package you can use the `vignette()` function. For instance:
 

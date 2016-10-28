@@ -4,7 +4,9 @@ author: "Jeffrey W. Hollister, Emily Read, Lindsay Carr"
 date: "9999-01-06"
 slug: "Analyze"
 image: img/main/intro-icons-300px/analyze.png
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

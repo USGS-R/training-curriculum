@@ -2,7 +2,9 @@
 title: "Before The Workshop"
 author: "Jeffrey W. Hollister & Luke Winslow"
 slug: "Before"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 2
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

@@ -4,7 +4,9 @@ author: "Jeffrey W. Hollister"
 date: "9999-01-01"
 slug: "Parting-Thoughts"
 image: img/main/intro-icons-300px/r-logo.png
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 

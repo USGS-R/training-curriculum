@@ -1,7 +1,10 @@
 ---
+author: Lindsay R. Carr
+date: 
 slug: Crib
 title: Crib Sheet
-menu: 
+image: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 2

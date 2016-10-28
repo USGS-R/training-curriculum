@@ -4,7 +4,7 @@ date: 9999-01-06
 slug: Analyze
 title: E. Analyze
 image: img/main/intro-icons-300px/analyze.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1
@@ -73,13 +73,13 @@ t.test(err_est_df$Flow ~ err_est_df$Flow_cd)
     ##  Welch Two Sample t-test
     ## 
     ## data:  err_est_df$Flow by err_est_df$Flow_cd
-    ## t = -0.43373, df = 951.49, p-value = 0.6646
+    ## t = 0.46168, df = 945.85, p-value = 0.6444
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -160.9915  102.7102
+    ##  -102.0726  164.8727
     ## sample estimates:
     ## mean in group E mean in group X 
-    ##        325.3077        354.4484
+    ##        344.9562        313.5562
 
 There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info.
 
@@ -92,7 +92,7 @@ Next let's take a look at correlations. To handle missing values in `cor`, `na.r
 cor(intro_df$Wtemp, intro_df$DO, use="complete.obs")
 ```
 
-    ## [1] -0.3014859
+    ## [1] -0.2730171
 
 ``` r
 #And a test of that correlation
@@ -103,13 +103,13 @@ cor.test(intro_df$Wtemp, intro_df$DO)
     ##  Pearson's product-moment correlation
     ## 
     ## data:  intro_df$Wtemp and intro_df$DO
-    ## t = -16.791, df = 2820, p-value < 2.2e-16
+    ## t = -15.079, df = 2823, p-value < 2.2e-16
     ## alternative hypothesis: true correlation is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.3346611 -0.2675643
+    ##  -0.3068064 -0.2385404
     ## sample estimates:
     ##        cor 
-    ## -0.3014859
+    ## -0.2730171
 
 ``` r
 #A data frame as input to cor returns a correlation matrix
@@ -121,10 +121,10 @@ cor(intro_df_onlynumeric, use="complete.obs")
 ```
 
     ##             Flow      Wtemp         pH         DO
-    ## Flow   1.0000000 -0.2841634 -0.2953464  0.2791687
-    ## Wtemp -0.2841634  1.0000000  0.1787089 -0.2958594
-    ## pH    -0.2953464  0.1787089  1.0000000  0.3181250
-    ## DO     0.2791687 -0.2958594  0.3181250  1.0000000
+    ## Flow   1.0000000 -0.2783886 -0.2920110  0.2633676
+    ## Wtemp -0.2783886  1.0000000  0.1856929 -0.2748381
+    ## pH    -0.2920110  0.1856929  1.0000000  0.3573567
+    ## DO     0.2633676 -0.2748381  0.3573567  1.0000000
 
 ### Linear Regression
 
@@ -140,7 +140,7 @@ lm(DO ~ Wtemp, data=intro_df)
     ## 
     ## Coefficients:
     ## (Intercept)        Wtemp  
-    ##     10.3207      -0.1233
+    ##      10.086       -0.112
 
 ``` r
 #Not much info, so save to object and use summary
@@ -154,19 +154,19 @@ summary(lm_gwq1)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -4.5191 -0.6123 -0.0540  0.7217  5.0988 
+    ## -4.6135 -0.6367 -0.0607  0.7224  5.1472 
     ## 
     ## Coefficients:
     ##              Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept) 10.320689   0.150756   68.46   <2e-16 ***
-    ## Wtemp       -0.123300   0.007343  -16.79   <2e-16 ***
+    ## (Intercept) 10.086081   0.152767   66.02   <2e-16 ***
+    ## Wtemp       -0.111987   0.007427  -15.08   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 1.219 on 2820 degrees of freedom
-    ##   (178 observations deleted due to missingness)
-    ## Multiple R-squared:  0.09089,    Adjusted R-squared:  0.09057 
-    ## F-statistic: 281.9 on 1 and 2820 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 1.258 on 2823 degrees of freedom
+    ##   (175 observations deleted due to missingness)
+    ## Multiple R-squared:  0.07454,    Adjusted R-squared:  0.07421 
+    ## F-statistic: 227.4 on 1 and 2823 DF,  p-value: < 2.2e-16
 
 ``` r
 #And now a multiple linear regression
@@ -180,20 +180,20 @@ summary(lm_gwq2)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -4.4570 -0.5967  0.0239  0.6361  5.0508 
+    ## -4.5228 -0.6259 -0.0068  0.6473  5.0959 
     ## 
     ## Coefficients:
     ##               Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  9.702e+00  1.582e-01   61.31   <2e-16 ***
-    ## Wtemp       -9.698e-02  7.611e-03  -12.74   <2e-16 ***
-    ## Flow         2.774e-04  2.421e-05   11.46   <2e-16 ***
+    ## (Intercept)  9.519e+00  1.600e-01   59.51   <2e-16 ***
+    ## Wtemp       -8.757e-02  7.678e-03  -11.40   <2e-16 ***
+    ## Flow         2.585e-04  2.376e-05   10.88   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 1.193 on 2737 degrees of freedom
+    ## Residual standard error: 1.229 on 2737 degrees of freedom
     ##   (260 observations deleted due to missingness)
-    ## Multiple R-squared:  0.1308, Adjusted R-squared:  0.1302 
-    ## F-statistic: 205.9 on 2 and 2737 DF,  p-value: < 2.2e-16
+    ## Multiple R-squared:  0.1117, Adjusted R-squared:  0.111 
+    ## F-statistic:   172 on 2 and 2737 DF,  p-value: < 2.2e-16
 
 Some other helpful functions when using linear models are `coefficients()`, `residuals()`, and `fitted.values()`. See `?lm` for more information.
 

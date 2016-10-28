@@ -2,7 +2,8 @@
 title: "LMGWSC - Tennessee"
 date: "2016-10-11"
 slug: "introR-LMGWSCTN-Oct16"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining_course
+parent: Course Specific Material
 ---
 
 October 11th - 13th in Nashville, TN

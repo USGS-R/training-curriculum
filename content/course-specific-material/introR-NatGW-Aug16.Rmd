@@ -2,7 +2,8 @@
 title: "National GW Workshop"
 date: "2016-08-29"
 slug: "introR-NatGW-Aug16"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining_course
+parent: Course Specific Material
 ---
 
 August 29th in Reno, NV

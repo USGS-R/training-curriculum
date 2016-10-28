@@ -1,7 +1,9 @@
 ---
 author: Lindsay R. Carr
+date: 
 slug: Additional
 title: Additional Topics in R
+image: 
 menu:
   main:
     parent: Introduction to R Course

@@ -4,7 +4,7 @@ date: 9999-01-07
 slug: Explore
 title: D. Explore
 image: img/main/intro-icons-300px/explore.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1
@@ -42,19 +42,19 @@ summary(intro_df)
 
     ##    site_no            dateTime              Flow        
     ##  Length:3000        Length:3000        Min.   :   0.65  
-    ##  Class :character   Class :character   1st Qu.:   5.70  
+    ##  Class :character   Class :character   1st Qu.:   5.50  
     ##  Mode  :character   Mode  :character   Median :  12.00  
-    ##                                        Mean   : 302.00  
-    ##                                        3rd Qu.:  22.00  
-    ##                                        Max.   :7340.00  
+    ##                                        Mean   : 311.40  
+    ##                                        3rd Qu.:  21.00  
+    ##                                        Max.   :7840.00  
     ##                                        NA's   :90       
     ##    Flow_cd              Wtemp             pH              DO        
-    ##  Length:3000        Min.   :12.90   Min.   :6.200   Min.   : 3.200  
-    ##  Class :character   1st Qu.:17.80   1st Qu.:7.000   1st Qu.: 7.100  
-    ##  Mode  :character   Median :20.70   Median :7.100   Median : 7.900  
-    ##                     Mean   :20.29   Mean   :7.136   Mean   : 7.823  
-    ##                     3rd Qu.:22.60   3rd Qu.:7.300   3rd Qu.: 8.600  
-    ##                     Max.   :27.70   Max.   :9.100   Max.   :12.700  
+    ##  Length:3000        Min.   :12.20   Min.   :6.200   Min.   : 3.200  
+    ##  Class :character   1st Qu.:17.80   1st Qu.:7.000   1st Qu.: 7.000  
+    ##  Mode  :character   Median :20.60   Median :7.100   Median : 7.800  
+    ##                     Mean   :20.32   Mean   :7.145   Mean   : 7.811  
+    ##                     3rd Qu.:22.70   3rd Qu.:7.300   3rd Qu.: 8.600  
+    ##                     Max.   :27.60   Max.   :9.100   Max.   :12.800  
     ##                     NA's   :90      NA's   :90      NA's   :90      
     ##   pH_det_lim       
     ##  Length:3000       
@@ -71,7 +71,7 @@ If you want to look at the range, use `range()`, but it is looking for a numeric
 range(intro_df$Flow, na.rm=TRUE)
 ```
 
-    ## [1]    0.65 7340.00
+    ## [1]    0.65 7840.00
 
 The interquartile range can be easily grabbed with `IQR()`, again a numeric vector is the input.
 
@@ -79,7 +79,7 @@ The interquartile range can be easily grabbed with `IQR()`, again a numeric vect
 IQR(intro_df$Wtemp, na.rm=TRUE)
 ```
 
-    ## [1] 4.8
+    ## [1] 4.9
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
 
@@ -97,7 +97,7 @@ quantile(intro_df$pH, probs=c(0.025, 0.975), na.rm=TRUE)
 ```
 
     ##  2.5% 97.5% 
-    ##   6.6   7.8
+    ##   6.6   7.9
 
 Exercise 1
 ----------

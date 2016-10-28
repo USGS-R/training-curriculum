@@ -3,8 +3,10 @@ title: "D. Explore"
 author: "Jeffrey W. Hollister, Emily Read, Lindsay Carr"
 date: "9999-01-07"
 slug: "Explore"
-output: USGSmarkdowntemplates::hugo
 image: "img/main/intro-icons-300px/explore.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

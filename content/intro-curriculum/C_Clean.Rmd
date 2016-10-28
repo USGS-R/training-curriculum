@@ -4,7 +4,9 @@ author: "Jeffrey W. Hollister, Luke Winslow, Lindsay Carr"
 date: "9999-01-08"
 slug: "Clean"
 image: img/main/intro-icons-300px/clean.png
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
