@@ -4,7 +4,7 @@ date: 9999-01-04
 slug: Visualize
 title: G. Visualize - Plotting with base R
 image: img/main/intro-icons-300px/visualize.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1

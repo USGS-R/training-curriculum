@@ -1,10 +1,12 @@
 ---
 title: "B. Get"
 author: "Jeffrey W. Hollister & Luke Winslow"
-date: "9999-01-10"
+date: "9999-01-09"
 slug: "Get"
 image: img/main/intro-icons-300px/get.png
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

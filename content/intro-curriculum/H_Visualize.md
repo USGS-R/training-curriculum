@@ -4,7 +4,7 @@ date: 9999-01-03
 slug: ggplot2
 title: H. Visualize - Plotting with ggplot2
 image: img/main/intro-icons-300px/ggplot.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1

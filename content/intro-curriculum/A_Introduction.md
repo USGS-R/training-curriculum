@@ -4,7 +4,7 @@ date: 9999-01-10
 slug: Introduction
 title: A. Introduction to R
 image: img/main/intro-icons-300px/r-logo.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1

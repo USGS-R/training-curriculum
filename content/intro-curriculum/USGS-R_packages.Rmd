@@ -2,7 +2,9 @@
 title: "USGS-R Packages"
 author: "Lindsay R. Carr"
 slug: "USGS"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 2
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE}

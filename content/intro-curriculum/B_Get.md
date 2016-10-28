@@ -4,7 +4,7 @@ date: 9999-01-09
 slug: Get
 title: B. Get
 image: img/main/intro-icons-300px/get.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1
@@ -627,32 +627,32 @@ head(intro_df)
 ```
 
     ##   site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 2336360 2011-05-03 21:45:00      14.0            X       21.4     7.2
-    ## 2 2336300 2011-05-01 08:00:00      32.0            X       19.1     7.2
-    ## 3 2337170 2011-05-29 22:45:00    1470.0            A       24.0     6.9
-    ## 4 2203655 2011-05-25 01:30:00       7.5          A e       23.1       7
-    ## 5 2336120 2011-05-02 07:30:00      16.0            A       19.7     7.1
-    ## 6 2336120 2011-05-12 16:15:00      14.0          A e       22.3     7.2
+    ## 1 2203700 2011-05-20 16:45:00       4.0          A e         NA     7.0
+    ## 2 2336410 2011-05-28 08:15:00      35.0            A       21.8     6.9
+    ## 3 2203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
+    ## 4 2336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
+    ## 5 2336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
+    ## 6 2336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
     ##   DO_Inst
-    ## 1     8.1
-    ## 2     7.1
-    ## 3     7.6
-    ## 4     6.2
-    ## 5     7.6
-    ## 6     8.1
+    ## 1     8.6
+    ## 2     6.9
+    ## 3     6.6
+    ## 4     7.8
+    ## 5     7.3
+    ## 6     7.3
 
 ``` r
 str(intro_df)
 ```
 
     ## 'data.frame':    3000 obs. of  7 variables:
-    ##  $ site_no     : int  2336360 2336300 2337170 2203655 2336120 2336120 2336120 2336300 2336360 2336120 ...
-    ##  $ dateTime    : Factor w/ 1958 levels "2011-05-01 04:00:00",..: 184 13 1825 1525 80 721 726 126 1676 1703 ...
-    ##  $ Flow_Inst   : num  14 32 1470 7.5 16 14 14 32 162 162 ...
-    ##  $ Flow_Inst_cd: Factor w/ 4 levels "A","A e","E",..: 4 4 1 2 1 2 1 4 2 3 ...
-    ##  $ Wtemp_Inst  : num  21.4 19.1 24 23.1 19.7 22.3 23.4 22.3 21 21.2 ...
-    ##  $ pH_Inst     : Factor w/ 32 levels " ","6.2","6.3",..: 12 12 9 10 11 12 13 13 6 4 ...
-    ##  $ DO_Inst     : num  8.1 7.1 7.6 6.2 7.6 8.1 8.5 7.5 7.6 7.2 ...
+    ##  $ site_no     : int  2203700 2336410 2203655 2336240 2336313 2336728 2203700 2337170 2336313 2337170 ...
+    ##  $ dateTime    : Factor w/ 1935 levels "2011-05-01 04:00:00",..: 1213 1701 1319 866 1327 1502 523 1837 770 1107 ...
+    ##  $ Flow_Inst   : num  4 35 7.8 10 1.3 8.6 4.9 1350 1 4510 ...
+    ##  $ Flow_Inst_cd: Factor w/ 4 levels "A","A e","E",..: 2 1 1 4 1 4 1 4 1 1 ...
+    ##  $ Wtemp_Inst  : num  NA 21.8 20.6 22 19.3 24.2 18 22.6 20.4 13.5 ...
+    ##  $ pH_Inst     : num  7 6.9 7 7.3 7.2 7.1 7.2 6.9 7.2 6.9 ...
+    ##  $ DO_Inst     : num  8.6 6.9 6.6 7.8 7.3 7.3 4.4 7.1 7.1 10 ...
 
 ``` r
 dim(intro_df)
@@ -664,22 +664,22 @@ dim(intro_df)
 summary(intro_df)
 ```
 
-    ##     site_no                        dateTime      Flow_Inst       
-    ##  Min.   : 2203655   2011-05-05 02:45:00:   5   Min.   :-90800.0  
-    ##  1st Qu.: 2336240   2011-05-10 23:30:00:   5   1st Qu.:     5.1  
-    ##  Median : 2336360   2011-05-14 09:00:00:   5   Median :    12.0  
-    ##  Mean   : 4217421   2011-05-16 09:00:00:   5   Mean   :   488.2  
-    ##  3rd Qu.: 2336728   2011-05-21 10:00:00:   5   3rd Qu.:    25.0  
-    ##  Max.   :21989773   2011-05-24 14:45:00:   5   Max.   : 92100.0  
-    ##                     (Other)            :2970   NA's   :90        
-    ##  Flow_Inst_cd   Wtemp_Inst      pH_Inst       DO_Inst      
-    ##  A  :1500     Min.   :11.9   7.2    :574   Min.   : 3.200  
-    ##  A e: 500     1st Qu.:18.2   7.1    :435   1st Qu.: 6.800  
-    ##  E  : 500     Median :21.2   7      :385   Median : 7.700  
-    ##  X  : 500     Mean   :20.7   7.3    :376   Mean   : 7.692  
-    ##               3rd Qu.:23.2   7.4    :274   3rd Qu.: 8.600  
-    ##               Max.   :28.0   (Other):856   Max.   :12.600  
-    ##               NA's   :90     NA's   :100   NA's   :90
+    ##     site_no                       dateTime      Flow_Inst      
+    ##  Min.   :2203655   2011-05-19 05:30:00:   5   Min.   :   0.65  
+    ##  1st Qu.:2336120   2011-05-01 14:30:00:   4   1st Qu.:   5.50  
+    ##  Median :2336313   2011-05-02 22:15:00:   4   Median :  12.00  
+    ##  Mean   :2315336   2011-05-03 00:15:00:   4   Mean   : 311.40  
+    ##  3rd Qu.:2336526   2011-05-03 02:30:00:   4   3rd Qu.:  21.00  
+    ##  Max.   :2337170   2011-05-03 04:15:00:   4   Max.   :7840.00  
+    ##                    (Other)            :2975   NA's   :90       
+    ##  Flow_Inst_cd   Wtemp_Inst       pH_Inst         DO_Inst      
+    ##  A  :1500     Min.   :12.20   Min.   :6.200   Min.   : 3.200  
+    ##  A e: 500     1st Qu.:17.80   1st Qu.:7.000   1st Qu.: 7.000  
+    ##  E  : 500     Median :20.60   Median :7.100   Median : 7.800  
+    ##  X  : 500     Mean   :20.32   Mean   :7.145   Mean   : 7.811  
+    ##               3rd Qu.:22.70   3rd Qu.:7.300   3rd Qu.: 8.600  
+    ##               Max.   :27.60   Max.   :9.100   Max.   :12.800  
+    ##               NA's   :90      NA's   :90      NA's   :90
 
 A common issue in reading in data is getting the column formats right. For example, the `dateTime` and `Flow_Inst_cd` columns in `intro_df` are factors by default (can you confirm this?). If you want it to be a character column instead, you can prevent it ever becoming a factor with the `stringsAsFactors` argument to `read.csv`, `data.frame`, and other data.frame-making functions:
 
@@ -696,13 +696,13 @@ str(intro_df)
 ```
 
     ## 'data.frame':    3000 obs. of  7 variables:
-    ##  $ site_no     : chr  "02336360" "02336300" "02337170" "02203655" ...
-    ##  $ dateTime    : chr  "2011-05-03 21:45:00" "2011-05-01 08:00:00" "2011-05-29 22:45:00" "2011-05-25 01:30:00" ...
-    ##  $ Flow_Inst   : num  14 32 1470 7.5 16 14 14 32 162 162 ...
-    ##  $ Flow_Inst_cd: chr  "X" "X" "A" "A e" ...
-    ##  $ Wtemp_Inst  : num  21.4 19.1 24 23.1 19.7 22.3 23.4 22.3 21 21.2 ...
-    ##  $ pH_Inst     : chr  "7.2" "7.2" "6.9" "7" ...
-    ##  $ DO_Inst     : num  8.1 7.1 7.6 6.2 7.6 8.1 8.5 7.5 7.6 7.2 ...
+    ##  $ site_no     : chr  "02203700" "02336410" "02203655" "02336240" ...
+    ##  $ dateTime    : chr  "2011-05-20 16:45:00" "2011-05-28 08:15:00" "2011-05-22 09:30:00" "2011-05-14 23:15:00" ...
+    ##  $ Flow_Inst   : num  4 35 7.8 10 1.3 8.6 4.9 1350 1 4510 ...
+    ##  $ Flow_Inst_cd: chr  "A e" "A" "A" "X" ...
+    ##  $ Wtemp_Inst  : num  NA 21.8 20.6 22 19.3 24.2 18 22.6 20.4 13.5 ...
+    ##  $ pH_Inst     : num  7 6.9 7 7.3 7.2 7.1 7.2 6.9 7.2 6.9 ...
+    ##  $ DO_Inst     : num  8.6 6.9 6.6 7.8 7.3 7.3 4.4 7.1 7.1 10 ...
 
 Now our data frame is read in with columns as numeric, integer, or character, and the site numbers still have their leading zeros.
 

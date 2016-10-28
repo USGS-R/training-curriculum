@@ -1,8 +1,10 @@
 ---
 author: Jeffrey W. Hollister & Luke Winslow
+date: 
 slug: Before
 title: Before The Workshop
-menu: 
+image: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 2

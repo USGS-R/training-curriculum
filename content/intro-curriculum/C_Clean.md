@@ -4,7 +4,7 @@ date: 9999-01-08
 slug: Clean
 title: C. Clean
 image: img/main/intro-icons-300px/clean.png
-menu: 
+menu:
   main:
     parent: Introduction to R Course
     weight: 1

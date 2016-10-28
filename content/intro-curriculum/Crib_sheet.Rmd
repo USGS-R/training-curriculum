@@ -2,7 +2,9 @@
 title: "Crib Sheet"
 author: "Lindsay R. Carr"
 slug: "Crib"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 2
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

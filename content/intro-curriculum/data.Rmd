@@ -1,7 +1,9 @@
 ---
 title: "Data"
 slug: "data"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 2
 ---
 
 [IonBalance.csv](../data/IonBalance.csv)

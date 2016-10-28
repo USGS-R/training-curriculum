@@ -2,7 +2,9 @@
 title: "Additional Topics in R"
 author: "Lindsay R. Carr"
 slug: "Additional"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 2
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

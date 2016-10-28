@@ -4,7 +4,9 @@ author: "Jeffrey W. Hollister & Luke Winslow"
 date: "9999-01-10"
 slug: "Introduction"
 image: "img/main/intro-icons-300px/r-logo.png"
-output: USGSmarkdowntemplates::hugo
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to R Course
+weight: 1
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
