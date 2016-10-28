@@ -78,7 +78,7 @@ Install general packages
 Install packages available for all R users from [CRAN](https://cran.r-project.org/) by pasting the following code and hitting `ENTER`.
 
 ``` r
-install.packages(c("dplyr","dataRetrieval","ggplot2","tidyr","RColorBrewer","EGRET", "rmarkdown"))
+install.packages(c("dplyr","dataRetrieval","ggplot2","tidyr","RColorBrewer","EGRET", "rmarkdown", "geoknife"))
 ```
 
 If you see
@@ -107,15 +107,6 @@ cat('Your Rprofile has been updated to include GRAN.
 ```
 
 Restart RStudio (close and open). Now, you'll automatically have access to USGS packages and updates.
-
-Add USGS packages
------------------
-
-Copy and paste the following code into your console and hit `ENTER`:
-
-``` r
-install.packages(c("gsIntroR","smwrBase","smwrGraphs"))
-```
 
 Package best practices
 ----------------------
