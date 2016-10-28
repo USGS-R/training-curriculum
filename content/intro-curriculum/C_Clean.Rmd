@@ -378,7 +378,7 @@ class(intro_df_2DO)
 intro_df_2DO_byrow <- rowwise(intro_df_2DO)
 class(intro_df_2DO_byrow)
 
-#Add a column that totals landuse for each observation
+#Add a column that gives max DO
 intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO, DO_2))
 head(intro_df_DO_max)
 ```
