@@ -56,7 +56,7 @@ Over the last several years, RStudio has become a very popular IDE (integrated d
 Exercise 1
 ----------
 
-This exercise will make sure R and RStudio are working and that you can get around the basics in RStudio. Use the green stickies when you have completed, and red stickies if you are running into problems.
+This exercise will make sure R and RStudio are working and that you can get around the basics in RStudio.
 
 1.  Start RStudio: To start both R and RStudio only requires firing up RStudio.RStudio should be available from All Programs at the Start Menu. Fire up RStudio.
 
@@ -201,7 +201,7 @@ There are too many resources to mention and everyone has their favorites. Below 
 Exercise 2
 ----------
 
-For this second exercise we are going to get used to using some basic functions, working with scripts and not just the console, and look through some task views and get used to basic navigation around packages. Use the green stickies when you have completed, and red stickies if you are running into problems.
+For this second exercise we are going to get used to using some basic functions, working with scripts and not just the console, and look through some task views and get used to basic navigation around packages.
 
 1.  If it is not already open, open the "lessonA.R" file you created in Exercise 1. Enter your commands into this script. As you go, place your cursor on a line and run that line by pressing Ctrl+Enter (or Cmd+Enter on Macs) or clicking the Run button at the top right of the editor window.
 2.  Use the `print` function to print something to the screen.
