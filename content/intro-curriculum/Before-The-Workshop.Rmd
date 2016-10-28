@@ -1,4 +1,5 @@
 ---
+date: "9998-01-01"
 title: "Before The Workshop"
 author: "Jeffrey W. Hollister & Luke Winslow"
 slug: "Before"

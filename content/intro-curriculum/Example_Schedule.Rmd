@@ -1,4 +1,5 @@
 ---
+date: "9998-01-01"
 title: "Example Schedule"
 author: "Lindsay R. Carr"
 slug: "Schedule"

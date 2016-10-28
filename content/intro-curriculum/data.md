@@ -1,6 +1,6 @@
 ---
 author: 
-date: 
+date: 9998-01-01
 slug: data
 title: Data
 image: 

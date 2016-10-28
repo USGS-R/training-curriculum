@@ -1,5 +1,5 @@
 ---
-title: "USGS-R Packages"
+date: "9998-01-01"
 author: "Lindsay R. Carr"
 slug: "USGS"
 output: USGSmarkdowntemplates::hugoTraining

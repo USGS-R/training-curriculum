@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 
+date: 9998-01-01
 slug: Schedule
 title: Example Schedule
 image: 
