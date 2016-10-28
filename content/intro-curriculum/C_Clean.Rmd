@@ -188,33 +188,9 @@ intro_df %>%
 Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material. 
 
 ## Cleaning up dataset 
-Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Notice anything strange? Hint: why are the pH values character? That shouldn't be the case; there should be numeric values in that column. If there are any entries that are not numeric values or `NA`, R will treat the entire column as character. You can coerce them to numeric (so anything that is not NA or a number will be coerced into NA), but you should investigate what values are causing the issue first. To do this, we coerce to numeric and look at what values were considered NA in the numeric column, but not in the character column.
+Before moving on to merging, let's try cleaning up our `intro_df` data.frame. First, take a quick look at the structure: `summary(intro_df)`. Are the columns all of the classes that you would expect? Take note of how many missing values there are. We could remove them, but if there's a missing value in any of one of the columns for a single observation, the entire row is removed. So, let's leave NAs in our dataset for now.
 
-```{r pH_wrong_intro_df, warning=FALSE, message=FALSE}
-pH_df <- select(intro_df, pH_Inst)
-pH_numeric_df <- mutate(pH_df, pH_Inst_numeric = as.numeric(pH_Inst))
-# two filter conditions: coerced numeric column is NA, but original column is not
-# this pinpoints what observations are causing the entire column to be character
-filter(pH_numeric_df, is.na(pH_Inst_numeric), pH_Inst != "NA")
-```
-
-Looks like the culprits are values that are lower than the detection limit, and have a `<` symbol. We want to keep this information, but we want to have a column of numeric pH values. So we can add a new column that is just whether the observation was below the detection limit or not. We can use the `grepl` function to make a new column of Ts and Fs for below detection limit or not. Then, use `gsub` to get rid of the '<' symbol. And now you can have a column of all pH values, but retain the detection limit information.
-
-```{r cleaning_up_intro_df_pH, warning=FALSE, message=FALSE}
-# add column of logic for below detection limit or not
-intro_df <- mutate(intro_df, pH_det_lim = grepl(pattern='<', x=pH_Inst))
-summary(intro_df)
-
-# now, remove '<' symbols
-intro_df <- mutate(intro_df, pH_Inst = gsub(pattern='<', replacement='', x=pH_Inst))
-summary(intro_df)
-
-# now coerce the column into numeric values using as.numeric
-intro_df <- mutate(intro_df, pH_Inst = as.numeric(pH_Inst))
-summary(intro_df)
-```
-
-As a final step before moving to the next section, let's rename some of the column names. We are going to have to reference columns a lot, and might not want to type `_Inst` for every single one, especially since they are all `_Inst`, so it's not giving us additional information. Let's rename all columns with `_Inst` using the `rename` function from `dplyr`.
+The only cleaning to this dataset that we will do right now is to rename some of the columns. We are going to have to reference columns a lot, and might not want to type `_Inst` for every single one, especially since they are all `_Inst`, so it's not giving us additional information. Let's rename all columns with `_Inst` using the `rename` function from `dplyr`.
 
 ```{r cleaning_up_intro_df_colnames, warning=FALSE, message=FALSE}
 # the pattern is new_col_name = old_col_name
