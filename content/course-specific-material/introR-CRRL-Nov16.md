@@ -51,6 +51,8 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 Download data from the [Data page](/intro-curriculum/data/).
 
+-   [gwlevels.xlsx](../introR-NatGW-Aug16/gwlevels.xlsx)
+
 ### Additional resources
 
 -   [USGS-R blog](https://owi.usgs.gov/blog/tags/r)
