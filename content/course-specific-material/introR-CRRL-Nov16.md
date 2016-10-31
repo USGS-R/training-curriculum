@@ -63,7 +63,7 @@ Download data from the [Data page](/intro-curriculum/data/).
 -   [SAS and R](http://sas-and-r.blogspot.com/) blog with code examples doing the same thing in both languages.
 -   [Why R is Hard to Learn](http://r4stats.com/articles/why-r-is-hard-to-learn/) describes how R differs from common stats tools and where that might cause confusion.
 -   [Converting SAS data](http://rconvert.com/sas-vs-r-code-compare/5-ways-to-convert-sas-data-to-r/) a few approaches to converting data.
--   [Biggest benefit of my shitf to R? Reproducibility](https://dynamicecology.wordpress.com/2015/02/18/the-biggest-benefit-of-my-shift-to-r-reproducibility/)
+-   [Biggest benefit of my shift to R? Reproducibility](https://dynamicecology.wordpress.com/2015/02/18/the-biggest-benefit-of-my-shift-to-r-reproducibility/)
 
 ### Instructors
 
