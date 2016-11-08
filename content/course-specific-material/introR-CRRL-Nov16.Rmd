@@ -71,4 +71,4 @@ David Watkins (wwatkins@usgs.gov)
 
 ### Lesson scripts
 
-Instructors will be live coding during this course. Our code will be shared with you here at the end.
+[Click here to download the instructor scripts](../introR-CRRL/instructorScripts.zip)
