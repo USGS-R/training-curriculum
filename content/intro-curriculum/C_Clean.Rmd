@@ -389,5 +389,3 @@ Next, we're going to practice summarizing large datasets (using `intro_df`). If 
 1. Create a new data.frame that gives the maximum water temperature (`Wtemp`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
 
 2. Next, create a new data.frame that gives the average water temperature (`Wtemp`) for each pH value and name it `intro_df_mean_pH_temp`. 
-
-3. Challenge: Find the minimum flow, water temperature, and dissolved oxygen for each site using `summarize_at`.
