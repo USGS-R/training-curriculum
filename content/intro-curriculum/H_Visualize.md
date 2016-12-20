@@ -15,7 +15,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 Quick Links to Exercises and R code

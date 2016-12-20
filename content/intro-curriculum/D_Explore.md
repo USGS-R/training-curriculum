@@ -15,7 +15,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 Quick Links to Exercises and R code
@@ -40,35 +40,35 @@ There are a number of ways to get at the basic summaries of a data frame in R. T
 summary(intro_df)
 ```
 
-    ##    site_no            dateTime              Flow        
-    ##  Length:3000        Length:3000        Min.   :   0.65  
-    ##  Class :character   Class :character   1st Qu.:   5.50  
-    ##  Mode  :character   Mode  :character   Median :  12.00  
-    ##                                        Mean   : 311.40  
-    ##                                        3rd Qu.:  21.00  
-    ##                                        Max.   :7840.00  
-    ##                                        NA's   :90       
+    ##    site_no            dateTime              Flow         
+    ##  Length:1950        Length:1950        Min.   :   0.650  
+    ##  Class :character   Class :character   1st Qu.:   5.125  
+    ##  Mode  :character   Mode  :character   Median :  11.000  
+    ##                                        Mean   : 302.636  
+    ##                                        3rd Qu.:  21.000  
+    ##                                        Max.   :7840.000  
+    ##                                                          
     ##    Flow_cd              Wtemp             pH              DO        
-    ##  Length:3000        Min.   :12.20   Min.   :6.200   Min.   : 3.200  
+    ##  Length:1950        Min.   :12.20   Min.   :6.200   Min.   : 3.300  
     ##  Class :character   1st Qu.:17.80   1st Qu.:7.000   1st Qu.: 7.000  
-    ##  Mode  :character   Median :20.60   Median :7.100   Median : 7.800  
-    ##                     Mean   :20.32   Mean   :7.145   Mean   : 7.811  
-    ##                     3rd Qu.:22.70   3rd Qu.:7.300   3rd Qu.: 8.600  
-    ##                     Max.   :27.60   Max.   :9.100   Max.   :12.800  
-    ##                     NA's   :90      NA's   :90      NA's   :90      
-    ##   pH_det_lim       
-    ##  Length:3000       
-    ##  Class :character  
-    ##  Mode  :character  
-    ##                    
-    ##                    
-    ##                    
-    ## 
+    ##  Mode  :character   Median :20.70   Median :7.100   Median : 7.800  
+    ##                     Mean   :20.39   Mean   :7.151   Mean   : 7.806  
+    ##                     3rd Qu.:22.80   3rd Qu.:7.300   3rd Qu.: 8.600  
+    ##                     Max.   :27.40   Max.   :9.100   Max.   :12.800  
+    ##                     NA's   :66      NA's   :63      NA's   :61      
+    ##     Wtemp_F     
+    ##  Min.   :53.96  
+    ##  1st Qu.:64.04  
+    ##  Median :69.26  
+    ##  Mean   :68.70  
+    ##  3rd Qu.:73.04  
+    ##  Max.   :81.32  
+    ##  NA's   :66
 
-If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. Also, don't forget to tell it to ignore NAs!
+If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. There shouldn't be any NAs in the flow column, but don't forget to ignore them for others!
 
 ``` r
-range(intro_df$Flow, na.rm=TRUE)
+range(intro_df$Flow)
 ```
 
     ## [1]    0.65 7840.00
@@ -79,7 +79,13 @@ The interquartile range can be easily grabbed with `IQR()`, again a numeric vect
 IQR(intro_df$Wtemp, na.rm=TRUE)
 ```
 
-    ## [1] 4.9
+    ## [1] 5
+
+``` r
+IQR(intro_df$Wtemp_F, na.rm=TRUE)
+```
+
+    ## [1] 9
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
 
@@ -97,7 +103,7 @@ quantile(intro_df$pH, probs=c(0.025, 0.975), na.rm=TRUE)
 ```
 
     ##  2.5% 97.5% 
-    ##   6.6   7.9
+    ##   6.6   8.0
 
 Exercise 1
 ----------
@@ -136,9 +142,9 @@ plot(intro_df$Wtemp, intro_df$DO,
 Let's say we want to look at more than just one relationship at a time with a pairs plot. Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot.
 
 ``` r
-#get a data frame with only the measured values
+#get a data frame with only the measured values (ignore Wtemp_F since only units differ from Wtemp)
 library(dplyr)
-intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
+intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -Wtemp_F)
 plot(intro_df_data)
 ```
 
@@ -152,7 +158,7 @@ sites <- unique(intro_df$site_no)
 intro_df_site1 <- filter(intro_df, site_no == sites[1])
 
 #now keep only measured values
-intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd)
 
 #create the pairs plot
 plot(intro_df_site1_data)
@@ -213,4 +219,4 @@ Similar to before let's first just play around with some basic exploratory data 
 
 2.  Create a discharge histogram. Explore different values for the argument `breaks`.
 
-3.  Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Cd='X'`)?
+3.  Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow.

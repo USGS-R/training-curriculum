@@ -76,8 +76,9 @@ createDFCleanSubset <- function(intro_df, filename = "content/intro-curriculum/d
   # data frame after subsetting section in Clean
   cleaned_df <- intro_df %>% 
     setNames(gsub('_Inst', '', names(.))) %>% 
-    mutate(pH_det_lim = ifelse(grepl('<', pH), '<', NA),
-           pH = as.numeric(gsub('<', '', pH))) 
+    filter(!is.na(Flow)) %>% 
+    filter(!Flow_cd %in% c("E", "X")) %>% 
+    mutate(Wtemp_F = (Wtemp * 9/5) + 32) 
 
   write.csv(cleaned_df, filename, row.names=FALSE)
   return(cleaned_df)
