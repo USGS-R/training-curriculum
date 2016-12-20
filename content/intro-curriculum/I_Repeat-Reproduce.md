@@ -15,7 +15,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 Quick Links to Exercises and R code
@@ -135,20 +135,13 @@ if(!'DO_mgmL' %in% names(intro_df)){
 } 
 ```
 
-    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO pH_det_lim
-    ## 1 02203700 2011-05-20 16:45:00  4.0     A e    NA 7.0 8.6       <NA>
-    ## 2 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9       <NA>
-    ## 3 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6       <NA>
-    ## 4 02336240 2011-05-14 23:15:00 10.0       X  22.0 7.3 7.8       <NA>
-    ## 5 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3       <NA>
-    ## 6 02336728 2011-05-25 01:30:00  8.6       X  24.2 7.1 7.3       <NA>
-    ##   DO_mgmL
-    ## 1  0.0086
-    ## 2  0.0069
-    ## 3  0.0066
-    ## 4  0.0078
-    ## 5  0.0073
-    ## 6  0.0073
+    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F DO_mgmL
+    ## 1 02203700 2011-05-20 16:45:00  4.0     A e    NA 7.0 8.6      NA  0.0086
+    ## 2 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9   71.24  0.0069
+    ## 3 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6   69.08  0.0066
+    ## 4 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3   66.74  0.0073
+    ## 5 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40  0.0044
+    ## 6 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72  0.0071
 
 ``` r
 # if there are more than 1000 observations, we want to filter out high temperature observations
@@ -157,13 +150,13 @@ if(nrow(intro_df) > 1000){
 }
 ```
 
-    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO pH_det_lim
-    ## 1 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9       <NA>
-    ## 2 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6       <NA>
-    ## 3 02336240 2011-05-14 23:15:00 10.0       X  22.0 7.3 7.8       <NA>
-    ## 4 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3       <NA>
-    ## 5 02336728 2011-05-25 01:30:00  8.6       X  24.2 7.1 7.3       <NA>
-    ## 6 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4       <NA>
+    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
+    ## 1 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9   71.24
+    ## 2 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6   69.08
+    ## 3 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3   66.74
+    ## 4 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40
+    ## 5 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72
+    ## 6 02336120 2011-05-08 15:45:00 17.0     A e  17.6 7.2 8.7   63.68
 
 ### Optional: the `ifelse` function
 
@@ -171,11 +164,11 @@ Let's learn a new way to apply if-else logic - the function `ifelse`. This funct
 
 `ifelse(condition, yesValue, noValue)`
 
-Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value.
+Add a new column to `intro_df` that removes the flow value if it was estimated (code is "A e"), otherewise, retain the flow value.
 
 ``` r
 #use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "X", NA, Flow))
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "A e", NA, Flow))
 ```
 
 Looping

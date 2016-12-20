@@ -33,7 +33,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ```{r load_data, echo=TRUE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 ##Quick Links to Exercises and R code
@@ -52,16 +52,17 @@ There are a number of ways to get at the basic summaries of a data frame in R.  
 summary(intro_df)
 ```
 
-If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. Also, don't forget to tell it to ignore NAs!
+If you want to look at the range, use `range()`, but it is looking for a numeric vector as input. There shouldn't be any NAs in the flow column, but don't forget to ignore them for others!
 
 ```{r range_examp, warning=FALSE, message=FALSE}
-range(intro_df$Flow, na.rm=TRUE)
+range(intro_df$Flow)
 ```
 
 The interquartile range can be easily grabbed with `IQR()`, again a numeric vector is the input.
 
 ```{r iqr_examp, warning=FALSE, message=FALSE}
 IQR(intro_df$Wtemp, na.rm=TRUE)
+IQR(intro_df$Wtemp_F, na.rm=TRUE)
 ```
 
 Lastly, quantiles, at specific points, can be returned with, well, `quantile()`.
@@ -109,9 +110,9 @@ plot(intro_df$Wtemp, intro_df$DO,
 Let's say we want to look at more than just one relationship at a time with a pairs plot.  Again, `plot()` is our friend. If you pass a data frame to `plot()` instead of an x and y vector it will plot all possible pairs. Be careful though, as too many columns will produce an unintelligble plot. 
 
 ```{r pairs_examp, warning=FALSE, message=FALSE, fig.cap="Pairs plot using intro_df"}
-#get a data frame with only the measured values
+#get a data frame with only the measured values (ignore Wtemp_F since only units differ from Wtemp)
 library(dplyr)
-intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
+intro_df_data <- select(intro_df, -site_no, -dateTime, -Flow_cd, -Wtemp_F)
 plot(intro_df_data)
 ```
 
@@ -123,7 +124,7 @@ sites <- unique(intro_df$site_no)
 intro_df_site1 <- filter(intro_df, site_no == sites[1])
 
 #now keep only measured values
-intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd, -pH_det_lim)
+intro_df_site1_data <- select(intro_df_site1, -site_no, -dateTime, -Flow_cd)
 
 #create the pairs plot
 plot(intro_df_site1_data)
@@ -170,4 +171,4 @@ Similar to before let's first just play around with some basic exploratory data 
 
 2. Create a discharge histogram. Explore different values for the argument `breaks`. 
 
-3. Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. Are higher flows in this dataset more error prone (`Flow_Cd='X'`)?
+3. Create a boxplot that compares flows by flow approval codes. If it is difficult to interpret the boxplot, try logging the flow. 

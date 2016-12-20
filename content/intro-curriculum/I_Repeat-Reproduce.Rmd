@@ -33,7 +33,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ```{r load_data, echo=TRUE, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 ##Quick Links to Exercises and R code
@@ -146,11 +146,11 @@ Let's learn a new way to apply if-else logic - the function `ifelse`. This funct
 
 `ifelse(condition, yesValue, noValue)`
 
-Add a new column to `intro_df` that removes the flow value if it is erroneous (code is "X"), otherewise, retain the flow value. 
+Add a new column to `intro_df` that removes the flow value if it was estimated (code is "A e"), otherewise, retain the flow value. 
 
 ```{r ifelse_dplyr, warning=FALSE, message=FALSE}
 #use mutate along with ifelse to add a new column
-intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "X", NA, Flow))
+intro_df_revised <- mutate(intro_df, Flow_revised = ifelse(Flow_cd == "A e", NA, Flow))
 ```
 
 ## Looping

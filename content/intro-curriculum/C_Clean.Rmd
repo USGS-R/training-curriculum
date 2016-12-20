@@ -202,6 +202,20 @@ intro_df <- rename(intro_df,
                    Wtemp = Wtemp_Inst,
                    pH = pH_Inst,
                    DO = DO_Inst)
+
+# only want to keep data that has a real flow value
+nrow(intro_df)
+intro_df <- filter(intro_df, !is.na(Flow))
+nrow(intro_df) # there were 90 missing flow values
+
+# remove erroneous and estimated
+intro_df <- filter(intro_df, Flow_cd != "X")
+intro_df <- filter(intro_df, Flow_cd != "E")
+# or use `%in%`: intro_df <- filter(intro_df, !Flow_cd %in% c("E", "X"))
+
+# add a column with water temperature in F, not C
+# equation degF = (degC * 9/5) + 32
+intro_df <- mutate(intro_df, Wtemp_F = (Wtemp * 9/5) + 32)
 ```
 
 You might have noticed that the date column is treated as character and not Date or POSIX. Handling dates are beyond this course, but they are available in this dataset if you would like to work with them.

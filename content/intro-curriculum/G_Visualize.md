@@ -15,7 +15,7 @@ Remember that we are using the NWIS dataset for all of these lessons. If you suc
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata_cleaned.csv", stringsAsFactors = FALSE, 
-                     colClasses = c("character", rep(NA, 6)))
+                     colClasses = c("character", rep(NA, 7)))
 ```
 
 Quick Links to Exercises and R code
@@ -43,15 +43,15 @@ First, let's start with two sets of random data and plot them using different co
 -   you can use the function `colors()` to get a list of R colors
 
 ``` r
-#Create two data frames using dplyr (estimated & erroneous flows)
+#Create two data frames using dplyr (estimated approved & approved flows)
 library(dplyr)
-intro_df_est <- filter(intro_df, Flow_cd == "E")
+intro_df_est <- filter(intro_df, Flow_cd == "A e")
 intro_df_est_QpH <- select(intro_df_est, Flow, DO)
-intro_df_err <-filter(intro_df, Flow_cd == "X") 
-intro_df_err_QpH <- select(intro_df_err, Flow, DO)
+intro_df_appr <-filter(intro_df, Flow_cd == "A") 
+intro_df_appr_QpH <- select(intro_df_appr, Flow, DO)
 
 #Now, plot estimated and erroneous points in different colors
-plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=16, col='#FF5034')
+plot(intro_df_appr_QpH$Flow, intro_df_appr_QpH$DO, pch=16, col='#FF5034')
 points(intro_df_est_QpH$Flow, intro_df_est_QpH$DO, pch=16, col='skyblue')
 ```
 
@@ -71,7 +71,7 @@ default_par <- par()
 
 #change par
 par(las=2, tck=0.01, bg="darkseagreen")
-plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=6)
+plot(intro_df_appr_QpH$Flow, intro_df_appr_QpH$DO, pch=6)
 ```
 
 <img src='../static/Visualize/par_example-1.png'/ title='Dissolved oxygen versus erroneous flows with green background'/>
@@ -84,11 +84,11 @@ Legends are an obvious necessity for publishing plots built in R. Adding legends
 
 ``` r
 #use the same plot and add a legend to illustrate color and point type
-plot(intro_df_err_QpH$Flow, intro_df_err_QpH$DO, pch=16, col='#FF5034')
+plot(intro_df_appr_QpH$Flow, intro_df_appr_QpH$DO, pch=16, col='#FF5034')
 points(intro_df_est_QpH$Flow, intro_df_est_QpH$DO, pch=16, col='skyblue')
 
 #add a legend
-legend(x="topright", legend=c("Erroneous flows", "Estimated flows"),
+legend(x="topright", legend=c("Approved flows", "Estimated flows"),
        pch=16, col=c('#FF5034', 'skyblue'), title="Legend")
 ```
 
