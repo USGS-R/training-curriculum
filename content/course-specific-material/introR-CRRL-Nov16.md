@@ -51,12 +51,21 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 Download data from the [Data page](/intro-curriculum/data/).
 
+-   [gwlevels.xlsx](../introR-NatGW-Aug16/gwlevels.xlsx)
+
 ### Additional resources
 
 -   [USGS-R blog](https://owi.usgs.gov/blog/tags/r)
 -   [USGS-R twitter](https://twitter.com/USGS_R)
 -   [USGS-R GitHub](https://github.com/USGS-R) (package source code + bug/feature reporting)
 -   [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (data wrangling, visualization, shiny, markdown, RStudio, etc)
+
+#### SAS migration info
+
+-   [SAS and R](http://sas-and-r.blogspot.com/) blog with code examples doing the same thing in both languages.
+-   [Why R is Hard to Learn](http://r4stats.com/articles/why-r-is-hard-to-learn/) describes how R differs from common stats tools and where that might cause confusion.
+-   [Converting SAS data](http://rconvert.com/sas-vs-r-code-compare/5-ways-to-convert-sas-data-to-r/) a few approaches to converting data.
+-   [Biggest benefit of my shift to R? Reproducibility](https://dynamicecology.wordpress.com/2015/02/18/the-biggest-benefit-of-my-shift-to-r-reproducibility/)
 
 ### Instructors
 
@@ -68,4 +77,4 @@ David Watkins (<wwatkins@usgs.gov>)
 
 ### Lesson scripts
 
-Instructors will be live coding during this course. Our code will be shared with you here at the end.
+[Click here to download the instructor scripts](../introR-CRRL/instructorScripts.zip)
