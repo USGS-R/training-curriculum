@@ -19,7 +19,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   08:30 am - 10:00 am -- [Introduction](/intro-curriculum/Introduction)
 -   10:00 am - 10:15 am -- *Break*
 -   10:15 am - 12:00 pm -- [Get](/intro-curriculum/Get)
--   12:30 am - 01:00 pm -- *Lunch*
+-   12:00 am - 01:00 pm -- *Lunch*
 -   01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 -   03:00 pm - 03:15 pm -- *Break*
 -   03:15 pm - 04:15 pm -- [Explore](/intro-curriculum/Explore)
@@ -40,7 +40,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 **Day 3**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:00 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
+-   08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
 -   10:00 am - 12:00 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
