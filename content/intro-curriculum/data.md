@@ -15,4 +15,6 @@ menu:
 
 [course\_NWISdata\_cleaned.csv](../data/course_NWISdata_cleaned.csv)
 
+[forgottenData.csv](../data/forgottenData.csv)
+
 This data was pulled from NWIS and manipulated to create datasets that highlight some of the troublesome characteristics of working with data in R (such as empty or missing values). As such, these datasets do not accurately represent what is stored in NWIS. Take a look at the [script used to create these data files](../data/create_df.R) to see exactly how the NWIS data was changed.

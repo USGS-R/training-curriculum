@@ -497,6 +497,17 @@ Let's go back to the columns now. There are simple ways to add columns of the sa
 forgotten_data <- read.csv('data/forgottenData.csv', stringsAsFactors = FALSE, 
                            colClasses = c(rep("character",2),rep("numeric",3)))
 
+str(forgotten_data)
+```
+
+    ## 'data.frame':    5 obs. of  5 variables:
+    ##  $ site_no : chr  "00000001" "00000001" "00000001" "00000001" ...
+    ##  $ dateTime: chr  "2016-09-01 07:45:00" "2016-09-02 07:45:00" "2016-09-03 07:45:00" "2016-09-04 07:45:00" ...
+    ##  $ DO      : num  10.2 8.7 9.3 9.2 8.9
+    ##  $ Cl_conc : num  15.6 11 14.2 13.6 13.7
+    ##  $ Flow    : num  25 54 67 60 59
+
+``` r
 left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
 ```
 

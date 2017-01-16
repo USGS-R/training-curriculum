@@ -260,6 +260,8 @@ Let's go back to the columns now. There are simple ways to add columns of the sa
 forgotten_data <- read.csv('data/forgottenData.csv', stringsAsFactors = FALSE, 
                            colClasses = c(rep("character",2),rep("numeric",3)))
 
+str(forgotten_data)
+
 left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
 
 ```
