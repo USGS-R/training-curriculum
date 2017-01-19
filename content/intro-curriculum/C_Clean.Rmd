@@ -256,14 +256,11 @@ Now something to think about. Could you add a vector as a new row? Why/Why not? 
 Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows.  What we want to do in that case is going to be more of a database type function and join two tables based on a common column.  We can achieve this by using `x_join` functions. So let's imagine that we did actually collect dissolved oxygen, discharge, and chloride concentration on our observation dates. Also, we collected on some additional dates. We don't care about the additional dates, so use the `left_join` function from `dplyr`, which keeps all rows from the first (left) data frame. See `?left_join` for more information.
 
 ```{r merge_example, warning=FALSE, message=FALSE}
-# DO and discharge data
-forgotten_data <- data.frame(site_no=rep("00000001", 5),
-                             dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00",
-                                        "2016-09-04 07:45:00", "2016-09-05 07:45:00"),
-                             DO=c(10.2,8.7,9.3,9.2,8.9),
-                             Cl_conc=c(15.6,11.0,14.2,13.6,13.7),
-                             Flow=c(25,54,67,60,59),
-                             stringsAsFactors = FALSE)
+# read forgotten DO and discharge data
+forgotten_data <- read.csv('data/forgottenData.csv', stringsAsFactors = FALSE, 
+                           colClasses = c(rep("character",2),rep("numeric",3)))
+
+str(forgotten_data)
 
 left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
 
