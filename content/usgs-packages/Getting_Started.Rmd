@@ -4,7 +4,7 @@ author: "Lindsay R. Carr"
 slug: "GettingStarted"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
-parent: 
+parent: Introduction to USGS R Packages
 weight: 1
 draft: true
 ---

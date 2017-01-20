@@ -4,9 +4,10 @@ date:
 slug: GettingStarted
 title: Getting Started
 image: img/main/intro-icons-300px/r-logo.png
+identifier: 
 menu:
   main:
-    parent: 
+    parent: Introduction to USGS R Packages
     weight: 1
 draft: true
 ---

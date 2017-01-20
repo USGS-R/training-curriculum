@@ -2,12 +2,13 @@
 author: Lindsay R. Carr
 date: 
 slug: dataRetrieval-intro
-title: dataRetrieval - accessing time series data
+title: dataRetrieval - Introduction
 image: img/main/intro-icons-300px/r-logo.png
+identifier: 
 menu:
   main:
-    parent: 
-    weight: 1
+    parent: Introduction to USGS R Packages
+    weight: 2
 draft: true
 ---
 Lesson Summary

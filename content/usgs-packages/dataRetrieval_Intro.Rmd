@@ -1,11 +1,11 @@
 ---
-title: "dataRetrieval - accessing time series data"
+title: "dataRetrieval - Introduction"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-intro"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
-parent: 
-weight: 1
+parent: Introduction to USGS R Packages
+weight: 2
 draft: true
 ---
 
