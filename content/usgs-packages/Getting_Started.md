@@ -14,7 +14,7 @@ draft: true
 
 As free, open-source software, the statistical programming language R has a growing community of developers and users for data analysis and visualizations. Getting started with R can be challenging, but there are many online resources for learning the basics of the language. Many users can accomplish simple analyses through self-taught skills, or learn R in a more formal setting. R users can also use online forums to find solutions for recurrent errors and help with commonly used R packages. However, there are many R packages built by and for USGS purposes that are more specific to the USGS. The user community for these packages is small, so there are not as many online resources available, nor online help forums able to offer assistance. With the creation of this online course, there will be canonical online resources for learning USGS packages, while simultaneously building a larger user community.
 
-The common workflow for completing the data processing pipeline is subject to human error at every step: accessing data, analyzing data, and producing final figures. Multi-site analyses are especially error-prone because the same workflow needs to be repeated many times. This course teaches a modular approach to the common data analysis workflow by building on basic R data analysis skills and leveraging existing USGS R packages that can create advanced, reproducible workflows, such as for accessing gridded climate data, analyzing high frequency water observations, and for taking full advantage of the USGS ScienceBase repository. The USGS packages covered in this course span a variety of applications: accessing web data, accessing personally stored data, releasing data for publication, and visualizing data within R.
+The common workflow for completing the data processing pipeline is subject to human error at every step: accessing data, analyzing data, and producing final figures. Multi-site analyses are especially error-prone because the same workflow needs to be repeated many times. This course teaches a modular approach to the common data analysis workflow by building on basic R data analysis skills and leveraging existing USGS R packages that can create advanced, reproducible workflows, such as for accessing gridded climate data, analyzing high frequency water observations, and for taking full advantage of the USGS ScienceBase repository. The USGS packages covered in this course span a variety of applications: accessing web data, accessing personally stored data, and releasing data for publication.
 
 The modular workflows taught in this course will prepare researchers to create automated, robust data processing workflows through more efficient code development. Following the course, students will be capable of integrating these packages into their own scientific workflows.
 
@@ -79,24 +79,13 @@ Unknown
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-gsplot
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Learn plot style that can easily be adapted for SPN-compliant figures.
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Unknown
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
 Application
 </td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
 Use the packages introduced in previous modules to create and use a robust modular workflow.
 </td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
 Unknown
 </td>
 </tr>
