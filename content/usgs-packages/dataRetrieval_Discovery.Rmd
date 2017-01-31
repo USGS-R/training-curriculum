@@ -140,17 +140,18 @@ nrow(sites_sc_stream_temp)
 nrow(sites_sc_lake_temp)
 ```
 
-What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses `lapply`, `Reduce`, and the `dplyr` function, `full_join`. We will assume you know how to use these functions. 
+What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses a `for` loop and the `dplyr` function, `bind_rows`. We will assume you know how to use these functions. 
 
 ```{r sites_mult_states_stream_temp, message=FALSE, warning=FALSE}
-# South West US sites with stream temperature
-sites_sw_stream_temp <- lapply(c("CA", "AZ", "NM", "NV"), function(st){
-  whatNWISsites(stateCd=st, siteType="ST", parameterCd="00010")
-})
+library(dplyr) #bind_rows is a dplyr function
 
-# combine the returned list into one using dplyr::full_join
-library(dplyr)
-sites_sw_stream_temp <- Reduce(full_join, sites_sw_stream_temp)
+# find South West US sites with stream temperature
+# then add to the data frame
+sites_sw_stream_temp <- data.frame()
+for(i in c("CA", "AZ", "NM", "NV")){
+  state_sites <- whatNWISsites(stateCd=i, siteType="ST", parameterCd="00010")
+  sites_sw_stream_temp <- bind_rows(sites_sw_stream_temp, state_sites)
+}
 
 nrow(sites_sw_stream_temp)
 ```

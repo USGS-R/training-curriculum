@@ -146,22 +146,23 @@ nrow(sites_sc_lake_temp)
 
     ## [1] 32
 
-What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses `lapply`, `Reduce`, and the `dplyr` function, `full_join`. We will assume you know how to use these functions.
+What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses a `for` loop and the `dplyr` function, `bind_rows`. We will assume you know how to use these functions.
 
 ``` r
-# South West US sites with stream temperature
-sites_sw_stream_temp <- lapply(c("CA", "AZ", "NM", "NV"), function(st){
-  whatNWISsites(stateCd=st, siteType="ST", parameterCd="00010")
-})
+library(dplyr) #bind_rows is a dplyr function
 
-# combine the returned list into one using dplyr::full_join
-library(dplyr)
-sites_sw_stream_temp <- Reduce(full_join, sites_sw_stream_temp)
+# find South West US sites with stream temperature
+# then add to the data frame
+sites_sw_stream_temp <- data.frame()
+for(i in c("CA", "AZ", "NM", "NV")){
+  state_sites <- whatNWISsites(stateCd=i, siteType="ST", parameterCd="00010")
+  sites_sw_stream_temp <- bind_rows(sites_sw_stream_temp, state_sites)
+}
 
 nrow(sites_sw_stream_temp)
 ```
 
-    ## [1] 4769
+    ## [1] 4774
 
 ### whatNWISdata
 
@@ -227,10 +228,10 @@ names(wqpcounts_sc)
 ```
 
     ##  [1] "date"                      "content-disposition"      
-    ##  [3] "total-site-count"          "biodata-site-count"       
-    ##  [5] "nwis-site-count"           "storet-site-count"        
-    ##  [7] "total-result-count"        "biodata-result-count"     
-    ##  [9] "nwis-result-count"         "storet-result-count"      
+    ##  [3] "total-site-count"          "nwis-site-count"          
+    ##  [5] "storet-site-count"         "biodata-site-count"       
+    ##  [7] "total-result-count"        "nwis-result-count"        
+    ##  [9] "storet-result-count"       "biodata-result-count"     
     ## [11] "content-type"              "strict-transport-security"
 
 This returns a list with 12 different items, including total number of sites, breakdown of the number of sites by source (BioData, NWIS, STORET), total number of records, and breakdown of records count by source. Let's just look at total number of sites and total number of records.
@@ -245,9 +246,9 @@ wqpcounts_sc[['total-site-count']]
 wqpcounts_sc[['total-result-count']]
 ```
 
-    ## [1] 3209660
+    ## [1] 3213117
 
-This doesn't provide any information about the sites, just the total number. I know that with 3,209,660 results, I will want to add more criteria before trying to download. Let's continue to add query parameters before moving to `whatWQPsites`.
+This doesn't provide any information about the sites, just the total number. I know that with 3,213,117 results, I will want to add more criteria before trying to download. Let's continue to add query parameters before moving to `whatWQPsites`.
 
 ``` r
 # specify that you only want data from streams
@@ -262,9 +263,9 @@ wqpcounts_sc_stream[['total-site-count']]
 wqpcounts_sc_stream[['total-result-count']]
 ```
 
-    ## [1] 1648461
+    ## [1] 1653238
 
-1,648,461 results are still a lot to download. Let's add more levels of criteria:
+1,653,238 results are still a lot to download. Let's add more levels of criteria:
 
 ``` r
 # specify that you want water temperature data and it should be from 1975 or later
@@ -281,9 +282,9 @@ wqpcounts_sc_stream_temp[['total-site-count']]
 wqpcounts_sc_stream_temp[['total-result-count']]
 ```
 
-    ## [1] 147108
+    ## [1] 147633
 
-147,108 is little more manageble. We can also easily compare avilable stream temperature and lake temperature data.
+147,633 is little more manageble. We can also easily compare avilable stream temperature and lake temperature data.
 
 ``` r
 wqpcounts_sc_lake_temp <- readWQPdata(statecode="US:45", 
@@ -308,7 +309,7 @@ wqpcounts_sc_lake_temp[['total-site-count']]
 wqpcounts_sc_stream_temp[['total-result-count']]
 ```
 
-    ## [1] 147108
+    ## [1] 147633
 
 ``` r
 wqpcounts_sc_lake_temp[['total-result-count']]
