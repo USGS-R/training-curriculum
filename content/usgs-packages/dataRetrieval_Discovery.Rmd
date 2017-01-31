@@ -170,7 +170,7 @@ data_sc_stream_temp_avg <- whatNWISdata(
 nrow(data_sc_stream_temp_avg)
 ```
 
-In some queries, you might notice an error that says "Too Long". This means that you are querying for more data than `whatNWISdata` can handle. If this happens, try shortening the number of sites you are querying at a time, and append all results at the end.
+In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
 
 The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. 
 
