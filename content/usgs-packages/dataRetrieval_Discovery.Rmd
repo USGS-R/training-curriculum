@@ -64,7 +64,7 @@ This is available for streamflow, groundwater levels, and water quality sensors.
   - statistics = "stat"
   - site = "site"
 
-*_`startDate`_* and *_`endDate`_* Strings in the format "YYYY-MM-DDTHH:SS:MM". The start and end date-times are inclusive.
+*_`startDate`_* and *_`endDate`_* Strings in the format "YYYY-MM-DDTHH:SS:MM", either date or character class. The start and end date-times are inclusive.
 
 *_`stateCd`_* Two character abbreviation for a US state or territory. Execute `state.abb` in the console to get a vector of US state abbreviations. Territories include: 
 
@@ -180,7 +180,7 @@ To illustrate this, let's apply an additional filter to these data using the `fi
 # Useable average daily SC stream temperature data
 library(dplyr)
 data_sc_stream_temp_avg_applicable <- data_sc_stream_temp_avg %>% 
-  filter(count_nu >= 300, end_date >= as.Date("1975-01-01"))
+  filter(count_nu >= 300, end_date >= "1975-01-01")
 nrow(data_sc_stream_temp_avg_applicable)
 ```
 
@@ -197,7 +197,7 @@ This means you would have `r prettyNum(nrow(data_sc_stream_temp_avg_applicable),
 
 *_`characteristicName`_* and *_`characteristicType`_* Unlike NWIS, WQP does not have codes for each parameter. Instead, you need to search based on the name of the water quality constituent (referred to as `characteristicName` in `dataRetrieval`) or a group of parameters (`characteristicType` in `dataRetrieval`). For example, "Nitrate" is a `characteristicName` and "Nutrient" is the `characteristicType` that it fits into. For a complete list of water quality types and names, see [characteristicType list](https://www.waterqualitydata.us/Codes/Characteristictype?mimeType=xml) and [characteristicName list](https://www.waterqualitydata.us/Codes/Characteristicname?mimeType=xml). 
 
-*_`startDate`_* and *_`endDate`_* Arguments specifying the beginning and ending of the period of record you are interested in. For the `dataRetrieval` functions, these must be a date class in the form YYYY-MM-DD. For example, `startDate = as.Date("2010-01-01")` could be your argument input.
+*_`startDate`_* and *_`endDate`_* Arguments specifying the beginning and ending of the period of record you are interested in. For the `dataRetrieval` functions, these can be a date or character class in the form YYYY-MM-DD. For example, `startDate = as.Date("2010-01-01")` or `startDate = "2010-01-01"` could both be your input arguments.
 
 ## Discovering WQP data
 
@@ -237,7 +237,7 @@ wqpcounts_sc_stream[['total-result-count']]
 # specify that you want water temperature data and it should be from 1975 or later
 wqpcounts_sc_stream_temp <- readWQPdata(statecode="US:45", siteType="Stream",
                                        characteristicName="Temperature, water",
-                                       startDate=as.Date("1975-01-01"),
+                                       startDate="1975-01-01",
                                        querySummary = TRUE)
 wqpcounts_sc_stream_temp[['total-site-count']]
 wqpcounts_sc_stream_temp[['total-result-count']]
@@ -249,7 +249,7 @@ wqpcounts_sc_stream_temp[['total-result-count']]
 wqpcounts_sc_lake_temp <- readWQPdata(statecode="US:45", 
                                       siteType="Lake, Reservoir, Impoundment",
                                       characteristicName="Temperature, water",
-                                      startDate=as.Date("1975-01-01"),
+                                      startDate="1975-01-01",
                                       querySummary = TRUE)
 # comparing site counts
 wqpcounts_sc_stream_temp[['total-site-count']]
@@ -273,7 +273,7 @@ Now, let's try our South Carolina stream temperature query with `whatWQPsites` a
 # temperature measurements in South Carolina after 1975.
 wqpsites_sc_stream_temp <- whatWQPsites(statecode="US:45", siteType="Stream",
                                        characteristicName="Temperature, water",
-                                       startDate=as.Date("1975-01-01"))
+                                       startDate="1975-01-01")
 # number of sites
 nrow(wqpsites_sc_stream_temp)
 

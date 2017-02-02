@@ -47,7 +47,7 @@ Common NWIS function arguments
 -   statistics = "stat"
 -   site = "site"
 
-**`startDate`** and **`endDate`** Strings in the format "YYYY-MM-DDTHH:SS:MM". The start and end date-times are inclusive.
+**`startDate`** and **`endDate`** Strings in the format "YYYY-MM-DDTHH:SS:MM", either date or character class. The start and end date-times are inclusive.
 
 **`stateCd`** Two character abbreviation for a US state or territory. Execute `state.abb` in the console to get a vector of US state abbreviations. Territories include:
 
@@ -76,7 +76,7 @@ sites_sc <- whatNWISsites(stateCd="SC")
 nrow(sites_sc)
 ```
 
-    ## [1] 20054
+    ## [1] 20055
 
 This query returns all of the NWIS sites that are in South Carolina To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
 
@@ -85,9 +85,9 @@ sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
 nrow(sites_sc_stream)
 ```
 
-    ## [1] 620
+    ## [1] 621
 
-We can now see that out of the 20,054 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
+We can now see that out of the 20,055 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
 
 ``` r
 sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
@@ -97,7 +97,7 @@ nrow(sites_sc_stream_temp)
 
     ## [1] 291
 
-We are now down to just 291 sites, much less than our original 20,054. To actually download this data, you can query using our three arguments, `stateCd` + `siteType` + `parameterCd`, or by the site numbers from the `sites_sc_stream_temp` data.frame using `unique(sites_sc_stream_temp[['site_no']])`. Downloading NWIS data will be covered in the next section, [readNWISdata](/usgs-packages/dataRetrieval-readNWIS).
+We are now down to just 291 sites, much less than our original 20,055. To actually download this data, you can query using our three arguments, `stateCd` + `siteType` + `parameterCd`, or by the site numbers from the `sites_sc_stream_temp` data.frame using `unique(sites_sc_stream_temp[['site_no']])`. Downloading NWIS data will be covered in the next section, [readNWISdata](/usgs-packages/dataRetrieval-readNWIS).
 
 The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
@@ -162,7 +162,7 @@ for(i in c("CA", "AZ", "NM", "NV")){
 nrow(sites_sw_stream_temp)
 ```
 
-    ## [1] 4774
+    ## [1] 4776
 
 ### whatNWISdata
 
@@ -190,7 +190,7 @@ To illustrate this, let's apply an additional filter to these data using the `fi
 # Useable average daily SC stream temperature data
 library(dplyr)
 data_sc_stream_temp_avg_applicable <- data_sc_stream_temp_avg %>% 
-  filter(count_nu >= 300, end_date >= as.Date("1975-01-01"))
+  filter(count_nu >= 300, end_date >= "1975-01-01")
 nrow(data_sc_stream_temp_avg_applicable)
 ```
 
@@ -209,7 +209,7 @@ Common WQP function arguments
 
 **`characteristicName`** and **`characteristicType`** Unlike NWIS, WQP does not have codes for each parameter. Instead, you need to search based on the name of the water quality constituent (referred to as `characteristicName` in `dataRetrieval`) or a group of parameters (`characteristicType` in `dataRetrieval`). For example, "Nitrate" is a `characteristicName` and "Nutrient" is the `characteristicType` that it fits into. For a complete list of water quality types and names, see [characteristicType list](https://www.waterqualitydata.us/Codes/Characteristictype?mimeType=xml) and [characteristicName list](https://www.waterqualitydata.us/Codes/Characteristicname?mimeType=xml).
 
-**`startDate`** and **`endDate`** Arguments specifying the beginning and ending of the period of record you are interested in. For the `dataRetrieval` functions, these must be a date class in the form YYYY-MM-DD. For example, `startDate = as.Date("2010-01-01")` could be your argument input.
+**`startDate`** and **`endDate`** Arguments specifying the beginning and ending of the period of record you are interested in. For the `dataRetrieval` functions, these can be a date or character class in the form YYYY-MM-DD. For example, `startDate = as.Date("2010-01-01")` or `startDate = "2010-01-01"` could both be your input arguments.
 
 Discovering WQP data
 --------------------
@@ -228,10 +228,10 @@ names(wqpcounts_sc)
 ```
 
     ##  [1] "date"                      "content-disposition"      
-    ##  [3] "total-site-count"          "nwis-site-count"          
-    ##  [5] "storet-site-count"         "biodata-site-count"       
-    ##  [7] "total-result-count"        "nwis-result-count"        
-    ##  [9] "storet-result-count"       "biodata-result-count"     
+    ##  [3] "total-site-count"          "biodata-site-count"       
+    ##  [5] "nwis-site-count"           "storet-site-count"        
+    ##  [7] "total-result-count"        "biodata-result-count"     
+    ##  [9] "nwis-result-count"         "storet-result-count"      
     ## [11] "content-type"              "strict-transport-security"
 
 This returns a list with 12 different items, including total number of sites, breakdown of the number of sites by source (BioData, NWIS, STORET), total number of records, and breakdown of records count by source. Let's just look at total number of sites and total number of records.
@@ -240,7 +240,7 @@ This returns a list with 12 different items, including total number of sites, br
 wqpcounts_sc[['total-site-count']]
 ```
 
-    ## [1] 25657
+    ## [1] 25658
 
 ``` r
 wqpcounts_sc[['total-result-count']]
@@ -257,7 +257,7 @@ wqpcounts_sc_stream <- readWQPdata(statecode="US:45", siteType="Stream",
 wqpcounts_sc_stream[['total-site-count']]
 ```
 
-    ## [1] 2555
+    ## [1] 2556
 
 ``` r
 wqpcounts_sc_stream[['total-result-count']]
@@ -271,7 +271,7 @@ wqpcounts_sc_stream[['total-result-count']]
 # specify that you want water temperature data and it should be from 1975 or later
 wqpcounts_sc_stream_temp <- readWQPdata(statecode="US:45", siteType="Stream",
                                        characteristicName="Temperature, water",
-                                       startDate=as.Date("1975-01-01"),
+                                       startDate="1975-01-01",
                                        querySummary = TRUE)
 wqpcounts_sc_stream_temp[['total-site-count']]
 ```
@@ -290,7 +290,7 @@ wqpcounts_sc_stream_temp[['total-result-count']]
 wqpcounts_sc_lake_temp <- readWQPdata(statecode="US:45", 
                                       siteType="Lake, Reservoir, Impoundment",
                                       characteristicName="Temperature, water",
-                                      startDate=as.Date("1975-01-01"),
+                                      startDate="1975-01-01",
                                       querySummary = TRUE)
 # comparing site counts
 wqpcounts_sc_stream_temp[['total-site-count']]
@@ -330,7 +330,7 @@ Now, let's try our South Carolina stream temperature query with `whatWQPsites` a
 # temperature measurements in South Carolina after 1975.
 wqpsites_sc_stream_temp <- whatWQPsites(statecode="US:45", siteType="Stream",
                                        characteristicName="Temperature, water",
-                                       startDate=as.Date("1975-01-01"))
+                                       startDate="1975-01-01")
 # number of sites
 nrow(wqpsites_sc_stream_temp)
 ```
