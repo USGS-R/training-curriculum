@@ -201,7 +201,7 @@ This means you would have 83 of sites to work with for your study.
 Common WQP function arguments
 -----------------------------
 
-**`countrycode`**, **`statecode`**, and **`countycode`** These geopolitical filters must be specified by Federal Information Processing Standard (FIPS) codes, not names. Each FIPS code is a two letter indicator and must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, I would enter `statecode="US:45"`. The same rule extends to county FIPS. There is a built-in R data frame called state.fips that can help you determine the correct state code, otherwise, you can search online.
+**`countrycode`**, **`statecode`**, and **`countycode`** These geopolitical filters can be specified by a two letter abbreviation, state name, or Federal Information Processing Standard (FIPS) code. If you are using the FIPS code for a state or county, it must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, I would enter `statecode="US:45"`. The same rule extends to county FIPS. You can reference the `dataRetrieval` datasets `stateCd` and `countyCd`for the abbreviation, name, or FIPS code of states and counties. Countries need to be specified with their two-letter FIPS code.
 
 **`siteType`** Specify the hydrologic location the sample was taken, e.g. streams, lakes, groundwater sources. These should be listed as a string. Available types can be found [here](https://www.waterqualitydata.us/Codes/Sitetype?mimeType=xml).
 
