@@ -57,6 +57,8 @@ Download data from the [Data page](/intro-curriculum/data/).
 -   [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (data wrangling, visualization, shiny, markdown, RStudio, etc)
 -   [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
 
+-   [dataRetrieval package tutorial](https://owi.usgs.gov/R/dataRetrieval.html#1)
+
 ### Instructors
 
 Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact*

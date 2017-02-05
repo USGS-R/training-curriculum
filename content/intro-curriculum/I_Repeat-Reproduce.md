@@ -42,7 +42,7 @@ Let's start off with an exercise that uses the skills we've learned thus far.
 1.  Create a plot of DO vs water temperature for 4 of the sites in our dataset. Hint: use `unique()` to get a vector of site numbers, and don't forget to subset your data.
 2.  Now add a title to each one using the site number.
 
-You likely just went through a lot of copy/paste steps to get these plots. We are not going to learn programming structures that can help mitigate a lot of this repetitive code.
+You likely just went through a lot of copy/paste steps to get these plots. We are now going to learn programming structures that can help mitigate a lot of this repetitive code.
 
 Using conditional (if-else) statements
 --------------------------------------

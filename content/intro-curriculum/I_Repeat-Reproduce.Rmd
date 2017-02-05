@@ -58,7 +58,7 @@ Let's start off with an exercise that uses the skills we've learned thus far.
 1. Create a plot of DO vs water temperature for 4 of the sites in our dataset. Hint: use `unique()` to get a vector of site numbers, and don't forget to subset your data.
 2. Now add a title to each one using the site number.
 
-You likely just went through a lot of copy/paste steps to get these plots. We are not going to learn programming structures that can help mitigate a lot of this repetitive code.
+You likely just went through a lot of copy/paste steps to get these plots. We are now going to learn programming structures that can help mitigate a lot of this repetitive code.
 
 ## Using conditional (if-else) statements
 If you have done any programing in any language, then `if-else` statements are not new to you.  All they do is tell your code how to make decisions. For instance, you might want a subroutine only applied to certain sites or when certain data is (or is not) present. That's easy with if-else control structures. Here's the basic syntax of an if-else statement:
