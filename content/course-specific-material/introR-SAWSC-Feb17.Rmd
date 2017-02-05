@@ -68,3 +68,21 @@ Andrew Yan (<ayan@usgs.gov>)
 ### Lesson scripts
 
 Instructors will be live coding during this course. Our code will be shared with you here at the end.
+
+### smwrQW 
+
+`smwrQW` is a package used for analyzing censored water quality data. It does not currently have a named maintainer, so there is not an active contact for answering user questions or performing regular package updates with new changes in R and dependent packages. However, the package will remain available for use on GitHub and GRAN.
+
+The first thing to know about `smwrQW` is that all functions operate on objects of class "qw", which is a class specific to this package. For instance, it has special import functions for NWIS that use the `dataRetrieval` functions but return a "qw" object instead of a regular R `data.frame`.
+
+```r
+library(dataRetrieval)
+mydata <- readNWISqw(siteNumbers="02146470", parameterCd="00010", endDate="2017-01-01")
+class(mydata)
+
+library(smwrQW)
+mydata_smwr <- importNWISqw(sites="02146470", params="00010", end.date="2017-01-01")
+class(mydata_smwr)
+```
+
+We are not going to go into the functions here, but will look at the resources available. This package has great documentation - there are a number of vignettes that discuss specific groups of functions and their applications. Each function is also well documented and has examples. To look at the vignettes, try running `browseVignettes("smwrQW")` or navigate to "Packages >> smwrQW >> User guides..." in your RStudio pane.
