@@ -73,62 +73,50 @@ Instructors will be live coding during this course. Our code will be shared with
 
 ### smwrQW
 
-`smwrQW` is a package used for analyzing censored water quality data. It does not currently have a named maintainer, so there is not an active contact for answering user questions or performing regular package updates with new changes in R and dependent packages. However, the package will remain available for use on GitHub and GRAN.
+`smwrQW` is a package used for analyzing censored water quality data. It does not currently have a named maintainer, but there will be community efforts to address questions and fix bugs on [smwrQW's GitHub page](https://github.com/USGS-R/smwrQW/issues) in a timely fashion. The package will remain available for use on GitHub and GRAN.
 
-The first thing to know about `smwrQW` is that all functions operate on objects of class "qw", which is a class specific to this package. For instance, it has special import functions for NWIS that use the `dataRetrieval` functions but return a "qw" object instead of a regular R `data.frame`.
+The first thing to know about `smwrQW` is that all functions operate on objects of class "qw", which is a class specific to this package. For instance, it has special import functions for NWIS that use the `dataRetrieval` functions but return columns in a data.frame as "qw" objects instead of `numeric`. However, if the column does not have any censored values, the `smwrQW` functions will return them as normal `numeric` columns.
 
 ``` r
 library(dataRetrieval)
-mydata <- readNWISqw(siteNumbers="02146470", parameterCd="00010", endDate="2017-01-01")
-class(mydata)
-```
-
-    ## [1] "data.frame"
-
-``` r
 library(smwrQW)
+
+# censored values present, so importNWISqw returns a qw object
+ammoniadata <- readNWISqw(siteNumbers="05330000", parameterCd="00608", endDate="2017-01-01")
+class(ammoniadata$result_va)
 ```
 
-    ## Loading required package: smwrBase
-
-    ## Loading required package: lubridate
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     date
-
-    ## Loading required package: smwrGraphs
-
-    ## This information is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The information has not received final approval by the U.S. Geological Survey (USGS) and is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the information. Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
-
-    ## Loading required package: smwrStats
-
-    ## Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
-
-    ## This information is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The information has not received final approval by the U.S. Geological Survey (USGS) and is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the information. Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
-
-    ## 
-    ## Attaching package: 'smwrQW'
-
-    ## The following object is masked from 'package:utils':
-    ## 
-    ##     View
+    ## [1] "numeric"
 
 ``` r
-mydata_smwr <- importNWISqw(sites="02146470", params="00010", end.date="2017-01-01")
-class(mydata_smwr)
+ammoniadata_smwr <- importNWISqw(sites="05330000", params="00608", end.date="2017-01-01")
+class(ammoniadata_smwr$Ammonia.N)
 ```
 
-    ## [1] "data.frame"
+    ## [1] "qw"
+    ## attr(,"package")
+    ## [1] "smwrQW"
 
-We are not going to go into the functions here, but will look at the resources available. This package has great documentation - there are a number of vignettes that discuss specific groups of functions and their applications. Each function is also well documented and has examples. To look at the vignettes, try running `browseVignettes("smwrQW")` or navigate to "Packages &gt;&gt; smwrQW &gt;&gt; User guides..." in your RStudio pane.
+``` r
+# no censored values present, so importNWISqw returns a numeric column
+tempdata <- readNWISqw(siteNumbers="05330000", parameterCd="00010", endDate="2017-01-01")
+class(tempdata$result_va)
+```
+
+    ## [1] "numeric"
+
+``` r
+tempdata_smwr <- importNWISqw(sites="05330000", params="00010", end.date="2017-01-01")
+class(tempdata_smwr$WaterTempDegC)
+```
+
+    ## [1] "numeric"
+
+We are not going to go into any additional the functions here, but will look at the resources available. This package has great documentation - there are a number of vignettes that discuss specific groups of functions and their applications. Each function is also well documented and has examples. To look at the vignettes, try running `browseVignettes("smwrQW")` or navigate to "Packages &gt;&gt; smwrQW &gt;&gt; User guides..." in your RStudio pane.
 
 ### rloadest
 
-`rloadest` is the R application and extension of the [FORTRAN LOADEST](https://pubs.usgs.gov/tm/2005/tm4A5/pdf/508final.pdf) constituent load estimation program. Similar to `smwrQW`, this package does not have an official maintainer at this time. Questions and issues can be directed to the [`rloadest` GitHub page](https://github.com/USGS-R/rloadest), but may not be answered immediately.
+`rloadest` is the R application and extension of the [FORTRAN LOADEST](https://pubs.usgs.gov/tm/2005/tm4A5/pdf/508final.pdf) constituent load estimation program. Similar to `smwrQW`, this package does not have an official maintainer at this time. Questions and issues can be directed to the [`rloadest` GitHub page](https://github.com/USGS-R/rloadest), and will be answered by the USGS-R community as soon as possible.
 
 The `loadReg` function builds a regression model using a number of built-in load estimation models, as well as user-defined models. Two additional functions take the defined load regression and return predicted concentration (`predConc`) and predicted load (`predLoad`).
 
