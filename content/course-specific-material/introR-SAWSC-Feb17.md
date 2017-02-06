@@ -70,3 +70,56 @@ Andrew Yan (<ayan@usgs.gov>)
 ### Lesson scripts
 
 Instructors will be live coding during this course. Our code will be shared with you here at the end.
+
+### smwrQW
+
+`smwrQW` is a package used for analyzing censored water quality data. It does not currently have a named maintainer, but there will be community efforts to address questions and fix bugs on [smwrQW's GitHub page](https://github.com/USGS-R/smwrQW/issues) in a timely fashion. The package will remain available for use on GitHub and GRAN.
+
+The first thing to know about `smwrQW` is that all functions operate on objects of class "qw", which is a class specific to this package. For instance, it has special import functions for NWIS that use the `dataRetrieval` functions but return columns in a data.frame as "qw" objects instead of `numeric`. However, if the column does not have any censored values, the `smwrQW` functions will return them as normal `numeric` columns.
+
+``` r
+library(dataRetrieval)
+library(smwrQW)
+
+# censored values present, so importNWISqw returns a qw object
+ammoniadata <- readNWISqw(siteNumbers="05330000", parameterCd="00608", endDate="2017-01-01")
+class(ammoniadata$result_va)
+```
+
+    ## [1] "numeric"
+
+``` r
+ammoniadata_smwr <- importNWISqw(sites="05330000", params="00608", end.date="2017-01-01")
+class(ammoniadata_smwr$Ammonia.N)
+```
+
+    ## [1] "qw"
+    ## attr(,"package")
+    ## [1] "smwrQW"
+
+``` r
+# no censored values present, so importNWISqw returns a numeric column
+tempdata <- readNWISqw(siteNumbers="05330000", parameterCd="00010", endDate="2017-01-01")
+class(tempdata$result_va)
+```
+
+    ## [1] "numeric"
+
+``` r
+tempdata_smwr <- importNWISqw(sites="05330000", params="00010", end.date="2017-01-01")
+class(tempdata_smwr$WaterTempDegC)
+```
+
+    ## [1] "numeric"
+
+We are not going to go into any additional the functions here, but will look at the resources available. This package has great documentation - there are a number of vignettes that discuss specific groups of functions and their applications. Each function is also well documented and has examples. To look at the vignettes, try running `browseVignettes("smwrQW")` or navigate to "Packages &gt;&gt; smwrQW &gt;&gt; User guides..." in your RStudio pane.
+
+### rloadest
+
+`rloadest` is the R application and extension of the [FORTRAN LOADEST](https://pubs.usgs.gov/tm/2005/tm4A5/pdf/508final.pdf) constituent load estimation program. Similar to `smwrQW`, this package does not have an official maintainer at this time. Questions and issues can be directed to the [`rloadest` GitHub page](https://github.com/USGS-R/rloadest), and will be answered by the USGS-R community as soon as possible.
+
+The `loadReg` function builds a regression model using a number of built-in load estimation models, as well as user-defined models. Two additional functions take the defined load regression and return predicted concentration (`predConc`) and predicted load (`predLoad`).
+
+There are detailed vignettes covering applications of `rloadest` models to censored oruncensored data, seasonal models, etc. See `browseVignettes("rloadest")` or navigate to "Packages &gt;&gt; rloadest &gt;&gt; User guides..." in your RStudio pane for detailed information.
+
+Please also reference this [tutorial for using `EGRET` and `rloadest`](http://usgs-r.github.io/a-la-carte/EGRET.html#1) together.
