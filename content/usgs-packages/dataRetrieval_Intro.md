@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 
+date: 9999-12-01
 slug: dataRetrieval-intro
 title: dataRetrieval - Introduction
 image: img/main/intro-icons-300px/r-logo.png
