@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 
+date: 9999-12-31
 slug: GettingStarted
 title: Getting Started
 image: img/main/intro-icons-300px/r-logo.png
