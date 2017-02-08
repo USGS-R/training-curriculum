@@ -22,20 +22,20 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   12:00 am - 01:00 pm -- *Lunch*
 -   01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 -   03:00 pm - 03:15 pm -- *Break*
--   03:15 pm - 04:15 pm -- [Explore](/intro-curriculum/Explore)
+-   03:15 pm - 04:15 pm -- More [Clean](/intro-curriculum/Clean)
 -   04:15 pm - 04:30 pm -- End of day wrap-up
 
 **Day 2**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 10:15 am -- [Analyze: Base](/intro-curriculum/Analyze)
+-   08:30 am - 10:15 am -- [Explore](/intro-curriculum/Explore)
 -   10:15 am - 10:30 am -- *Break*
--   10:30 am - 12:00 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), dataRetrieval 
+-   10:30 am - 12:00 pm -- [Analyze: Base](/intro-curriculum/Analyze)
 -   12:00 pm - 01:00 pm -- *Lunch*
--   01:00 pm - 02:30 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
+-   01:00 pm - 02:30 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), dataRetrieval 
 -   02:30 pm - 02:45 pm -- *Break*
--   02:45 pm - 04:00 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/) continued
--   04:00 pm - 04:30 pm -- End of day wrap-up
+-   02:45 pm - 04:15 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
+-   04:15 pm - 04:30 pm -- End of day wrap-up
 
 **Day 3**
 
@@ -67,7 +67,7 @@ Andrew Yan (<ayan@usgs.gov>)
 
 ### Lesson scripts
 
-Instructors will be live coding during this course. Our code will be shared with you here at the end.
+[This zip file](https://drive.google.com/file/d/0B54YFPSk4XN8WVQwZm1rVV9JMXM) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
 
 ### smwrQW 
 
