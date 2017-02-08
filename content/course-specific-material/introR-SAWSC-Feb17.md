@@ -24,7 +24,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   12:00 am - 01:00 pm -- *Lunch*
 -   01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 -   03:00 pm - 03:15 pm -- *Break*
--   03:15 pm - 04:15 pm -- More \[Clean\]
+-   03:15 pm - 04:15 pm -- More [Clean](/intro-curriculum/Clean)
 -   04:15 pm - 04:30 pm -- End of day wrap-up
 
 **Day 2**
