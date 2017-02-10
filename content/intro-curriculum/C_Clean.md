@@ -460,12 +460,10 @@ We are going to talk about several different ways to do this. First, let's add s
 In this example, let's imagine we collected 3 new observations for water temperature and pH at the site "00000001". Notice that we did not collect anything for discharge or dissolved oxygen. What happens in the columns that don't match when the we bind the rows of these two data frames?
 
 ``` r
-#Let's first create a new small example data.frame
-new_data <- data.frame(site_no=rep("00000001", 3), 
-                       dateTime=c("2016-09-01 07:45:00", "2016-09-02 07:45:00", "2016-09-03 07:45:00"), 
-                       Wtemp=c(14.0, 16.4, 16.0),
-                       pH = c(7.8, 8.5, 8.3),
-                       stringsAsFactors = FALSE)
+#Let's first read in a new small example data.frame
+new_data <- read.csv(file = 'data/newData.csv', 
+                     stringsAsFactors = FALSE, 
+                     colClasses = c("character", rep(NA, 3)))
 head(new_data)
 ```
 
