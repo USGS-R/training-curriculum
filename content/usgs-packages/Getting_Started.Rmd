@@ -1,5 +1,6 @@
 ---
 title: "Getting Started"
+date: "9999-12-31"
 author: "Lindsay R. Carr"
 slug: "GettingStarted"
 image: "img/main/intro-icons-300px/r-logo.png"

@@ -1,5 +1,6 @@
 ---
 title: "dataRetrieval - data discovery"
+date: "9999-11-30"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-discovery"
 image: "img/main/intro-icons-300px/r-logo.png"
