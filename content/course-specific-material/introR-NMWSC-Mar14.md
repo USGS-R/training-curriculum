@@ -43,7 +43,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 -   08:00 am - 08:30 am -- Instructors available for questions
 -   08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
--   10:00 am - 12:00 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+-   10:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
