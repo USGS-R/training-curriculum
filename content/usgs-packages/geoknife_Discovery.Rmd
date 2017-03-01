@@ -1,0 +1,233 @@
+---
+title: "geoknife - accessible data"
+date: "9999-09-30"
+author: "Lindsay R. Carr"
+slug: "geoknife-data"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 2
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/geoknife-data/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+## Remote processing
+
+The USGS Geo Data Portal is designed to perform web-service processing on large gridded datasets. `geoknife` allows R users to take advantage of these services by processing large data, such as data available in the GDP catalog or a user-defined dataset, on the web. This type of workflow has three main advantages: 
+
+1. it allows the user to avoid downloading large datasets, 
+2. it avoids reinventing the wheel for the creation and optimization of complex geoprocessing algorithms, and 
+3. computing resources are dedicated elsewhere, so geoknife operations do not have much of an impact on a local computer.
+
+## geoknife components: fabric, stencil, knife
+
+The main components of a geoknife workflow are the fabric, stencil, and knife. These three components go into the final element, the geoknife "job" (geojob), which returns the processed data. The fabric is the gridded web dataset to be processed, the stencil is the feature of interest, and the knife is the processing algorithm parameters. Each of the `geoknife` components is created using a corresponding function: fabrics are created using `webdata()`, stencils are created using `webgeom()`, and knives are created using `webprocess()`. 
+
+This lesson will focus on discovering what options exist for each of those components. The next lesson will teach you how to construct each component and put it together to get the processed data. Before continuing this lesson, load the geoknife library (install if necessary).
+
+```{r load-geoknife}
+# load the geoknife package
+library(geoknife)
+```
+
+## Available webdata
+
+### GDP datasets
+
+To learn what data is available through GDP, you can explore the [online catalog](https://cida.usgs.gov/gdp/) or use the function `query`. Note that the access pattern for determining available fabrics differs slightly from stencils and knives. Running `query("webdata")` will return every dataset available through GDP:
+
+```{r load-webdata, message=FALSE, warning=FALSE}
+all_webdata <- query("webdata")
+head(all_webdata)
+length(all_webdata)
+```
+
+Notice that the object returned is a special `geoknife` class of `datagroup`. There are specific `geoknife` functions that only operate on an object of this class, see `?title` and `?abstract`. These two functions are used to extract metadata information about each of the available GDP datasets. With `r length(all_webdata)` datasets available, it is likely that reading through each to find ones that are of interest to you would be time consuming. You can use `grep` along with the accessor functions `title` and `abstract` to figure out which datasets you would like to use for processing. 
+
+Let's say that we were interested in evapotranspiration data. To search for which GDP datasets might contain evapotranspiration data, you can use the titles and abstracts.
+
+```{r grep-webdata, message=FALSE, warning=FALSE}
+# notice that you cannot perform a grep on all_webdata - it is because it is a special class
+# you need to perform pattern matching on vectors
+# grep("evapotranspiration", all_webdata)
+
+all_titles <- title(all_webdata)
+which_titles <- grep("evapotranspiration", all_titles)
+evap_titles <- all_titles[which_titles]
+head(evap_titles)
+
+all_abstracts <- abstract(all_webdata)
+which_abstracts <- grep("evapotranspiration", all_abstracts)
+evap_abstracts <- all_abstracts[which_abstracts]
+evap_abstracts[1]
+```
+
+`r length(unique(c(which_titles, which_abstracts)))` possible datasets to look through is a lot more manageable than `r length(all_webdata)`. Let's say the dataset titled "Yearly Conterminous U.S. actual evapotranspiration data" interested us enough to explore more. We have now identified a fabric of interest.
+
+We might want to know more about the dataset, such as what variables and time period is available. To actually create the fabric, you will need to use `webdata` and supply the appropriate datagroup object as the input. This should result in an object with a class of `webdata`. The following query and accessor functions will operate only on an object of class `webdata`.
+
+```{r create-fabric, message=FALSE, warning=FALSE}
+evap_fabric <- webdata(all_webdata["Yearly Conterminous U.S. actual evapotranspiration data"])
+class(evap_fabric)
+```
+
+Now that we have a defined fabric, we can explore what variables and time period are within that data. First, we use `query` to determine what variables exist. You'll notice that the accessor function `variable` returns NA. This is fine when you are just exploring available data; however, exploring avaialble times requires that the variable be defined. Thus, we need to set which variable from the dataset will be used. Then, we can explore times that are available in the data.
+
+```{r explore-fabric, message=FALSE, warning=FALSE}
+# no variables defined yet
+variables(evap_fabric)
+
+# find what variables are available
+query(evap_fabric, "variables")
+
+# trying to find available times before setting the variable results in an error
+# query(evap_fabric, "times")
+
+# only one variable, "et"
+variables(evap_fabric) <- "et"
+variables(evap_fabric)
+
+# now that the variable is set, we can explore available times
+query(evap_fabric, "times")
+```
+
+### Datasets not in GDP
+
+Any dataset available online that follows OPeNDAP protocol can be used with `geoknife`. These datasets can be found through web searches or other catalogs and require finding out the OPeNDAP endpoint (URL) for the dataset. This url is used as the input to the argument `url` in `webdata`. 
+
+We searched [NOAA's OPenDAP data catalog](https://opendap.co-ops.nos.noaa.gov/) and found this data from the Center for Operational Oceanographic Products and Services THREDDS server. It includes forecasts for water levels, water currents, water temperatures, and salinity levels for Delaware Bay. Since it is forecast data, the times associated with the data will change. To create a webdata object from this dataset, just use the OPeNDAP url. Then query variables and time as we did before.
+
+```{r create-fabric-NOAA, message=FALSE, warning=FALSE}
+DelBay_fabric <- webdata(url="http://opendap.co-ops.nos.noaa.gov/thredds/dodsC/DBOFS/fmrc/Aggregated_7_day_DBOFS_Fields_Forecast_best.ncd")
+query(DelBay_fabric, "variables")
+
+# need to set the variable(s) in order to query the times
+variables(DelBay_fabric) <- c("Vwind", "temp")
+query(DelBay_fabric, "times")
+```
+
+Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature. 
+
+```{r create-fabric-UNIWISC, message=FALSE, warning=FALSE}
+skinT_fabric <- webdata(url="http://thredds.ucar.edu/thredds/dodsC/satellite/SFC-T/SUPER-NATIONAL_1km")
+skinT_var <- query(skinT_fabric, "variables")
+
+# need to set the variable(s) in order to query the times
+variables(skinT_fabric) <- skinT_var
+query(skinT_fabric, "times") # your times might be different because this is forecast data
+```
+
+Both examples we've included here use aggregated data, meaning there is a different file for each year. Some data that you encounter might not be aggregated. In these cases, you will need to create more than one geojob and join data at the end.
+
+Now that we have explored options for our webdata, let's look at what options exist for geospatial features.
+
+## Available webgeoms
+
+The next component to `geonkife` jobs is the spatial extent of the data, a.k.a. the stencil. The stencil is defined by using either of the functions `simplegeom` or `webgeom`. `simplegeom` is used to explicitly define an area by the user, but `webgeom` is used to specify an existing web feature service (WFS) as the geospatial extent. Defining your stencil using `simplegeom` will be covered in the next lesson. This lesson will just show how to learn what available webgeoms exist. Users can use any WFS url to create their stencil, but there are a number of features that exist through GDP already. To determine what features exist, you can create a default webgeom object and then query its geom name, attributes, and values. This will return all available GDP default features.
+
+```{r create-stencil, message=FALSE, warning=FALSE}
+# setup a default stencil by using webgeom and not supplying any arguments
+default_stencil <- webgeom()
+
+# now determine what geoms are available with the default
+default_geoms <- query(default_stencil, "geoms")
+length(default_geoms)
+head(default_geoms)
+```
+
+You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. See the table below for definitions of the categories. These category-name combinations are the strings you would use to define your geom.
+
+```{r cateogry-table, eval=TRUE, echo=FALSE, message=FALSE}
+Category <- c("upload", "sample", "draw", "derivative")
+Description <- c(
+  "upload",
+  "sample",
+  "draw",
+  "derivative"
+)
+
+library(htmlTable)
+htmlTable(data.frame(Category, Description),
+          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+```
+
+Similar to fabrics where you could not query times without setting the variables, you cannot query attributes of stencils before defining the geoms. Likewise, you cannot query for values of a stencil until you have set the attributes. Attributes give the metadata associated with the stencil and it's geom. Values tell you the individual spatial features available in that attribute of the geom. 
+
+```{r explore-stencil, message=FALSE, warning=FALSE}
+# add a geom to see what values are available
+geom(default_stencil)
+geom(default_stencil) <- "sample:CONUS_states"
+
+# now that geom is set, you can query for available attributes
+query(default_stencil, "attributes")
+attribute(default_stencil) <- "STATE"
+
+# now that attribute is set, you can query for available values
+STATE_values <- query(default_stencil, "values")
+head(STATE_values)
+
+# switch the stencil to see the differences
+ecoreg_stencil <- default_stencil
+geom(ecoreg_stencil) <- "sample:Ecoregions_Level_III"
+query(ecoreg_stencil, "attributes")
+attribute(ecoreg_stencil) <- "LEVEL3_NAM"
+ecoreg_values <- query(ecoreg_stencil, "values")
+head(ecoreg_values)
+```
+
+There are some built-in templates that allow stencils to be defined more specifically. Currently, the package only supports US States, Level III Ecoregions, or HUC8s.
+
+```{r template-stencils, message=FALSE, warning=FALSE}
+# creating geoms from the available templates
+webgeom('state::Wisconsin')
+webgeom('state::Wisconsin,Maine') # multiple states separated by comma
+webgeom('HUC8::09020306,14060009') # multiple HUCs separated by comma
+webgeom('ecoregion::Colorado Plateaus,Driftless Area') # multiple regions separated by comma
+```
+
+## Available webprocesses
+
+The final component to a geojob is the process algorithm used to aggregate the data across the defined stencil. Web process algorithms can be defined by the user, but let's explore the defaults available through GDP.
+
+```{r create-knife, message=FALSE, warning=FALSE}
+# setup a default knife by using webprocess and not supplying any arguments
+default_knife <- webprocess()
+
+# now determine what web processing algorithms are available with the default
+default_algorithms <- query(default_knife, 'algorithms')
+length(default_algorithms)
+head(default_algorithms)
+```
+
+From this list, you can define which algorithm you would like the webprocess component to use. For example, we want our data to be returned as the unweighted average across each geospatial feature, so we need to use "Area Grid Statistics (weighted)".
+
+```{r add-algorithm, message=FALSE, warning=FALSE}
+# algorithm actually has a default of the weighted average
+algorithm(default_knife)
+
+# change the algorithm to unweighted
+algorithm(default_knife) <- default_algorithms['Area Grid Statistics (unweighted)']
+algorithm(default_knife)
+```
+
+Now that we can explore all of our options, we will learn how to construct each component and execute a geojob in the next lesson.
