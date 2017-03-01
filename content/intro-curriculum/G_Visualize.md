@@ -123,9 +123,9 @@ polygon(x=c(2,3,4), y=c(2,6,2), col="lightgreen", border=NA)
 Exercise 1
 ----------
 
-1.  Create two different data frames from `intro_df` with dissolved oxygen and water temperature data for two sites.
+1.  Pick two different sites from `intro_df` and create two separate data frames (hint: use `unique()` to figure out which sites you want).
 
-2.  Using the base R plotting features just discussed, plot a dissolved oxygen vs water temperature for two different sites. Show the different sites in different colors, linetypes, or linewidths. Include a legend.
+2.  Using the base R plotting features just discussed, create a scatter plot of dissolved oxygen vs water temperature for the two sites. Show the sites in different colors, point types, and/or point sizes. Include a legend.
 
 3.  Challenge: add points to show the maximum dissolved oxygen for each timeseries. Hint: use `arrange()` from dplyr. You might notice that you cannot see your second site's maximum point. This is because the plot is scaled to the first data that was added. We will learn how to adjust axes in the next section.
 
