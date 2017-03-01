@@ -519,46 +519,44 @@ Notice that the `left_join` kept only the matching rows (September 1-3), but kep
 Exercise 2
 ----------
 
-In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below).
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below). First, we need to create the two subsets and will do this by selecting random rows using the `dplyr` function `sample_n`. In order to select the same random rows (so that the class is on the same page), use `set.seed`.
 
 ``` r
-# could use sample_n() to select random rows, but we want everyone in the class to have the same values
-# e.g. sample_n(intro_df, size=20)
+# specify what the seed will be
+set.seed(92)
 
-#subset intro_df
-rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357, 
-               1290, 225, 479, 1678, 274, 1816, 418, 1777, 611, 2993)
-intro_df_subset <- intro_df[rows2keep,]
+#subset intro_df and 
+intro_df_subset <- sample_n(intro_df, size=20)
 
-# keep only flow for one dataframe
+#keep only the flow values
 Q <- select(intro_df_subset, site_no, dateTime, Flow)
 
-# select 8 values and only keep DO for second dataframe
-DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
+# select 8 random rows and only keep DO for second dataframe
+DO <- sample_n(intro_df_subset, size=8)
 DO <- select(DO, site_no, dateTime, DO)
 
 head(Q)
 ```
 
-    ##       site_no            dateTime   Flow
-    ## 1634 02337170 2011-05-08 08:30:00 1780.0
-    ## 1123 02337170 2011-05-20 13:00:00 2520.0
-    ## NA       <NA>                <NA>     NA
-    ## 1052 02336526 2011-05-17 18:15:00    3.8
-    ## NA.1     <NA>                <NA>     NA
-    ## 1431 02203655 2011-05-23 22:45:00    8.2
+    ##       site_no            dateTime Flow
+    ## 136  02336240 2011-05-12 09:15:00 11.0
+    ## 1255 02336410 2011-05-09 06:45:00 21.0
+    ## 603  02336240 2011-05-22 19:45:00  8.9
+    ## 1256 02203655 2011-05-29 22:00:00 11.0
+    ## 1604 02203700 2011-05-08 06:45:00  5.1
+    ## 1622 02336526 2011-05-04 00:30:00 67.0
 
 ``` r
 head(DO)
 ```
 
     ##       site_no            dateTime   DO
-    ## 1634 02337170 2011-05-08 08:30:00   NA
-    ## NA.1     <NA>                <NA>   NA
-    ## NA.2     <NA>                <NA>   NA
-    ## NA.3     <NA>                <NA>   NA
-    ## 225  02336526 2011-05-24 22:45:00 11.9
-    ## 1816 02203655 2011-05-03 21:00:00  6.7
+    ## 1622 02336526 2011-05-04 00:30:00  8.1
+    ## 229  02336300 2011-05-16 18:30:00  9.0
+    ## 931  02203700 2011-05-12 21:30:00 10.0
+    ## 603  02336240 2011-05-22 19:45:00  9.6
+    ## 741  02336360 2011-05-27 01:30:00  6.8
+    ## 766  02336410 2011-05-05 22:45:00  8.8
 
 1.  Run the lines above to create the two data frames we will be working with.
 2.  Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.
@@ -704,12 +702,12 @@ head(intro_df_2DO)
     ## 5 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40
     ## 6 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72
     ##        DO_2
-    ## 1  7.184540
-    ## 2 15.497713
-    ## 3 10.004251
-    ## 4  9.260546
-    ## 5 12.827309
-    ## 6 12.857123
+    ## 1 15.924595
+    ## 2 12.440042
+    ## 3  6.694560
+    ## 4  8.650017
+    ## 5 12.001031
+    ## 6 13.713988
 
 Now, let's use `rowwise` to find the maximum dissolved oxygen for each observation.
 
@@ -725,12 +723,12 @@ head(mutate(intro_df_2DO, max_DO = max(DO, DO_2)))
     ## 5 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40
     ## 6 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72
     ##        DO_2 max_DO
-    ## 1  7.184540     NA
-    ## 2 15.497713     NA
-    ## 3 10.004251     NA
-    ## 4  9.260546     NA
-    ## 5 12.827309     NA
-    ## 6 12.857123     NA
+    ## 1 15.924595     NA
+    ## 2 12.440042     NA
+    ## 3  6.694560     NA
+    ## 4  8.650017     NA
+    ## 5 12.001031     NA
+    ## 6 13.713988     NA
 
 The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function.
 

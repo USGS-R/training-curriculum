@@ -270,22 +270,20 @@ Notice that the `left_join` kept only the matching rows (September 1-3), but kep
 ```
 
 ##Exercise 2
-In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below).
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below). First, we need to create the two subsets and will do this by selecting random rows using the `dplyr` function `sample_n`. In order to select the same random rows (so that the class is on the same page), use `set.seed`. 
 
 ```{r exercise2, warning=FALSE, message=FALSE}
-# could use sample_n() to select random rows, but we want everyone in the class to have the same values
-# e.g. sample_n(intro_df, size=20)
+# specify what the seed will be
+set.seed(92)
 
-#subset intro_df
-rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357, 
-               1290, 225, 479, 1678, 274, 1816, 418, 1777, 611, 2993)
-intro_df_subset <- intro_df[rows2keep,]
+#subset intro_df and 
+intro_df_subset <- sample_n(intro_df, size=20)
 
-# keep only flow for one dataframe
+#keep only the flow values
 Q <- select(intro_df_subset, site_no, dateTime, Flow)
 
-# select 8 values and only keep DO for second dataframe
-DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
+# select 8 random rows and only keep DO for second dataframe
+DO <- sample_n(intro_df_subset, size=8)
 DO <- select(DO, site_no, dateTime, DO)
 
 head(Q)
