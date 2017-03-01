@@ -40,7 +40,6 @@ intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE,
 ##Quick Links to Exercises and R code
 - [Exercise 1](#exercise-1): Subsetting data with `dplyr`.
 - [Exercise 2](#exercise-2): Merging two data frames together.
-- [Exercise 3](#exercise-3): Using `dplyr` to modify and summarize data.
 
 
 ##Lesson Goals
@@ -296,31 +295,7 @@ head(DO)
 3. Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
 4. If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
 
-##Modify and Summarize
-One area where `dplyr` really shines is in modifying and summarizing. First, we'll look at an example of grouping a data frame and summarizing the data within those groups. We do this with `group_by()` and  `summarize()`. You won't notice much of change between this new data frame and the original because `group_by` is changing the class of the data frame so that `dplyr` handles it appropriately in the next function. Let's look at the average discharge and water temperature by site.
-
-
-```{r group_by_examp, warning=FALSE, message=FALSE}
-class(intro_df)
-
-# Group the data frame
-intro_df_grouped <- group_by(intro_df, site_no)
-class(intro_df_grouped)
-```
-
-Now we can summarize the data frame by the groups established previously.
-
-```{r summarize_examp_NA, warning=FALSE, message=FALSE}
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow), mean(Wtemp))
-intro_df_summary
-```
-
-Notice that this summary just returns NAs. We need the mean calculations to ignore the NA values. We could remove the NAs using `filter()` and then pass that data.frame into `summarize`, or we can tell the mean function to ignore the NAs using the argument `na.rm=TRUE` in the `mean` function. See `?mean` to learn more about this argument.
-
-```{r summarize_examp, warning=FALSE, message=FALSE}
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow, na.rm=TRUE), mean(Wtemp, na.rm=TRUE))
-intro_df_summary
-```
+## Additional functions
 
 There are many other functions in `dplyr` that are useful. Let's run through some examples with `arrange()` and `slice()`.
 
@@ -342,43 +317,4 @@ Now `slice()`, which accomplishes what we did with the numeric indices before. R
 slice(intro_df, 3:10)
 ```
 
-Lastly, one more function, `rowwise()`, allows us to run rowwise, operations. Let's say we had two dissolved oxygen columns, and we only wanted to keep the maximum value out of the two for each observation. This can easily be accomplished using`rowwise`. First, add a new dissolved oxygen column with random values (see `?runif`). 
-
-```{r add_do_random, warning=FALSE, message=FALSE}
-intro_df_2DO <- mutate(intro_df, DO_2 = runif(n=nrow(intro_df), min = 5.0, max = 18.0))
-head(intro_df_2DO)
-```
-
-Now, let's use `rowwise` to find the maximum dissolved oxygen for each observation.
-
-```{r no_rowwise_examp, warning=FALSE, message=FALSE}
-head(mutate(intro_df_2DO, max_DO = max(DO, DO_2)))
-```
-
-The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function. 
-
-```{r rowwise_examp, warning=FALSE, message=FALSE}
-class(intro_df_2DO)
-
-intro_df_2DO_byrow <- rowwise(intro_df_2DO)
-class(intro_df_2DO_byrow)
-
-#Add a column that gives max DO
-intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO, DO_2))
-head(intro_df_DO_max)
-```
-
 We now have quite a few tools that we can use to clean and manipulate data in R.  We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on. 
-
-Let's practice some of these last functions.
-
-```{r Exercise3, echo=FALSE}
-```
-
-##Exercise 3
-
-Next, we're going to practice summarizing large datasets (using `intro_df`). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done. 
-
-1. Create a new data.frame that gives the maximum water temperature (`Wtemp`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
-
-2. Next, create a new data.frame that gives the average water temperature (`Wtemp`) for each pH value and name it `intro_df_mean_pH_temp`. 
