@@ -23,7 +23,6 @@ Quick Links to Exercises and R code
 
 -   [Exercise 1](#exercise-1): Subsetting data with `dplyr`.
 -   [Exercise 2](#exercise-2): Merging two data frames together.
--   [Exercise 3](#exercise-3): Using `dplyr` to modify and summarize data.
 
 Lesson Goals
 ------------
@@ -519,46 +518,44 @@ Notice that the `left_join` kept only the matching rows (September 1-3), but kep
 Exercise 2
 ----------
 
-In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below).
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below). First, we need to create the two subsets and will do this by selecting random rows using the `dplyr` function `sample_n`. In order to select the same random rows (so that the class is on the same page), use `set.seed`.
 
 ``` r
-# could use sample_n() to select random rows, but we want everyone in the class to have the same values
-# e.g. sample_n(intro_df, size=20)
+# specify what the seed will be
+set.seed(92)
 
-#subset intro_df
-rows2keep <- c(1634, 1123, 2970, 1052, 2527, 1431, 2437, 1877, 2718, 2357, 
-               1290, 225, 479, 1678, 274, 1816, 418, 1777, 611, 2993)
-intro_df_subset <- intro_df[rows2keep,]
+#subset intro_df and 
+intro_df_subset <- sample_n(intro_df, size=20)
 
-# keep only flow for one dataframe
+#keep only the flow values
 Q <- select(intro_df_subset, site_no, dateTime, Flow)
 
-# select 8 values and only keep DO for second dataframe
-DO <- intro_df_subset[c(1, 5, 7, 9, 12, 16, 17, 19),]
+# select 8 random rows and only keep DO for second dataframe
+DO <- sample_n(intro_df_subset, size=8)
 DO <- select(DO, site_no, dateTime, DO)
 
 head(Q)
 ```
 
-    ##       site_no            dateTime   Flow
-    ## 1634 02337170 2011-05-08 08:30:00 1780.0
-    ## 1123 02337170 2011-05-20 13:00:00 2520.0
-    ## NA       <NA>                <NA>     NA
-    ## 1052 02336526 2011-05-17 18:15:00    3.8
-    ## NA.1     <NA>                <NA>     NA
-    ## 1431 02203655 2011-05-23 22:45:00    8.2
+    ##       site_no            dateTime Flow
+    ## 136  02336240 2011-05-12 09:15:00 11.0
+    ## 1255 02336410 2011-05-09 06:45:00 21.0
+    ## 603  02336240 2011-05-22 19:45:00  8.9
+    ## 1256 02203655 2011-05-29 22:00:00 11.0
+    ## 1604 02203700 2011-05-08 06:45:00  5.1
+    ## 1622 02336526 2011-05-04 00:30:00 67.0
 
 ``` r
 head(DO)
 ```
 
     ##       site_no            dateTime   DO
-    ## 1634 02337170 2011-05-08 08:30:00   NA
-    ## NA.1     <NA>                <NA>   NA
-    ## NA.2     <NA>                <NA>   NA
-    ## NA.3     <NA>                <NA>   NA
-    ## 225  02336526 2011-05-24 22:45:00 11.9
-    ## 1816 02203655 2011-05-03 21:00:00  6.7
+    ## 1622 02336526 2011-05-04 00:30:00  8.1
+    ## 229  02336300 2011-05-16 18:30:00  9.0
+    ## 931  02203700 2011-05-12 21:30:00 10.0
+    ## 603  02336240 2011-05-22 19:45:00  9.6
+    ## 741  02336360 2011-05-27 01:30:00  6.8
+    ## 766  02336410 2011-05-05 22:45:00  8.8
 
 1.  Run the lines above to create the two data frames we will be working with.
 2.  Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.
@@ -566,68 +563,8 @@ head(DO)
 4.  Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
 5.  If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
 
-Modify and Summarize
+Additional functions
 --------------------
-
-One area where `dplyr` really shines is in modifying and summarizing. First, we'll look at an example of grouping a data frame and summarizing the data within those groups. We do this with `group_by()` and `summarize()`. You won't notice much of change between this new data frame and the original because `group_by` is changing the class of the data frame so that `dplyr` handles it appropriately in the next function. Let's look at the average discharge and water temperature by site.
-
-``` r
-class(intro_df)
-```
-
-    ## [1] "data.frame"
-
-``` r
-# Group the data frame
-intro_df_grouped <- group_by(intro_df, site_no)
-class(intro_df_grouped)
-```
-
-    ## [1] "grouped_df" "tbl_df"     "tbl"        "data.frame"
-
-Now we can summarize the data frame by the groups established previously.
-
-``` r
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow), mean(Wtemp))
-intro_df_summary
-```
-
-    ## # A tibble: 11 × 3
-    ##     site_no `mean(Flow)` `mean(Wtemp)`
-    ##       <chr>        <dbl>         <dbl>
-    ## 1  02203655   18.4972028            NA
-    ## 2  02203700    6.3183908            NA
-    ## 3  02336120   35.7286364            NA
-    ## 4  02336240   58.5893048            NA
-    ## 5  02336300   32.0000000            NA
-    ## 6  02336313    0.9964894            NA
-    ## 7  02336360   21.1109290            NA
-    ## 8  02336410   28.6847826            NA
-    ## 9  02336526   21.0222727            NA
-    ## 10 02336728   33.8584615            NA
-    ## 11 02337170 3318.2926829            NA
-
-Notice that this summary just returns NAs. We need the mean calculations to ignore the NA values. We could remove the NAs using `filter()` and then pass that data.frame into `summarize`, or we can tell the mean function to ignore the NAs using the argument `na.rm=TRUE` in the `mean` function. See `?mean` to learn more about this argument.
-
-``` r
-intro_df_summary <- summarize(intro_df_grouped, mean(Flow, na.rm=TRUE), mean(Wtemp, na.rm=TRUE))
-intro_df_summary
-```
-
-    ## # A tibble: 11 × 3
-    ##     site_no `mean(Flow, na.rm = TRUE)` `mean(Wtemp, na.rm = TRUE)`
-    ##       <chr>                      <dbl>                       <dbl>
-    ## 1  02203655                 18.4972028                    20.11838
-    ## 2  02203700                  6.3183908                    20.25210
-    ## 3  02336120                 35.7286364                    20.52269
-    ## 4  02336240                 58.5893048                    20.17676
-    ## 5  02336300                 32.0000000                    20.59597
-    ## 6  02336313                  0.9964894                    20.86133
-    ## 7  02336360                 21.1109290                    21.14540
-    ## 8  02336410                 28.6847826                    20.58136
-    ## 9  02336526                 21.0222727                    20.67850
-    ## 10 02336728                 33.8584615                    21.17165
-    ## 11 02337170               3318.2926829                    18.05253
 
 There are many other functions in `dplyr` that are useful. Let's run through some examples with `arrange()` and `slice()`.
 
@@ -689,90 +626,4 @@ slice(intro_df, 3:10)
     ## 7 02336526 2011-05-11 11:30:00    4.0       A  20.8 7.0  6.6   69.44
     ## 8 02336410 2011-05-10 04:15:00   19.0       A  21.5 7.0  7.2   70.70
 
-Lastly, one more function, `rowwise()`, allows us to run rowwise, operations. Let's say we had two dissolved oxygen columns, and we only wanted to keep the maximum value out of the two for each observation. This can easily be accomplished using`rowwise`. First, add a new dissolved oxygen column with random values (see `?runif`).
-
-``` r
-intro_df_2DO <- mutate(intro_df, DO_2 = runif(n=nrow(intro_df), min = 5.0, max = 18.0))
-head(intro_df_2DO)
-```
-
-    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
-    ## 1 02203700 2011-05-20 16:45:00  4.0     A e    NA 7.0 8.6      NA
-    ## 2 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9   71.24
-    ## 3 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6   69.08
-    ## 4 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3   66.74
-    ## 5 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40
-    ## 6 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72
-    ##        DO_2
-    ## 1  7.184540
-    ## 2 15.497713
-    ## 3 10.004251
-    ## 4  9.260546
-    ## 5 12.827309
-    ## 6 12.857123
-
-Now, let's use `rowwise` to find the maximum dissolved oxygen for each observation.
-
-``` r
-head(mutate(intro_df_2DO, max_DO = max(DO, DO_2)))
-```
-
-    ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
-    ## 1 02203700 2011-05-20 16:45:00  4.0     A e    NA 7.0 8.6      NA
-    ## 2 02336410 2011-05-28 08:15:00 35.0       A  21.8 6.9 6.9   71.24
-    ## 3 02203655 2011-05-22 09:30:00  7.8       A  20.6 7.0 6.6   69.08
-    ## 4 02336313 2011-05-22 12:00:00  1.3       A  19.3 7.2 7.3   66.74
-    ## 5 02203700 2011-05-09 10:30:00  4.9       A  18.0 7.2 4.4   64.40
-    ## 6 02336313 2011-05-13 12:15:00  1.0       A  20.4 7.2 7.1   68.72
-    ##        DO_2 max_DO
-    ## 1  7.184540     NA
-    ## 2 15.497713     NA
-    ## 3 10.004251     NA
-    ## 4  9.260546     NA
-    ## 5 12.827309     NA
-    ## 6 12.857123     NA
-
-The max is always NA because it is treating the arguments as vectors. It would be similar to running `max(intro_df_2DO$Flow, intro_df_2DO$DO_2)`. So we need to group by row. `rowwise()`, like `group_by` will only change the class of the data frame in preparation for the next `dplyr` function.
-
-``` r
-class(intro_df_2DO)
-```
-
-    ## [1] "data.frame"
-
-``` r
-intro_df_2DO_byrow <- rowwise(intro_df_2DO)
-class(intro_df_2DO_byrow)
-```
-
-    ## [1] "rowwise_df" "tbl_df"     "tbl"        "data.frame"
-
-``` r
-#Add a column that gives max DO
-intro_df_DO_max <- mutate(intro_df_2DO_byrow, max_DO = max(DO, DO_2))
-head(intro_df_DO_max)
-```
-
-    ## # A tibble: 6 × 10
-    ##    site_no            dateTime  Flow Flow_cd Wtemp    pH    DO Wtemp_F
-    ##      <chr>               <chr> <dbl>   <chr> <dbl> <dbl> <dbl>   <dbl>
-    ## 1 02203700 2011-05-20 16:45:00   4.0     A e    NA   7.0   8.6      NA
-    ## 2 02336410 2011-05-28 08:15:00  35.0       A  21.8   6.9   6.9   71.24
-    ## 3 02203655 2011-05-22 09:30:00   7.8       A  20.6   7.0   6.6   69.08
-    ## 4 02336313 2011-05-22 12:00:00   1.3       A  19.3   7.2   7.3   66.74
-    ## 5 02203700 2011-05-09 10:30:00   4.9       A  18.0   7.2   4.4   64.40
-    ## 6 02336313 2011-05-13 12:15:00   1.0       A  20.4   7.2   7.1   68.72
-    ## # ... with 2 more variables: DO_2 <dbl>, max_DO <dbl>
-
 We now have quite a few tools that we can use to clean and manipulate data in R. We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on.
-
-Let's practice some of these last functions.
-
-Exercise 3
-----------
-
-Next, we're going to practice summarizing large datasets (using `intro_df`). If you complete a step and notice that your neighbor has not, see if you can answer any questions to help them get it done.
-
-1.  Create a new data.frame that gives the maximum water temperature (`Wtemp`) for each site and name it `intro_df_max_site_temp`. Hint: don't forget about `group_by()`, and use `na.rm=TRUE` in statistics functions!
-
-2.  Next, create a new data.frame that gives the average water temperature (`Wtemp`) for each pH value and name it `intro_df_mean_pH_temp`.
