@@ -79,14 +79,14 @@ length(all_webdata)
 
     ## [1] 173
 
-Notice that the object returned is a special `geoknife` class of `datagroup`. There are specific `geoknife` functions that only operate on an object of this class, see `?title` and `?abstract`. These two functions are used to extract metadata information about each of the available GDP datasets. With 173 datasets available, it is likely that reading through each to find ones that are of interest to you would be time consuming. You can use `grep` along with the accessor functions `title` and `abstract` to figure out which datasets you would like to use for processing.
+Notice that the object returned is a special `geoknife` class of `datagroup`. There are specific `geoknife` functions that only operate on an object of this class, see `?title` and `?abstract`. These two functions are used to extract metadata information about each of the available GDP datasets. With 173 datasets available, it is likely that reading through each to find ones that are of interest to you would be time consuming. You can use `grep` along with the functions `title` and `abstract` to figure out which datasets you would like to use for processing.
 
 Let's say that we were interested in evapotranspiration data. To search for which GDP datasets might contain evapotranspiration data, you can use the titles and abstracts.
 
 ``` r
 # notice that you cannot perform a grep on all_webdata - it is because it is a special class
+# `grep("evapotranspiration", all_webdata)` will fail
 # you need to perform pattern matching on vectors
-# grep("evapotranspiration", all_webdata)
 
 all_titles <- title(all_webdata)
 which_titles <- grep("evapotranspiration", all_titles)
@@ -108,7 +108,7 @@ evap_abstracts[1]
 
 10 possible datasets to look through is a lot more manageable than 173. Let's say the dataset titled "Yearly Conterminous U.S. actual evapotranspiration data" interested us enough to explore more. We have now identified a fabric of interest.
 
-We might want to know more about the dataset, such as what variables and time period is available. To actually create the fabric, you will need to use `webdata` and supply the appropriate datagroup object as the input. This should result in an object with a class of `webdata`. The following query and accessor functions will operate only on an object of class `webdata`.
+We might want to know more about the dataset, such as what variables and time periods are available. To actually create the fabric, you will need to use `webdata` and supply the appropriate datagroup object as the input. This should result in an object with a class of `webdata`. The following functions will operate only on an object of class `webdata`.
 
 ``` r
 evap_fabric <- webdata(all_webdata["Yearly Conterminous U.S. actual evapotranspiration data"])
@@ -119,7 +119,7 @@ class(evap_fabric)
     ## attr(,"package")
     ## [1] "geoknife"
 
-Now that we have a defined fabric, we can explore what variables and time period are within that data. First, we use `query` to determine what variables exist. You'll notice that the accessor function `variable` returns NA. This is fine when you are just exploring available data; however, exploring avaialble times requires that the variable be defined. Thus, we need to set which variable from the dataset will be used. Then, we can explore times that are available in the data.
+Now that we have a defined fabric, we can explore what variables and time period are within that data. First, we use `query` to determine what variables exist. You'll notice that the function `variable` returns NA. This is fine when you are just exploring available data; however, exploring available times requires that the variable be defined. Thus, we need to set which variable from the dataset will be used. Then, we can explore times that are available in the data.
 
 ``` r
 # no variables defined yet
@@ -137,7 +137,7 @@ query(evap_fabric, "variables")
 
 ``` r
 # trying to find available times before setting the variable results in an error
-# query(evap_fabric, "times")
+# `query(evap_fabric, "times")` will fail
 
 # only one variable, "et"
 variables(evap_fabric) <- "et"
@@ -155,7 +155,7 @@ query(evap_fabric, "times")
 
 ### Datasets not in GDP
 
-Any dataset available online that follows OPeNDAP protocol can be used with `geoknife`. These datasets can be found through web searches or other catalogs and require finding out the OPeNDAP endpoint (URL) for the dataset. This url is used as the input to the argument `url` in `webdata`.
+Any gridded dataset available online that follows OPeNDAP protocol and some additional conventions can be used with `geoknife`. These datasets can be found through web searches or other catalogs and require finding out the OPeNDAP endpoint (URL) for the dataset. This url is used as the input to the argument `url` in `webdata`. Please see the [Custom Dataset Use Guidelines documentation](https://my.usgs.gov/confluence/display/GeoDataPortal/Custom+Dataset+Use+Guidlines) for more information about compatibility, or contact the GDP development team (<gdp@usgs.gov>).
 
 We searched [NOAA's OPenDAP data catalog](https://opendap.co-ops.nos.noaa.gov/) and found this data from the Center for Operational Oceanographic Products and Services THREDDS server. It includes forecasts for water levels, water currents, water temperatures, and salinity levels for Delaware Bay. Since it is forecast data, the times associated with the data will change. To create a webdata object from this dataset, just use the OPeNDAP url. Then query variables and time as we did before.
 
@@ -173,7 +173,7 @@ variables(DelBay_fabric) <- c("Vwind", "temp")
 query(DelBay_fabric, "times")
 ```
 
-    ## [1] "2017-02-23 UTC" "2017-03-03 UTC"
+    ## [1] "2017-02-28 UTC" "2017-03-08 UTC"
 
 Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature.
 
@@ -186,9 +186,9 @@ variables(skinT_fabric) <- skinT_var
 query(skinT_fabric, "times") # your times might be different because this is forecast data
 ```
 
-    ## [1] "2017-01-31 UTC" "2017-03-01 UTC"
+    ## [1] "2017-02-05 UTC" "2017-03-06 UTC"
 
-Both examples we've included here use aggregated data, meaning there is a different file for each year. Some data that you encounter might not be aggregated. In these cases, you will need to create more than one geojob and join data at the end.
+Both examples we've included here use aggregated data, meaning there is a single URL for all the data of this type on the server. Some data that you encounter might be non-aggregated, meaning there are multiple URLs to access the same data. In these cases, you will need to create more than one geojob and join data at the end.
 
 Now that we have explored options for our webdata, let's look at what options exist for geospatial features.
 
@@ -206,7 +206,7 @@ default_geoms <- query(default_stencil, "geoms")
 length(default_geoms)
 ```
 
-    ## [1] 68
+    ## [1] 59
 
 ``` r
 head(default_geoms)
@@ -215,54 +215,8 @@ head(default_geoms)
     ## [1] "upload:AZ"          "sample:Alaska"      "upload:Arizona"    
     ## [4] "upload:Arizona05"   "upload:ArizonaGrid" "upload:Bluff_Creek"
 
-You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. See the table below for definitions of the categories. These category-name combinations are the strings you would use to define your geom.
+You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. The ones you should be familiar with are `sample` and `upload`. Additionally, `webgeom` can accept a URL that points directly to a WFS. `sample` are any geoms that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**.
 
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Category
-</th>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-upload
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-upload
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-sample
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-sample
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-draw
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-draw
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-derivative
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-derivative
-</td>
-</tr>
-</tbody>
-</table>
 Similar to fabrics where you could not query times without setting the variables, you cannot query attributes of stencils before defining the geoms. Likewise, you cannot query for values of a stencil until you have set the attributes. Attributes give the metadata associated with the stencil and it's geom. Values tell you the individual spatial features available in that attribute of the geom.
 
 ``` r
@@ -311,7 +265,15 @@ head(ecoreg_values)
     ## [3] "Alaska Range"                 "Aleutian Islands"            
     ## [5] "Arctic Coastal Plain"         "Arctic Foothills"
 
-There are some built-in templates that allow stencils to be defined more specifically. Currently, the package only supports US States, Level III Ecoregions, or HUC8s.
+``` r
+# now set the values to the Driftless Area and Blue Ridge ecoregions
+values(ecoreg_stencil) <- ecoreg_values[c(12, 33)]
+values(ecoreg_stencil)
+```
+
+    ## [1] "Blue Ridge"     "Driftless Area"
+
+There are some built-in templates that allow stencils to be defined more specifically. Currently, the package only supports US States, Level III Ecoregions, or HUC8s. These are shortcuts to setting the geom, then attribute, and then values.
 
 ``` r
 # creating geoms from the available templates
@@ -396,7 +358,7 @@ head(default_algorithms)
     ## $`WCS Subset`
     ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureCoverageIntersectionAlgorithm"
 
-From this list, you can define which algorithm you would like the webprocess component to use. For example, we want our data to be returned as the unweighted average across each geospatial feature, so we need to use "Area Grid Statistics (weighted)".
+From this list, you can define which algorithm you would like the webprocess component to use. Definitions of each of the default algorithms can be found in the Geo Data Portal Algorithm Summaries section of the [home page for GDP documentation](https://my.usgs.gov/confluence/display/GeoDataPortal/GDP+Home). For example, we want to use the OPeNDAP subsetting algorithm, "OPeNDAP Subset".
 
 ``` r
 # algorithm actually has a default of the weighted average
@@ -407,12 +369,12 @@ algorithm(default_knife)
     ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureWeightedGridStatisticsAlgorithm"
 
 ``` r
-# change the algorithm to unweighted
-algorithm(default_knife) <- default_algorithms['Area Grid Statistics (unweighted)']
+# change the algorithm to OPeNDAP's subset
+algorithm(default_knife) <- default_algorithms['OPeNDAP Subset']
 algorithm(default_knife)
 ```
 
-    ## $`Area Grid Statistics (unweighted)`
-    ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureGridStatisticsAlgorithm"
+    ## $`OPeNDAP Subset`
+    ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureTimeSeriesAlgorithm"
 
 Now that we can explore all of our options, we will learn how to construct each component and execute a geojob in the next lesson.
