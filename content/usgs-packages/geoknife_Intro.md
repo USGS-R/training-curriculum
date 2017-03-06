@@ -1,0 +1,38 @@
+---
+author: Lindsay R. Carr
+date: 9999-10-01
+slug: geoknife-intro
+title: geoknife - Introduction
+image: img/main/intro-icons-300px/r-logo.png
+identifier: 
+menu:
+  main:
+    parent: Introduction to USGS R Packages
+    weight: 2
+draft: true
+---
+Lesson Summary
+--------------
+
+This lesson will explore how to find and download large gridded datasets via the R package `geoknife`. The package was created to allow easy access to data stored in the [Geo Data Portal (GDP)](https://cida.usgs.gov/gdp/), or any gridded dataset available through the [OPeNDAP](https://www.opendap.org/) protocol DAP2. `geoknife` refers to the gridded dataset as the `fabric`, the spatial feature of interest as the `stencil`, and the subset algorithm parameters as the `knife` (see below).
+
+![geoknife terminology figure](../static/img/geoknife_summary.png "figure illustrating definitions of fabric, stencil, and knife")
+
+Lesson Objectives
+-----------------
+
+Explore and query large gridded datasets for efficient and reproducible large-scale analyses.
+
+By the end of this lesson, the learner will be able to:
+
+1.  Explain the differences between remote and local processing.
+2.  Differentiate the three main concepts of this package: fabric, stencil, and knife.
+3.  Use this package to retrieve pre-processed data from the Geo Data Portal (GDP) via geoknife.
+
+Lesson Resources
+----------------
+
+-   Publication: [geoknife: reproducible web-processing of large gridded datasets](http://onlinelibrary.wiley.com/doi/10.1111/ecog.01880/abstract)
+-   Tutorial (vignette): [geoknife vignette](https://cran.r-project.org/web/packages/geoknife/vignettes/geoknife.html)
+-   Source code: [geoknife on GitHub](https://github.com/USGS-R/geoknife)
+-   Report a bug or suggest a feature: [geoknife issues on GitHub](https://github.com/USGS-R/geoknife/issues)
