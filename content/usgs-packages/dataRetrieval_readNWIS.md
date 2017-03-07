@@ -390,7 +390,7 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-03-05          49.0                P   UTC
+    ## 1      USGS 16400000 2017-03-06          89.4                P   UTC
     ## 2      USGS 16401000 1929-08-31          18.0                A   UTC
     ## 3      USGS 16402000 1957-07-31          51.0                A   UTC
     ## 4      USGS 16403000 1957-06-30           5.5                A   UTC
@@ -426,7 +426,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-03-05          19.0                P   UTC
+    ## 6      USGS 16618000 2017-03-06          19.1                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -453,149 +453,138 @@ SaltLake_totalN <- readNWISdata(bBox=c(-113.0428, 40.6474, -112.0265, 41.7018), 
 head(SaltLake_totalN)
 ```
 
-    ##   agency_cd  site_no  sample_dt sample_tm sample_end_dt sample_end_tm
-    ## 1      USGS 10010000 2017-03-01     12:45          <NA>          <NA>
-    ## 2      USGS 10010100 2017-02-23     13:25          <NA>          <NA>
-    ## 3      USGS 10126000 2017-02-06     08:20          <NA>          <NA>
-    ## 4      USGS 10141000 2017-02-16     12:45          <NA>          <NA>
-    ## 5      USGS 10141000 2017-03-01     14:30          <NA>          <NA>
-    ## 6      USGS 10010060 2017-03-02     11:00          <NA>          <NA>
-    ##   sample_start_time_datum_cd_reported tm_datum_rlbty_cd coll_ent_cd
-    ## 1                                 MST                 K        USGS
-    ## 2                                 MST                 K        USGS
-    ## 3                                 MST                 K        USGS
-    ## 4                                 MST                 K        USGS
-    ## 5                                 MST                 K    USGS-WRD
-    ## 6                                 MST                 K    USGS-WRD
-    ##   medium_cd tu_id body_part_id p00003 p00004 p00009 p00010 p00025 p00035
-    ## 1        WS  <NA>         <NA>   <NA>   <NA>   <NA>    6.0   <NA>   <NA>
-    ## 2        WS  <NA>         <NA>   <NA>   <NA>   <NA>    4.0   <NA>   <NA>
-    ## 3        WS  <NA>         <NA>   0.50    203    100    0.3   <NA>   <NA>
-    ## 4        WS  <NA>         <NA>   1.00   80.9   4.00    4.7   <NA>   <NA>
-    ## 5        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4    665   <NA>
-    ## 6        WS  <NA>         <NA>   <NA>    508   <NA>    3.3    665     10
-    ##   p00041 p00061 p00063 p00065 p00095 p00098   p00191 p00300 p00301 p00400
-    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   0.50     <NA>   <NA>   <NA>   <NA>
-    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   0.50     <NA>   <NA>   <NA>   <NA>
-    ## 3   <NA>   1430   <NA>   <NA>   1240   <NA>     <NA>   <NA>   <NA>   <NA>
-    ## 4   <NA>   1110   <NA>  15.81    508   <NA>     <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>   1770     10  18.24    515   <NA>  0.00001   11.5    102    8.1
-    ## 6   <NA>   9380      5   <NA>   1810   <NA>       M    15.4    133    8.8
-    ##   p00480 p01350 p30207 p30209 p30211 p50015 p50280 p70305 p71820 p71999
-    ## 1    129   <NA>   <NA>   <NA>   1280   <NA>   1001   <NA>    1.1  10.00
-    ## 2    226   <NA>   <NA>   <NA>   <NA>   <NA>   1001   <NA>    1.2  10.00
-    ## 3   <NA>   <NA>   <NA>     40   <NA>   <NA>   1001   <NA>   <NA>  10.00
-    ## 4   <NA>   <NA>   4.82     32   <NA>   <NA>   1001   <NA>   <NA>  10.00
-    ## 5   <NA>      2   5.56     50   <NA>    1.2   1001   <NA>   <NA>  10.00
-    ## 6   <NA>      2   <NA>    266   <NA>   <NA>   1001   <NA>   <NA>  10.00
-    ##   p72012 p72013   p72020 p72053 p72104 p72219 p72220 p72263 p81904 p82398
-    ## 1    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 2    4.0  1.168     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 4   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>   <NA>     <NA>      1   10.0      2      5  0.998   3.00     10
-    ## 6   <NA>   <NA>     <NA>   <NA>   40.0   <NA>   <NA>  0.998   <NA>     20
-    ##   p84164 p84171 p84182 p99111 p99156 p99159 p99206       startDateTime
-    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA> 2017-03-01 19:45:00
-    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA> 2017-02-23 20:25:00
-    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA> 2017-02-06 15:20:00
-    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA> 2017-02-16 19:45:00
-    ## 5   3052     30      2     10  40206  40224  10044 2017-03-01 21:30:00
-    ## 6   3044     30      2      1  40206  40224  10044 2017-03-02 18:00:00
-    ##   sample_start_time_datum_cd
-    ## 1                        UTC
-    ## 2                        UTC
-    ## 3                        UTC
-    ## 4                        UTC
-    ## 5                        UTC
-    ## 6                        UTC
+    ##   agency_cd         site_no  sample_dt sample_tm sample_end_dt
+    ## 1      USGS        10010000 2017-03-01     12:45          <NA>
+    ## 2      USGS        10010100 2017-02-23     13:25          <NA>
+    ## 3      USGS        10126000 2017-02-06     08:20          <NA>
+    ## 4      USGS        10141000 2017-02-16     12:45          <NA>
+    ## 5      USGS        10141000 2017-03-01     14:30          <NA>
+    ## 6      USGS 405356112205601 2017-03-02     10:30          <NA>
+    ##   sample_end_tm sample_start_time_datum_cd_reported tm_datum_rlbty_cd
+    ## 1          <NA>                                 MST                 K
+    ## 2          <NA>                                 MST                 K
+    ## 3          <NA>                                 MST                 K
+    ## 4          <NA>                                 MST                 K
+    ## 5          <NA>                                 MST                 K
+    ## 6          <NA>                                 MST                 K
+    ##   coll_ent_cd medium_cd tu_id body_part_id p00003 p00004 p00009 p00010
+    ## 1        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    6.0
+    ## 2        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    4.0
+    ## 3        USGS        WS  <NA>         <NA>   0.50    203    100    0.3
+    ## 4        USGS        WS  <NA>         <NA>   1.00   80.9   4.00    4.7
+    ## 5    USGS-WRD        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4
+    ## 6      UT-WLR        WS  <NA>         <NA>   <NA>   <NA>   <NA>    3.1
+    ##   p00020 p00025 p00035 p00041 p00061 p00063 p00065  p00095 p00098   p00191
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
+    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
+    ## 3   <NA>   <NA>   <NA>   <NA>   1430   <NA>   <NA>    1240   <NA>     <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   1110   <NA>  15.81     508   <NA>     <NA>
+    ## 5   <NA>    665   <NA>   <NA>   1770     10  18.24     515   <NA>  0.00001
+    ## 6    4.5    665   <NA>   <NA>   <NA>   <NA>   <NA>  190000   0.50  0.00001
+    ##   p00300 p00301 p00400 p00480 p01350 p30207 p30209 p30211 p50015 p50280
+    ## 1   <NA>   <NA>   <NA>    129   <NA>   <NA>   <NA>   1280   <NA>   1001
+    ## 2   <NA>   <NA>   <NA>    226   <NA>   <NA>   <NA>   <NA>   <NA>   1001
+    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>     40   <NA>   <NA>   1001
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   4.82     32   <NA>   <NA>   1001
+    ## 5   11.5    102    8.1   <NA>      2   5.56     50   <NA>    1.2   1001
+    ## 6    3.2     93    8.0   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ##   p70305 p71820 p71999 p72012 p72013   p72020 p72053 p72104 p72219 p72220
+    ## 1   <NA>    1.1  10.00    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>
+    ## 2   <NA>    1.2  10.00    4.0  1.168     <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 3   <NA>   <NA>  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>   <NA>  10.00   <NA>   <NA>     <NA>      1   10.0      2      5
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
+    ##   p72263 p81904 p82398 p84164 p84171 p84182 p99111 p99156 p99159 p99206
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5  0.998   3.00     10   3052     30      2     10  40206  40224  10044
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
+    ##         startDateTime sample_start_time_datum_cd
+    ## 1 2017-03-01 19:45:00                        UTC
+    ## 2 2017-02-23 20:25:00                        UTC
+    ## 3 2017-02-06 15:20:00                        UTC
+    ## 4 2017-02-16 19:45:00                        UTC
+    ## 5 2017-03-01 21:30:00                        UTC
+    ## 6 2017-03-02 17:30:00                        UTC
 
 ``` r
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
 ```
 
-    ## [1] 6
+    ## [1] 10
 
 ### readNWISdv
 
 <a name="readnwisdv"></a>
 
-**All pH daily data for a site near Macclenny, Florida.**
-
-WHAT DOES AN INSTANTANEOUS STAT CODE FOR A DAILY VALUE MEAN?!?!
+**Minimum and maximum pH daily data for a site on the Missouri River near Townsend, MT.**
 
 ``` r
 # Remember, you can always use whatNWISdata to see what is available at the site before querying
-fl_available <- whatNWISdata(siteNumber="02231000", service="dv")
-head(fl_available)
+mt_available <- whatNWISdata(siteNumber="462107111312301", service="dv", parameterCd="00400")
+head(mt_available)
 ```
 
-    ##     parm_cd agency_cd  site_no                         station_nm
-    ## 4     00010      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ## 14    00060      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ## 22    00065      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ## 32    00095      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ## 49    00400      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ## 252   63160      USGS 02231000 ST. MARYS RIVER NEAR MACCLENNY, FL
-    ##     site_tp_cd dec_lat_va dec_long_va coord_acy_cd dec_coord_datum_cd
-    ## 4           ST   30.35885    -82.0815            S              NAD83
-    ## 14          ST   30.35885    -82.0815            S              NAD83
-    ## 22          ST   30.35885    -82.0815            S              NAD83
-    ## 32          ST   30.35885    -82.0815            S              NAD83
-    ## 49          ST   30.35885    -82.0815            S              NAD83
-    ## 252         ST   30.35885    -82.0815            S              NAD83
-    ##     alt_va alt_acy_va alt_datum_cd   huc_cd data_type_cd stat_cd ts_id
-    ## 4     <NA>       <NA>         <NA> 03070204           dv   00011 22190
-    ## 14    <NA>       <NA>         <NA> 03070204           dv   00003 22191
-    ## 22    <NA>       <NA>         <NA> 03070204           dv   00003 22192
-    ## 32    <NA>       <NA>         <NA> 03070204           dv   00011 22193
-    ## 49    <NA>       <NA>         <NA> 03070204           dv   00011 22194
-    ## 252   <NA>       <NA>         <NA> 03070204           dv   00003 22195
-    ##     loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
-    ## 4         <NA>           wat        <NA>  1645597         0 1965-03-12
-    ## 14        <NA>           wat        <NA>        0         0 1926-10-01
-    ## 22        <NA>           wat        <NA> 17164583         0 1926-10-01
-    ## 32        <NA>           wat        <NA>  1646694         0 1965-03-12
-    ## 49        <NA>           wat        <NA> 17028275         0 1967-10-01
-    ## 252       <NA>           wat        <NA>        0         0 2010-10-01
-    ##       end_date count_nu parameter_group_nm
-    ## 4   1977-09-30     3016           Physical
-    ## 14  2017-03-05    33029           Physical
-    ## 22  2017-03-05    32389           Physical
-    ## 32  1981-09-30     4450           Physical
-    ## 49  1968-09-30      365           Physical
-    ## 252 2017-03-05     2346           Physical
-    ##                                                                                   parameter_nm
-    ## 4                                                          Temperature, water, degrees Celsius
-    ## 14                                                            Discharge, cubic feet per second
-    ## 22                                                                           Gage height, feet
-    ## 32  Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius
-    ## 49                                                pH, water, unfiltered, field, standard units
-    ## 252                                      Stream water level elevation above NAVD 1988, in feet
-    ##     casrn                  srsname parameter_units
-    ## 4    <NA>       Temperature, water           deg C
-    ## 14   <NA> Stream flow, mean. daily           ft3/s
-    ## 22   <NA>             Height, gage              ft
-    ## 32   <NA>     Specific conductance      uS/cm @25C
-    ## 49   <NA>                       pH       std units
-    ## 252  <NA>                     <NA>              ft
+    ##    parm_cd agency_cd         site_no
+    ## 13   00400      USGS 462107111312301
+    ## 14   00400      USGS 462107111312301
+    ## 16   00400      USGS 462107111312301
+    ##                                    station_nm site_tp_cd dec_lat_va
+    ## 13 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
+    ## 14 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
+    ## 16 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
+    ##    dec_long_va coord_acy_cd dec_coord_datum_cd alt_va alt_acy_va
+    ## 13   -111.5239            S              NAD83   3790         20
+    ## 14   -111.5239            S              NAD83   3790         20
+    ## 16   -111.5239            S              NAD83   3790         20
+    ##    alt_datum_cd   huc_cd data_type_cd stat_cd ts_id loc_web_ds
+    ## 13       NGVD29 10030101           dv   00008 82220       <NA>
+    ## 14       NGVD29 10030101           dv   00001 82218       <NA>
+    ## 16       NGVD29 10030101           dv   00002 82219       <NA>
+    ##    medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date
+    ## 13           wat        <NA> 17028275         0 2010-08-18 2011-09-21
+    ## 14           wat        <NA> 17028275         0 2010-08-18 2011-09-21
+    ## 16           wat        <NA> 17028275         0 2010-08-18 2011-09-21
+    ##    count_nu parameter_group_nm
+    ## 13       72           Physical
+    ## 14       72           Physical
+    ## 16       72           Physical
+    ##                                    parameter_nm casrn srsname
+    ## 13 pH, water, unfiltered, field, standard units  <NA>      pH
+    ## 14 pH, water, unfiltered, field, standard units  <NA>      pH
+    ## 16 pH, water, unfiltered, field, standard units  <NA>      pH
+    ##    parameter_units
+    ## 13       std units
+    ## 14       std units
+    ## 16       std units
 
 ``` r
-# Major filter: site number, 02231000
-# Statistic: instantaneous, 00011 (only value collected per day)
+# Major filter: site number, 462107111312301
+# Statistic: minimum and maximum, 00001 and 00002
 # Parameter: pH, 00400
-fl_site_pH_1090 <- readNWISdv(siteNumber="02231000", parameterCd="00400", statCd="00011")
-head(fl_site_pH_1090)
+mt_site_pH <- readNWISdv(siteNumber="462107111312301", parameterCd="00400", 
+                         statCd=c("00001", "00002"))
+head(mt_site_pH)
 ```
 
-    ##   agency_cd  site_no       Date X_00400_00011 X_00400_00011_cd
-    ## 1      USGS 02231000 1967-10-01           6.3                A
-    ## 2      USGS 02231000 1967-10-02           6.7                A
-    ## 3      USGS 02231000 1967-10-03           6.7                A
-    ## 4      USGS 02231000 1967-10-04           6.7                A
-    ## 5      USGS 02231000 1967-10-05           6.7                A
-    ## 6      USGS 02231000 1967-10-06           6.6                A
+    ##   agency_cd         site_no       Date X_00400_00001 X_00400_00001_cd
+    ## 1      USGS 462107111312301 2010-08-18           8.9                A
+    ## 2      USGS 462107111312301 2010-08-19           8.9                A
+    ## 3      USGS 462107111312301 2010-08-20           8.9                A
+    ## 4      USGS 462107111312301 2010-08-21           8.9                A
+    ## 5      USGS 462107111312301 2010-08-22           8.8                A
+    ## 6      USGS 462107111312301 2010-08-23           8.9                A
+    ##   X_00400_00002 X_00400_00002_cd
+    ## 1           8.3                A
+    ## 2           8.3                A
+    ## 3           8.4                A
+    ## 4           8.4                A
+    ## 5           8.4                A
+    ## 6           8.4                A
 
 ### readNWISgwl
 

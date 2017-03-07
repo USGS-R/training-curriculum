@@ -188,40 +188,23 @@ head(SaltLake_totalN)
 length(unique(SaltLake_totalN$site_no))
 ```
 
-```{r findsites, eval=TRUE, echo=FALSE, message=FALSE}
-# # How I found the two sites to use for the examples. Commented out to save time when knitting.
-# sites_sttmp_fl <- whatNWISsites(stateCd="FL", siteType="ST", parameterCd="00010")
-# availdata_fl <- whatNWISdata(siteNumbers=unique(sites_sttmp_fl$site_no))
-# sites_fl <- availdata_fl %>% group_by(site_no) %>%
-#   summarize(whatdata=paste(unique(data_type_cd), collapse=",")) %>%
-#   filter(nchar(whatdata) > 18)
-# 
-# # groundwater site
-# sites_gwtmp_or <- whatNWISsites(stateCd="OR", siteType="GW", parameterCd="00010")
-# availdata_or <- whatNWISdata(siteNumbers=unique(sites_gwtmp_or$site_no))
-# sites_or <- availdata_or %>% group_by(site_no) %>%
-#   summarize(whatdata=paste(unique(data_type_cd), collapse=",")) %>%
-#   filter(nchar(whatdata) > 11)
-```
-
 ### readNWISdv
 
 <a name="readnwisdv"></a>
 
-**All pH daily data for a site near Macclenny, Florida.**
-
-WHAT DOES AN INSTANTANEOUS STAT CODE FOR A DAILY VALUE MEAN?!?!
+**Minimum and maximum pH daily data for a site on the Missouri River near Townsend, MT.**
 
 ```{r readnwisdv, message=FALSE, warning=FALSE}
 # Remember, you can always use whatNWISdata to see what is available at the site before querying
-fl_available <- whatNWISdata(siteNumber="02231000", service="dv")
-head(fl_available)
+mt_available <- whatNWISdata(siteNumber="462107111312301", service="dv", parameterCd="00400")
+head(mt_available)
 
-# Major filter: site number, 02231000
-# Statistic: instantaneous, 00011 (only value collected per day)
+# Major filter: site number, 462107111312301
+# Statistic: minimum and maximum, 00001 and 00002
 # Parameter: pH, 00400
-fl_site_pH_1090 <- readNWISdv(siteNumber="02231000", parameterCd="00400", statCd="00011")
-head(fl_site_pH_1090)
+mt_site_pH <- readNWISdv(siteNumber="462107111312301", parameterCd="00400", 
+                         statCd=c("00001", "00002"))
+head(mt_site_pH)
 ```
 
 ### readNWISgwl
