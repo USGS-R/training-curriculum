@@ -17,33 +17,29 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 **Day 1**
 
--   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 10:00 am -- [Introduction](/intro-curriculum/Introduction)
--   10:00 am - 10:15 am -- *Break*
--   10:15 am - 12:00 pm -- [Get](/intro-curriculum/Get)
--   12:00 am - 01:00 pm -- *Lunch*
--   01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
--   03:00 pm - 03:15 pm -- *Break*
--   03:15 pm - 04:15 pm -- More [Clean](/intro-curriculum/Clean)
--   04:15 pm - 04:30 pm -- End of day wrap-up
+-   11:30 am - 12:00 pm -- Instructors available for questions
+-   12:00 pm - 01:30 pm -- [Introduction](/intro-curriculum/Introduction)
+-   01:30 pm - 02:45 pm -- [Get](/intro-curriculum/Get)
+-   02:45 pm - 03:00 pm -- *Break*
+-   03:00 pm - 05:00 pm -- [Clean](/intro-curriculum/Clean)
 
 **Day 2**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 10:15 am -- [Explore](/intro-curriculum/Explore)
--   10:15 am - 10:30 am -- *Break*
--   10:30 am - 12:00 pm -- [Analyze: Base](/intro-curriculum/Analyze)
--   12:00 pm - 01:00 pm -- *Lunch*
--   01:00 pm - 02:30 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
--   02:30 pm - 02:45 pm -- *Break*
--   02:45 pm - 04:15 pm -- Analyze: USGS packages/TBD
--   04:15 pm - 04:30 pm -- End of day wrap-up
+-   08:30 am - 09:30 am -- More [Clean](/intro-curriculum/Clean)
+-   09:30 am - 11:00 am -- [Explore](/intro-curriculum/Explore)
+-   11:00 am - 11:15 am -- *Break*
+-   11:15 am - 12:30 pm -- [Analyze: Base](/intro-curriculum/Analyze)
+-   12:30 pm - 01:30 pm -- *Lunch*
+-   01:30 pm - 03:00 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
+-   03:00 pm - 03:15 pm -- *Break*
+-   03:15 pm - 04:30 pm -- Analyze: USGS packages/TBD
 
 **Day 3**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
--   10:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+-   08:30 am - 11:00 am -- [Repeat](/intro-curriculum/Reproduce/)
+-   11:00 am - 03:30 pm -- Leftovers/Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
