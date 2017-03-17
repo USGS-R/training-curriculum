@@ -54,9 +54,9 @@ Download data from the [Data page](/intro-curriculum/data/).
 -   [USGS-R blog](https://owi.usgs.gov/blog/tags/r)
 -   [USGS-R twitter](https://twitter.com/USGS_R)
 -   [USGS-R GitHub](https://github.com/USGS-R) (package source code + bug/feature reporting)
--   [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (data wrangling, visualization, shiny, markdown, RStudio, etc)
+-   [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (visualization, shiny, markdown, RStudio, etc)
+-   [RStudio data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 -   [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
-
 -   [dataRetrieval package tutorial](https://owi.usgs.gov/R/dataRetrieval.html#1)
 
 ### Instructors
