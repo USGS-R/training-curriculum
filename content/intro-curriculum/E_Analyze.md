@@ -62,17 +62,14 @@ pop_ttest
 `t.test()` can also take a formula specification as input. For a t-test that is all we need to know. R formulas were described in the "Basic Visualization" section of Analyze. Use a t.test to compare discharge between estimated approved ("A e") and approved ("A") qualifiers (these serve as your two populations). You cannot use `t.test()` to compare more than two groups.
 
 ``` r
-#Filter so that there are only two Flow_cd groups
-#You might have to load dplyr
-library(dplyr)
-est_appr_df <- filter(intro_df, Flow_cd %in% c("A e", "A"))
-t.test(est_appr_df$Flow ~ est_appr_df$Flow_cd)
+#The cleaned data has only two flow codes, so we don't need to filter
+t.test(intro_df$Flow ~ intro_df$Flow_cd)
 ```
 
     ## 
     ##  Welch Two Sample t-test
     ## 
-    ## data:  est_appr_df$Flow by est_appr_df$Flow_cd
+    ## data:  intro_df$Flow by intro_df$Flow_cd
     ## t = 2.2233, df = 1074.5, p-value = 0.0264
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
@@ -116,6 +113,7 @@ cor.test(intro_df$Wtemp, intro_df$DO)
 #Can't just do cor(intro_df) because intro_df has non-numeric columns:
 # cor(intro_df)
 # use dplyr to select the numeric columns of intro_df
+library(dplyr)
 intro_df_onlynumeric <- select(intro_df, -site_no, -dateTime, -Flow_cd)  
 cor(intro_df_onlynumeric, use="complete.obs")
 ```

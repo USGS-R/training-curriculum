@@ -19,7 +19,7 @@ These instructions are for Windows install. Download and install R for Mac [here
 Download and install R
 ----------------------
 
-Go to [CRAN and download](http://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Once the installer downloads, Right-click on it and select "Run as administrator".
+Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Once the installer downloads, Right-click on it and select "Run as administrator".
 
 Type in your PR credentials and click yes (or have your IT rep install with Admin privileges). ![Run as admin](../static/img/install_open_as_admin.png "run as admin")
 
@@ -32,7 +32,7 @@ At this screen, uncheck 'Create a desktop icon' because non-admin users in Windo
 Download and install RStudio
 ----------------------------
 
-[Download RStudio Desktop](http://www.rstudio.com/products/rstudio/download/)
+[Download RStudio Desktop](https://www.rstudio.com/products/rstudio/download/)
 
 Double-click the installer. It will ask for your administrator credentials to install (you might need to have your IT rep install again). Accept all the default options for the RStudio install. ![RStudio install screen](../static/img/install_rstudio.png "RStudio install screen")
 
@@ -69,7 +69,7 @@ Ideally you should be running the latest stable release (3.3.X as of July 2016, 
 
 Here is what my R version looks like.
 
-    ## [1] "R version 3.2.4 Revised (2016-03-16 r70336)"
+    ## [1] "R version 3.3.2 (2016-10-31)"
 
 Add packages and GRAN
 =====================
