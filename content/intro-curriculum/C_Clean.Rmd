@@ -260,8 +260,8 @@ siteInfo <- read.csv('data/siteInfo.csv',
 
 str(siteInfo)
 
-left_join(intro_df, siteInfo, by="site_no")
-
+intro_df_siteInfo <- left_join(intro_df, siteInfo, by="site_no")
+head(intro_df_siteInfo)
 ```
 
 If we wanted to remove some of the columns from `siteInfo.csv`, we can use `select` which we learned earlier in this lesson.
