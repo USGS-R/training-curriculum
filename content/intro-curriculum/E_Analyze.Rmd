@@ -63,6 +63,7 @@ pop_ttest
 
 ```{r ttest_formula_examp, warning=FALSE, message=FALSE}
 #The cleaned data has only two flow codes, so we don't need to filter
+unique(intro_df$Flow_cd)
 t.test(intro_df$Flow ~ intro_df$Flow_cd)
 ```
 
