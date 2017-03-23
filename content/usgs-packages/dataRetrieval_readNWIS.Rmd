@@ -312,7 +312,7 @@ There are three different types of rating table results that can be accessed usi
 - `CORR` are the corrected values of `INDEP`
 - `CORRINDEP` are the corrected values of `CORR`
 
-There are also a number of attributes associated with the data.frame returned - `url`, `queryTime`, `comment`, `siteInfo`, and `RATING`. `RATING` will only be included when `type` is `base`. See the next section for how to access attributes of `dataRetrieval` data frames. **NEED TO LINK SOMETHING HERE**
+There are also a number of attributes associated with the data.frame returned - `url`, `queryTime`, `comment`, `siteInfo`, and `RATING`. `RATING` will only be included when `type` is `base`. See [this section](#accessing-attributes) for how to access attributes of `dataRetrieval` data frames.
 
 ```{r readnwisrating-base, message=FALSE, warning=FALSE}
 # Major filter: site number, 07010000
