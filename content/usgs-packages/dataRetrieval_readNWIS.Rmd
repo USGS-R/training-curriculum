@@ -486,7 +486,7 @@ There are currently 3 helper functions: renameNWIScolumns, addWaterYear, and zer
 
 **renameNWIScolumns**
 
-`renameNWIScolumns` can be used in two ways: it can be a standalone function following the `dataRetrieval` call or it can be piped (as long as `magrittr` or `dplyr` are loaded). Both examples are shown below.
+`renameNWIScolumns` can be used in two ways: it can be a standalone function following the `dataRetrieval` call or it can be piped (as long as `magrittr` or `dplyr` are loaded). Both examples are shown below. Note that `renameNWIScolumns` is intended for use with columns named using pcodes. It does not work with all possible data returned.
 
 ```{r renameNWIScolumns, message=FALSE, warning=FALSE}
 # get discharge and temperature data for July 2016 in Ft Worth, TX

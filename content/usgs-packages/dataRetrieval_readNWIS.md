@@ -390,12 +390,12 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-03-06          89.4                P   UTC
-    ## 2      USGS 16401000 1929-08-31          18.0                A   UTC
-    ## 3      USGS 16402000 1957-07-31          51.0                A   UTC
-    ## 4      USGS 16403000 1957-06-30           5.5                A   UTC
-    ## 5      USGS 16403600 1970-09-30           2.4                A   UTC
-    ## 6      USGS 16403900 1996-09-30           1.3                A   UTC
+    ## 1      USGS 16400000 2017-03-22          4.57                P   UTC
+    ## 2      USGS 16401000 1929-08-31         18.00                A   UTC
+    ## 3      USGS 16402000 1957-07-31         51.00                A   UTC
+    ## 4      USGS 16403000 1957-06-30          5.50                A   UTC
+    ## 5      USGS 16403600 1970-09-30          2.40                A   UTC
+    ## 6      USGS 16403900 1996-09-30          1.30                A   UTC
 
 ``` r
 # How many sites are returned?
@@ -426,7 +426,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-03-06          19.1                P   UTC
+    ## 6      USGS 16618000 2017-03-22          19.6                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -456,9 +456,9 @@ head(SaltLake_totalN)
     ##   agency_cd         site_no  sample_dt sample_tm sample_end_dt
     ## 1      USGS        10010000 2017-03-01     12:45          <NA>
     ## 2      USGS        10010100 2017-02-23     13:25          <NA>
-    ## 3      USGS        10126000 2017-02-06     08:20          <NA>
-    ## 4      USGS        10141000 2017-02-16     12:45          <NA>
-    ## 5      USGS        10141000 2017-03-01     14:30          <NA>
+    ## 3      USGS        10141000 2017-03-01     14:30          <NA>
+    ## 4      USGS        10172630 2017-03-08     12:44          <NA>
+    ## 5      USGS        10172630 2017-03-08     14:15          <NA>
     ## 6      USGS 405356112205601 2017-03-02     10:30          <NA>
     ##   sample_end_tm sample_start_time_datum_cd_reported tm_datum_rlbty_cd
     ## 1          <NA>                                 MST                 K
@@ -470,44 +470,51 @@ head(SaltLake_totalN)
     ##   coll_ent_cd medium_cd tu_id body_part_id p00003 p00004 p00009 p00010
     ## 1        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    6.0
     ## 2        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    4.0
-    ## 3        USGS        WS  <NA>         <NA>   0.50    203    100    0.3
-    ## 4        USGS        WS  <NA>         <NA>   1.00   80.9   4.00    4.7
-    ## 5    USGS-WRD        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4
+    ## 3    USGS-WRD        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4
+    ## 4        USGS        WS  <NA>         <NA>   1.00   53.9   10.0    9.9
+    ## 5    USGS-WRD        WS  <NA>         <NA>   <NA>   54.0   <NA>   10.2
     ## 6      UT-WLR        WS  <NA>         <NA>   <NA>   <NA>   <NA>    3.1
     ##   p00020 p00025 p00035 p00041 p00061 p00063 p00065  p00095 p00098   p00191
     ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
     ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
-    ## 3   <NA>   <NA>   <NA>   <NA>   1430   <NA>   <NA>    1240   <NA>     <NA>
-    ## 4   <NA>   <NA>   <NA>   <NA>   1110   <NA>  15.81     508   <NA>     <NA>
-    ## 5   <NA>    665   <NA>   <NA>   1770     10  18.24     515   <NA>  0.00001
+    ## 3   <NA>    665   <NA>   <NA>   1770     10  18.24     515   <NA>  0.00001
+    ## 4   <NA>   <NA>   <NA>   <NA>    225   <NA>   9.86    2370   <NA>     <NA>
+    ## 5   <NA>    660    5.0   <NA>    213      5   9.83    2360   <NA>  0.00001
     ## 6    4.5    665   <NA>   <NA>   <NA>   <NA>   <NA>  190000   0.50  0.00001
-    ##   p00300 p00301 p00400 p00480 p01350 p30207 p30209 p30211 p50015 p50280
-    ## 1   <NA>   <NA>   <NA>    129   <NA>   <NA>   <NA>   1280   <NA>   1001
-    ## 2   <NA>   <NA>   <NA>    226   <NA>   <NA>   <NA>   <NA>   <NA>   1001
-    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>     40   <NA>   <NA>   1001
-    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   4.82     32   <NA>   <NA>   1001
-    ## 5   11.5    102    8.1   <NA>      2   5.56     50   <NA>    1.2   1001
+    ##   p00300 p00301 p00400 p00480 p00608 p00665 p00666 p01350 p30207 p30209
+    ## 1   <NA>   <NA>   <NA>    129   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2   <NA>   <NA>   <NA>    226   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 3   11.5    102    8.1   <NA>   0.14  0.190  0.058      2   5.56     50
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   3.01    6.4
+    ## 5    8.4     87    7.8   <NA>   <NA>   <NA>   <NA>      2   3.00    6.0
     ## 6    3.2     93    8.0   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ##   p70305 p71820 p71999 p72012 p72013   p72020 p72053 p72104 p72219 p72220
-    ## 1   <NA>    1.1  10.00    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>
-    ## 2   <NA>    1.2  10.00    4.0  1.168     <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3   <NA>   <NA>  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 4   <NA>   <NA>  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>   <NA>  10.00   <NA>   <NA>     <NA>      1   10.0      2      5
-    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>
-    ##   p72263 p81904 p82398 p84164 p84171 p84182 p99111 p99156 p99159 p99206
-    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5  0.998   3.00     10   3052     30      2     10  40206  40224  10044
-    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
+    ##   p30211 p50014 p50015 p50016 p50280 p62854 p62855 p70305 p71820 p71846
+    ## 1   1280   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>    1.1   <NA>
+    ## 2   <NA>   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>    1.2   <NA>
+    ## 3   <NA>   <NA>    1.2   <NA>   1001   1.04   1.28   <NA>   <NA>  0.177
+    ## 4   <NA>   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>    0.1   <NA>    0.2   1001   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  131.9   <NA>   <NA>
+    ##   p71999 p72012 p72013   p72020 p72053 p72104 p72105 p72219 p72220 p72263
+    ## 1  10.00    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2  10.00    4.0  1.168     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 3  10.00   <NA>   <NA>     <NA>      1   10.0   <NA>      2      5  0.998
+    ## 4  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   50.0      2      4  0.999
+    ## 6   <NA>   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  1.099
+    ##   p81904 p82398 p84164 p84171 p84182 p99111 p99156 p99159 p99206
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 3   3.00     10   3052     30      2     10  40206  40224  10044
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>     20   3044     30      2      1  40228  40224  10044
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
     ##         startDateTime sample_start_time_datum_cd
     ## 1 2017-03-01 19:45:00                        UTC
     ## 2 2017-02-23 20:25:00                        UTC
-    ## 3 2017-02-06 15:20:00                        UTC
-    ## 4 2017-02-16 19:45:00                        UTC
-    ## 5 2017-03-01 21:30:00                        UTC
+    ## 3 2017-03-01 21:30:00                        UTC
+    ## 4 2017-03-08 19:44:00                        UTC
+    ## 5 2017-03-08 21:15:00                        UTC
     ## 6 2017-03-02 17:30:00                        UTC
 
 ``` r
@@ -647,19 +654,19 @@ head(fl_site_meas)
     ## 5           <NA>            Yes      DSW                      USGS
     ## 6           <NA>            Yes      DSW                      USGS
     ##   gage_height_va discharge_va current_rating_nu shift_adj_va
-    ## 1           9.35        362.0              <NA>            0
-    ## 2          12.22       1770.0              <NA>            0
-    ## 3          11.10        919.0              <NA>            0
-    ## 4          10.76        728.0              <NA>            0
-    ## 5           7.25         92.2              <NA>            0
-    ## 6           6.34         32.3              <NA>            0
+    ## 1           9.35        362.0              <NA>         <NA>
+    ## 2          12.22       1770.0              <NA>         <NA>
+    ## 3          11.10        919.0              <NA>         <NA>
+    ## 4          10.76        728.0              <NA>         <NA>
+    ## 5           7.25         92.2              <NA>         <NA>
+    ## 6           6.34         32.3              <NA>         <NA>
     ##   diff_from_rating_pc measured_rating_diff gage_va_change gage_va_time
-    ## 1                  NA                 UNSP           0.02         1.16
-    ## 2                  NA                 UNSP           0.02         1.42
-    ## 3                  NA                 UNSP          -0.01         1.16
-    ## 4                  NA                 UNSP          -0.01         1.08
-    ## 5                  NA                 UNSP           0.00         0.75
-    ## 6                  NA                 UNSP          -0.01         0.50
+    ## 1                  NA          Unspecified           0.02          1.2
+    ## 2                  NA          Unspecified           0.02          1.4
+    ## 3                  NA          Unspecified          -0.01          1.2
+    ## 4                  NA          Unspecified          -0.01          1.1
+    ## 5                  NA          Unspecified           0.00          0.8
+    ## 6                  NA          Unspecified          -0.01          0.5
     ##   control_type_cd discharge_cd measurement_dateTime tz_cd
     ## 1            <NA>         MEAS           1930-02-11   UTC
     ## 2            <NA>         MEAS           1930-04-05   UTC
@@ -1211,12 +1218,12 @@ head(ca_site_do)
 ```
 
     ##   agency_cd  site_no            dateTime X_00060_00000 X_00060_00000_cd
-    ## 1      USGS 10336676 2016-04-01 07:00:00            29                P
-    ## 2      USGS 10336676 2016-04-01 07:15:00            28                P
-    ## 3      USGS 10336676 2016-04-01 07:30:00            28                P
-    ## 4      USGS 10336676 2016-04-01 07:45:00            29                P
-    ## 5      USGS 10336676 2016-04-01 08:00:00            29                P
-    ## 6      USGS 10336676 2016-04-01 08:15:00            28                P
+    ## 1      USGS 10336676 2016-04-01 07:00:00            29                A
+    ## 2      USGS 10336676 2016-04-01 07:15:00            28                A
+    ## 3      USGS 10336676 2016-04-01 07:30:00            28                A
+    ## 4      USGS 10336676 2016-04-01 07:45:00            29                A
+    ## 5      USGS 10336676 2016-04-01 08:00:00            29                A
+    ## 6      USGS 10336676 2016-04-01 08:15:00            28                A
     ##   X_63680_00000 X_63680_00000_cd tz_cd
     ## 1           1.2                P   UTC
     ## 2           1.3                P   UTC
@@ -1335,7 +1342,7 @@ There are currently 3 helper functions: renameNWIScolumns, addWaterYear, and zer
 
 **renameNWIScolumns**
 
-`renameNWIScolumns` can be used in two ways: it can be a standalone function following the `dataRetrieval` call or it can be piped (as long as `magrittr` or `dplyr` are loaded). Both examples are shown below.
+`renameNWIScolumns` can be used in two ways: it can be a standalone function following the `dataRetrieval` call or it can be piped (as long as `magrittr` or `dplyr` are loaded). Both examples are shown below. Note that `renameNWIScolumns` is intended for use with columns named using pcodes. It does not work with all possible data returned.
 
 ``` r
 # get discharge and temperature data for July 2016 in Ft Worth, TX
