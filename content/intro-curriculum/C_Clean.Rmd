@@ -45,7 +45,7 @@ intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE,
 ##Lesson Goals
 - Show and tell on using base R for data manipulation
 - Better understand data cleaning through use of `dplyr`
-- Use `merge()` to combine data frames by a common key
+- Use joins in `dplyr` to combine data frames by a common key
 - Do some basic reshaping and summarizing data frames
 - Know what pipes are and why you might want to use them
 
@@ -230,7 +230,7 @@ This exercise is going to focus on using what we just covered on `dplyr` to star
 2. Next, we are going to get a subset of the observations. We only want data where flow was greater than 10 cubic feet per second. Also give this data frame a different name than before.
 3. Lastly, add a new column with flow in units of cubic meters per second. Hint: there are 3.28 feet in a meter. 
 
-##Merging Data
+##Joining Data
 Joining data in `dplyr` is accomplished via the various `x_join()` commands (e.g., `inner_join`, `left_join`, `anti_join`, etc).  These are very SQL-esque so if you speak SQL then these will be pretty easy for you.  If not then they aren't immediately intuitive.  There are also the base functions `rbind()` and `merge()`, but we won't be covering these because they are redundant with the faster, more readable `dplyr` functions.  
 
 We are going to talk about several different ways to do this.  First, let's add some new rows to a data frame.  This is very handy as you might have data collected and entered at one time, and then additional observations made later that need to be added.  So with `rbind()` we can stack two data frames with the same columns to store more observations.  
@@ -250,20 +250,21 @@ tail(bind_rows_df)
 
 Now something to think about. Could you add a vector as a new row? Why/Why not? When/When not?
 
-Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows.  What we want to do in that case is going to be more of a database type function and join two tables based on a common column.  We can achieve this by using `x_join` functions. So let's imagine that we did actually collect dissolved oxygen, discharge, and chloride concentration on our observation dates. Also, we collected on some additional dates. We don't care about the additional dates, so use the `left_join` function from `dplyr`, which keeps all rows from the first (left) data frame. See `?left_join` for more information.
+Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows.  What we want to do in that case is going to be more of a database type function and join two tables based on a common column.  We can achieve this by using `x_join` functions. Let's say we have a separate data frame of site metadata, including latitude and longitude, and we want to attach that information to our discharge measurements. See `?left_join` for more information.
 
 ```{r merge_example, warning=FALSE, message=FALSE}
-# read forgotten DO and discharge data
-forgotten_data <- read.csv('data/forgottenData.csv', stringsAsFactors = FALSE, 
-                           colClasses = c(rep("character",2),rep("numeric",3)))
+# read site metadata
+siteInfo <- read.csv('data/siteInfo.csv',
+                     stringsAsFactors = FALSE, 
+                     colClasses = c(rep("character", 2), rep(NA, 9)))
 
-str(forgotten_data)
+str(siteInfo)
 
-left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
-
+intro_df_siteInfo <- left_join(intro_df, siteInfo, by="site_no")
+head(intro_df_siteInfo)
 ```
 
-Notice that the `left_join` kept only the matching rows (September 1-3), but kept all columns. If we wanted to remove the chloride concentration column, we can use `select` which we learned earlier in this lesson.
+If we wanted to remove some of the columns from `siteInfo.csv`, we can use `select` which we learned earlier in this lesson.
 
 ```{r Exercise2, echo=FALSE, warning=FALSE, message=FALSE}
 ```

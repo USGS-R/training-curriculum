@@ -29,7 +29,7 @@ Lesson Goals
 
 -   Show and tell on using base R for data manipulation
 -   Better understand data cleaning through use of `dplyr`
--   Use `merge()` to combine data frames by a common key
+-   Use joins in `dplyr` to combine data frames by a common key
 -   Do some basic reshaping and summarizing data frames
 -   Know what pipes are and why you might want to use them
 
@@ -109,33 +109,33 @@ head(intro_df)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02203700 2011-05-20 16:45:00       4.0          A e         NA     7.0
-    ## 2 02336410 2011-05-28 08:15:00      35.0            A       21.8     6.9
-    ## 3 02203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
-    ## 4 02336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
-    ## 5 02336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
-    ## 6 02336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
+    ## 1 02336120 2011-05-27 12:15:00       954            E       20.5     6.2
+    ## 2 02336240 2011-05-17 08:45:00        11            A       15.3     7.3
+    ## 3 02336360 2011-05-20 13:30:00        10            X       16.8      NA
+    ## 4 02336360 2011-05-20 02:45:00        10            X       18.4     7.2
+    ## 5 02336120 2011-05-01 07:30:00        17          A e       18.7     7.1
+    ## 6 02336240 2011-05-31 02:30:00        11            A       24.5     7.0
     ##   DO_Inst
-    ## 1     8.6
-    ## 2     6.9
-    ## 3     6.6
-    ## 4     7.8
-    ## 5     7.3
-    ## 6     7.3
+    ## 1     7.0
+    ## 2     8.3
+    ## 3     8.4
+    ## 4     8.3
+    ## 5     7.8
+    ## 6     6.7
 
 ``` r
 #And grab the first site_no
 intro_df[1,1]
 ```
 
-    ## [1] "02203700"
+    ## [1] "02336120"
 
 ``` r
 #Get a whole column
 head(intro_df[,7])
 ```
 
-    ## [1] 8.6 6.9 6.6 7.8 7.3 7.3
+    ## [1] 7.0 8.3 8.4 8.3 7.8 6.7
 
 ``` r
 #Get a single row
@@ -143,9 +143,9 @@ intro_df[15,]
 ```
 
     ##     site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 15 02336410 2011-05-10 04:15:00        19            A       21.5       7
+    ## 15 02336120 2011-05-01 06:30:00        17            A       18.9       7
     ##    DO_Inst
-    ## 15     7.2
+    ## 15     7.7
 
 ``` r
 #Grab multiple rows
@@ -153,17 +153,17 @@ intro_df[3:7,]
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 3 02203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
-    ## 4 02336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
-    ## 5 02336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
-    ## 6 02336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
-    ## 7 02203700 2011-05-09 10:30:00       4.9            A       18.0     7.2
+    ## 3 02336360 2011-05-20 13:30:00      10.0            X       16.8      NA
+    ## 4 02336360 2011-05-20 02:45:00      10.0            X       18.4     7.2
+    ## 5 02336120 2011-05-01 07:30:00      17.0          A e       18.7     7.1
+    ## 6 02336240 2011-05-31 02:30:00      11.0            A       24.5     7.0
+    ## 7 02203655 2011-05-23 13:45:00       7.8            X       20.8     6.9
     ##   DO_Inst
-    ## 3     6.6
-    ## 4     7.8
-    ## 5     7.3
-    ## 6     7.3
-    ## 7     4.4
+    ## 3     8.4
+    ## 4     8.3
+    ## 5     7.8
+    ## 6     6.7
+    ## 7     6.7
 
 Did you notice the difference between subsetting by a row and subsetting by a column? Subsetting a column returns a vector, but subsetting a row returns a data.frame. This is because columns (like vectors) contain a single data type, but rows can contain multiple data types, so it could not become a vector.
 
@@ -174,25 +174,25 @@ Also remember that data frames have column names. We can use those too. Let's tr
 head(intro_df$site_no)
 ```
 
-    ## [1] "02203700" "02336410" "02203655" "02336240" "02336313" "02336728"
+    ## [1] "02336120" "02336240" "02336360" "02336360" "02336120" "02336240"
 
 ``` r
 head(intro_df["site_no"])
 ```
 
     ##    site_no
-    ## 1 02203700
-    ## 2 02336410
-    ## 3 02203655
-    ## 4 02336240
-    ## 5 02336313
-    ## 6 02336728
+    ## 1 02336120
+    ## 2 02336240
+    ## 3 02336360
+    ## 4 02336360
+    ## 5 02336120
+    ## 6 02336240
 
 ``` r
 head(intro_df[["site_no"]])
 ```
 
-    ## [1] "02203700" "02336410" "02203655" "02336240" "02336313" "02336728"
+    ## [1] "02336120" "02336240" "02336360" "02336360" "02336120" "02336240"
 
 ``` r
 #Multiple colums
@@ -200,12 +200,12 @@ head(intro_df[c("dateTime","Flow_Inst")])
 ```
 
     ##              dateTime Flow_Inst
-    ## 1 2011-05-20 16:45:00       4.0
-    ## 2 2011-05-28 08:15:00      35.0
-    ## 3 2011-05-22 09:30:00       7.8
-    ## 4 2011-05-14 23:15:00      10.0
-    ## 5 2011-05-22 12:00:00       1.3
-    ## 6 2011-05-25 01:30:00       8.6
+    ## 1 2011-05-27 12:15:00       954
+    ## 2 2011-05-17 08:45:00        11
+    ## 3 2011-05-20 13:30:00        10
+    ## 4 2011-05-20 02:45:00        10
+    ## 5 2011-05-01 07:30:00        17
+    ## 6 2011-05-31 02:30:00        11
 
 ``` r
 #Now we can combine what we have seen to do some more complex queries
@@ -214,20 +214,20 @@ high_temp <- intro_df[intro_df$Wtemp_Inst > 15,]
 head(high_temp)
 ```
 
-    ##     site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## NA     <NA>                <NA>        NA         <NA>         NA      NA
-    ## 2  02336410 2011-05-28 08:15:00      35.0            A       21.8     6.9
-    ## 3  02203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
-    ## 4  02336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
-    ## 5  02336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
-    ## 6  02336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
-    ##    DO_Inst
-    ## NA      NA
-    ## 2      6.9
-    ## 3      6.6
-    ## 4      7.8
-    ## 5      7.3
-    ## 6      7.3
+    ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
+    ## 1 02336120 2011-05-27 12:15:00       954            E       20.5     6.2
+    ## 2 02336240 2011-05-17 08:45:00        11            A       15.3     7.3
+    ## 3 02336360 2011-05-20 13:30:00        10            X       16.8      NA
+    ## 4 02336360 2011-05-20 02:45:00        10            X       18.4     7.2
+    ## 5 02336120 2011-05-01 07:30:00        17          A e       18.7     7.1
+    ## 6 02336240 2011-05-31 02:30:00        11            A       24.5     7.0
+    ##   DO_Inst
+    ## 1     7.0
+    ## 2     8.3
+    ## 3     8.4
+    ## 4     8.3
+    ## 5     7.8
+    ## 6     6.7
 
 ``` r
 #Or maybe we want just the discharge that was estimated (code is "E")
@@ -235,7 +235,7 @@ estimated_q <- intro_df$Flow_Inst[intro_df$Flow_Inst_cd == "E"]
 head(estimated_q)
 ```
 
-    ## [1] 5990.0    5.5 3380.0    9.1    4.0    3.6
+    ## [1] 954.0  24.0  14.0  87.0   4.4  10.0
 
 Data Manipulation in `dplyr`
 ----------------------------
@@ -256,12 +256,12 @@ head(dplyr_sel)
 ```
 
     ##    site_no            dateTime DO_Inst
-    ## 1 02203700 2011-05-20 16:45:00     8.6
-    ## 2 02336410 2011-05-28 08:15:00     6.9
-    ## 3 02203655 2011-05-22 09:30:00     6.6
-    ## 4 02336240 2011-05-14 23:15:00     7.8
-    ## 5 02336313 2011-05-22 12:00:00     7.3
-    ## 6 02336728 2011-05-25 01:30:00     7.3
+    ## 1 02336120 2011-05-27 12:15:00     7.0
+    ## 2 02336240 2011-05-17 08:45:00     8.3
+    ## 3 02336360 2011-05-20 13:30:00     8.4
+    ## 4 02336360 2011-05-20 02:45:00     8.3
+    ## 5 02336120 2011-05-01 07:30:00     7.8
+    ## 6 02336240 2011-05-31 02:30:00     6.7
 
 ``` r
 #Now select some observations, like before
@@ -270,19 +270,19 @@ head(dplyr_high_temp)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02336410 2011-05-28 08:15:00      35.0            A       21.8     6.9
-    ## 2 02203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
-    ## 3 02336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
-    ## 4 02336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
-    ## 5 02336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
-    ## 6 02203700 2011-05-09 10:30:00       4.9            A       18.0     7.2
+    ## 1 02336120 2011-05-27 12:15:00       954            E       20.5     6.2
+    ## 2 02336240 2011-05-17 08:45:00        11            A       15.3     7.3
+    ## 3 02336360 2011-05-20 13:30:00        10            X       16.8      NA
+    ## 4 02336360 2011-05-20 02:45:00        10            X       18.4     7.2
+    ## 5 02336120 2011-05-01 07:30:00        17          A e       18.7     7.1
+    ## 6 02336240 2011-05-31 02:30:00        11            A       24.5     7.0
     ##   DO_Inst
-    ## 1     6.9
-    ## 2     6.6
-    ## 3     7.8
-    ## 4     7.3
-    ## 5     7.3
-    ## 6     4.4
+    ## 1     7.0
+    ## 2     8.3
+    ## 3     8.4
+    ## 4     8.3
+    ## 5     7.8
+    ## 6     6.7
 
 ``` r
 #Find just observations with estimated flows (as above)
@@ -291,19 +291,19 @@ head(dplyr_estimated_q)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02337170 2011-05-07 08:00:00    5990.0            E       14.1     6.8
-    ## 2 02336526 2011-05-05 23:15:00       5.5            E       18.9     7.2
-    ## 3 02337170 2011-05-13 08:15:00    3380.0            E       15.9     6.9
-    ## 4 02336360 2011-05-24 07:45:00       9.1            E       22.2     7.1
-    ## 5 02203700 2011-05-20 16:15:00       4.0            E       19.4     7.0
-    ## 6 02336526 2011-05-13 07:45:00       3.6            E       22.4     7.2
+    ## 1 02336120 2011-05-27 12:15:00     954.0            E       20.5     6.2
+    ## 2 02336410 2011-05-06 23:45:00      24.0            E         NA     7.0
+    ## 3 02336120 2011-05-18 02:30:00      14.0            E       15.7     7.3
+    ## 4 02336360 2011-05-04 08:00:00      87.0            E       17.7     6.7
+    ## 5 02203700 2011-05-14 09:30:00       4.4            E       20.4     6.8
+    ## 6 02336240 2011-05-31 20:15:00      10.0            E       26.6     7.1
     ##   DO_Inst
-    ## 1    10.1
-    ## 2     9.5
-    ## 3     9.7
-    ## 4     6.6
-    ## 5     8.2
-    ## 6     6.1
+    ## 1     7.0
+    ## 2     8.5
+    ## 3     8.8
+    ## 4     8.2
+    ## 5     4.4
+    ## 6     7.9
 
 Now we have seen how to filter observations and select columns within a data frame. Now I want to add a new column. In dplyr, `mutate()` allows us to add new columns. These can be vectors you are adding or based on expressions applied to existing columns. For instance, we have a column of dissolved oxygen in milligrams per liter (mg/L), but we would like to add a column with dissolved oxygen in milligrams per milliliter (mg/mL).
 
@@ -314,19 +314,19 @@ head(intro_df_newcolumn)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd Wtemp_Inst pH_Inst
-    ## 1 02203700 2011-05-20 16:45:00       4.0          A e         NA     7.0
-    ## 2 02336410 2011-05-28 08:15:00      35.0            A       21.8     6.9
-    ## 3 02203655 2011-05-22 09:30:00       7.8            A       20.6     7.0
-    ## 4 02336240 2011-05-14 23:15:00      10.0            X       22.0     7.3
-    ## 5 02336313 2011-05-22 12:00:00       1.3            A       19.3     7.2
-    ## 6 02336728 2011-05-25 01:30:00       8.6            X       24.2     7.1
+    ## 1 02336120 2011-05-27 12:15:00       954            E       20.5     6.2
+    ## 2 02336240 2011-05-17 08:45:00        11            A       15.3     7.3
+    ## 3 02336360 2011-05-20 13:30:00        10            X       16.8      NA
+    ## 4 02336360 2011-05-20 02:45:00        10            X       18.4     7.2
+    ## 5 02336120 2011-05-01 07:30:00        17          A e       18.7     7.1
+    ## 6 02336240 2011-05-31 02:30:00        11            A       24.5     7.0
     ##   DO_Inst DO_mgmL
-    ## 1     8.6  0.0086
-    ## 2     6.9  0.0069
-    ## 3     6.6  0.0066
-    ## 4     7.8  0.0078
-    ## 5     7.3  0.0073
-    ## 6     7.3  0.0073
+    ## 1     7.0  0.0070
+    ## 2     8.3  0.0083
+    ## 3     8.4  0.0084
+    ## 4     8.3  0.0083
+    ## 5     7.8  0.0078
+    ## 6     6.7  0.0067
 
 Three ways to string `dplyr` commands together
 ----------------------------------------------
@@ -341,12 +341,12 @@ head(dplyr_error_tmp)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd
-    ## 1 02336240 2011-05-14 23:15:00      10.0            X
-    ## 2 02336728 2011-05-25 01:30:00       8.6            X
-    ## 3 02337170 2011-05-30 13:30:00    1350.0            X
-    ## 4 02336728 2011-05-26 06:00:00       8.2            X
-    ## 5 02336120 2011-05-26 12:45:00       8.9            X
-    ## 6 02336360 2011-05-19 21:30:00      10.0            X
+    ## 1 02336360 2011-05-20 13:30:00      10.0            X
+    ## 2 02336360 2011-05-20 02:45:00      10.0            X
+    ## 3 02203655 2011-05-23 13:45:00       7.8            X
+    ## 4 02336240 2011-05-10 21:00:00      11.0            X
+    ## 5 02203700 2011-05-01 20:45:00       6.1            X
+    ## 6 02336313 2011-05-18 21:15:00       1.0            X
 
 ``` r
 #Nested function
@@ -357,12 +357,12 @@ head(dplyr_error_nest)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd
-    ## 1 02336240 2011-05-14 23:15:00      10.0            X
-    ## 2 02336728 2011-05-25 01:30:00       8.6            X
-    ## 3 02337170 2011-05-30 13:30:00    1350.0            X
-    ## 4 02336728 2011-05-26 06:00:00       8.2            X
-    ## 5 02336120 2011-05-26 12:45:00       8.9            X
-    ## 6 02336360 2011-05-19 21:30:00      10.0            X
+    ## 1 02336360 2011-05-20 13:30:00      10.0            X
+    ## 2 02336360 2011-05-20 02:45:00      10.0            X
+    ## 3 02203655 2011-05-23 13:45:00       7.8            X
+    ## 4 02336240 2011-05-10 21:00:00      11.0            X
+    ## 5 02203700 2011-05-01 20:45:00       6.1            X
+    ## 6 02336313 2011-05-18 21:15:00       1.0            X
 
 ``` r
 #Pipes
@@ -373,12 +373,12 @@ head(dplyr_error_pipe)
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd
-    ## 1 02336240 2011-05-14 23:15:00      10.0            X
-    ## 2 02336728 2011-05-25 01:30:00       8.6            X
-    ## 3 02337170 2011-05-30 13:30:00    1350.0            X
-    ## 4 02336728 2011-05-26 06:00:00       8.2            X
-    ## 5 02336120 2011-05-26 12:45:00       8.9            X
-    ## 6 02336360 2011-05-19 21:30:00      10.0            X
+    ## 1 02336360 2011-05-20 13:30:00      10.0            X
+    ## 2 02336360 2011-05-20 02:45:00      10.0            X
+    ## 3 02203655 2011-05-23 13:45:00       7.8            X
+    ## 4 02336240 2011-05-10 21:00:00      11.0            X
+    ## 5 02203700 2011-05-01 20:45:00       6.1            X
+    ## 6 02336313 2011-05-18 21:15:00       1.0            X
 
 ``` r
 # Every function, including head(), can be chained
@@ -389,12 +389,12 @@ intro_df %>%
 ```
 
     ##    site_no            dateTime Flow_Inst Flow_Inst_cd
-    ## 1 02336240 2011-05-14 23:15:00      10.0            X
-    ## 2 02336728 2011-05-25 01:30:00       8.6            X
-    ## 3 02337170 2011-05-30 13:30:00    1350.0            X
-    ## 4 02336728 2011-05-26 06:00:00       8.2            X
-    ## 5 02336120 2011-05-26 12:45:00       8.9            X
-    ## 6 02336360 2011-05-19 21:30:00      10.0            X
+    ## 1 02336360 2011-05-20 13:30:00      10.0            X
+    ## 2 02336360 2011-05-20 02:45:00      10.0            X
+    ## 3 02203655 2011-05-23 13:45:00       7.8            X
+    ## 4 02336240 2011-05-10 21:00:00      11.0            X
+    ## 5 02203700 2011-05-01 20:45:00       6.1            X
+    ## 6 02336313 2011-05-18 21:15:00       1.0            X
 
 Although we show you the nested and piping methods, we will only use the intermediate data frames method for the remainder of this material.
 
@@ -449,7 +449,7 @@ This exercise is going to focus on using what we just covered on `dplyr` to star
 2.  Next, we are going to get a subset of the observations. We only want data where flow was greater than 10 cubic feet per second. Also give this data frame a different name than before.
 3.  Lastly, add a new column with flow in units of cubic meters per second. Hint: there are 3.28 feet in a meter.
 
-Merging Data
+Joining Data
 ------------
 
 Joining data in `dplyr` is accomplished via the various `x_join()` commands (e.g., `inner_join`, `left_join`, `anti_join`, etc). These are very SQL-esque so if you speak SQL then these will be pretty easy for you. If not then they aren't immediately intuitive. There are also the base functions `rbind()` and `merge()`, but we won't be covering these because they are redundant with the faster, more readable `dplyr` functions.
@@ -478,42 +478,76 @@ tail(bind_rows_df)
 ```
 
     ##       site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
-    ## 1948 02336240 2011-05-09 21:00:00   12       A  22.8 7.3 8.7   73.04
-    ## 1949 02337170 2011-05-15 12:15:00 2280     A e  15.1 6.9 9.6   59.18
-    ## 1950 02336728 2011-05-31 11:00:00   13       A  22.7 7.0 7.3   72.86
-    ## 1951 00000001 2016-09-01 07:45:00   NA    <NA>  14.0 7.8  NA      NA
-    ## 1952 00000001 2016-09-02 07:45:00   NA    <NA>  16.4 8.5  NA      NA
-    ## 1953 00000001 2016-09-03 07:45:00   NA    <NA>  16.0 8.3  NA      NA
+    ## 1937 02336526 2011-05-03 06:30:00  4.2       A  21.3 7.0 6.6   70.34
+    ## 1938 02336120 2011-05-22 16:15:00 11.0     A e  21.3 7.2 7.9   70.34
+    ## 1939 02336120 2011-06-01 02:00:00 12.0       A  26.1 7.0 6.7   78.98
+    ## 1940 00000001 2016-09-01 07:45:00   NA    <NA>  14.0 7.8  NA      NA
+    ## 1941 00000001 2016-09-02 07:45:00   NA    <NA>  16.4 8.5  NA      NA
+    ## 1942 00000001 2016-09-03 07:45:00   NA    <NA>  16.0 8.3  NA      NA
 
 Now something to think about. Could you add a vector as a new row? Why/Why not? When/When not?
 
-Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows. What we want to do in that case is going to be more of a database type function and join two tables based on a common column. We can achieve this by using `x_join` functions. So let's imagine that we did actually collect dissolved oxygen, discharge, and chloride concentration on our observation dates. Also, we collected on some additional dates. We don't care about the additional dates, so use the `left_join` function from `dplyr`, which keeps all rows from the first (left) data frame. See `?left_join` for more information.
+Let's go back to the columns now. There are simple ways to add columns of the same length with observations in the same order to a data frame, but it is very common to have to datasets that are in different orders and have differing numbers of rows. What we want to do in that case is going to be more of a database type function and join two tables based on a common column. We can achieve this by using `x_join` functions. Let's say we have a separate data frame of site metadata, including latitude and longitude, and we want to attach that information to our discharge measurements. See `?left_join` for more information.
 
 ``` r
-# read forgotten DO and discharge data
-forgotten_data <- read.csv('data/forgottenData.csv', stringsAsFactors = FALSE, 
-                           colClasses = c(rep("character",2),rep("numeric",3)))
+# read site metadata
+siteInfo <- read.csv('data/siteInfo.csv',
+                     stringsAsFactors = FALSE, 
+                     colClasses = c(rep("character", 2), rep(NA, 9)))
 
-str(forgotten_data)
+str(siteInfo)
 ```
 
-    ## 'data.frame':    5 obs. of  5 variables:
-    ##  $ site_no : chr  "00000001" "00000001" "00000001" "00000001" ...
-    ##  $ dateTime: chr  "2016-09-01 07:45:00" "2016-09-02 07:45:00" "2016-09-03 07:45:00" "2016-09-04 07:45:00" ...
-    ##  $ DO      : num  10.2 8.7 9.3 9.2 8.9
-    ##  $ Cl_conc : num  15.6 11 14.2 13.6 13.7
-    ##  $ Flow    : num  25 54 67 60 59
+    ## 'data.frame':    11 obs. of  13 variables:
+    ##  $ station_nm          : chr  "SOUTH RIVER AT FORREST PARK ROAD, AT ATLANTA, GA" "INTRENCHMENT CR AT CONSTITUTION RD, NR ATLANTA, GA" "N.F. PEACHTREE CREEK, BUFORD HWY, NEAR ATLANTA, GA" "S.F. PEACHTREE CREEK JOHNSON RD, NEAR ATLANTA, GA" ...
+    ##  $ site_no             : chr  "02203655" "02203700" "02336120" "02336240" ...
+    ##  $ agency_cd           : chr  "USGS" "USGS" "USGS" "USGS" ...
+    ##  $ timeZoneOffset      : chr  "-05:00" "-05:00" "-05:00" "-05:00" ...
+    ##  $ timeZoneAbbreviation: chr  "EST" "EST" "EST" "EST" ...
+    ##  $ dec_lat_va          : num  33.7 33.7 33.8 33.8 33.8 ...
+    ##  $ dec_lon_va          : num  -84.4 -84.3 -84.3 -84.3 -84.4 ...
+    ##  $ srs                 : chr  "EPSG:4326" "EPSG:4326" "EPSG:4326" "EPSG:4326" ...
+    ##  $ siteTypeCd          : chr  "ST" "ST" "ST" "ST" ...
+    ##  $ hucCd               : int  3070103 3070103 3130001 3130001 3130001 3130001 3130001 3130001 3130002 3130002 ...
+    ##  $ stateCd             : int  13 13 13 13 13 13 13 13 13 13 ...
+    ##  $ countyCd            : chr  "13121" "13089" "13089" "13089" ...
+    ##  $ network             : chr  "NWIS" "NWIS" "NWIS" "NWIS" ...
 
 ``` r
-left_join(new_data, forgotten_data, by=c("site_no", "dateTime"))
+intro_df_siteInfo <- left_join(intro_df, siteInfo, by="site_no")
+head(intro_df_siteInfo)
 ```
 
-    ##    site_no            dateTime Wtemp  pH   DO Cl_conc Flow
-    ## 1 00000001 2016-09-01 07:45:00  14.0 7.8 10.2    15.6   25
-    ## 2 00000001 2016-09-02 07:45:00  16.4 8.5  8.7    11.0   54
-    ## 3 00000001 2016-09-03 07:45:00  16.0 8.3  9.3    14.2   67
+    ##    site_no            dateTime   Flow Flow_cd Wtemp  pH  DO Wtemp_F
+    ## 1 02336240 2011-05-17 08:45:00   11.0       A  15.3 7.3 8.3   59.54
+    ## 2 02336120 2011-05-01 07:30:00   17.0     A e  18.7 7.1 7.8   65.66
+    ## 3 02336240 2011-05-31 02:30:00   11.0       A  24.5 7.0 6.7   76.10
+    ## 4 02337170 2011-05-16 11:15:00 1350.0     A e  16.1 7.0 8.7   60.98
+    ## 5 02336526 2011-05-05 04:15:00    6.7       A  16.6 6.9 8.0   61.88
+    ## 6 02336360 2011-05-24 04:15:00    9.1       A  22.9 7.1 6.7   73.22
+    ##                                           station_nm agency_cd
+    ## 1  S.F. PEACHTREE CREEK JOHNSON RD, NEAR ATLANTA, GA      USGS
+    ## 2 N.F. PEACHTREE CREEK, BUFORD HWY, NEAR ATLANTA, GA      USGS
+    ## 3  S.F. PEACHTREE CREEK JOHNSON RD, NEAR ATLANTA, GA      USGS
+    ## 4              CHATTAHOOCHEE RIVER NEAR FAIRBURN, GA      USGS
+    ## 5   PROCTOR CREEK AT JACKSON PARKWAY, AT ATLANTA, GA      USGS
+    ## 6  NANCY CREEK AT RICKENBACKER DRIVE, AT ATLANTA, GA      USGS
+    ##   timeZoneOffset timeZoneAbbreviation dec_lat_va dec_lon_va       srs
+    ## 1         -05:00                  EST   33.80288  -84.34076 EPSG:4326
+    ## 2         -05:00                  EST   33.83149  -84.34270 EPSG:4326
+    ## 3         -05:00                  EST   33.80288  -84.34076 EPSG:4326
+    ## 4         -05:00                  EST   33.65667  -84.67361 EPSG:4326
+    ## 5         -05:00                  EST   33.79427  -84.47437 EPSG:4326
+    ## 6         -05:00                  EST   33.86917  -84.37889 EPSG:4326
+    ##   siteTypeCd   hucCd stateCd countyCd network
+    ## 1         ST 3130001      13    13089    NWIS
+    ## 2         ST 3130001      13    13089    NWIS
+    ## 3         ST 3130001      13    13089    NWIS
+    ## 4         ST 3130002      13    13121    NWIS
+    ## 5         ST 3130002      13    13121    NWIS
+    ## 6         ST 3130001      13    13121    NWIS
 
-Notice that the `left_join` kept only the matching rows (September 1-3), but kept all columns. If we wanted to remove the chloride concentration column, we can use `select` which we learned earlier in this lesson.
+If we wanted to remove some of the columns from `siteInfo.csv`, we can use `select` which we learned earlier in this lesson.
 
 Exercise 2
 ----------
@@ -537,25 +571,25 @@ DO <- select(DO, site_no, dateTime, DO)
 head(Q)
 ```
 
-    ##       site_no            dateTime Flow
-    ## 136  02336240 2011-05-12 09:15:00 11.0
-    ## 1255 02336410 2011-05-09 06:45:00 21.0
-    ## 603  02336240 2011-05-22 19:45:00  8.9
-    ## 1256 02203655 2011-05-29 22:00:00 11.0
-    ## 1604 02203700 2011-05-08 06:45:00  5.1
-    ## 1622 02336526 2011-05-04 00:30:00 67.0
+    ##       site_no            dateTime   Flow
+    ## 135  02336360 2011-05-23 05:30:00    9.4
+    ## 1248 02203700 2011-05-14 06:15:00    4.4
+    ## 600  02337170 2011-05-23 11:45:00 1430.0
+    ## 1249 02336410 2011-05-13 06:45:00   17.0
+    ## 1595 02336360 2011-05-27 19:30:00   28.0
+    ## 1613 02336300 2011-05-23 02:00:00   23.0
 
 ``` r
 head(DO)
 ```
 
-    ##       site_no            dateTime   DO
-    ## 1622 02336526 2011-05-04 00:30:00  8.1
-    ## 229  02336300 2011-05-16 18:30:00  9.0
-    ## 931  02203700 2011-05-12 21:30:00 10.0
-    ## 603  02336240 2011-05-22 19:45:00  9.6
-    ## 741  02336360 2011-05-27 01:30:00  6.8
-    ## 766  02336410 2011-05-05 22:45:00  8.8
+    ##       site_no            dateTime  DO
+    ## 1613 02336300 2011-05-23 02:00:00 7.0
+    ## 227  02336120 2011-05-22 15:30:00 7.8
+    ## 926  02336300 2011-05-16 05:15:00 7.6
+    ## 600  02337170 2011-05-23 11:45:00 8.1
+    ## 737  02336360 2011-05-25 08:00:00 6.5
+    ## 761  02336360 2011-05-06 13:45:00 8.5
 
 1.  Run the lines above to create the two data frames we will be working with.
 2.  Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.
@@ -576,12 +610,12 @@ head(arrange(intro_df, DO))
 ```
 
     ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
-    ## 1 02203700 2011-05-10 07:30:00  4.6       A  20.2 7.3 3.3   68.36
-    ## 2 02203700 2011-05-16 21:45:00 11.0       A  19.4 7.1 3.3   66.92
-    ## 3 02203700 2011-05-11 05:45:00  4.6     A e  22.1 7.4 3.5   71.78
-    ## 4 02203700 2011-05-10 05:45:00  4.9       A  20.9  NA 3.5   69.62
-    ## 5 02203700 2011-05-11 10:15:00  4.6     A e  20.3 7.4 3.5   68.54
-    ## 6 02203700 2011-05-11 03:15:00  4.9     A e  23.4 7.4 3.6   74.12
+    ## 1 02203700 2011-05-10 08:30:00  4.6       A  19.8 7.3 3.2   67.64
+    ## 2 02203700 2011-05-10 06:00:00  4.9       A  20.8 7.3 3.4   69.44
+    ## 3 02203700 2011-05-12 07:00:00  4.4       A  21.8  NA 3.4   71.24
+    ## 4 02203700 2011-05-10 07:00:00  4.6       A  20.4 7.3 3.4   68.72
+    ## 5 02203700 2011-05-09 00:45:00  5.1       A  21.5 7.2 3.5   70.70
+    ## 6 02203700 2011-05-10 10:00:00  4.9     A e  19.4 7.3 3.5   66.92
 
 ``` r
 #descending
@@ -589,12 +623,12 @@ head(arrange(intro_df, desc(DO)))
 ```
 
     ##    site_no            dateTime Flow Flow_cd Wtemp  pH   DO Wtemp_F
-    ## 1 02336526 2011-05-18 22:15:00  3.6     A e  17.4 8.9 12.8   63.32
-    ## 2 02336526 2011-05-19 22:00:00  3.6       A  19.8 8.9 12.6   67.64
-    ## 3 02336526 2011-05-20 19:30:00  3.5       A  21.5 8.6 12.2   70.70
-    ## 4 02336526 2011-05-17 21:15:00  3.6       A  16.4 8.1 12.2   61.52
-    ## 5 02336526 2011-05-21 22:00:00  3.5       A  23.9 9.0 12.1   75.02
-    ## 6 02336526 2011-05-25 20:45:00  2.8       A  25.4 8.7 12.1   77.72
+    ## 1 02336526 2011-05-23 21:00:00  3.3       A  24.7 8.9 12.4   76.46
+    ## 2 02336526 2011-05-18 23:30:00  3.8       A  17.5 8.9 12.4   63.50
+    ## 3 02336526 2011-05-17 20:00:00  3.6       A  16.5 7.9 12.3   61.70
+    ## 4 02336526 2011-05-20 21:30:00  3.5     A e  22.2 8.9 12.3   71.96
+    ## 5 02336526 2011-05-24 19:45:00  3.0       A  24.9 8.7 12.2   76.82
+    ## 6 02336526 2011-05-19 00:15:00  3.8     A e  17.6 9.0 12.1   63.68
 
 ``` r
 #multiple columns: lowest flow with highest temperature at top
@@ -602,12 +636,12 @@ head(arrange(intro_df, Flow, desc(Wtemp)))
 ```
 
     ##    site_no            dateTime Flow Flow_cd Wtemp  pH  DO Wtemp_F
-    ## 1 02336313 2011-06-01 03:45:00 0.65       A  25.3 7.2 4.6   77.54
-    ## 2 02336313 2011-05-31 20:15:00 0.69       A  26.9 7.2 7.0   80.42
-    ## 3 02336313 2011-05-30 23:15:00 0.69       A  26.3 7.3 5.8   79.34
-    ## 4 02336313 2011-05-31 01:30:00 0.69       A  25.7 7.3 5.6   78.26
-    ## 5 02336313 2011-05-31 01:15:00 0.69       A  25.7 7.3 5.4   78.26
-    ## 6 02336313 2011-05-31 03:45:00 0.69       A  24.8 7.4 5.4   76.64
+    ## 1 02336313 2011-06-01 00:15:00 0.65       A  26.4  NA 5.3   79.52
+    ## 2 02336313 2011-05-30 02:00:00 0.73       A  25.2 7.4 5.5   77.36
+    ## 3 02336313 2011-05-30 03:15:00 0.73       A  24.8 7.4 5.7   76.64
+    ## 4 02336313 2011-05-30 15:45:00 0.73       A  24.4 7.4 7.0   75.92
+    ## 5 02336313 2011-05-30 11:15:00 0.73       A  22.2 7.5 5.9   71.96
+    ## 6 02336313 2011-05-31 18:15:00 0.77     A e  26.2 7.2 7.1   79.16
 
 Now `slice()`, which accomplishes what we did with the numeric indices before. Remembering back to that, we could grab rows of the data frame with something like `intro_df[3:10,]` or we can use `slice`:
 
@@ -616,14 +650,14 @@ Now `slice()`, which accomplishes what we did with the numeric indices before. R
 slice(intro_df, 3:10)
 ```
 
-    ##    site_no            dateTime   Flow Flow_cd Wtemp  pH   DO Wtemp_F
-    ## 1 02203655 2011-05-22 09:30:00    7.8       A  20.6 7.0  6.6   69.08
-    ## 2 02336313 2011-05-22 12:00:00    1.3       A  19.3 7.2  7.3   66.74
-    ## 3 02203700 2011-05-09 10:30:00    4.9       A  18.0 7.2  4.4   64.40
-    ## 4 02336313 2011-05-13 12:15:00    1.0       A  20.4 7.2  7.1   68.72
-    ## 5 02337170 2011-05-18 23:15:00 4510.0       A  13.5 6.9 10.0   56.30
-    ## 6 02336120 2011-05-08 15:45:00   17.0     A e  17.6 7.2  8.7   63.68
-    ## 7 02336526 2011-05-11 11:30:00    4.0       A  20.8 7.0  6.6   69.44
-    ## 8 02336410 2011-05-10 04:15:00   19.0       A  21.5 7.0  7.2   70.70
+    ##    site_no            dateTime   Flow Flow_cd Wtemp  pH  DO Wtemp_F
+    ## 1 02336240 2011-05-31 02:30:00   11.0       A  24.5 7.0 6.7   76.10
+    ## 2 02337170 2011-05-16 11:15:00 1350.0     A e  16.1 7.0 8.7   60.98
+    ## 3 02336526 2011-05-05 04:15:00    6.7       A  16.6 6.9 8.0   61.88
+    ## 4 02336360 2011-05-24 04:15:00    9.1       A  22.9 7.1 6.7   73.22
+    ## 5 02336120 2011-05-01 06:30:00   17.0       A  18.9 7.0 7.7   66.02
+    ## 6 02336526 2011-05-25 16:45:00    3.1       A  22.5 7.8 9.5   72.50
+    ## 7 02336410 2011-05-13 21:30:00   16.0       A  23.7  NA 8.2   74.66
+    ## 8 02336410 2011-05-21 17:00:00   14.0       A  21.0 7.4 9.1   69.80
 
 We now have quite a few tools that we can use to clean and manipulate data in R. We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on.
