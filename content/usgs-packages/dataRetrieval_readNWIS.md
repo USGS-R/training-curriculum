@@ -1022,7 +1022,7 @@ head(mississippi_avgQ)
 
 **Las Vegas historic water use**
 
-The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use category and it's corresponding abbreviation. Note that categories have changed over time. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
+The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -1043,23 +1043,151 @@ Abbreviation
 <tbody>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Population, in millions
+Aquaculture
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-POP
+AQ
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Total withdrawals, in Bgal/d
+Commercial
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-TW
+CO
 </td>
 </tr>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Public supply, in Bgal/d
+Domestic
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+DO
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Hydroelectric Power
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+HY
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Irrigation, Crop
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+IC
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Irrigation, Golf Courses
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+IG
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Industrial
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+IN
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Total Irrigation
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+IT
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Livestock (Animal Specialties)
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+LA
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Livestock
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+LI
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Livestock (Stock)
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+LS
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Mining
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+MI
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Other Industrial
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+OI
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Thermoelectric Power (Closed-loop cooling)
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+PC
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Fossil-fuel Thermoelectric Power
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+PF
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Geothermal Thermoelectric Power
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+PG
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Nuclear Thermoelectric Power
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+PN
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Thermoelectric Power (Once-through cooling)
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+PO
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Public Supply
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 PS
@@ -1067,106 +1195,85 @@ PS
 </tr>
 <tr style="background-color: #f7f7f7;">
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Self-supplied domestic, in Bgal/d
+Total Power
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-SD
+PT
 </td>
 </tr>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Livestock, in Bgal/d
+Total Thermoelectric Power
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-L
+PT
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Irrigation, in Bgal/d
+Reservoir Evaporation
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-I
+RE
 </td>
 </tr>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Thermoelectric power, in Bgal/d
+Total Population
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 TP
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Self-supplied industrial, in Bgal/d
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+Wastewater Treatment
 </td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-SI
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Mining, In Bgal/d
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-M
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Commercial, in Bgal/d
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-C
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-Aquaculture, in Bgal/d
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-A
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+WW
 </td>
 </tr>
 </tbody>
 </table>
 ``` r
 # Major filter: Clark County, NV
-# Water-use category: total withdrawals, TW USING IT BECAUSE TW IS NOT WORKING
-vegas_wu <- readNWISuse(stateCd="NV", countyCd="Clark", categories="IT")
+# Water-use category: public supply, PS
+vegas_wu <- readNWISuse(stateCd="NV", countyCd="Clark", categories="PS")
 ncol(vegas_wu)
 ```
 
-    ## [1] 23
+    ## [1] 26
 
 ``` r
 names(vegas_wu)
 ```
 
-    ##  [1] "state_cd"                                                                    
-    ##  [2] "state_name"                                                                  
-    ##  [3] "county_cd"                                                                   
-    ##  [4] "county_nm"                                                                   
-    ##  [5] "year"                                                                        
-    ##  [6] "Irrigation..Total.self.supplied.groundwater.withdrawals..fresh..in.Mgal.d"   
-    ##  [7] "Irrigation..Total.self.supplied.groundwater.withdrawals..saline..in.Mgal.d"  
-    ##  [8] "Irrigation..Total.total.self.supplied.withdrawals..groundwater..in.Mgal.d"   
-    ##  [9] "Irrigation..Total.self.supplied.surface.water.withdrawals..fresh..in.Mgal.d" 
-    ## [10] "Irrigation..Total.self.supplied.surface.water.withdrawals..saline..in.Mgal.d"
-    ## [11] "Irrigation..Total.total.self.supplied.withdrawals..surface.water..in.Mgal.d" 
-    ## [12] "Irrigation..Total.total.self.supplied.withdrawals..fresh..in.Mgal.d"         
-    ## [13] "Irrigation..Total.total.self.supplied.withdrawals..saline..in.Mgal.d"        
-    ## [14] "Irrigation..Total.total.self.supplied.withdrawals..in.Mgal.d"                
-    ## [15] "Irrigation..Total.consumptive.use..fresh..in.Mgal.d"                         
-    ## [16] "Irrigation..Total.consumptive.use..saline..in.Mgal.d"                        
-    ## [17] "Irrigation..Total.total.consumptive.use..in.Mgal.d"                          
-    ## [18] "Irrigation..Total.conveyance.loss..in.Mgal.d"                                
-    ## [19] "Irrigation..Total.sprinkler.irrigation..in.thousand.acres"                   
-    ## [20] "Irrigation..Total.microirrigation..in.thousand.acres"                        
-    ## [21] "Irrigation..Total.surface.irrigation..in.thousand.acres"                     
-    ## [22] "Irrigation..Total.total.irrigation..in.thousand.acres"                       
-    ## [23] "Irrigation..Total.reclaimed.wastewater..in.Mgal.d"
+    ##  [1] "state_cd"                                                                
+    ##  [2] "state_name"                                                              
+    ##  [3] "county_cd"                                                               
+    ##  [4] "county_nm"                                                               
+    ##  [5] "year"                                                                    
+    ##  [6] "Public.Supply.population.served.by.groundwater..in.thousands"            
+    ##  [7] "Public.Supply.population.served.by.surface.water..in.thousands"          
+    ##  [8] "Public.Supply.total.population.served..in.thousands"                     
+    ##  [9] "Public.Supply.self.supplied.groundwater.withdrawals..fresh..in.Mgal.d"   
+    ## [10] "Public.Supply.self.supplied.groundwater.withdrawals..saline..in.Mgal.d"  
+    ## [11] "Public.Supply.total.self.supplied.withdrawals..groundwater..in.Mgal.d"   
+    ## [12] "Public.Supply.self.supplied.surface.water.withdrawals..fresh..in.Mgal.d" 
+    ## [13] "Public.Supply.self.supplied.surface.water.withdrawals..saline..in.Mgal.d"
+    ## [14] "Public.Supply.total.self.supplied.withdrawals..surface.water..in.Mgal.d" 
+    ## [15] "Public.Supply.total.self.supplied.withdrawals..fresh..in.Mgal.d"         
+    ## [16] "Public.Supply.total.self.supplied.withdrawals..saline..in.Mgal.d"        
+    ## [17] "Public.Supply.total.self.supplied.withdrawals..total..in.Mgal.d"         
+    ## [18] "Public.Supply.deliveries.to.domestic..in.Mgal.d"                         
+    ## [19] "Public.Supply.deliveries.to.commercial..in.Mgal.d"                       
+    ## [20] "Public.Supply.deliveries.to.industrial..in.Mgal.d"                       
+    ## [21] "Public.Supply.deliveries.to.thermoelectric..in.Mgal.d"                   
+    ## [22] "Public.Supply.total.deliveries..in.Mgal.d"                               
+    ## [23] "Public.Supply.public.use.and.losses..in.Mgal.d"                          
+    ## [24] "Public.Supply.per.capita.use..in.gallons.person.day"                     
+    ## [25] "Public.Supply.reclaimed.wastewater..in.Mgal.d"                           
+    ## [26] "Public.Supply.number.of.facilities"
 
 ``` r
 head(vegas_wu[,1:7])
@@ -1179,20 +1286,20 @@ head(vegas_wu[,1:7])
     ## 4       32     Nevada       003 Clark County 2000
     ## 5       32     Nevada       003 Clark County 2005
     ## 6       32     Nevada       003 Clark County 2010
-    ##   Irrigation..Total.self.supplied.groundwater.withdrawals..fresh..in.Mgal.d
-    ## 1                                                                     11.65
-    ## 2                                                                     15.00
-    ## 3                                                                     25.10
-    ## 4                                                                     10.20
-    ## 5                                                                      5.24
-    ## 6                                                                      9.97
-    ##   Irrigation..Total.self.supplied.groundwater.withdrawals..saline..in.Mgal.d
-    ## 1                                                                          -
-    ## 2                                                                          -
-    ## 3                                                                       0.00
-    ## 4                                                                          -
-    ## 5                                                                          -
-    ## 6                                                                          -
+    ##   Public.Supply.population.served.by.groundwater..in.thousands
+    ## 1                                                      149.770
+    ## 2                                                      108.140
+    ## 3                                                      128.010
+    ## 4                                                      176.850
+    ## 5                                                            -
+    ## 6                                                            -
+    ##   Public.Supply.population.served.by.surface.water..in.thousands
+    ## 1                                                        402.210
+    ## 2                                                        618.000
+    ## 3                                                        844.060
+    ## 4                                                       1169.600
+    ## 5                                                              -
+    ## 6                                                              -
 
 ### readNWISuv
 

@@ -377,23 +377,21 @@ head(mississippi_avgQ)
 
 **Las Vegas historic water use**
 
-The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use category and it's corresponding abbreviation. Note that categories have changed over time. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
+The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
-Name <- c(
-  "Population, in millions", 
-  "Total withdrawals, in Bgal/d", 
-  "Public supply, in Bgal/d", 
-  "Self-supplied domestic, in Bgal/d", 
-  "Livestock, in Bgal/d", 
-  "Irrigation, in Bgal/d", 
-  "Thermoelectric power, in Bgal/d", 
-  "Self-supplied industrial, in Bgal/d", 
-  "Mining, In Bgal/d", 
-  "Commercial, in Bgal/d", 
-  "Aquaculture, in Bgal/d"
+Name <- c('Aquaculture', 'Commercial', 'Domestic', 'Hydroelectric Power', 
+          'Irrigation, Crop', 'Irrigation, Golf Courses', 'Industrial', 
+          'Total Irrigation', 'Livestock (Animal Specialties)', 'Livestock', 
+          'Livestock (Stock)', 'Mining', 'Other Industrial', 
+          'Thermoelectric Power (Closed-loop cooling)', 
+          'Fossil-fuel Thermoelectric Power', 'Geothermal Thermoelectric Power', 
+          'Nuclear Thermoelectric Power', 'Thermoelectric Power (Once-through cooling)', 
+          'Public Supply', 'Total Power', 'Total Thermoelectric Power', 
+          'Reservoir Evaporation', 'Total Population', 'Wastewater Treatment'
 )
-Abbreviation <- c("POP","TW","PS","SD","L","I","TP","SI","M","C","A")
+Abbreviation <- c('AQ', 'CO', 'DO', 'HY', 'IC', 'IG', 'IN', 'IT', 'LA', 'LI', 'LS', 'MI', 
+                  'OI', 'PC', 'PF', 'PG', 'PN', 'PO', 'PS', 'PT', 'PT', 'RE', 'TP', 'WW')
 
 library(htmlTable)
 htmlTable(data.frame(Name, Abbreviation), caption="Table 3. Water-use category names and abbreviations.",
@@ -403,8 +401,8 @@ htmlTable(data.frame(Name, Abbreviation), caption="Table 3. Water-use category n
 
 ```{r readnwisuse, message=FALSE, warning=FALSE}
 # Major filter: Clark County, NV
-# Water-use category: total withdrawals, TW USING IT BECAUSE TW IS NOT WORKING
-vegas_wu <- readNWISuse(stateCd="NV", countyCd="Clark", categories="IT")
+# Water-use category: public supply, PS
+vegas_wu <- readNWISuse(stateCd="NV", countyCd="Clark", categories="PS")
 ncol(vegas_wu)
 names(vegas_wu)
 head(vegas_wu[,1:7])
