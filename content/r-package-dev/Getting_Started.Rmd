@@ -1,0 +1,41 @@
+---
+title: "Getting Started"
+date: "9999-12-31"
+author: "Lindsay R. Carr"
+slug: "getting-started"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: R Package Development
+weight: 1
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/getting-started/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+**R Package Development**
+
+
+## Lesson Objectives
+
+1. Describe the course modules.
+2. Recognize the advantages and disadvantages of package development.
+3. Describe the post-workshop responsibilities of the attendees and OWI instructors.
+
