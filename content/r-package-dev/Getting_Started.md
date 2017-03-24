@@ -7,7 +7,7 @@ image: img/main/intro-icons-300px/r-logo.png
 identifier: 
 menu:
   main:
-    parent: R Package Developement
+    parent: R Package Development
     weight: 1
 draft: true
 ---
