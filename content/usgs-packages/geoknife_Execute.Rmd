@@ -32,7 +32,7 @@ set.seed(1)
 
 ## Setting up a geojob
 
-A `geojob` is the object that contains all of the necessary processing information to execute a data request to GDP. The `geojob` is made up of the `stencil`, `fabric`, and `knife` (if you need to learn what these components are, please visit [the previous lesson](/usgs-packages/geoknife_Discovery)).
+A `geojob` is the object that contains all of the necessary processing information to execute a data request to GDP. The `geojob` is made up of the `stencil`, `fabric`, and `knife` (if you need to learn what these components are, please visit [the previous lesson](/usgs-packages/geoknife-data)).
 
 To create a `geojob`, use the function `geoknife` and give the three components as arguments. `stencil` and `fabric` must be indicated, but `knife` has a default. Any additional arguments are specifications for the webprocessing step. See `?'webprocess-class'` for options. This lesson will not discuss all of the options. 
 
@@ -41,7 +41,7 @@ To create a `geojob`, use the function `geoknife` and give the three components 
 library(geoknife)
 ```
 
-Let's setup a `geojob` to find the unweighted annual evapotranspiration rates for the state of Indiana using the annual evapotranspiration data we saw in [the previous lesson](usgs-packages/geoknife_Discovery/#available-webdata). Since we have seen the URL and know the available variables and times, we can set all of that manually in the `webdata` function. Note: the times field must be a vector of start then end date, and be class `POSIXct`.
+Let's setup a `geojob` to find the unweighted annual evapotranspiration rates for the state of Indiana using the annual evapotranspiration data we saw in [the previous lesson](/usgs-packages/geoknife-data/#available-webdata). Since we have seen the URL and know the available variables and times, we can set all of that manually in the `webdata` function. Note: the times field must be a vector of start then end date, and be class `POSIXct`.
 
 ```{r create-geojob, message=FALSE, warning=FALSE}
 # create fabric
@@ -99,7 +99,7 @@ head(evap_data)
 
 Other stock algorithms could return netcdf or geotiff data. This will require you to handle the output manually using `download`. This will allow you to download the output to a file and then read it using your preferred method (e.g. `read.table`, `read.csv`). See `?download` for more information.
 
-## wait and email
+## `wait` and `email`
 
 This was not a computationally or spatially intensive request, so the job finished almost immediately. However, if we had setup a more complex job, it could still be running. Even though the processing of these large gridded datasets uses resources on a remote server, your R code could be impacted by the length of the processes. There are a few scenarios to consider:
 
@@ -109,7 +109,7 @@ This was not a computationally or spatially intensive request, so the job finish
 
 For the first scenario, the workflow from above was fine. If you are manually checking that the job has completed before trying to extract results, then nothing should fail.
 
-For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP to see if the job is complete at specified intervals, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=1800` (a half hour). The default for `sleep.time` is 5 seconds.
+For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=1800` (a half hour). The default for `sleep.time` is 5 seconds.
 
 ```{r wait-workflow, message=FALSE, warning=FALSE}
 # typical wait workflow
@@ -144,4 +144,4 @@ knife_willemail <- webprocess(email='fake.email@gmail.com')
 knife_willemail
 ```
 
-The examples used for this section were simple, and we didn't run into any issues. But what if we had? [The next section](/usgs-packages/geoknife_Troubleshoot) discusses how to troubleshoot your `geoknife` calls.
+The examples used for this section were simple, and we didn't run into any issues. But what if we had? [The next section](/usgs-packages/geoknife-troubleshoot) discusses how to troubleshoot your `geoknife` calls.
