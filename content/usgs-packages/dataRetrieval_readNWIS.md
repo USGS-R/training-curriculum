@@ -377,7 +377,7 @@ The following are examples of how to use each of the functions from Table 1. Don
 
 ### readNWISdata
 
-&lt; name="readnwisdata-county"</a>
+<a name="readnwisdata-county"></a>
 
 **Historic mean daily streamflow for sites in Maui County, Hawaii.**
 
