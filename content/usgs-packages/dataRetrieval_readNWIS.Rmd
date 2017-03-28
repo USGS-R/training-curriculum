@@ -64,8 +64,7 @@ htmlTable(data.frame(Function, Description, Arguments), caption="Table 1. readNW
 
 Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info). 
 
-Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters). Note that the web service name might differ from the `dataRetrieval` argument name, e.g. `site` is NWIS web service name but `siteNumber` is used in `readNWIS` functions. 
-For more information about `parameterCd` values, visit the [NWIS help page for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters). For more information about `statCd` values, see the [NWIS help page for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).
+Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters). For information about what `parameterCd` values are available, visit the [NWIS help page for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters). For more information about available `statCd` values, see the [NWIS help page for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 extract_arg_def <- function(pkg, fn, arg){
