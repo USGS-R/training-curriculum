@@ -73,7 +73,6 @@ This is available for streamflow, groundwater levels, and water quality sensors.
 - GU  (Guam)
 - MP  (Northern Mariana Islands)
 - PR  (Puerto Rico)
-- UM  (U.S. Minor Outlying Islands)
 - VI  (U.S. Virgin Islands)
 
 For more query parameters, visit [NWIS service documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Service).
