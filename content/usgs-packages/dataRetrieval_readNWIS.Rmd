@@ -92,25 +92,25 @@ extract_arg_def <- function(pkg, fn, arg){
   return(argdef)
 }
 
-Function <- c("readNWISdata", "readNWISdv", "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
-              "readNWISqw", "readNWISrating", "readNWISsite", "readNWISstat", "readNWISuse", "readNWISuv")
-allArguments <- unlist(lapply(Function, function(f) { names(formals(f)) }))
-Description <- unlist(lapply(Function, function(fn){
-  unlist(lapply(names(formals(fn)), extract_arg_def, 
-                pkg="dataRetrieval", fn=fn))
-}))
-Argument <- unique(allArguments)
-Description <- Description[!duplicated(allArguments)]
-
 library(htmlTable)
-htmlTable(data.frame(Argument, Description), caption="Table 2. readNWIS argument definitions",
-          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+
+makeArgDefTable <- function(function.name, table.num){
+
+  Argument <- unlist(lapply(function.name, function(f) { names(formals(f)) }))
+  Description <- unlist(lapply(function.name, function(fn){
+    unlist(lapply(names(formals(fn)), extract_arg_def, 
+                  pkg="dataRetrieval", fn=fn))
+  }))
+  
+  htmlTable(data.frame(Argument, Description), 
+            caption=paste0("Table ", table.num, ". ", function.name, " argument definitions"),
+            rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+            css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+}
+
 ```
 
-\html{<br>}
-
-The following are examples of how to use each of the functions from Table 1. Don't forget to load the `dataRetrieval` library if you are in a new session.
+The following are examples of how to use each of the readNWIS family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
 1. [readNWISdata, county major filter](#readnwisdata-county)
 2. [readNWISdata, huc major filter](#readnwisdata-huc)
@@ -132,6 +132,10 @@ The following are examples of how to use each of the functions from Table 1. Don
 
 
 ### readNWISdata
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISdata", table.num=2)
+```
 
 <a name="readnwisdata-county"></a>
 
@@ -192,6 +196,10 @@ length(unique(SaltLake_totalN$site_no))
 
 ### readNWISdv
 
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISdv", table.num=3)
+```
+
 <a name="readnwisdv"></a>
 
 **Minimum and maximum pH daily data for a site on the Missouri River near Townsend, MT.**
@@ -211,6 +219,10 @@ head(mt_site_pH)
 
 ### readNWISgwl
 
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISgwl", table.num=4)
+```
+
 <a name="readnwisgwl"></a>
 
 **Historic groundwater levels for a site near Portland, Oregon.**
@@ -223,6 +235,10 @@ head(or_site_gwl)
 
 ### readNWISmeas
 
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISmeas", table.num=5)
+```
+
 <a name="readnwismeas"></a>
 
 **Historic surface water measurements for a site near Dade City, Florida.**
@@ -234,6 +250,10 @@ head(fl_site_meas)
 ```
 
 ### readNWISpCode
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISpCode", table.num=6)
+```
 
 <a name="readnwispcode"></a>
 
@@ -250,6 +270,10 @@ readNWISpCode(c("00095", "00665"))
 ```
 
 ### readNWISpeak
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISpeak", table.num=7)
+```
 
 <a name="readnwispeak"></a>
 
@@ -269,6 +293,10 @@ nrow(fl_site_peak_incomp)
 ```
 
 ### readNWISqw
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISqw", table.num=8)
+```
 
 <a name="readnwisqw-multsite"></a>
 
@@ -300,6 +328,10 @@ head(oh_site_cwa)
 ```
 
 ### readNWISrating
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISrating", table.num=9)
+```
 
 <a name="readnwisrating"></a>
 
@@ -344,6 +376,10 @@ head(miss_rating_exsa)
 
 ### readNWISsite
 
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISsite", table.num=10)
+```
+
 <a name="readnwissite"></a>
 
 **Get metadata information for a site in Bronx, NY**
@@ -355,6 +391,10 @@ readNWISsite(siteNumbers="01302020")
 ```
 
 ### readNWISstat
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISstat", table.num=11)
+```
 
 <a name="readnwisstat"></a>
 
@@ -375,9 +415,9 @@ head(mississippi_avgQ)
 
 ### readNWISuse
 
-<a name="readnwisuse"></a>
-
-**Las Vegas historic water use**
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISuse", table.num=12)
+```
 
 The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
@@ -401,6 +441,10 @@ htmlTable(data.frame(Name, Abbreviation), caption="Table 3. Water-use category n
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
 
+<a name="readnwisuse"></a>
+
+**Las Vegas historic water use**
+
 ```{r readnwisuse, message=FALSE, warning=FALSE}
 # Major filter: Clark County, NV
 # Water-use category: public supply, PS
@@ -411,6 +455,10 @@ head(vegas_wu[,1:7])
 ```
 
 ### readNWISuv
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+makeArgDefTable("readNWISuv", table.num=13)
+```
 
 <a name="readnwisuv"></a>
 
