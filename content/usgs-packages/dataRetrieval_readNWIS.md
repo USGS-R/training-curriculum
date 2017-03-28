@@ -390,7 +390,7 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-03-22          4.57                P   UTC
+    ## 1      USGS 16400000 2017-03-27          5.49                P   UTC
     ## 2      USGS 16401000 1929-08-31         18.00                A   UTC
     ## 3      USGS 16402000 1957-07-31         51.00                A   UTC
     ## 4      USGS 16403000 1957-06-30          5.50                A   UTC
@@ -426,7 +426,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-03-22          19.6                P   UTC
+    ## 6      USGS 16618000 2017-03-27          19.6                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -455,64 +455,78 @@ head(SaltLake_totalN)
 
     ##   agency_cd         site_no  sample_dt sample_tm sample_end_dt
     ## 1      USGS        10010000 2017-03-01     12:45          <NA>
-    ## 2      USGS        10010100 2017-02-23     13:25          <NA>
-    ## 3      USGS        10141000 2017-03-01     14:30          <NA>
+    ## 2      USGS        10141000 2017-03-01     14:30          <NA>
+    ## 3      USGS        10141000 2017-03-24     10:20          <NA>
     ## 4      USGS        10172630 2017-03-08     12:44          <NA>
     ## 5      USGS        10172630 2017-03-08     14:15          <NA>
     ## 6      USGS 405356112205601 2017-03-02     10:30          <NA>
     ##   sample_end_tm sample_start_time_datum_cd_reported tm_datum_rlbty_cd
     ## 1          <NA>                                 MST                 K
     ## 2          <NA>                                 MST                 K
-    ## 3          <NA>                                 MST                 K
+    ## 3          <NA>                                 MDT                 K
     ## 4          <NA>                                 MST                 K
     ## 5          <NA>                                 MST                 K
     ## 6          <NA>                                 MST                 K
     ##   coll_ent_cd medium_cd tu_id body_part_id p00003 p00004 p00009 p00010
     ## 1        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    6.0
-    ## 2        USGS        WS  <NA>         <NA>   <NA>   <NA>   <NA>    4.0
-    ## 3    USGS-WRD        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4
+    ## 2    USGS-WRD        WS  <NA>         <NA>   <NA>   94.0   <NA>    4.4
+    ## 3        USGS        WS  <NA>         <NA>   1.00    119   3.00    5.1
     ## 4        USGS        WS  <NA>         <NA>   1.00   53.9   10.0    9.9
     ## 5    USGS-WRD        WS  <NA>         <NA>   <NA>   54.0   <NA>   10.2
     ## 6      UT-WLR        WS  <NA>         <NA>   <NA>   <NA>   <NA>    3.1
     ##   p00020 p00025 p00035 p00041 p00061 p00063 p00065  p00095 p00098   p00191
     ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
-    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    <NA>   0.50     <NA>
-    ## 3   <NA>    665   <NA>   <NA>   1770     10  18.24     515   <NA>  0.00001
+    ## 2   <NA>    665   <NA>   <NA>   1770     10  18.24     515   <NA>  0.00001
+    ## 3   <NA>   <NA>   <NA>   <NA>   3390   <NA>  23.02     374   <NA>     <NA>
     ## 4   <NA>   <NA>   <NA>   <NA>    225   <NA>   9.86    2370   <NA>     <NA>
     ## 5   <NA>    660    5.0   <NA>    213      5   9.83    2360   <NA>  0.00001
     ## 6    4.5    665   <NA>   <NA>   <NA>   <NA>   <NA>  190000   0.50  0.00001
-    ##   p00300 p00301 p00400 p00480 p00608 p00665 p00666 p01350 p30207 p30209
-    ## 1   <NA>   <NA>   <NA>    129   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 2   <NA>   <NA>   <NA>    226   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3   11.5    102    8.1   <NA>   0.14  0.190  0.058      2   5.56     50
-    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   3.01    6.4
-    ## 5    8.4     87    7.8   <NA>   <NA>   <NA>   <NA>      2   3.00    6.0
+    ##   p00300 p00301 p00400 p00403 p00405 p00480 p00608 p00665 p00666 p00900
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>    129   <NA>   <NA>   <NA>   <NA>
+    ## 2   11.5    102    8.1    8.1    2.6   <NA>   0.14  0.190  0.058    196
+    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5    8.4     87    7.8   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 6    3.2     93    8.0   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ##   p30211 p50014 p50015 p50016 p50280 p62854 p62855 p70305 p71820 p71846
-    ## 1   1280   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>    1.1   <NA>
-    ## 2   <NA>   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>    1.2   <NA>
-    ## 3   <NA>   <NA>    1.2   <NA>   1001   1.04   1.28   <NA>   <NA>  0.177
-    ## 4   <NA>   <NA>   <NA>   <NA>   1001   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>    0.1   <NA>    0.2   1001   <NA>   <NA>   <NA>   <NA>   <NA>
+    ##   p00905 p00915 p00925 p00930 p00931 p00932 p00935 p00940 p00945 p00950
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2     32   54.0   14.8   31.5   0.98     26   2.73   55.3   19.5   0.12
+    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ##   p00955 p01046 p01350 p29801 p30207 p30209 p30211 p50014 p50015 p50016
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   1280   <NA>   <NA>   <NA>
+    ## 2   8.78   48.5      2    164   5.56     50   <NA>   <NA>    1.2   <NA>
+    ## 3   <NA>   <NA>   <NA>   <NA>   7.02     96   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   3.01    6.4   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>   <NA>      2   <NA>   3.00    6.0   <NA>    0.1   <NA>    0.2
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ##   p50280 p62854 p62855 p70300 p70301 p70302 p70303 p70305 p71820 p71846
+    ## 1   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    1.1   <NA>
+    ## 2   1001   1.04   1.28    287    285   1370   0.39   <NA>   <NA>  0.177
+    ## 3   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  131.9   <NA>   <NA>
     ##   p71999 p72012 p72013   p72020 p72053 p72104 p72105 p72219 p72220 p72263
     ## 1  10.00    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 2  10.00    4.0  1.168     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3  10.00   <NA>   <NA>     <NA>      1   10.0   <NA>      2      5  0.998
+    ## 2  10.00   <NA>   <NA>     <NA>      1   10.0   <NA>      2      5  0.998
+    ## 3  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 4  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 5  10.00   <NA>   <NA>     <NA>   <NA>   <NA>   50.0      2      4  0.999
     ## 6   <NA>   <NA>   <NA>     <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  1.099
-    ##   p81904 p82398 p84164 p84171 p84182 p99111 p99156 p99159 p99206
-    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 2   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 3   3.00     10   3052     30      2     10  40206  40224  10044
-    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>     20   3044     30      2      1  40228  40224  10044
-    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
+    ##   p81904 p82398 p84164 p84171 p84182 p90095 p99111 p99156 p99159 p99206
+    ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 2   3.00     10   3052     30      2    519     10  40206  40224  10044
+    ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   <NA>     20   3044     30      2   <NA>      1  40228  40224  10044
+    ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
     ##         startDateTime sample_start_time_datum_cd
     ## 1 2017-03-01 19:45:00                        UTC
-    ## 2 2017-02-23 20:25:00                        UTC
-    ## 3 2017-03-01 21:30:00                        UTC
+    ## 2 2017-03-01 21:30:00                        UTC
+    ## 3 2017-03-24 16:20:00                        UTC
     ## 4 2017-03-08 19:44:00                        UTC
     ## 5 2017-03-08 21:15:00                        UTC
     ## 6 2017-03-02 17:30:00                        UTC
@@ -522,7 +536,7 @@ head(SaltLake_totalN)
 length(unique(SaltLake_totalN$site_no))
 ```
 
-    ## [1] 10
+    ## [1] 9
 
 ### readNWISdv
 
@@ -1332,12 +1346,12 @@ head(ca_site_do)
     ## 5      USGS 10336676 2016-04-01 08:00:00            29                A
     ## 6      USGS 10336676 2016-04-01 08:15:00            28                A
     ##   X_63680_00000 X_63680_00000_cd tz_cd
-    ## 1           1.2                P   UTC
-    ## 2           1.3                P   UTC
-    ## 3           1.2                P   UTC
-    ## 4           1.1                P   UTC
-    ## 5           1.2                P   UTC
-    ## 6           1.3                P   UTC
+    ## 1           1.2                A   UTC
+    ## 2           1.3                A   UTC
+    ## 3           1.2                A   UTC
+    ## 4           1.1                A   UTC
+    ## 5           1.2                A   UTC
+    ## 6           1.3                A   UTC
 
 Additional Features
 -------------------
@@ -1496,17 +1510,17 @@ Similar to `renameNWIScolumns`, `addWaterYear` can be used as a standalone funct
 # mean daily discharge on the Colorado River in Grand Canyon National Park for fall of 2014
 # The dates in Sept should be water year 2014, but the dates in Oct and Nov are water year 2015
 co_river_q_fall <- readNWISdv(siteNumber="09403850", parameterCd="00060", 
-                              startDate="2014-09-01", endDate="2014-11-30")
+                              startDate="2014-09-28", endDate="2014-11-30")
 head(co_river_q_fall)
 ```
 
     ##   agency_cd  site_no       Date X_00060_00003 X_00060_00003_cd
-    ## 1      USGS 09403850 2014-09-01             4              A e
-    ## 2      USGS 09403850 2014-09-02             4              A e
-    ## 3      USGS 09403850 2014-09-03             4              A e
-    ## 4      USGS 09403850 2014-09-04             4              A e
-    ## 5      USGS 09403850 2014-09-05             4              A e
-    ## 6      USGS 09403850 2014-09-06             4              A e
+    ## 1      USGS 09403850 2014-09-28         195.0                A
+    ## 2      USGS 09403850 2014-09-29         241.0                A
+    ## 3      USGS 09403850 2014-09-30         224.0                A
+    ## 4      USGS 09403850 2014-10-01          37.0                A
+    ## 5      USGS 09403850 2014-10-02          22.0                A
+    ## 6      USGS 09403850 2014-10-03           9.2                A
 
 ``` r
 # now add the water year column
@@ -1515,12 +1529,12 @@ head(co_river_q_fall_wy)
 ```
 
     ##   agency_cd  site_no       Date waterYear X_00060_00003 X_00060_00003_cd
-    ## 1      USGS 09403850 2014-09-01      2014             4              A e
-    ## 2      USGS 09403850 2014-09-02      2014             4              A e
-    ## 3      USGS 09403850 2014-09-03      2014             4              A e
-    ## 4      USGS 09403850 2014-09-04      2014             4              A e
-    ## 5      USGS 09403850 2014-09-05      2014             4              A e
-    ## 6      USGS 09403850 2014-09-06      2014             4              A e
+    ## 1      USGS 09403850 2014-09-28      2014         195.0                A
+    ## 2      USGS 09403850 2014-09-29      2014         241.0                A
+    ## 3      USGS 09403850 2014-09-30      2014         224.0                A
+    ## 4      USGS 09403850 2014-10-01      2015          37.0                A
+    ## 5      USGS 09403850 2014-10-02      2015          22.0                A
+    ## 6      USGS 09403850 2014-10-03      2015           9.2                A
 
 ``` r
 unique(co_river_q_fall_wy$waterYear)

@@ -519,7 +519,7 @@ Similar to `renameNWIScolumns`, `addWaterYear` can be used as a standalone funct
 # mean daily discharge on the Colorado River in Grand Canyon National Park for fall of 2014
 # The dates in Sept should be water year 2014, but the dates in Oct and Nov are water year 2015
 co_river_q_fall <- readNWISdv(siteNumber="09403850", parameterCd="00060", 
-                              startDate="2014-09-01", endDate="2014-11-30")
+                              startDate="2014-09-28", endDate="2014-11-30")
 head(co_river_q_fall)
 
 # now add the water year column
