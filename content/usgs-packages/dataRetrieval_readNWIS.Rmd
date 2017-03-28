@@ -50,7 +50,7 @@ Description <- c(
   "Site metadata information. SHOULD THIS BE HERE?",
   "Daily, monthly, or annual statistics for time-series data. Default is mean daily.",
   "Data from the USGS National Water Use Program.",
-  "Returns time-series data reported at fixed intervals (15-60 min)."
+  "Returns time-series data reported from the USGS Instantaneous Values Web Service."
 )
 Arguments <- unlist(lapply(Function, function(f) { paste(names(formals(f)), collapse = ", ") }))
 

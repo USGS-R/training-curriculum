@@ -162,7 +162,7 @@ stateCd, countyCd, years, categories, convertType, transform
 readNWISuv
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-Returns time-series data reported at fixed intervals (15-60 min).
+Returns time-series data reported from the USGS Instantaneous Values Web Service.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
 siteNumbers, parameterCd, startDate, endDate, tz
