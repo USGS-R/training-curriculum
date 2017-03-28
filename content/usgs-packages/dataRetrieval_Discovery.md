@@ -18,6 +18,8 @@ Before continuing with this lesson, you should make sure that the `dataRetrieval
 library(dataRetrieval)
 ```
 
+There is an overwhelming amount of data and information stored in the National Water Information System (NWIS). This lesson will attempt to give an overview of what you can access. If you need more detail on a subject or have a question that is not answered here, please visit the [NWIS help system](https://help.waterdata.usgs.gov/).
+
 Data available
 --------------
 
@@ -227,12 +229,12 @@ names(wqpcounts_sc)
 ```
 
     ##  [1] "date"                      "content-disposition"      
-    ##  [3] "total-site-count"          "nwis-site-count"          
-    ##  [5] "storet-site-count"         "biodata-site-count"       
-    ##  [7] "total-activity-count"      "nwis-activity-count"      
-    ##  [9] "storet-activity-count"     "biodata-activity-count"   
-    ## [11] "total-result-count"        "nwis-result-count"        
-    ## [13] "storet-result-count"       "biodata-result-count"     
+    ##  [3] "total-site-count"          "biodata-site-count"       
+    ##  [5] "nwis-site-count"           "storet-site-count"        
+    ##  [7] "total-activity-count"      "biodata-activity-count"   
+    ##  [9] "nwis-activity-count"       "storet-activity-count"    
+    ## [11] "total-result-count"        "biodata-result-count"     
+    ## [13] "nwis-result-count"         "storet-result-count"      
     ## [15] "content-type"              "strict-transport-security"
 
 This returns a list with 16 different items, including total number of sites, breakdown of the number of sites by source (BioData, NWIS, STORET), total number of records, and breakdown of records count by source. Let's just look at total number of sites and total number of records.
