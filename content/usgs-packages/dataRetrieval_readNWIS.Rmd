@@ -36,7 +36,7 @@ We have learned how to discover data available in NWIS, but now we will look at 
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 library(dataRetrieval)
-Function <- c("readNWISdata", "readNWISdv", "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
+Function <- c("readNWISdata", 'readNWISdv', "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
               "readNWISqw", "readNWISrating", "readNWISsite", "readNWISstat", "readNWISuse", "readNWISuv")
 Description <- c(
   "Most general NWIS data import function. User must explicitly define the service parameter. More flexible than the other functions.",
@@ -47,15 +47,28 @@ Description <- c(
   "Annual maximum instantaneous streamflows and gage heights.",
   "Discrete water quality data.",
   "Rating table information for active stream gages",
-  "Site metadata information. SHOULD THIS BE HERE?",
+  "Site metadata information",
   "Daily, monthly, or annual statistics for time-series data. Default is mean daily.",
   "Data from the USGS National Water Use Program.",
   "Returns time-series data reported from the USGS Instantaneous Values Web Service."
 )
 Arguments <- unlist(lapply(Function, function(f) { paste(names(formals(f)), collapse = ", ") }))
 
+Function_fancy <- c('<a href="#readnwisdata">readNWISdata</a>', 
+                    '<a href="#readnwisdv">readNWISdv</a>', 
+                    '<a href="#readnwisgwl">readNWISgwl</a>', 
+                    '<a href="#readnwismeas">readNWISmeas</a>',
+                    '<a href="#readnwispcode">readNWISpCode</a>',
+                    '<a href="#readnwispeak">readNWISpeak</a>',
+                    '<a href="#readnwisqw">readNWISqw</a>',
+                    '<a href="#readnwisrating">readNWISrating</a>',
+                    '<a href="#readnwissite">readNWISsite</a>',
+                    '<a href="#readnwisstat">readNWISstat</a>',
+                    '<a href="#readnwisuse">readNWISuse</a>',
+                    '<a href="#readnwisuv">readNWISuv</a>')
+
 library(htmlTable)
-htmlTable(data.frame(Function, Description, Arguments), caption="Table 1. readNWIS function definitions",
+htmlTable(data.frame(Function_fancy, Description, Arguments), caption="Table 1. readNWIS function definitions",
           rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
@@ -193,7 +206,9 @@ This example uses `Sys.Date` to get the most recent date, so your dates will dif
 prev30days <- Sys.Date() - 30
 SaltLake_totalN <- readNWISdata(bBox=c(-113.0428, 40.6474, -112.0265, 41.7018), service="qw", 
                            parameterCd="00600", startDate=prev30days)
-head(SaltLake_totalN)
+# Lots of data...
+# Let's just look at the column names:
+names(SaltLake_totalN)
 
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
@@ -251,7 +266,8 @@ makeArgDefTable("readNWISmeas", table.num=5)
 ```{r readnwismeas, message=FALSE, warning=FALSE}
 # Major filter: site number, 02311500
 fl_site_meas <- readNWISmeas(siteNumbers="02311500")
-head(fl_site_meas)
+# Names of columns returned:
+names(fl_site_meas)
 ```
 
 ### readNWISpCode
@@ -284,17 +300,16 @@ makeArgDefTable("readNWISpeak", table.num=7)
 
 **Peak flow values for a site near Cassia, Florida.**
 
-The default settings will return data where the date of the peak flow is known. To include peak flows with unknown dates, change `asDateTime` to `FALSE`. This will keep all rows of the data.
+The default settings will return data where the date of the peak flow is known. To see peak flows with incomplete dates, change `convertType` to `FALSE`. 
 
 ```{r readnwispeak, message=FALSE, warning=FALSE}
 # Major filter: site number, 02235200
 fl_site_peak <- readNWISpeak(siteNumbers="02235200")
-head(fl_site_peak)
+fl_site_peak$peak_dt
 
 # Compare complete with incomplete days
-nrow(fl_site_peak)
-fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200", asDateTime=FALSE)
-nrow(fl_site_peak_incomp)
+fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200",convertType = FALSE)
+fl_site_peak_incomp$peak_dt[is.na(fl_site_peak$peak_dt)]
 ```
 
 ### readNWISqw
@@ -315,7 +330,7 @@ makeArgDefTable("readNWISqw", table.num=8)
 
 or_site_do <- readNWISqw(siteNumbers=c("455415119314601", "454554119121801"), parameterCd="00300",
                         startDate="2015-10-01", endDate="2016-09-30")
-head(or_site_do)
+head(or_site_do[,c("site_no","sample_dt","result_va")])
 ```
 
 <a name="readnwisqw-multparm"></a>
@@ -327,9 +342,11 @@ head(or_site_do)
 # Parameter: mercury and lead in micrograms/liter, 71890 and 01049
 # Begin date: January 1, 1972
 
-oh_site_cwa <- readNWISqw(siteNumbers="03237280", parameterCd=c("71890", "01049"), startDate="1972-01-01")
+oh_site_cwa <- readNWISqw(siteNumbers="03237280", 
+                          parameterCd=c("71890", "01049"),
+                          startDate="1972-01-01")
 nrow(oh_site_cwa)
-head(oh_site_cwa)
+head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
 ```
 
 ### readNWISrating
