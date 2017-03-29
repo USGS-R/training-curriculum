@@ -326,8 +326,7 @@ This example uses `Sys.Date` to get the most recent date, so your dates will dif
 prev30days <- Sys.Date() - 30
 SaltLake_totalN <- readNWISdata(bBox=c(-113.0428, 40.6474, -112.0265, 41.7018), service="qw", 
                            parameterCd="00600", startDate=prev30days)
-# Lots of data...
-# Let's just look at the column names:
+# This service returns a lot of columns:
 names(SaltLake_totalN)
 ```
 
@@ -994,6 +993,12 @@ character to set timezone attribute of output columns: startDateTime and endDate
 
 or_site_do <- readNWISqw(siteNumbers=c("455415119314601", "454554119121801"), parameterCd="00300",
                         startDate="2015-10-01", endDate="2016-09-30")
+ncol(or_site_do)
+```
+
+    ## [1] 35
+
+``` r
 head(or_site_do[,c("site_no","sample_dt","result_va")])
 ```
 
@@ -1021,6 +1026,12 @@ nrow(oh_site_cwa)
 ```
 
     ## [1] 76
+
+``` r
+ncol(oh_site_cwa)
+```
+
+    ## [1] 35
 
 ``` r
 head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
