@@ -30,12 +30,14 @@ opts_chunk$set(
 set.seed(1)
 ```
 
-Before continuing with this lesson, you should make sure that the `dataRetrieval` package is installed and loaded. It wouldn't hurt to reinstall (see `?install.packages`) so that you have the most up-to-date version.
+Before continuing with this lesson, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
 
 ```{r load-dataRetrieval}
 # load the dataRetrival package
 library(dataRetrieval)
 ```
+
+There is an overwhelming amount of data and information stored in the National Water Information System (NWIS). This lesson will attempt to give an overview of what you can access. If you need more detail on a subject or have a question that is not answered here, please visit the [NWIS help system](https://help.waterdata.usgs.gov/). 
 
 ## Data available
 
@@ -73,7 +75,6 @@ This is available for streamflow, groundwater levels, and water quality sensors.
 - GU  (Guam)
 - MP  (Northern Mariana Islands)
 - PR  (Puerto Rico)
-- UM  (U.S. Minor Outlying Islands)
 - VI  (U.S. Virgin Islands)
 
 For more query parameters, visit [NWIS service documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Service).
