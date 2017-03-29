@@ -173,7 +173,7 @@ siteNumbers, parameterCd, startDate, endDate, tz
 
 Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info).
 
-Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters). For information about what `parameterCd` values are available, visit the [NWIS help page for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters). For more information about available `statCd` values, see the [NWIS help page for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).
+Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters).
 
 The following are examples of how to use each of the readNWIS family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
@@ -263,7 +263,7 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-03-27          5.49                P   UTC
+    ## 1      USGS 16400000 2017-03-28          5.25                P   UTC
     ## 2      USGS 16401000 1929-08-31         18.00                A   UTC
     ## 3      USGS 16402000 1957-07-31         51.00                A   UTC
     ## 4      USGS 16403000 1957-06-30          5.50                A   UTC
@@ -299,7 +299,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-03-27          19.6                P   UTC
+    ## 6      USGS 16618000 2017-03-28          19.5                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -359,28 +359,28 @@ head(SaltLake_totalN)
     ## 2   11.5    102    8.1    8.1    2.6   <NA>   0.14  0.190  0.058    196
     ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5    8.4     87    7.8   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5    8.4     87    7.8    8.1    7.4   <NA>   0.43   1.38   1.10    467
     ## 6    3.2     93    8.0   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ##   p00905 p00915 p00925 p00930 p00931 p00932 p00935 p00940 p00945 p00950
     ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 2     32   54.0   14.8   31.5   0.98     26   2.73   55.3   19.5   0.12
     ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5    211    104   50.5    321   6.46     59   17.3    454    237   0.68
     ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ##   p00955 p01046 p01350 p29801 p30207 p30209 p30211 p50014 p50015 p50016
     ## 1   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   1280   <NA>   <NA>   <NA>
     ## 2   8.78   48.5      2    164   5.56     50   <NA>   <NA>    1.2   <NA>
     ## 3   <NA>   <NA>   <NA>   <NA>   7.02     96   <NA>   <NA>   <NA>   <NA>
     ## 4   <NA>   <NA>   <NA>   <NA>   3.01    6.4   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>   <NA>      2   <NA>   3.00    6.0   <NA>    0.1   <NA>    0.2
+    ## 5   17.8   18.9      2    256   3.00    6.0   <NA>    0.1   <NA>    0.2
     ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ##   p50280 p62854 p62855 p70300 p70301 p70302 p70303 p70305 p71820 p71846
     ## 1   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>    1.1   <NA>
     ## 2   1001   1.04   1.28    287    285   1370   0.39   <NA>   <NA>  0.177
     ## 3   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 4   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   1001   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
+    ## 5   1001   6.21   6.65   1390   1360    800   1.89   <NA>   <NA>  0.557
     ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  131.9   <NA>   <NA>
     ##   p71999 p72012 p72013   p72020 p72053 p72104 p72105 p72219 p72220 p72263
     ## 1  10.00    6.0  1.090  4193.68   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
@@ -394,7 +394,7 @@ head(SaltLake_totalN)
     ## 2   3.00     10   3052     30      2    519     10  40206  40224  10044
     ## 3   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
     ## 4   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>
-    ## 5   <NA>     20   3044     30      2   <NA>      1  40228  40224  10044
+    ## 5   <NA>     20   3044     30      2   2350      1  40228  40224  10044
     ## 6   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>   <NA>  40216   <NA>  10044
     ##         startDateTime sample_start_time_datum_cd
     ## 1 2017-03-01 19:45:00                        UTC
@@ -443,7 +443,7 @@ character USGS site number. This is usually an 8 digit number. Multiple sites ca
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character of USGS parameter code(s). This is usually an 5 digit number.
+character of USGS parameter code(s). This is usually an 5 digit number. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 <tr>
@@ -467,7 +467,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 statCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character USGS statistic code. This is usually 5 digits. Daily mean (00003) is the default.
+character USGS statistic code. This is usually 5 digits. Daily mean (00003) is the default. See [NWIS help for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).
 </td>
 </tr>
 </tbody>
@@ -771,7 +771,7 @@ Description
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character of USGS parameter codes (or multiple parameter codes). These are 5 digit number codes, more information can be found here: . To get a complete list of all current parameter codes in the USGS, use "all" as the input.
+character of USGS parameter codes (or multiple parameter codes). These are 5 digit number codes, more information can be found here: . To get a complete list of all current parameter codes in the USGS, use "all" as the input. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 </tbody>
@@ -941,7 +941,7 @@ character of USGS site numbers. This is usually an 8 digit number
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character that contains the code for a parameter group, or a character vector of 5-digit parameter codes. See .
+character that contains the code for a parameter group, or a character vector of 5-digit parameter codes. See . See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 <tr>
@@ -1325,7 +1325,7 @@ character USGS site number (or multiple sites). This is usually an 8 digit numbe
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character USGS parameter code. This is usually a 5 digit number.
+character USGS parameter code. This is usually a 5 digit number. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 <tr>
@@ -1778,7 +1778,7 @@ character USGS site number (or multiple sites). This is usually an 8 digit numbe
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character USGS parameter code. This is usually an 5 digit number.
+character USGS parameter code. This is usually an 5 digit number. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 <tr>
