@@ -68,7 +68,9 @@ Function_fancy <- c('<a href="#readnwisdata">readNWISdata</a>',
                     '<a href="#readnwisuv">readNWISuv</a>')
 
 library(htmlTable)
-htmlTable(data.frame(Function_fancy, Description, Arguments), caption="Table 1. readNWIS function definitions",
+htmlTable(data.frame(Function = Function_fancy, 
+                     Description = Description, 
+                     Arguments = Arguments), caption="Table 1. readNWIS function definitions",
           rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```

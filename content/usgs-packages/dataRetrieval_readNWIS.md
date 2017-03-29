@@ -25,7 +25,7 @@ Table 1. readNWIS function definitions
 </tr>
 <tr>
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Function\_fancy
+Function
 </th>
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 Description
