@@ -3,13 +3,12 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - construct calls
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 2
-draft: true
 ---
 Setting up a geojob
 -------------------
@@ -75,7 +74,7 @@ check(evap_geojob)
     ## [1] "Process successful"
     ## 
     ## $URL
-    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=1ce2ae44-769d-4b9e-92d8-3de3b5c16c02OUTPUT"
+    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=f1c71e3b-0453-46a9-9fcd-08537473b4faOUTPUT"
     ## 
     ## $statusType
     ## [1] "ProcessSucceeded"
@@ -99,7 +98,7 @@ The results of all the status checks say that our job was successful!
 Getting geojob data
 -------------------
 
-Since this job has finished processing and was successful, you can now get the data. You'll notice that `evap_geojob` does not actually contain any data. It only contains information about the job that you submitted. To get the data, you need to use `result` or `download`. The feature summary algorithms will return simple tabular data, so you can use `result` to automatically take the output and parse it into an R `data.frame`. We used a feature summary statistic in the evapotranspiration example, which returned tabular data. So, let's use `result` to get the `geojob` output.
+Since this job has finished processing and was successful, you can now get the data. You'll notice that `evap_geojob` does not actually contain any data. It only contains information about the job that you submitted. To get the data, you need to use `result` or `download`. The feature summary algorithms will return simple tabular data, so you can use `result` to automatically take the output and parse it into an R `data.frame`. We used a feature summary algorithm in the evapotranspiration example, which returned tabular data. So, let's use `result` to get the `geojob` output.
 
 ``` r
 evap_data <- result(evap_geojob)
@@ -120,12 +119,12 @@ head(evap_data)
     ## 5 2009-01-01 689.2706       et      MEAN
     ## 6 2010-01-01 630.4045       et      MEAN
 
-Other feature summary algorithms could return netcdf or geotiff data. This will require you to handle the output manually using `download`. Use this function to download the output to a file and then read it using your preferred data parsing method. `download` can also be used for tabular data if you have a parsing method that differs from what is used in `result`. See `?download` for more information.
+There are additional algorithms that return subsets of the raw data as netcdf or geotiff formats. These formats will require you to handle the output manually using `download`. Use this function to download the output to a file and then read it using your preferred data parsing method. `download` can also be used for tabular data if you have a parsing method that differs from what is used in `result`. See `?download` for more information.
 
 `wait` and `email`
 ------------------
 
-This was not a computationally or spatially intensive request, so the job finished almost immediately. However, if we had setup a more complex job, it could still be running. Even though the processing of these large gridded datasets uses resources on a remote server, your R code could be impacted by the length of the processes. There are a few scenarios to consider:
+This was not a computationally or spatially intensive request, so the job finished almost immediately. However, if we had setup a more complex job, it could still be running. Even though the processing of these large gridded datasets uses resources on a remote server, your workflow needs to account for processing time before using the results. There are a few scenarios to consider:
 
 1.  You are manually executing a job and manually checking it.
 2.  You are running a script that kicks off a `geoknife` process followed by lines of code that use the returned data.
@@ -133,7 +132,7 @@ This was not a computationally or spatially intensive request, so the job finish
 
 For the first scenario, the workflow from above was fine. If you are manually checking that the job has completed before trying to extract results, then nothing should fail.
 
-For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job in seconds. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=300` (5 min). The default for `sleep.time` is 5 seconds.
+For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job in seconds. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=120` (2 min). The default for `sleep.time` is 5 seconds.
 
 ``` r
 # typical wait workflow
