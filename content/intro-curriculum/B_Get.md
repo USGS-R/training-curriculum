@@ -688,7 +688,24 @@ str(read.csv("data/course_NWISdata.csv"))
 str(read.csv("data/course_NWISdata.csv", stringsAsFactors=FALSE))
 ```
 
-Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column, using NA for ones that you would like R to choose. In our dataset, we know that site numbers (column one) should be treated as character. We aren't positive about the other six, so we say `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. See `?read.table` for more information about how that how that works.
+Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column using the `colClasses` argument. In our dataset, we know that site numbers (column one) should be treated as character. We will define the other columns to match their data type. See `?read.table` for more information about `colClasses`.
+
+``` r
+column_types <- c("character", "character", "numeric", "character", "numeric", "numeric", "numeric")
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = column_types)
+str(intro_df)
+```
+
+    ## 'data.frame':    3000 obs. of  7 variables:
+    ##  $ site_no     : chr  "02203700" "02336410" "02203655" "02336240" ...
+    ##  $ dateTime    : chr  "2011-05-20 16:45:00" "2011-05-28 08:15:00" "2011-05-22 09:30:00" "2011-05-14 23:15:00" ...
+    ##  $ Flow_Inst   : num  4 35 7.8 10 1.3 8.6 4.9 1350 1 4510 ...
+    ##  $ Flow_Inst_cd: chr  "A e" "A" "A" "X" ...
+    ##  $ Wtemp_Inst  : num  NA 21.8 20.6 22 19.3 24.2 18 22.6 20.4 13.5 ...
+    ##  $ pH_Inst     : num  7 6.9 7 7.3 7.2 7.1 7.2 6.9 7.2 6.9 ...
+    ##  $ DO_Inst     : num  8.6 6.9 6.6 7.8 7.3 7.3 4.4 7.1 7.1 10 ...
+
+As a shortcut, we can use `NA` for columns that we would like R to determine. If we aren't positive about the other six columns or are only concerned about enforcing the first, we can put `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us.
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
