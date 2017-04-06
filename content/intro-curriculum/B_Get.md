@@ -705,7 +705,7 @@ str(intro_df)
     ##  $ pH_Inst     : num  7 6.9 7 7.3 7.2 7.1 7.2 6.9 7.2 6.9 ...
     ##  $ DO_Inst     : num  8.6 6.9 6.6 7.8 7.3 7.3 4.4 7.1 7.1 10 ...
 
-As a shortcut, we can use `NA` for columns that we would like R to determine. If we aren't positive about the other six columns or are only concerned about enforcing the first, we can put `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us.
+If we aren't positive about a column type or are not concerned about enforcing a specific type, we can put `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. As a shortcut, we will use `NA` for the other six columns where R should make the correct determination.
 
 ``` r
 intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))
