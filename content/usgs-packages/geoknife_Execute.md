@@ -75,7 +75,7 @@ check(evap_geojob)
     ## [1] "Process successful"
     ## 
     ## $URL
-    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=c1ccbded-e573-4813-9b38-3f83ea359842OUTPUT"
+    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=1ce2ae44-769d-4b9e-92d8-3de3b5c16c02OUTPUT"
     ## 
     ## $statusType
     ## [1] "ProcessSucceeded"
@@ -99,7 +99,7 @@ The results of all the status checks say that our job was successful!
 Getting geojob data
 -------------------
 
-Since this job has finished processing and was successful, you can now get the data. You'll notice that `evap_geojob` does not actually contain any data. It only contains information about the job that you submitted. To get the data, you need to use `result` or `download`. The stock statistics algorithms will return simple tabular data, so you can use `result` to automatically take the output and parse it into an R `data.frame`. We used a basic stat algorithm in the evapotranspiration example, so let's use `result` to get the `geojob` output.
+Since this job has finished processing and was successful, you can now get the data. You'll notice that `evap_geojob` does not actually contain any data. It only contains information about the job that you submitted. To get the data, you need to use `result` or `download`. The feature summary algorithms will return simple tabular data, so you can use `result` to automatically take the output and parse it into an R `data.frame`. We used a feature summary statistic in the evapotranspiration example, which returned tabular data. So, let's use `result` to get the `geojob` output.
 
 ``` r
 evap_data <- result(evap_geojob)
@@ -120,7 +120,7 @@ head(evap_data)
     ## 5 2009-01-01 689.2706       et      MEAN
     ## 6 2010-01-01 630.4045       et      MEAN
 
-Other stock algorithms could return netcdf or geotiff data. This will require you to handle the output manually using `download`. This will allow you to download the output to a file and then read it using your preferred method (e.g. `read.table`, `read.csv`). See `?download` for more information.
+Other feature summary algorithms could return netcdf or geotiff data. This will require you to handle the output manually using `download`. Use this function to download the output to a file and then read it using your preferred data parsing method. `download` can also be used for tabular data if you have a parsing method that differs from what is used in `result`. See `?download` for more information.
 
 `wait` and `email`
 ------------------
@@ -133,7 +133,7 @@ This was not a computationally or spatially intensive request, so the job finish
 
 For the first scenario, the workflow from above was fine. If you are manually checking that the job has completed before trying to extract results, then nothing should fail.
 
-For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=1800` (a half hour). The default for `sleep.time` is 5 seconds.
+For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job in seconds. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=300` (5 min). The default for `sleep.time` is 5 seconds.
 
 ``` r
 # typical wait workflow
