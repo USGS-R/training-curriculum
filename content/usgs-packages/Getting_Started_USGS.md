@@ -1,15 +1,13 @@
 ---
 author: Lindsay R. Carr
 date: 9999-12-31
-slug: GettingStarted
-title: Getting Started
+slug: GettingStartedUSGS
+title: Getting Started with USGS R Packages
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 1
-draft: true
 ---
 **USGS R Packages: Collaborative and reproducible data analysis using R**
 
@@ -31,6 +29,7 @@ This course assumes a moderate to advanced knowledge of the statistical programm
 Course outline
 --------------
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -92,6 +91,7 @@ Unknown
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 Software requirements
 ---------------------
 
