@@ -8,6 +8,7 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 1
+draft: true
 ---
 **USGS R Packages: Collaborative and reproducible data analysis using R**
 
