@@ -50,6 +50,140 @@ The README was already discussed in [*What is a Package?*](/pkg-def), so we won'
 
 ## Help files
 
+Help files are accessed when users run `?functionName`, e.g. `?mean` brings you to the help file for the function `mean`. Help files describe a function, provide the arguments and argument definitions, show default arguments when applicable, describe what the function returns to the user, points to additional resources or related functions, and provides reproducible examples. Roxygen comments are added to the same file the function is declared. When the package source files are "roxygenized", the roxygen-formatted comments are converted into `.Rd` files and added to the folder `man`. Although, the `.Rd` files look complex, R converts them to human readable formats to show when the `?` or `help` functions are used.
+
+Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. **RoxygenNote: 6.0.1 ?!?! in dataRetrieval**
+
+Roxygen comments always begin with a `#'`, notice the apostrophe after the regular R comment symbol. They are followed by an `@` and then the tag specifying what section of the help file is being described. Then, details about that section are added. The roxygen comments go directly above the function you are documenting. 
+
+If you have the following function,
+
+```{r eval=FALSE}
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+the roxygen comments would be added directly above it:
+
+```{r eval=FALSE}
+#' Location of Roxygen comments
+#' 
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+The main elements to include in the roxygen comments are the title, description, arguments, returned values, and examples. See (the RStudio devtools Cheatsheet)[https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf] for a more complete list of roxygen comment and formatting elements. Note that the "Usage" field in the help file is automatically added based on your function signature.
+
+To add the title and description, use `@title` and `@description`:
+
+```{r eval=FALSE}
+#' @title Determine if a pH value is valid.
+#' @description Test to see if the pH value is greater than or equal 
+#' to zero and less than or equal to fourteen.
+#'
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+The title, description, and details fields do not require the roxygen `@` tags as long as they are specified in order (title, then description, then details). All other elements require the appropriate roxygen tag.
+
+To add arguments, use the tag `@param` followed by the argument name, and then the argument description. Building on our documentation example, 
+
+```{r eval=FALSE}
+#' @title Determine if a pH value is valid.
+#' @description Test to see if the pH value is greater than or equal 
+#' to zero and less than or equal to fourteen.
+#' @param pH a numeric vector indicating the pH. Characters will return \code{FALSE}.
+#'
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+This function only has one argument, but if there were more they would be added starting on the next line using the same syntax. In the argument descriptions, it is best to say what class and lengths are expected, consider the following: 
+
+- What data structure is expected? Data frame, vector, list, length 1 vector?
+- What class is required? Numeric, logical, character?
+
+This is your opportunity to tell the user exactly what they need to know in order to effectively use your function. You can also use other roxygen formatting to make words bold, italic, code (as shown in this example), or links to web or other help pages. See the (RStudio devtools Cheatsheet for examples)[https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf].
+
+Next, you should describe the output of this function using the tag `@return`. 
+
+```{r eval=FALSE}
+#' @title Determine if a pH value is valid.
+#' @description Test to see if the pH value is greater than or equal 
+#' to zero and less than or equal to fourteen.
+#' @param pH a numeric vector indicating the pH. Characters will return \code{FALSE}.
+#' @return a vector of logicals indicating whether the pH value was between 0 and 14
+#'
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+Similar to the argument descriptions, your description of what the function returns should include data structure and class information.
+
+The final function documentation element we are going to discuss is the example section. Show users examples of a function by using the roxygen tag `@examples` followed by R code. The code should still follow the roxygen comment symbol `#'`.
+
+```{r eval=FALSE}
+#' @title Determine if a pH value is valid.
+#' @description Test to see if the pH value is greater than or equal 
+#' to zero and less than or equal to fourteen.
+#' @param pH a numeric vector indicating the pH. Characters will return \code{FALSE}.
+#' @return a vector of logicals indicating whether the pH value was between 0 and 14
+#' @examples
+#' is.valid.pH(5)
+#' is.valid.pH(-5)
+#' is.valid.pH(1:15)
+#' is.valid.pH("4")
+#'  
+#' set.seed(5)
+#' pH_vals <- runif(5, -3, 20)
+#' is.valid.pH(pH_vals)
+#'
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+Sometimes people using `\dontrun{}` to show examples of code that will cause in error. To use this, add your example code that will cause an error inside of the `{ }`.
+
+```{r eval=FALSE}
+#' @title Determine if a pH value is valid.
+#' @description Test to see if the pH value is greater than or equal 
+#' to zero and less than or equal to fourteen.
+#' @param pH a numeric vector indicating the pH
+#' @return a vector of logicals indicating whether the pH value was between 0 and 14
+#' @examples
+#' is.valid.pH(5)
+#' is.valid.pH(-5)
+#' is.valid.pH(1:15)
+#' is.valid.pH("4")
+#' 
+#' set.seed(5)
+#' pH_vals <- runif(5, -3, 20)
+#' is.valid.pH(pH_vals)
+#' 
+#' \dontrun{
+#' is.valid.pH()
+#' }
+#'
+is.valid.pH <- function(pH){
+    pH >= 0 & pH <= 14
+}
+```
+
+Now that your roxygen comments have been added, you need to build the resulting `.Rd` files. There are a few ways to do this:
+
+1. Run `devtools::document()`.
+2. Run `roxygen2::roxygenise()`. 
+3. Setup your *Build Tools* to automatically convert roxygen to `.Rd` each time you build and reload the package. Go to the *Build Tab*, click *More*, then *Configure Build Tools*, and then click the checkmark next to *Generate documentation with Roxygen*. Next to *Generate documentation with Roxygen*, click *Configure* and make sure that everything is checked. 
+
+Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have it's own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`.
+
 ## Vignettes
 
 Vignettes are PDF or HTML files made available to your users when they execute `help` and specify a package name, e.g. `help(package="dataRetrieval")`. Vignettes are typically used to explain information about the package that does not fit into the individual function documentation, such as common usages and workflows, background information, or statistical methods and references. It's a good rule of thumb to include at least one vignette to illustrate a typical workflow that someone might expect to use with your package.
@@ -79,3 +213,5 @@ Including `Sys.Date()` in the date field is optional but highly recommended beca
 In the body of the R Markdown document, add a code chunk that loads the `rmarkdown` package (`library(rmarkdown)`). Populate the rest of the document as you would any other R Markdown file. Remember, if you are unfamiliar with R Markdown, visit the list of references from above. 
 
 Save your new R Markdown file. The next time you build your package, your vignette should now be available!
+
+**NEED `VignetteBuilder: knitr` or `BuildVignettes: true` in DESCRIPTION ?!?! **
