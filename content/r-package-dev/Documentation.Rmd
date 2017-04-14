@@ -42,11 +42,11 @@ The quality of documentation for an R package can determine it's success or fail
 
 There are multiple components of package documentation. 
 
-- **README:** In the README, you include directions for how to quickly get setup and started. It might include a simple workflow or call out specific functions that people might find interesting. 
 - **Function help files:** Help files are the files that document the inputs and outputs of a function, references and links to related functions, define defaults for the user, and give examples of how to use the function. These files apply to functions at an individual level and are created using Roxygen syntax (we will use the [`roxygen2` package](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html).
+
 - **Vignettes:** Packages can have multiple vignettes to illustrate potential workflows or topics within the package. They generally are high-level, illustrating how to apply the package functions to complete an analysis.
 
-The README was already discussed in [*What is a Package?*](/pkg-def), so we won't be covering it further here. Just remember that this is a useful way to give someone a brief introduction to your package.
+- **README:** In the README, you include directions for how to quickly get setup and started. It might include a simple workflow or call out specific functions that people might find interesting.
 
 ## Help files
 
@@ -74,7 +74,7 @@ is.valid.pH <- function(pH){
 }
 ```
 
-The main elements to include in the roxygen comments are the title, description, arguments, returned values, and examples. See (the RStudio devtools Cheatsheet)[https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf] for a more complete list of roxygen comment and formatting elements. Note that the "Usage" field in the help file is automatically added based on your function signature.
+The main elements to include in the roxygen comments are the title, description, arguments, returned values, and examples. See [the RStudio devtools Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf) for a more complete list of roxygen comment and formatting elements. Note that the "Usage" field in the help file is automatically added based on your function signature.
 
 To add the title and description, use `@title` and `@description`:
 
@@ -108,7 +108,7 @@ This function only has one argument, but if there were more they would be added 
 - What data structure is expected? Data frame, vector, list, length 1 vector?
 - What class is required? Numeric, logical, character?
 
-This is your opportunity to tell the user exactly what they need to know in order to effectively use your function. You can also use other roxygen formatting to make words bold, italic, code (as shown in this example), or links to web or other help pages. See the (RStudio devtools Cheatsheet for examples)[https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf].
+This is your opportunity to tell the user exactly what they need to know in order to effectively use your function. You can also use other roxygen formatting to make words bold, italic, code (as shown in this example), or links to web or other help pages. See the [RStudio devtools Cheatsheet for examples](https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf).
 
 Next, you should describe the output of this function using the tag `@return`. 
 
@@ -215,3 +215,39 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
 Save your new R Markdown file. The next time you build your package, your vignette should now be available!
 
 **NEED `VignetteBuilder: knitr` or `BuildVignettes: true` in DESCRIPTION ?!?! **
+
+## READMEs
+
+The README file is a top-level markdown file that usually contains information about how to install the package, how to get started on some basic functions, where to go for reporting bugs or feature requests, and a disclaimer or copyright information about the open source software. All USGS packages have the Disclaimer field in the README that points to [the official USGS copyright policy](https://www2.usgs.gov/visual-id/credit_usgs.html#copyright/). Note that README files are shown on the home page of a GitHub repository. 
+
+The previous section discussed how to format R Markdown (`.Rmd` ) files and knit them to Markdown files (`.md`). README files are just regular `.md`, not `.Rmd`. You can create the `.md` from scratch. Most of the markdown syntax is similar to R Markdown, but can differ somewhat. See [GitHub's markdown style guide](https://guides.github.com/features/mastering-markdown/) for more information. If you will be including a lot of R code and output in your README, you can create a `README.Rmd` and knit to get the `README.md` since regular `.md` cannot evaluate R code.
+
+Here is an example `README.md`:
+
+```{eval=FALSE}
+`myAwesomePackage`
+=============
+
+A package with really awesome functions that are used to help creating amazingly reproducible workflows.
+
+Installation
+------------
+
+To install the myAwesomePackage package, you must be using R 3.0 or greater and run the following command: `install.packages("myAwesomePackage")`.
+  
+Reporting bugs
+------------
+
+Please consider reporting bugs and asking questions on the Issues page.
+
+Disclaimer
+------------
+This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the [official USGS copyright policy](https://www2.usgs.gov/visual-id/credit_usgs.html#copyright)
+
+Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+This software is provided "AS IS."
+
+[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+```
+
