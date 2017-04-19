@@ -14,7 +14,7 @@ Prior to the start of the workshop everyone will need to have had the software i
 Install R and RStudio
 =====================
 
-These instructions are for Windows install. Download and install R for Mac [here](https://cran.r-project.org/bin/macosx/). If you have trouble installing R on a Mac or Linux machine, please contact us directly at <gs-w_r_admin@usgs.gov>.
+These instructions are for Windows install. Download and install R for Mac [here](https://cran.r-project.org/bin/macosx/). If you have trouble installing R on a Mac or Linux machine, please contact us directly at [gs-w\_r\_admin@usgs.gov](gs-w_r_admin@usgs.gov).
 
 Download and install R
 ----------------------

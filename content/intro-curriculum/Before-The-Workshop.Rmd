@@ -34,7 +34,7 @@ give them a link to this page for instructions.sdkjflsd
 
 #Install R and RStudio
 These instructions are for Windows install. Download and install R for Mac [here](https://cran.r-project.org/bin/macosx/). If you have trouble installing R on a Mac or Linux machine, 
-please contact us directly at [gs-w_r_admin@usgs.gov](mailto:gs-w_r_admin@usgs.gov).
+please contact us directly at [gs-w_r_admin@usgs.gov](gs-w_r_admin@usgs.gov).
 
 ## Download and install R
 Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. 
