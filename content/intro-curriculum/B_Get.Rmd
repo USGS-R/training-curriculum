@@ -386,7 +386,15 @@ str(read.csv("data/course_NWISdata.csv"))
 str(read.csv("data/course_NWISdata.csv", stringsAsFactors=FALSE))
 ```
 
-Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column, using NA for ones that you would like R to choose. In our dataset, we know that site numbers (column one) should be treated as character. We aren't positive about the other six, so we say `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. See `?read.table` for more information about how that how that works.
+Another issue with reading in USGS data is that site numbers often have a leading zero that is dropped if it defaults to an integer. To prevent this, you can specify the class for each column using the `colClasses` argument. In our dataset, we know that site numbers (column one) should be treated as character. We will define the other columns to match their data type. See `?read.table` for more information about `colClasses`.
+
+```{r, warning=FALSE, message=FALSE}
+column_types <- c("character", "character", "numeric", "character", "numeric", "numeric", "numeric")
+intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = column_types)
+str(intro_df)
+```
+
+If we aren't positive about a column type or are not concerned about enforcing a specific type, we can put `NA` in the arguments for `colClasses` to indicate we want `read.table` to choose for us. As a shortcut, we will use `NA` for the other six columns where R should make the correct determination. 
 
 ```{r, warning=FALSE, message=FALSE}
 intro_df <- read.csv("data/course_NWISdata.csv", stringsAsFactors = FALSE, colClasses = c("character", rep(NA, 6)))

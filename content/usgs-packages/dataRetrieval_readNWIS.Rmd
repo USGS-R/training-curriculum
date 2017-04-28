@@ -36,7 +36,7 @@ We have learned how to discover data available in NWIS, but now we will look at 
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 library(dataRetrieval)
-Function <- c("readNWISdata", "readNWISdv", "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
+Function <- c("readNWISdata", 'readNWISdv', "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
               "readNWISqw", "readNWISrating", "readNWISsite", "readNWISstat", "readNWISuse", "readNWISuv")
 Description <- c(
   "Most general NWIS data import function. User must explicitly define the service parameter. More flexible than the other functions.",
@@ -47,22 +47,39 @@ Description <- c(
   "Annual maximum instantaneous streamflows and gage heights.",
   "Discrete water quality data.",
   "Rating table information for active stream gages",
-  "Site metadata information. SHOULD THIS BE HERE?",
+  "Site metadata information",
   "Daily, monthly, or annual statistics for time-series data. Default is mean daily.",
   "Data from the USGS National Water Use Program.",
-  "Returns time-series data reported at fixed intervals (15-60 min)."
+  "Returns time-series data reported from the USGS Instantaneous Values Web Service."
 )
 Arguments <- unlist(lapply(Function, function(f) { paste(names(formals(f)), collapse = ", ") }))
 
+Function_fancy <- c('<a href="#readnwisdata">readNWISdata</a>', 
+                    '<a href="#readnwisdv">readNWISdv</a>', 
+                    '<a href="#readnwisgwl">readNWISgwl</a>', 
+                    '<a href="#readnwismeas">readNWISmeas</a>',
+                    '<a href="#readnwispcode">readNWISpCode</a>',
+                    '<a href="#readnwispeak">readNWISpeak</a>',
+                    '<a href="#readnwisqw">readNWISqw</a>',
+                    '<a href="#readnwisrating">readNWISrating</a>',
+                    '<a href="#readnwissite">readNWISsite</a>',
+                    '<a href="#readnwisstat">readNWISstat</a>',
+                    '<a href="#readnwisuse">readNWISuse</a>',
+                    '<a href="#readnwisuv">readNWISuv</a>')
+
 library(htmlTable)
-htmlTable(data.frame(Function, Description, Arguments), caption="Table 1. readNWIS function definitions",
+htmlTable(data.frame(Function = Function_fancy, 
+                     Description = Description, 
+                     Arguments = Arguments), caption="Table 1. readNWIS function definitions",
           rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
 
 \html{<br>}
 
-Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info). Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters). Note that the web service name might differ from the `dataRetrieval` argument name, e.g. `site` is NWIS web service name but `siteNumber` is used in `readNWIS` functions. 
+Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info). 
+
+Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters).
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 extract_arg_def <- function(pkg, fn, arg){
@@ -90,25 +107,30 @@ extract_arg_def <- function(pkg, fn, arg){
   return(argdef)
 }
 
-Function <- c("readNWISdata", "readNWISdv", "readNWISgwl", "readNWISmeas", "readNWISpCode", "readNWISpeak",
-              "readNWISqw", "readNWISrating", "readNWISsite", "readNWISstat", "readNWISuse", "readNWISuv")
-allArguments <- unlist(lapply(Function, function(f) { names(formals(f)) }))
-Description <- unlist(lapply(Function, function(fn){
-  unlist(lapply(names(formals(fn)), extract_arg_def, 
-                pkg="dataRetrieval", fn=fn))
-}))
-Argument <- unique(allArguments)
-Description <- Description[!duplicated(allArguments)]
-
 library(htmlTable)
-htmlTable(data.frame(Argument, Description), caption="Table 2. readNWIS argument definitions",
-          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+
+makeArgDefTable <- function(function.name, table.num){
+
+  Argument <- unlist(lapply(function.name, function(f) { names(formals(f)) }))
+  pcodes <- which(Argument == "parameterCd")
+  statcodes <- which(Argument == "statCd")
+  
+  Description <- unlist(lapply(function.name, function(fn){
+    unlist(lapply(names(formals(fn)), extract_arg_def, 
+                  pkg="dataRetrieval", fn=fn))
+  }))
+  Description[pcodes] <- paste(Description[pcodes], 'See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).')
+  Description[statcodes] <- paste(Description[statcodes], 'See [NWIS help for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).')
+  
+  htmlTable(data.frame(Argument, Description), 
+            caption=paste0("Table ", table.num, ". ", function.name, " argument definitions"),
+            rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+            css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+}
+
 ```
 
-\html{<br>}
-
-The following are examples of how to use each of the functions from Table 1. Don't forget to load the `dataRetrieval` library if you are in a new session.
+The following are examples of how to use each of the readNWIS family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
 1. [readNWISdata, county major filter](#readnwisdata-county)
 2. [readNWISdata, huc major filter](#readnwisdata-huc)
@@ -131,7 +153,11 @@ The following are examples of how to use each of the functions from Table 1. Don
 
 ### readNWISdata
 
-< name="readnwisdata-county"</a>
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISdata", table.num=2)
+```
+
+<a name="readnwisdata-county"></a>
 
 **Historic mean daily streamflow for sites in Maui County, Hawaii.**
 
@@ -182,13 +208,18 @@ This example uses `Sys.Date` to get the most recent date, so your dates will dif
 prev30days <- Sys.Date() - 30
 SaltLake_totalN <- readNWISdata(bBox=c(-113.0428, 40.6474, -112.0265, 41.7018), service="qw", 
                            parameterCd="00600", startDate=prev30days)
-head(SaltLake_totalN)
+# This service returns a lot of columns:
+names(SaltLake_totalN)
 
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
 ```
 
 ### readNWISdv
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISdv", table.num=3)
+```
 
 <a name="readnwisdv"></a>
 
@@ -209,6 +240,10 @@ head(mt_site_pH)
 
 ### readNWISgwl
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISgwl", table.num=4)
+```
+
 <a name="readnwisgwl"></a>
 
 **Historic groundwater levels for a site near Portland, Oregon.**
@@ -221,6 +256,10 @@ head(or_site_gwl)
 
 ### readNWISmeas
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISmeas", table.num=5)
+```
+
 <a name="readnwismeas"></a>
 
 **Historic surface water measurements for a site near Dade City, Florida.**
@@ -228,10 +267,15 @@ head(or_site_gwl)
 ```{r readnwismeas, message=FALSE, warning=FALSE}
 # Major filter: site number, 02311500
 fl_site_meas <- readNWISmeas(siteNumbers="02311500")
-head(fl_site_meas)
+# Names of columns returned:
+names(fl_site_meas)
 ```
 
 ### readNWISpCode
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISpCode", table.num=6)
+```
 
 <a name="readnwispcode"></a>
 
@@ -249,24 +293,31 @@ readNWISpCode(c("00095", "00665"))
 
 ### readNWISpeak
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISpeak", table.num=7)
+```
+
 <a name="readnwispeak"></a>
 
 **Peak flow values for a site near Cassia, Florida.**
 
-The default settings will return data where the date of the peak flow is known. To include peak flows with unknown dates, change `asDateTime` to `FALSE`. This will keep all rows of the data.
+The default settings will return data where the date of the peak flow is known. To see peak flows with incomplete dates, change `convertType` to `FALSE`. 
 
 ```{r readnwispeak, message=FALSE, warning=FALSE}
 # Major filter: site number, 02235200
 fl_site_peak <- readNWISpeak(siteNumbers="02235200")
-head(fl_site_peak)
+fl_site_peak$peak_dt
 
 # Compare complete with incomplete days
-nrow(fl_site_peak)
-fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200", asDateTime=FALSE)
-nrow(fl_site_peak_incomp)
+fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200",convertType = FALSE)
+fl_site_peak_incomp$peak_dt[is.na(fl_site_peak$peak_dt)]
 ```
 
 ### readNWISqw
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISqw", table.num=8)
+```
 
 <a name="readnwisqw-multsite"></a>
 
@@ -280,7 +331,8 @@ nrow(fl_site_peak_incomp)
 
 or_site_do <- readNWISqw(siteNumbers=c("455415119314601", "454554119121801"), parameterCd="00300",
                         startDate="2015-10-01", endDate="2016-09-30")
-head(or_site_do)
+ncol(or_site_do)
+head(or_site_do[,c("site_no","sample_dt","result_va")])
 ```
 
 <a name="readnwisqw-multparm"></a>
@@ -292,12 +344,19 @@ head(or_site_do)
 # Parameter: mercury and lead in micrograms/liter, 71890 and 01049
 # Begin date: January 1, 1972
 
-oh_site_cwa <- readNWISqw(siteNumbers="03237280", parameterCd=c("71890", "01049"), startDate="1972-01-01")
+oh_site_cwa <- readNWISqw(siteNumbers="03237280", 
+                          parameterCd=c("71890", "01049"),
+                          startDate="1972-01-01")
 nrow(oh_site_cwa)
-head(oh_site_cwa)
+ncol(oh_site_cwa)
+head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
 ```
 
 ### readNWISrating
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISrating", table.num=9)
+```
 
 <a name="readnwisrating"></a>
 
@@ -342,6 +401,10 @@ head(miss_rating_exsa)
 
 ### readNWISsite
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISsite", table.num=10)
+```
+
 <a name="readnwissite"></a>
 
 **Get metadata information for a site in Bronx, NY**
@@ -353,6 +416,10 @@ readNWISsite(siteNumbers="01302020")
 ```
 
 ### readNWISstat
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISstat", table.num=11)
+```
 
 <a name="readnwisstat"></a>
 
@@ -373,9 +440,9 @@ head(mississippi_avgQ)
 
 ### readNWISuse
 
-<a name="readnwisuse"></a>
-
-**Las Vegas historic water use**
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISuse", table.num=12)
+```
 
 The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
@@ -399,6 +466,10 @@ htmlTable(data.frame(Name, Abbreviation), caption="Table 3. Water-use category n
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
 
+<a name="readnwisuse"></a>
+
+**Las Vegas historic water use**
+
 ```{r readnwisuse, message=FALSE, warning=FALSE}
 # Major filter: Clark County, NV
 # Water-use category: public supply, PS
@@ -409,6 +480,10 @@ head(vegas_wu[,1:7])
 ```
 
 ### readNWISuv
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readNWISuv", table.num=13)
+```
 
 <a name="readnwisuv"></a>
 
@@ -519,7 +594,7 @@ Similar to `renameNWIScolumns`, `addWaterYear` can be used as a standalone funct
 # mean daily discharge on the Colorado River in Grand Canyon National Park for fall of 2014
 # The dates in Sept should be water year 2014, but the dates in Oct and Nov are water year 2015
 co_river_q_fall <- readNWISdv(siteNumber="09403850", parameterCd="00060", 
-                              startDate="2014-09-01", endDate="2014-11-30")
+                              startDate="2014-09-28", endDate="2014-11-30")
 head(co_river_q_fall)
 
 # now add the water year column
