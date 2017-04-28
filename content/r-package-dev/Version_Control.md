@@ -113,6 +113,7 @@ used to refer to your forked repository
 </tr>
 </tbody>
 </table>
+
 Our recommended workflow
 ------------------------
 
@@ -378,6 +379,7 @@ restore all stashed changes to the repo
 </tr>
 </tbody>
 </table>
+
 <name="additional-resources"</a>
 
 Other useful resources
