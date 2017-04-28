@@ -162,6 +162,8 @@ It's best to keep commits as concise and specific as possible. So, commit often 
 
 To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to the remote repo on GitHub ("master").
 
+<name="submitting-pr"</a>
+
 #### Submitting a pull request
 
 To submit a pull request, you need to be on your remote fork's GitHub page. The URL would say `github.com/YOUR_USERNAME/REPO_NAME`, e.g. `github.com/lindsaycarr/dataRetrieval`. It also shows where your repo was forked from:
@@ -188,40 +190,194 @@ To get changes available on the remote master fork to your local repository, you
 Handling merge conflicts
 ------------------------
 
+Even though Git and GitHub make simultaneous code development easier, it is not entire fool-proof. If a code line you are working on was edited by someone else since the last time you synced with the master branch, you might run into "merge conflicts". When you encounter conflicts during a pull from the upstream repo, you will see all changed files since the previous sync in your Git tab. Files with checkmarks are just fine. Any file with a filled in checkbox means that only part of the changes are being committed - this is where you have merge conflicts.
+
+When you open the file(s) with merge conflicts, look for the section that looks like this:
+
+``` r
+<<<<<<< HEAD
+some code 
+some code 
+some code
+=======
+your code 
+your code 
+your code
+>>>>>>> master
+```
+
+The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is the code that exists in the master repository. The chunk of code wrapped in `=======` and then `>>>>>>> master` (the second chunk) is the code that you changed in your local repo. To reconcile these differences, you need to pick which code you are keeping and which you aren't. Once you correctly edit the code, make sure to delete the conflict markers (`<<<<<<< HEAD`, `=======`, and `>>>>>>> master`). Then, save the file.
+
+Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Comment these changes as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
+
 <name="branching"</a>
 
-Branching, gitignore, stashing
-------------------------------
+Branching
+---------
 
-<name="code-review"</a> \#\# Reviewing code changes
+Branches are an optional feature of Git version control. It allows you to have a non-linear commit history where multiple features/bug fixes could be developed and merged independently. You have been working on the "master" branch for the previous sections. We could add another branch off of this called "bug-fix", and another from the master called "new-feature". You could change the code on either of those branches independed of one another, and merge when one is done without the need to have the other completed at the same time.
 
-how to pull things down locally
+When the time comes to merge the branch, you can either merge it with the master branch locally or create a pull request to the main repository specifying changes from your new branch. Follow [this blog](https://nicercode.github.io/git/branches.html) to learn how to do the former method.
 
-test them out
+If you'd prefer the latter method, follow the blog until the "Merging branches back together" section. Instead when you're ready to merge your branch with the main repository through a PR, follow these instructions.
 
-approve & merge
+1.  Open the Git shell window and push your local branch to your remote fork via the command `git push origin/new-branch-name`.
+2.  On GitHub, go to your remote fork page and click "New pull request".
+3.  As noted in the [section on submitting a pull request](#submitting-pr), double check that your repositories and branches are correct on the "Comparing changes" page. The only difference is that you want to change the farthest right drop-down to your branch.
 
-then make sure to close the loop on your own local repo
+![](static/img/pr_change_branch.png)
+
+1.  Now follow the rest of steps for completing your PR submission as described in the [how-to-submit-a-PR section](#submitting-pr).
+
+gitignore file
+--------------
+
+It could be useful to have a text file name `.gitignore`. This file let's Git know which files it should not worry about tracking. For RStudio projects, it's a good idea to have the `.Rproj` and `.Rhistory` files specified in a gitignore. You can use `*` before a file extension to say any file with that extension should be ignored. Here's an example of what the `.gitignore` content might look like:
+
+``` r
+.Rproj.user
+.Rhistory
+.RData
+*.Rproj
+```
+
+Stashing
+--------
+
+If you have uncommitted changes on your local repository and try to pull down updates from the master repository, you'll notice that you get an error message:
+
+![](static/img/uncommitted_changes.png)
+
+If you're ready, you can go ahead and commit those changes. Then try pulling from upstream again. If you're not ready to commit these changes, you can "stash" them, pull from upstream, and then bring them back as uncommitted changes.
+
+To stash all uncommitted changes, run `git stash` in your Git shell (Git tab &gt;&gt; More &gt;&gt; Shell). To see what you stashed, run `git stash list`. It will automatically put you in the VIM text editor mode, so type "q" and hit enter before try to do anything else. To get your stashed changes back, run `git stash apply`.
+
+That is the basic use of stashing, but there are more complicated ways to stash uncommited changes. Please visit the [git documentation page on stashing](https://git-scm.com/docs/git-stash) for more information.
+
+<name="code-review"</a>
+
+Reviewing code changes
+----------------------
+
+If you are the reviewer for an open pull request, you will likely need to pull down the suggested changes and test them out locally before approving the PR. It's pretty simple to do this because you can copy and paste git commands for making a new branch of the PR. Next to the "Merge pull request" button, select "command line instructions".
+
+![](static/img/cmd_line_instr.png)
+
+Copy the two git commands from Step 1, *From your project repository, check out a new branch and test the changes.* Paste these lines into your Git shell (Git tab &gt;&gt; More &gt;&gt; Shell). You might not be able to right click and paste, or use the CTRL + V method. Instead, right click the top bar of the shell window, hover over "Edit", then click "Paste". Once the code is in the shell, hit enter.
+
+``` r
+git checkout -b otherusername-master master
+git pull https://github.com/otherusername/dataRetrieval.git master
+```
+
+![](static/img/paste_in_shell.png)
+
+RStudio should now have a different branch name in the top right. Before you can test the changes available in this branch, you need to build and reload the package.
+
+Once you have thoroughly tested this branch and approve of it, go back to the PR on GitHub. Write a few comments about what you tested and why you are accepting these changes, the click "Merge pull request" and then "Confirm". You can now delete the branch you were using to test these changes. Don't forget to pull down these new changes to your local repository master branch!
 
 Common Git commands
 -------------------
 
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Table 2. Summary of common git commands
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Command
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 git remote -v
-
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+view the remote repos linked to this local repository
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
 git remote add upstream <url>
-
-git pull upstream master
-
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+add a remote repo at the specified url named 'upstream'
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 git push origin/master
-
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+move changes from the local repo (origin) to your remote fork
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+git pull upstream master
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+get changes from the remote main repository (upstream) and merge with your local repo (master)
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 git checkout -b <new-branch-name>
-
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+create a new branch from the current branch and switch to it
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
 git branch -d <branch-name>
-
-git stash <name>
-
-git stash apply <name>
-
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+delete the specified branch
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+git status
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+look at what is committed (pushed or not) and not committed
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+git stash
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+stash all uncommitted changes
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+git stash list
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+look at what is currently stashed
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+git stash apply
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+restore all stashed changes to the repo
+</td>
+</tr>
+</tbody>
+</table>
 <name="additional-resources"</a>
 
 Other useful resources
