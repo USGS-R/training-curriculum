@@ -38,25 +38,6 @@ Git/GitHub Definitions
 
 Here are some terms to be familiar with as we go through our recommended version control workflow.
 
-``` r
-Term <- c("repository", "fork", "commit", "pull request", "branch", "upstream", "master")
-Definition <- c(
-  "a collection of files, aka repo",
-  "a user's version of the original repository",
-  "saved change(s) to code",
-  "a request to merge changes from one repository to another, aka PR",
-  "specific instance of your fork; there can be more than one branch on any fork (all will have 'master' which is the main branch)",
-  "used to refer to the original repository",
-  "used to refer to your forked repository"
-)
-
-library(htmlTable)
-htmlTable(data.frame(Term, Definition), 
-          caption="Table 1. Common Git and GitHub definitions",
-          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
-```
-
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -143,7 +124,7 @@ The initial setup requires a master repository on GitHub. To create a new master
 
 ![](static/img/fork_repo.png)
 
-Next, the user would create the local version of the forked repo from R. When creating a new RStudio project, select Version Control, then select Git, and then paste the URL to the forked repository. It should automatically populate the Project directory name from the URL. Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git".
+Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control, then select Git, and then paste the URL to the forked repository. It should automatically populate the Project directory name from the URL. Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git".
 
 ![](static/img/new_proj_version_control.png)
 
@@ -153,26 +134,101 @@ Next, the user would create the local version of the forked repo from R. When cr
 
 ![](static/img/git_tab.png)
 
-### Workflow for every group of changes you make
+Next, you need to setup your local repository to recognize the main repository as the "upstream" version. To do this, click the "More" drop down in your RStudio Git tab, then select "Shell...".
 
-Make changes and commit locally Push to remote fork Pull request your fork to master repo on GitHub PR reviewed and merged Close the loop: pull from upstream, merge with local
+![](static/img/git_shell.png)
+
+In the command prompt, type `git remote -v` and hit enter. This will show you which remote repositories (available on online) are connected to your local repository. You should initially only see your forked repository and it is labeled "origin". To add the main repo as an "upstream" repository, type `git remote add upstream <url>` with the correct URL and hit enter. E.g. `git remote add upstream https://github.com/USGS-R/dataRetrieval`. Now when you run `git remote -v` in the shell, you should see both origin and upstream listed. This means you are set up to get new changes from the main repo and add your local changes to your remote repo. We will see how to do that next.
+
+### Workflow for every change you want to submit
+
+Now that you have the three repositories set up, you can start making changes to the code and commit them. First, you would make a change to a file or files in RStudio. When you save the file(s), you should see them appear in the Git tab. A blue "M" icon next to them means they were existing files that you modified, a green "A" means they are new files you added, and a red "D" means they were files that you deleted.
+
+#### Committing changes
+
+Click the check box next to the file(s) you would like to commit. To view the changes, select "Diff".
+
+![](static/img/commit_change.png)
+
+You can select the different files and it will show what was added (highlighted green) and what was deleted (highlighted red). Then, type your comment about the commit and click "Commit".
+
+![](static/img/commit_msg.png)
+
+#### Pushing local changes to a remote fork
+
+It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka master). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell.
+
+![](static/img/git_push.png)
+
+To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to the remote repo on GitHub ("master").
+
+#### Submitting a pull request
+
+To submit a pull request, you need to be on your remote fork's GitHub page. The URL would say `github.com/YOUR_USERNAME/REPO_NAME`, e.g. `github.com/lindsaycarr/dataRetrieval`. It also shows where your repo was forked from:
+
+![](static/img/remote_fork_ex.png)
+
+From this page, click "New pull request". Now, you should have a screen that is comparing your changes. Double check that the left repo name (1 in the figure) is the master repository that you intend to merge your changes into. Then double check that the fork you are planning to merge is your remote fork (3 in the figure). For now, branches should both be "master" (2 and 4 in the figure). See [the section on branching to learn more](#branching).
+
+![](static/img/pr_change_comp.png)
+
+Once you have verified that you are merging the correct forks and branches, you can select "Create Pull Request". Then add the title and comments. Make sure that you describe your changes sufficiently: include information for whoever reviews this, e.g. what should it do in order for them to approve it? Also, link to any existing issues or related pull requests by typing `#` and the number of the issue or PR.
+
+Now, you wait while someone else reviews and merges your PR. To learn how to merge a pull request, see the [section on reviewing code changes](#code-review). You should avoid merging your own pull requests, and instead should always have a peer review of your code.
+
+#### Commit workflow overview
 
 ![](static/img/github_workflow.png)
+
+Getting upstream changes
+------------------------
+
+To get changes available on the remote master fork to your local repository, you will need to "pull" those changes down. To do this, go to the Git shell through RStudio (Git tab &gt;&gt; More &gt;&gt; Shell) and use the command `git pull` with the name of the remote master fork followed by the name of your local repo, e.g. `git pull upstream master`.
 
 Handling merge conflicts
 ------------------------
 
+<name="branching"</a>
+
 Branching, gitignore, stashing
 ------------------------------
+
+<name="code-review"</a> \#\# Reviewing code changes
+
+how to pull things down locally
+
+test them out
+
+approve & merge
+
+then make sure to close the loop on your own local repo
 
 Common Git commands
 -------------------
 
-git remote -v git remote add upstream <url> git fetch upstream git merge upstream/master git push origin/master git checkout -b <new-branch-name> git branch -d <branch-name> git stash <name> git stash apply <name>
+git remote -v
 
-&lt; name="additional-resources"</a> \#\# Other useful resources
+git remote add upstream <url>
+
+git pull upstream master
+
+git push origin/master
+
+git checkout -b <new-branch-name>
+
+git branch -d <branch-name>
+
+git stash <name>
+
+git stash apply <name>
+
+<name="additional-resources"</a>
+
+Other useful resources
+----------------------
 
 Here are links to additional resources about how to use Git, GitHub, and the RStudio interface for Git. We learned a specific Git workflow, "Fork-and-branch", but these resources might use a different workflow. Just keep that in mind as you explore them.
 
 -   [Happy Git and GitHub for the useR by Jenny Bryan](http://happygitwithr.com/)
 -   [Using the Fork-and-Branch Git Workflow by Scott Lowe](http://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/)
+-   [R packages: Git and GitHub by Hadley Wickham](http://r-pkgs.had.co.nz/git.html#git-rstudio)
