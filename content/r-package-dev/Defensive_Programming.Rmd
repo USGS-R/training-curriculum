@@ -1,0 +1,155 @@
+---
+title: "Defensive Programming"
+date: "9999-10-31"
+author: "Alison P. Appling"
+slug: "git"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: R Package Development
+weight: 1
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/git/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+Defensive programming means anticipating and avoiding problems before they occur. By giving informative error messages as soon as you see a problem coming, you can educate your users about your function's needs, facilitate faster debugging, and avoid costly failed attempts.
+
+## Lesson Objectives
+
+1. Define defensive programming and give examples of problems to defend against.
+2. List common techniques for defensive programming.
+3. Construct and execute defensive programming functions.
+
+## What is there to defend against?
+
+Functions fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that those failures are quick to surface and easy to understand. The worst function is a function that produces the wrong output silently.
+
+Defend your code from two threats: unanticipated inputs and unreliable processes. 
+
+Unanticipated inputs are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data.frame that lacks an essential column, or `"true"` instead of `TRUE`. You can avoid many unanticipated inputs by educating the user through good documentation, but you help everybody most when you also formally check that the inputs to your functions have the format your function needs and expects.
+
+A second source of unanticipated inputs comes from functions that your function calls. For example, your function might call `sapply` expecting a vector, but on certain datasets it receives a list instead. And `diff(as.POSIXct(c('2014-03-01','2014-04-01')))` will return a time difference of `31 days` if your computer is in Arizona but `30.95833 days` if it's in Colorado.
+
+Unreliable processes usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs, unreliable processes can fail in especially frustrating and unreproducible ways. Defend against these by writing tests and backup plans for any internet transfer.
+
+
+
+
+nonsensical or harmful user inputs
+
+user inputs that indicate a user misconception
+
+unexpected returns from other packages
+
+bad inputs from your own other functions (esp for complex packages)
+
+
+
+## The solution: assert your assumptions
+
+imagine and catch all the weird things users might do
+
+
+
+## Fail fast
+
+Hadley says, "Be strict about what you accept." Better for your function to be limited and reliable than flexible and surprising.
+
+Similarly, if you must use functions that produce a variety of output formats, such as `sapply`, expect either output format or know which one is coming.
+
+* messages, warnings, and errors
+
+* avoid print and cat
+
+ stopifnot()
+ 
+ the assertthat package
+
+
+
+## Spell it out
+
+identify columns by name rather than position
+
+provide clear documentation that explains your expectations in words
+
+use smart defaults, and if the user really should think about a default, use no default at all
+
+
+## Fail informatively
+
+* non-standard evaluation sometimes produces mysterious errors, says Hadley...but I can't think of an example where NSE is worse than SE.
+
+
+## Balance defensiveness with efficiency
+
+Defensive programming is an art; not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement on how many tests are enough.
+
+* what are the most likely types of bad input? what might a confused user try? what error codes does an http transfer attempt return?
+
+* which forms of bad input would be the worst for your code's functionality?
+
+* keep to DRY code - if an assumption can be documented just once, make it just once. match.args()
+
+## Try, try, again (but only when you gotta)
+
+* when would 80% completion be more useful than 0% or 100%? long runs, retries with internet data transfers
+
+
+## Common gotchyas
+
+* `if(x)` where `x` turns out to have length other than 1 (instead use `if(isTRUE(x))`, `if(all(x))`, or `assertthat::assert_that(length(x) == 1); if(x)`, depending on your needs)
+  
+* `for(i in 1:n)` where `n` turns out to be negative or 0 (instead use `for(i in seq_len(n))`)
+
+* Scoping issues, where you expect a variable within one scope but R finds it in another instead. These are particularly insidious when combined with non-standard evaluation (NSE). Can you guess the outputs of these calls to `add_xy1` and `add_xy2`? If not, maybe your users shouldn't have to guess, either.
+```{r, eval=FALSE}
+x <- y <- 4
+add_xy1 <- function(df, y) {
+  dplyr::mutate(df, xy = x + y)$xy
+}
+add_xy1(df=data.frame(x=1), y=2)
+add_xy1(df=data.frame(x=1, y=2), y=3)
+add_xy1(df=data.frame(x=1))
+
+add_xy2 <- function(df) {
+  with(df, x + y)
+}
+add_xy2(df=data.frame(x=1, y=2))
+add_xy2(df=data.frame(X=1))
+add_xy2(df=data.frame(x=1))
+```
+
+* Partial matching. Function arguments and the elemnts of `lists` and `data.frames` have the lovable/hatable feature that they can be referenced by abbreviations. For example:
+```{r}
+bird_counts <- data.frame(day=1:2, turkeys=c(400,600), pheasants=c(7,5))
+bird_counts$turkey
+```
+That's well and good until there are multiple matches to the abbreviation:
+```{r}
+bird_counts <- data.frame(day=1:2, turkeys=c(400,600), turkeyvultures=c(7,5))
+bird_counts$turkey
+```
+
+
+## Other useful resources
+
+- [Advanced R: Exceptions and Debugging by Hadley Wickham](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
+- [Hadley Wickham's example of scoping issues with `eval`](http://adv-r.had.co.nz/Computing-on-the-language.html#scoping-issues)
