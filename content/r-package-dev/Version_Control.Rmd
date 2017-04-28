@@ -184,14 +184,13 @@ If you'd prefer the latter method, follow the blog until the "Merging branches b
 1. Open the Git shell window and push your local branch to your remote fork via the command `git push origin/new-branch-name`. 
 2. On GitHub, go to your remote fork page and click "New pull request". 
 3. As noted in the [section on submitting a pull request](#submitting-pr), double check that your repositories and branches are correct on the "Comparing changes" page. The only difference is that you want to change the farthest right drop-down to your branch. 
+4. Now follow the rest of steps for completing your PR submission as described in the [how-to-submit-a-PR section](#submitting-pr).
 
 ![](static/img/pr_change_branch.png)
 
-4. Now follow the rest of steps for completing your PR submission as described in the [how-to-submit-a-PR section](#submitting-pr).
-
 ## gitignore file
 
-It could be useful to have a text file name `.gitignore`. This file let's Git know which files it should not worry about tracking. For RStudio projects, it's a good idea to have the `.Rproj` and `.Rhistory` files specified in a gitignore. You can use `*` before a file extension to say any file with that extension should be ignored. Here's an example of what the `.gitignore` content might look like:
+It is sometimes useful to have a text file name `.gitignore`. This file let's Git know which files it should not worry about tracking. For RStudio projects, it's a good idea to have the `.Rproj` and `.Rhistory` files specified in a gitignore. You can use `*` before a file extension to say any file with that extension should be ignored. Here's an example of what the `.gitignore` content might look like:
 
 ```{r eval=FALSE}
 .Rproj.user
