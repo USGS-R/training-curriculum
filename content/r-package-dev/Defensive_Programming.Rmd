@@ -29,7 +29,7 @@ opts_chunk$set(
 set.seed(1)
 ```
 
-Defensive programming means anticipating and avoiding problems before they occur. By giving informative error messages as soon as you see a problem coming, you can educate your users about your function's needs, facilitate faster debugging, and avoid costly failed attempts.
+Defensive programming means anticipating and avoiding problems before they occur. By giving informative messages as soon as you see a problem coming, you can simplify debugging, educate your users, and avoid long computations that you know will fail.
 
 ## Lesson Objectives
 
@@ -39,114 +39,140 @@ Defensive programming means anticipating and avoiding problems before they occur
 
 ## What is there to defend against?
 
-Functions fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that those failures are quick to surface and easy to understand. The worst function is a function that produces the wrong output silently.
+Functions sometimes fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that any failures are quick to surface, hard to miss, and easy to understand.
 
-Defend your code from two threats: unanticipated inputs and unreliable processes. 
+Defend your code from three threats: unanticipated inputs from users, unanticipated results from other functions, and unreliable processes. 
 
-Unanticipated inputs are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data.frame that lacks an essential column, or `"true"` instead of `TRUE`. You can avoid many unanticipated inputs by educating the user through good documentation, but you help everybody most when you also formally check that the inputs to your functions have the format your function needs and expects.
+* Unanticipated user inputs are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data frame that lacks an essential column, or `"true"` instead of `TRUE`. For scientific programming, some of the most important unanticipated inputs will be formatted correctly but wrong in more subtle ways. A user might supply discharge data in cubic feet per second while your function expects cubic meters per second, or they might request `"hyperbolic"` when the only available options are `"linear"` and `"polynomial"`.
 
-A second source of unanticipated inputs comes from functions that your function calls. For example, your function might call `sapply` expecting a vector, but on certain datasets it receives a list instead. And `diff(as.POSIXct(c('2014-03-01','2014-04-01')))` will return a time difference of `31 days` if your computer is in Arizona but `30.95833 days` if it's in Colorado.
+* Unanticipated results can come from functions that your function uses. Your function might call `sapply` expecting a vector, but on certain datasets the output could be a list instead. And `diff(as.POSIXct(c('2014-03-01','2014-04-01')))` will return a time difference of `31 days` if your computer is in Arizona but `30.95833 days` if it's in Colorado.
 
-Unreliable processes usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs, unreliable processes can fail in especially frustrating and unreproducible ways. Defend against these by writing tests and backup plans for any internet transfer.
+* Unreliable processes usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs and results, unreliable processes can fail in especially frustrating and unreproducible ways. 
 
+## Principles of defensive programming
 
+The key to defensive programming is to know what your function needs and to make formal assertions about those needs. These assertions take the form of code-based tests of user inputs and the output of other functions or processes. If a test indicates that your function's needs aren't being met, you 
 
-
-nonsensical or harmful user inputs
-
-user inputs that indicate a user misconception
-
-unexpected returns from other packages
-
-bad inputs from your own other functions (esp for complex packages)
+Informally, you can avoid many unanticipated inputs through good documentation.
 
 
+But in case that doesn't work, write your functions so they fail...
 
-## The solution: assert your assumptions
+* Conspicuously - the worst failure is a silent one. Communicate with your users so they can supply different inputs or interpret the output differently.
 
-imagine and catch all the weird things users might do
+* Fast - if a function is going to fail eventually, it might as well fail right now. 
 
+* Informatively - provide messages and context that help the user understand and/or correct the problem.
+
+## Fail conspicuously
+
+R provides several ways to communicate with the user when things aren't going according to plan. The three methods you'll use most often are:
+
+* errors, produced with `stop()`, are best when your function can't reasonably proceed. For example, `weighted.mean(1:3, 4:5)` returns an error because the values and weights need to have the same lengths.
+
+* warnings, produced with `warning()`, are best when your function can mostly achieve what was asked, but the output might not be fully what the user expected. For example, `log(-3:3)` gives the warning `NaNs produced` to indicate that you've asked for the (impossible) log of negative values and so will see `NaN` in those positions in the output vector.
+
+* messages, produced with `message()`, are best for giving the user status updates as a long-running function makes progress, or for telling the user about a decision your function has made for the user. For example, `dplyr::full_join(data.frame(x=1, y=2), data.frame(y=2, z=3))` guesses that it should join on the `"y"` column and tells you what it guessed.
+
+You may be attempted to use `print()` or `cat()` to keep users informed, but it's best to reserve these for standard and expected outputs such as model summaries. Errors, messages, and warnings (collectively called `conditions`) have special features that make them better for handling the unexpected. These include:
+
+* RStudio prints conditions in a bright color to attract the user's attention.
+
+* You can call `traceback()` on any condition to find out where it originated. This can be very helpful for debugging.
+
+* You can control which conditions you see: `suppressWarnings` and `suppressMessages` hide warnings and messages from specific function calls, and `options(warn = 2)` treats warnings like errors (again, helpful for debugging).
+
+* The `tryCatch` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See "Try, Try Again" below. 
 
 
 ## Fail fast
 
-Hadley says, "Be strict about what you accept." Better for your function to be limited and reliable than flexible and surprising.
+Nobody wants to wait through a long computation only to find out that the starting conditions were unacceptable. Similarly, if your function produces 3 output files, it's best if bad inputs lead to 0 files rather than just 1 or 2. To avoid awkward situations, check user inputs early in a function and check the outputs of subroutines as soon as they've been run.
 
-Similarly, if you must use functions that produce a variety of output formats, such as `sapply`, expect either output format or know which one is coming.
 
-* messages, warnings, and errors
+Similarly, if you must use functions that produce a variety of output formats, such as `sapply`, double-check the output format or be sure you know which one is coming.
 
-* avoid print and cat
 
  stopifnot()
  
  the assertthat package
 
+R provides helpful error handling for some common input problems. In these cases, you can probably rely on R to catch the problem and generate a useful error message for you:
 
+* If a user fails to supply an argument `x` that has no default, then as soon as your function tries to use `x`, the user will see `argument "x" is missing, with no default`. If `x` isn't used until late in your function and you want to check for `x` right away, you can get a `TRUE`/`FALSE` from `missing(x)` and then throw your own error.
 
-## Spell it out
+* If a user supplies an extra argument `y=3` that isn't listed in the function declaration, the user will see `unused argument (y = 3)`.
 
-identify columns by name rather than position
+* For character arguments, the `match.arg()` function can check the user's input against a pre-defined list of options. `match.arg()` is especially nice because it helps with the Don't Repeat Yourself (DRY) principle: You only need to type a vector of options once, in the function definition. Then the vector will appear in the function help file, will get picked up automatically by `match.arg()`, and will appear in the error message if the user's selection isn't one of the valid options.
 
-provide clear documentation that explains your expectations in words
-
-use smart defaults, and if the user really should think about a default, use no default at all
+```{r, error=TRUE}
+apply_method <- function(method=c('linear','polynomial')) {
+  method <- match.arg(method)
+  return(method)
+}
+apply_method('linear') # normal functionality
+apply_method('hyperbolic') # useful error message
+```
 
 
 ## Fail informatively
 
-* non-standard evaluation sometimes produces mysterious errors, says Hadley...but I can't think of an example where NSE is worse than SE.
+Hadley Wickham [recommends](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming) that you "Be strict about what you accept" and "Never try to guess what the caller wants". It's better for your function to be limited and reliable than flexible and surprising.
+
+* 
 
 
 ## Balance defensiveness with efficiency
 
-Defensive programming is an art; not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement on how many tests are enough.
+Defensive programming is an art. Not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement to know how many tests are enough. When you're deciding which tests to create in your code, consider the following:
 
-* what are the most likely types of bad input? what might a confused user try? what error codes does an http transfer attempt return?
+* What are the most likely forms of bad input to this function?
 
-* which forms of bad input would be the worst for your code's functionality?
+* What might a confused user try, and which tests could save users from nonsensical or misleading outputs?
 
-* keep to DRY code - if an assumption can be documented just once, make it just once. match.args()
+* Which forms of bad input would cause the most catastrophic, slow, or frustrating problems?
+
+* What values could a code chunk produce that would cause the biggest problems later in the function or after the function returns?
+
+* Will users be calling this function directly, or can you control the range of inputs by keeping this function internal to your package?
+
+It's OK not to test for every possible edge case - in fact, you can't. But you can and should test strategically for the cases with the highest probabilities and the highest risks.
+
 
 ## Try, try, again (but only when you gotta)
 
 * when would 80% completion be more useful than 0% or 100%? long runs, retries with internet data transfers
 
+Defend against unreliable processes by writing tests and backup plans for any internet transfer.
+
 
 ## Common gotchyas
+
+There are an infinite number of unexpected user inputs, and there are plenty of unexpected outputs and unreliable processes. Some crop up a lot and are worth keeping in mind whenever you write new code. See if you recognize the following, and let us know if there are others you often encounter.
 
 * `if(x)` where `x` turns out to have length other than 1 (instead use `if(isTRUE(x))`, `if(all(x))`, or `assertthat::assert_that(length(x) == 1); if(x)`, depending on your needs)
   
 * `for(i in 1:n)` where `n` turns out to be negative or 0 (instead use `for(i in seq_len(n))`)
 
-* Scoping issues, where you expect a variable within one scope but R finds it in another instead. These are particularly insidious when combined with non-standard evaluation (NSE). Can you guess the outputs of these calls to `add_xy1` and `add_xy2`? If not, maybe your users shouldn't have to guess, either.
-```{r, eval=FALSE}
-x <- y <- 4
-add_xy1 <- function(df, y) {
-  dplyr::mutate(df, xy = x + y)$xy
-}
-add_xy1(df=data.frame(x=1), y=2)
-add_xy1(df=data.frame(x=1, y=2), y=3)
-add_xy1(df=data.frame(x=1))
-
-add_xy2 <- function(df) {
-  with(df, x + y)
-}
-add_xy2(df=data.frame(x=1, y=2))
-add_xy2(df=data.frame(X=1))
-add_xy2(df=data.frame(x=1))
-```
-
-* Partial matching. Function arguments and the elemnts of `lists` and `data.frames` have the lovable/hatable feature that they can be referenced by abbreviations. For example:
-```{r}
-bird_counts <- data.frame(day=1:2, turkeys=c(400,600), pheasants=c(7,5))
+* Partial matching. Function arguments and the elements of `lists` and `data.frames` have the lovable/hatable feature that they can be referenced by abbreviations. This feature is often very convenient, but it causes surprises when there are multiple matches to the abbreviation. In your own code, it's best to use complete argument and column names, and to use reference syntax or tests that will tell you if that name is not present.
+```{r, error=TRUE}
+# Partial matching example 1: data.frame indexing
+bird_counts <- data.frame(day=1:2, turkeys=c(40,69), pheasants=c(7,5))
+bird_counts$turkey # convenient, but:
+bird_counts <- data.frame(day=1:2, turkeys=c(40,69), turkeyvultures=c(2,3))
 bird_counts$turkey
+bird_counts[['turkey']]
+bird_counts['turkey']
+
+# Partial matching example 2: function argument abbreviations
+make_bird_counts <- function(days, pheasants=NA, ..., turkeys=NA) {
+  bird_counts <- data.frame(day=days, pheasants, turkeys)
+  return(bird_counts)
+}
+make_bird_counts(1:2, pheas=c(7.5)) # convenient, but:
+make_bird_counts(1:2, turk=c(49,60)) # approximate matches are ignored '...'
 ```
-That's well and good until there are multiple matches to the abbreviation:
-```{r}
-bird_counts <- data.frame(day=1:2, turkeys=c(400,600), turkeyvultures=c(7,5))
-bird_counts$turkey
-```
+
 
 
 ## Other useful resources
