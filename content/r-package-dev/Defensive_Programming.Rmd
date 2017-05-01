@@ -37,6 +37,7 @@ Defensive programming means anticipating and avoiding problems before they occur
 2. List common techniques for defensive programming.
 3. Construct and execute defensive programming functions.
 
+
 ## What is there to defend against?
 
 Functions sometimes fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that any failures are quick to surface, hard to miss, and easy to understand.
@@ -49,106 +50,10 @@ Defend your code from three threats: unanticipated inputs from users, unanticipa
 
 * Unreliable processes usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs and results, unreliable processes can fail in especially frustrating and unreproducible ways. 
 
-## Principles of defensive programming
 
-The key to defensive programming is to know what your function needs and to make formal assertions about those needs. These assertions take the form of code-based tests of user inputs and the output of other functions or processes. If a test indicates that your function's needs aren't being met, you 
+### Common gotchas
 
-Informally, you can avoid many unanticipated inputs through good documentation.
-
-
-But in case that doesn't work, write your functions so they fail...
-
-* Conspicuously - the worst failure is a silent one. Communicate with your users so they can supply different inputs or interpret the output differently.
-
-* Fast - if a function is going to fail eventually, it might as well fail right now. 
-
-* Informatively - provide messages and context that help the user understand and/or correct the problem.
-
-## Fail conspicuously
-
-R provides several ways to communicate with the user when things aren't going according to plan. The three methods you'll use most often are:
-
-* errors, produced with `stop()`, are best when your function can't reasonably proceed. For example, `weighted.mean(1:3, 4:5)` returns an error because the values and weights need to have the same lengths.
-
-* warnings, produced with `warning()`, are best when your function can mostly achieve what was asked, but the output might not be fully what the user expected. For example, `log(-3:3)` gives the warning `NaNs produced` to indicate that you've asked for the (impossible) log of negative values and so will see `NaN` in those positions in the output vector.
-
-* messages, produced with `message()`, are best for giving the user status updates as a long-running function makes progress, or for telling the user about a decision your function has made for the user. For example, `dplyr::full_join(data.frame(x=1, y=2), data.frame(y=2, z=3))` guesses that it should join on the `"y"` column and tells you what it guessed.
-
-You may be attempted to use `print()` or `cat()` to keep users informed, but it's best to reserve these for standard and expected outputs such as model summaries. Errors, messages, and warnings (collectively called `conditions`) have special features that make them better for handling the unexpected. These include:
-
-* RStudio prints conditions in a bright color to attract the user's attention.
-
-* You can call `traceback()` on any condition to find out where it originated. This can be very helpful for debugging.
-
-* You can control which conditions you see: `suppressWarnings` and `suppressMessages` hide warnings and messages from specific function calls, and `options(warn = 2)` treats warnings like errors (again, helpful for debugging).
-
-* The `tryCatch` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See "Try, Try Again" below. 
-
-
-## Fail fast
-
-Nobody wants to wait through a long computation only to find out that the starting conditions were unacceptable. Similarly, if your function produces 3 output files, it's best if bad inputs lead to 0 files rather than just 1 or 2. To avoid awkward situations, check user inputs early in a function and check the outputs of subroutines as soon as they've been run.
-
-
-Similarly, if you must use functions that produce a variety of output formats, such as `sapply`, double-check the output format or be sure you know which one is coming.
-
-
- stopifnot()
- 
- the assertthat package
-
-R provides helpful error handling for some common input problems. In these cases, you can probably rely on R to catch the problem and generate a useful error message for you:
-
-* If a user fails to supply an argument `x` that has no default, then as soon as your function tries to use `x`, the user will see `argument "x" is missing, with no default`. If `x` isn't used until late in your function and you want to check for `x` right away, you can get a `TRUE`/`FALSE` from `missing(x)` and then throw your own error.
-
-* If a user supplies an extra argument `y=3` that isn't listed in the function declaration, the user will see `unused argument (y = 3)`.
-
-* For character arguments, the `match.arg()` function can check the user's input against a pre-defined list of options. `match.arg()` is especially nice because it helps with the Don't Repeat Yourself (DRY) principle: You only need to type a vector of options once, in the function definition. Then the vector will appear in the function help file, will get picked up automatically by `match.arg()`, and will appear in the error message if the user's selection isn't one of the valid options.
-
-```{r, error=TRUE}
-apply_method <- function(method=c('linear','polynomial')) {
-  method <- match.arg(method)
-  return(method)
-}
-apply_method('linear') # normal functionality
-apply_method('hyperbolic') # useful error message
-```
-
-
-## Fail informatively
-
-Hadley Wickham [recommends](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming) that you "Be strict about what you accept" and "Never try to guess what the caller wants". It's better for your function to be limited and reliable than flexible and surprising.
-
-* 
-
-
-## Balance defensiveness with efficiency
-
-Defensive programming is an art. Not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement to know how many tests are enough. When you're deciding which tests to create in your code, consider the following:
-
-* What are the most likely forms of bad input to this function?
-
-* What might a confused user try, and which tests could save users from nonsensical or misleading outputs?
-
-* Which forms of bad input would cause the most catastrophic, slow, or frustrating problems?
-
-* What values could a code chunk produce that would cause the biggest problems later in the function or after the function returns?
-
-* Will users be calling this function directly, or can you control the range of inputs by keeping this function internal to your package?
-
-It's OK not to test for every possible edge case - in fact, you can't. But you can and should test strategically for the cases with the highest probabilities and the highest risks.
-
-
-## Try, try, again (but only when you gotta)
-
-* when would 80% completion be more useful than 0% or 100%? long runs, retries with internet data transfers
-
-Defend against unreliable processes by writing tests and backup plans for any internet transfer.
-
-
-## Common gotchyas
-
-There are an infinite number of unexpected user inputs, and there are plenty of unexpected outputs and unreliable processes. Some crop up a lot and are worth keeping in mind whenever you write new code. See if you recognize the following, and let us know if there are others you often encounter.
+There are an infinite number of unexpected user inputs, and there are plenty of unexpected outputs and unreliable processes. A few crop up a lot and are worth keeping in mind whenever you write new code. See if you recognize the following, and let us know if there are others you often encounter.
 
 * `if(x)` where `x` turns out to have length other than 1 (instead use `if(isTRUE(x))`, `if(all(x))`, or `assertthat::assert_that(length(x) == 1); if(x)`, depending on your needs)
   
@@ -173,6 +78,187 @@ make_bird_counts(1:2, pheas=c(7.5)) # convenient, but:
 make_bird_counts(1:2, turk=c(49,60)) # approximate matches are ignored '...'
 ```
 
+
+
+## Principles of defensive programming
+
+The key to defensive programming is to know what your function requires and to make formal assertions about those requirements. These assertions take the form of code-based tests of user inputs and function outputs, followed by warnings, error messages, or preventive actions if something is about to go wrong. When your functions can't succeed, try to make them fail...
+
+* Conspicuously - the worst failure is a silent one.
+
+* Fast - if a function is going to fail eventually, it might as well fail right now. 
+
+* Informatively - provide messages and context that help the user understand and/or correct the problem.
+
+
+## Fail conspicuously
+
+R provides several ways to communicate with the user when things aren't going according to plan. The three methods you'll use most often are:
+
+* errors, produced with `stop()`, are best when your function can't reasonably proceed. For example, `weighted.mean(1:3, 4:5)` returns an error because the values and weights need to have the same lengths.
+
+* warnings, produced with `warning()`, are best when your function can mostly achieve what was asked, but the output might not be fully what the user expected. For example, `log(-3:3)` gives the warning `NaNs produced` to indicate that you've asked for the (impossible) log of negative values and so will see `NaN` in those positions in the output vector.
+
+* messages, produced with `message()`, are best for giving the user status updates as a long-running function makes progress, or for telling the user about a decision your function has made for the user. For example, `dplyr::full_join(data.frame(x=1, y=2), data.frame(y=2, z=3))` guesses that it should join on the `"y"` column and tells you what it guessed.
+
+You may be tempted to use `print()` or `cat()` to keep users informed, but it's best to reserve these functions for standard and expected outputs such as model summaries or reports. Errors, messages, and warnings (collectively called `conditions`) have special features that make them better for handling the unexpected. These include:
+
+* RStudio prints conditions in a bright color to attract the user's attention. They are appropriately conspicuous.
+
+* You can call `traceback()` on any condition to find out where it originated. This can be very helpful for debugging.
+
+* You can control which conditions you see: `suppressWarnings()` and `suppressMessages()` hide warnings and messages from specific function calls, and `options(warn = 2)` treats warnings like errors (again, helpful for debugging).
+
+* The `tryCatch()` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See the "Retries" section below for an example.
+
+
+## Fail fast
+
+It's almost always better for a function to fail right away than to wait and keep trying. Nobody wants to wait through a long computation only to find out that the starting conditions were unacceptable. Similarly, if your function produces 3 output files but it sometimes fails after producing just the first file, the user is left with messy partial outputs. To avoid awkward situations like these, check the user inputs early in your function and check the outputs of subroutines as soon as they've been run.
+
+The simplest tests are `if` statements combined with `stop()`, `warning()`, or `message()`. For example:
+```{r, error=TRUE}
+cool_computation <- function(dat, method) {
+  if(!is.data.frame(dat) || any(names(dat) != c('x', 'y'))) {
+    stop("dat must be a data.frame for this cool computation to continue")
+  }
+  if(!(length(method) == 1 && method %in% 1:3)) {
+    stop("method must be a single integer with a value of 1, 2, or 3")
+  }
+  # cool part goes here...
+}
+cool_computation(data.frame(x=1, y=2), method=5)
+```
+
+The `if`-`stop` combination requires you to write your own error message. You can sometimes save typing with the `stopifnot()` function:
+```{r, error=TRUE}
+cool_computation_2 <- function(dat, method) {
+  yvals <- sapply(seq_len(nrow(dat)), function(i) {
+    dat[i,'y']
+  })
+  stopifnot(!is.list(yvals))
+  stopifnot(is.numeric(yvals))
+  return(yvals)
+}
+cool_computation_2(data.frame(x=1))
+```
+
+R also provides helpful built-in error handling for some common input problems. In these cases, you can probably rely on R to catch the problem and generate a useful error message for you:
+
+* If a user fails to supply an argument `x` that has no default, then as soon as your function tries to use `x`, the user will see `argument "x" is missing, with no default`. If `x` isn't used until late in your function and you want to check for `x` right away, you can get a `TRUE`/`FALSE` from `missing(x)` and then throw your own error.
+
+* If a user supplies an extra argument `y=3` that isn't listed in the function declaration, the user will see `unused argument (y = 3)`.
+
+* For character arguments, the `match.arg()` function can check the user's input against a pre-defined list of options. `match.arg()` is especially nice because it helps with the Don't Repeat Yourself (DRY) principle: You only need to type a vector of options once, in the function definition. Then the vector will appear in the function help file, will get picked up automatically by `match.arg()`, and will appear in the error message if the user's selection isn't one of the valid options. (`match.arg` has several other nifty features - check them out at `?match.arg`!)
+
+```{r, error=TRUE}
+apply_method <- function(method=c('linear','polynomial')) {
+  method <- match.arg(method)
+  return(method)
+}
+apply_method('linear') # normal functionality
+apply_method('hyperbolic') # useful error message
+```
+
+### The exception to fast failure: Retries
+
+Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the *httr* package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
+
+```{r, eval=FALSE}
+library(httr)
+flaky_GET <- function() {
+  good_get <- GET("http://httpbin.org/get")
+  stop_for_status(good_get)
+}
+```
+
+For this demonstration, let's also write an unreliable function that fails even more often:
+```{r}
+flaky_process <- function() {
+  success <- runif(1, min=0, max=1) > 0.7
+  if(!success) stop("darn! this 'internet transfer' failed")
+  return("this is my successful result")
+}
+```
+
+To add in retries, wrap the call to your unreliable process in a call to `tryCatch`, then put it in a loop that keeps iterating until `flaky_process()` returns successfully or we run out of `attempt`s. The `error` argument to `tryCatch` is a function you define to say what happens if `expr` returns an error; in this case, we simply return the error as an object to be inspected on the following line.
+```{r}
+set.seed(4433)
+for(attempt in 1:10) {
+  message("attempt number ", attempt)
+  output <- tryCatch(
+    expr={ flaky_process() },
+    error=function(e) { return(e) }
+  )
+  if(!is(output, "error")) {
+    message("success! exiting the retry loop now")
+    break
+  }
+}
+output
+```
+
+
+## Fail informatively
+
+When your function is about to fail and retries won't help, the most important thing you can do is communicate to the user about what went wrong. Your time is well spent on crafting informative error messages that explain what's wrong and what the user can do right now to fix the problem. Consider these alternatives:
+
+```{r, error=TRUE}
+quick_and_dirty <- function(dat, status) {
+  suggestion <- switch(
+    status,
+    "red sky at night"="sailors, delight!",
+    "red sky at morn"="sailors, be warned..."
+  )
+  return(sprintf("On %s, %s", dat$date, suggestion))
+}
+quick_and_dirty(data.frame(Date=as.Date("2017-06-05")), status="Red Sky at Night") # ...uhh...
+
+thoughtful_and_sweet <- function(dat, status=c("red sky at night", "red sky at morn")) {
+  if(!('date' %in% names(dat))) {
+    stop("'dat' should include a column for 'date'")
+  }
+  status <- match.arg(status)
+  suggestion <- switch(
+    status,
+    "red sky at night"="sailors, delight!",
+    "red sky at morn"="sailors, be warned..."
+  )
+  return(sprintf("On %s, %s", dat$date, suggestion))
+}
+thoughtful_and_sweet(data.frame(Date=as.Date("2017-06-07")), status="Red Sky at Night")
+thoughtful_and_sweet(data.frame(date=as.Date("2017-06-07")), status="Red Sky at Night")
+thoughtful_and_sweet(data.frame(date=as.Date("2017-06-07")), status="red sky at night")
+```
+
+As a user, which function would you rather encounter?
+
+You can do all the checking and communication that's required with `if()` and `stop()` alone. But if you're passionate about writing less code while still producing informative error messages, check out the *checkmate*, *assertive*, *assertr*, and *assertthat* packages. Each of these packages provides a slightly different approach to a common problem. Most of them provide:
+
+* pre-packaged tests for common requirements, e.g., whether a variable falls within some range of values or dates, whether a file has some specific extension, or whether a list has some specific length.
+
+* nicer default messages than `stop` (which has no defaults) and `stopifnot` (which just prints out the code of the test).
+
+* a choice of what action to take when a test is not passed. Most of these packages let you choose among throwing an error, receiving a `TRUE` or `FALSE`, receiving a character string describing the test failure, or defining your own action.
+
+*assertive* provides a huge number of pre-defined tests; *assertthat* is concise and quick to learn; *assertr* works elegantly with piping workflows; *checkmate* is optimized for computational speed. If one of these packages sounds like a good fit for your needs, have at it!
+
+
+## Balancing defensiveness with efficiency
+
+Defensive programming is an art. Not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement to know how many tests are enough. When you're deciding which tests to create in your functions, consider the following:
+
+* What are the most likely forms of bad input to this function?
+
+* What might a confused user try, and which tests could save users from nonsensical or misleading outputs?
+
+* Which forms of bad input would cause the most catastrophic, slow, or frustrating problems?
+
+* What values could a code chunk produce that would cause the biggest problems later in the function (or after the function returns)?
+
+* Will users be calling this function directly, or can you control the range of inputs by keeping this function internal to your package?
+
+It's OK not to test for every possible edge case - in fact, you can't. But you can and should test strategically for the cases with the highest probabilities and the highest risks.
 
 
 ## Other useful resources
