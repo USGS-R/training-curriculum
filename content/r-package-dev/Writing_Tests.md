@@ -96,7 +96,7 @@ test_that("pH edge cases return true", {
 Through a bit of magic we can look at the results of these tests. Normally this will happen by running "Build &gt; Test Package" through RStudio (Ctrl+Shift+T shortcut).
 
 ``` r
-  reporter$get_results()
+  reporter$get_results() # only works for ListReporter
 ```
 
     ##   file         context                                       test nb
@@ -107,6 +107,30 @@ Through a bit of magic we can look at the results of these tests. Normally this 
     ## 1      0   FALSE FALSE       0 0.001      0 0.001
     ## 2      0   FALSE FALSE       0 0.001      0 0.001
     ## 3      0   FALSE FALSE       0 0.001      0 0.001
+
+One final set of tools in the testing toolbox are mocks. Mocks are used to isolate code so it isn't effected by other pieces that it depends on. As an example, really long running code is not good to have in tests since it is best to run tests often. So we will create a function that calls another function that takes a long time to return, but then mock that function in order to isolate the behavior.
+
+``` r
+  really_long_running_function <- function() {
+    Sys.sleep(60) # calculating the answer to life, the universe, and everything
+    return(42)
+  }
+  unit_to_test <- function() {
+    answer <- really_long_running_function()
+    return(answer/6)
+  }
+  test_that("answer is seven", {
+    print(system.time({
+      with_mock(
+        really_long_running_function = function() 42,
+        expect_equal(unit_to_test(), 7)
+      )
+    }))
+  })
+```
+
+    ##    user  system elapsed 
+    ##   0.002   0.000   0.002
 
 For more information:
 
