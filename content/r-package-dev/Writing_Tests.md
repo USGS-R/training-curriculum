@@ -67,12 +67,46 @@ The `testthat` package provides the functions we are going to use for testing. F
 
 ``` r
 library(testthat)
-test_that("pH values inside range return true", {
+context("Valid pH values")
+test_that("pH values inside valid range return true", {
   expect_true(is.valid.pH(7))
 })
 ```
 
-The `test_that()` is provided the test name in BDD form. The second argment to this function is the code block containing the code to exercise the functionality and expectations of the results. The `expect_*()` calls are used to declare these expectations, and will fail when the expectation is not met.
+The `test_that()` is provided the test name in BDD form. The second argment to this function is the code block containing the code to exercise the functionality and expectations of the results. The `expect_*()` calls are used to declare these expectations, and will fail when the expectation is not met. You'll also note that `context()` is called before running the test case, this groups a number of test cases together into logical chunks to add a bit more information to the test reporting.
+
+We also want to make sure that non-valid pH values are correctly identified.
+
+``` r
+test_that("pH values outside valid range return false", {
+  expect_false(is.valid.pH(-3))
+  expect_false(is.valid.pH(15))
+})
+```
+
+We are able to make several assertions in one test, but this should not be overused as we want the assertions to match the BDD description as much as possible. Lastly, we are going to add edge cases to this test to verify that they are correct
+
+``` r
+test_that("pH edge cases return true", {
+  expect_true(is.valid.pH(0))
+  expect_true(is.valid.pH(14))
+})
+```
+
+Through a bit of magic we can look at the results of these tests. Normally this will happen by running "Build &gt; Test Package" through RStudio (Ctrl+Shift+T shortcut).
+
+``` r
+  reporter$get_results()
+```
+
+    ##   file         context                                       test nb
+    ## 1 <NA> Valid pH values   pH values inside valid range return true  1
+    ## 2 <NA> Valid pH values pH values outside valid range return false  2
+    ## 3 <NA> Valid pH values                  pH edge cases return true  2
+    ##   failed skipped error warning  user system  real
+    ## 1      0   FALSE FALSE       0 0.001      0 0.001
+    ## 2      0   FALSE FALSE       0 0.001      0 0.001
+    ## 3      0   FALSE FALSE       0 0.001      0 0.001
 
 For more information:
 
