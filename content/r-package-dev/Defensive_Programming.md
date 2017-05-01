@@ -44,14 +44,14 @@ There are an infinite number of unexpected user inputs, and there are plenty of 
 ``` r
 # Partial matching example 1: data.frame indexing
 bird_counts <- data.frame(day=1:2, turkeys=c(40,69), pheasants=c(7,5))
-bird_counts$turkey # convenient, but:
+bird_counts$turkey # convenient
 ```
 
     ## [1] 40 69
 
 ``` r
 bird_counts <- data.frame(day=1:2, turkeys=c(40,69), turkeyvultures=c(2,3))
-bird_counts$turkey
+bird_counts$turkey # not so convenient
 ```
 
     ## NULL
@@ -74,7 +74,7 @@ make_bird_counts <- function(days, pheasants=NA, ..., turkeys=NA) {
   bird_counts <- data.frame(day=days, pheasants, turkeys)
   return(bird_counts)
 }
-make_bird_counts(1:2, pheas=c(7.5)) # convenient, but:
+make_bird_counts(1:2, pheas=c(7.5)) # convenient
 ```
 
     ##   day pheasants turkeys
@@ -82,7 +82,7 @@ make_bird_counts(1:2, pheas=c(7.5)) # convenient, but:
     ## 2   2       7.5      NA
 
 ``` r
-make_bird_counts(1:2, turk=c(49,60)) # approximate matches are ignored '...'
+make_bird_counts(1:2, turk=c(49,60)) # partial matches don't apply to arguments after '...'
 ```
 
     ##   day pheasants turkeys
@@ -131,7 +131,7 @@ The simplest tests are `if` statements combined with `stop()`, `warning()`, or `
 ``` r
 cool_computation <- function(dat, method) {
   if(!is.data.frame(dat) || any(names(dat) != c('x', 'y'))) {
-    stop("dat must be a data.frame for this cool computation to continue")
+    stop("dat must be a data.frame with columns 'x' and 'y' for this cool computation to continue")
   }
   if(!(length(method) == 1 && method %in% 1:3)) {
     stop("method must be a single integer with a value of 1, 2, or 3")
@@ -185,13 +185,14 @@ apply_method('hyperbolic') # useful error message
 
 ### The exception to fast failure: Retries
 
-Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the *httr* package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
+Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the **httr** package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
 
 ``` r
 library(httr)
 flaky_GET <- function() {
   good_get <- GET("http://httpbin.org/get")
   stop_for_status(good_get)
+  return(good_get)
 }
 ```
 
@@ -205,7 +206,7 @@ flaky_process <- function() {
 }
 ```
 
-To add in retries, wrap the call to your unreliable process in a call to `tryCatch`, then put it in a loop that keeps iterating until `flaky_process()` returns successfully or we run out of `attempt`s. The `error` argument to `tryCatch` is a function you define to say what happens if `expr` returns an error; in this case, we simply return the error as an object to be inspected on the following line.
+To add in retries, wrap the call to your unreliable process in a call to `tryCatch`, then put it in a loop that keeps iterating until `flaky_process()` returns successfully or we run out of `attempt`s. The `error` argument to `tryCatch` is a function you define to control what happens if `expr` returns an error; in this case, we simply return the error as an object to be inspected on the following line.
 
 ``` r
 set.seed(4433)
@@ -249,7 +250,7 @@ output
 Fail informatively
 ------------------
 
-When your function is about to fail and retries won't help, the most important thing you can do is communicate to the user about what went wrong. Your time is well spent on crafting informative error messages that explain what's wrong and what the user can do right now to fix the problem. Consider these alternatives:
+When your function is about to fail and retries won't help, the most important thing you can do is communicate clearly to the user about what went wrong. Your time is well spent on crafting informative error messages that explain what's wrong and what the user can do right now to fix the problem. Consider these alternatives:
 
 ``` r
 quick_and_dirty <- function(dat, status) {
@@ -260,7 +261,7 @@ quick_and_dirty <- function(dat, status) {
   )
   return(sprintf("On %s, %s", dat$date, suggestion))
 }
-quick_and_dirty(data.frame(Date=as.Date("2017-06-05")), status="Red Sky at Night") # ...uhh...
+quick_and_dirty(data.frame(Date=as.Date("2017-06-05")), status="Red Sky at Night")
 ```
 
     ## character(0)
@@ -297,7 +298,7 @@ thoughtful_and_sweet(data.frame(date=as.Date("2017-06-07")), status="red sky at 
 
 As a user, which function would you rather encounter?
 
-You can do all the checking and communication that's required with `if()` and `stop()` alone. But if you're passionate about writing less code while still producing informative error messages, check out the *checkmate*, *assertive*, *assertr*, and *assertthat* packages. Each of these packages provides a slightly different approach to a common problem. Most of them provide:
+You can do all the checking and communication that's required with `if()` and `stop()` alone. But if you're passionate about writing less code while still producing informative error messages, check out the **checkmate**, **assertive**, **assertr**, and **assertthat** packages. Each of these packages provides a slightly different approach to a common problem. Most of them provide:
 
 -   pre-packaged tests for common requirements, e.g., whether a variable falls within some range of values or dates, whether a file has some specific extension, or whether a list has some specific length.
 
@@ -305,7 +306,7 @@ You can do all the checking and communication that's required with `if()` and `s
 
 -   a choice of what action to take when a test is not passed. Most of these packages let you choose among throwing an error, receiving a `TRUE` or `FALSE`, receiving a character string describing the test failure, or defining your own action.
 
-*assertive* provides a huge number of pre-defined tests; *assertthat* is concise and quick to learn; *assertr* works elegantly with piping workflows; *checkmate* is optimized for computational speed. If one of these packages sounds like a good fit for your needs, have at it!
+**assertive** provides a huge number of pre-defined tests; **assertthat** is concise and quick to learn; **assertr** works elegantly with piping workflows; **checkmate** is optimized for computational speed. If one of these packages sounds like a good fit for your needs, have at it!
 
 Balancing defensiveness with efficiency
 ---------------------------------------
