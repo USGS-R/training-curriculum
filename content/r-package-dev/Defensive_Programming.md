@@ -1,6 +1,6 @@
 ---
 author: Alison P. Appling
-date: 9999-07-31
+date: 9999-09-30
 slug: defense
 title: Defensive Programming
 image: img/main/intro-icons-300px/r-logo.png
