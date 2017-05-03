@@ -38,7 +38,7 @@ Debugging is an integral part of package development and maintenance.  As you wr
 
 ## Types of errors
 
-Broadly, there are three ways your code can fail:
+Broadly speaking, there are three ways your code can fail:
 
 * *syntax* - Syntax errors are generally typos that prevent your code from running in the first place, such as a missing closing parenthesis.  We won't deal with these much in this material.  Rstudio's syntax highlighting features should make these relatively obvious, with a red squiggly line or 'x' icon on the offending line.
 
@@ -52,7 +52,40 @@ If you have done a good job with testing and defensive programming **(LINK TO SE
 
 Firstly, you need to determine where the error occured.    Note that is only means the *line where the function failed* -- this is not necessarily the problem line of code, only where it was caught. From here, you can work backwards to the source of the problem.  For instance, a data frame could lose a column you weren't expecting during a join, but a failure doesn't occur until much later when that missing column is actually used.
 
-Let's look use a function from the `dataRetrieval` package as an example, by supplying an invalid site number that will cause an error.  
+To start, lets create some simple functions ourselves.  This example is modified from [Hadley Wickham's page on debugging.](http://adv-r.had.co.nz/Exceptions-Debugging.html#debugging-tools)  We know `func4` will fail since it is adding a numeric and a character, but lets see how we would approach it if we didn't know this.
+```{r error=TRUE}
+func1 <- function(x){func2(x)}
+func2 <- function(x){func3(x + 1)}
+func3 <- function(x){func4(x + 4)}
+func4 <- function(x){
+  y = "a"
+  x <- x + y
+  return(x)
+}
+
+func1(7)
+```
+The error message "non-numeric argument to a binary operator" tells us R was expecting a numeric object but got something else.  We don't know where this happened though.  To show the sequence of function calls that led to the error, click the `Show Traceback` button.  
+![](../static/img/traceback_1st_example.png)
+Now we can see that the last function called was `func4(x + 4)`.  To see what happened inside this function, click the "Rerun with Debug" button, just below "Hide Traceback", or with the commands
+```{r error=TRUE}
+debugonce(func4)
+func1(7)
+```
+Notice that the drop down menu in the environment pane now indicates we are in the function environment.  We can now view any objects that currently exist here the same we normally would.  You can run code in the console to test things.  Note if you modify an object here, it could affect the function if you continue to run it.  You have several options to continue executing the function, accessible by the buttons above the console, or their corresponding keyboard shortcuts `n`, `s`, `f`, `c` and `Q`: 
+
+![](../static/img/debug_buttonsOnly.png)
+
+They will respectively execute the next line of code, step into a function call (going a level deeper), execute the remainder of the function or loop, continue executing everything until a breakpoint is encountered, or exit debugging.  You can see these descriptions by hovering over the buttons.
+
+Now you can see what the `x` and `y` objects contain, and see what caused the error.
+
+### Challenge
+
+Use `debugonce` or `debug` and the associated commands to follow the function call we just made all the way from  `func1()` to `func4()`.
+
+## Debugging an unfamiliar function
+For a more complex example, let's look use a function from the `dataRetrieval` package as an example, by supplying an invalid site number that will cause an error.  
 ```{r eval=FALSE}
 #install.packages('dataRetrieval') #if you don't already have it installed
 library(dataRetrieval)
@@ -77,11 +110,8 @@ readNWISsites(siteNumbers = notASite)
 ```
 ![](../static/img/breakpoint_environment.png)
 
-Notice that the drop down menu in the environment pane now indicates we are in the function environment.  We can now view any objects that currently exist here.  You can run code in the console to test things.  Note if you modify an object here, it could affect the function if you continue to run it.  You have several options to continue executing the function, accessible by the buttons above the console, or their corresponding keyboard shortcuts `n`, `s`, `f`, `c` and `Q`: 
-
+Now we can use the same debug buttons or key commands shown above to execute specific lines or blocks of code, or continue.
 ![](../static/img/debugButtons.png)
-
-They will respectively execute the next line of code, step into a function call (going a level deeper), execute the remainder of the function or loop, continue executing everything until a breakpoint is encountered, or exit debugging.  You can see these descriptions by hovering over the buttons.
 
 Click the red breakpoint dot to make it go away.
 
@@ -89,5 +119,8 @@ Note that when you are working on a package from source [better wording here?], 
 
 What if we have a logical error, and therefore don't have a particular line to key in on from `traceback()`?  We can use the `debug()` or `debugonce()`.  These functions insert a `browser` call behind the scenes at the start of a function.  Then you can step through the entire function by individual blocks or lines, using the debugging buttons on the console or the corresponding key commands as shown above.  If you use `debug` instead of `debugonce`, you will need to use `undebug` when you are done to turn of debugging mode. If you click the "Rerun with Debug" button on the error window it will use debug on the function where there error occured.  However, this frequently occurs deep in a base R function, not your code where the actual bug is, and can therefore be less useful than `traceback` or using `debug` yourself. 
 
-## More Examples
-For more debugging details and examples, see [Hadley Wickham's excellent material on the subject.](http://adv-r.had.co.nz/Exceptions-Debugging.html#debugging-tools) 
+## More Examples and Details
+
+* [Debugging with RStudio](https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio)
+
+* [Hadley Wickham on debugging](http://adv-r.had.co.nz/Exceptions-Debugging.html) 
