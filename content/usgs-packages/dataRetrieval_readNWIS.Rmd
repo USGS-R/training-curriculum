@@ -73,6 +73,8 @@ htmlTable(data.frame(Function = Function_fancy,
                      Arguments = Arguments), caption="Table 1. readNWIS function definitions",
           rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+
+source("arg_table_functions.R")
 ```
 
 \html{<br>}
@@ -80,55 +82,6 @@ htmlTable(data.frame(Function = Function_fancy,
 Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info). 
 
 Other major filters that can be used in `readNWISdata` include hydrologic unit codes (`huc`) and bounding boxes (`bBox`). More information about major filters can be found in the [NWIS web services documentation](https://waterservices.usgs.gov/rest/Site-Service.html#Major_Filters).
-
-```{r eval=TRUE, echo=FALSE, message=FALSE}
-extract_arg_def <- function(pkg, fn, arg){
-  rdbfile <- file.path(find.package(pkg), "help", pkg)
-  rdb <- tools:::fetchRdDB(rdbfile, key = fn)
-  out <- capture.output(tools::Rd2latex(rdb))
-  
-  argpattern <- sprintf("\\Q\\item[\\code{%s}] \\E", arg)
-  argstart <- which(unlist(lapply(out, grepl, pattern=argpattern)))
-  if(length(argstart) == 0){
-    stop(sprintf('`%s` is not a valid argument in %s::%s', arg, pkg, fn))
-  }
-  
-  newsection <- which(out == "\\end{ldescription}")
-  newlines <- which(out == "")
-  newlines_afterarg <- newlines[newlines  > argstart]
-  argend <- ifelse(any(newlines_afterarg < newsection), 
-         head(newlines_afterarg, 1),
-         newsection - 1)
-  
-  argdef <- out[argstart:argend]
-  argdef <- paste(argdef, collapse= " ")
-  argdef <- gsub(argpattern, "", argdef)
-  
-  return(argdef)
-}
-
-library(htmlTable)
-
-makeArgDefTable <- function(function.name, table.num){
-
-  Argument <- unlist(lapply(function.name, function(f) { names(formals(f)) }))
-  pcodes <- which(Argument == "parameterCd")
-  statcodes <- which(Argument == "statCd")
-  
-  Description <- unlist(lapply(function.name, function(fn){
-    unlist(lapply(names(formals(fn)), extract_arg_def, 
-                  pkg="dataRetrieval", fn=fn))
-  }))
-  Description[pcodes] <- paste(Description[pcodes], 'See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).')
-  Description[statcodes] <- paste(Description[statcodes], 'See [NWIS help for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).')
-  
-  htmlTable(data.frame(Argument, Description), 
-            caption=paste0("Table ", table.num, ". ", function.name, " argument definitions"),
-            rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-            css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
-}
-
-```
 
 The following are examples of how to use each of the readNWIS family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
