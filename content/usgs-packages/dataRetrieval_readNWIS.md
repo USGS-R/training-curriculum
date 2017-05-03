@@ -15,7 +15,6 @@ readNWIS functions
 
 We have learned how to discover data available in NWIS, but now we will look at how to retrieve data. There are many functions to do this, see the table below for a description of each. Each variation of `readNWIS` is accessing a different web service. For a definition and more information on each of these services, please see <https://waterservices.usgs.gov/rest/>. Also, refer to the previous lesson for a description of the major arguments to `readNWIS` functions.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -55,7 +54,7 @@ Most general NWIS data import function. User must explicitly define the service 
 Returns time-series data summarized to a day. Default is mean daily.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-siteNumbers, parameterCd, startDate, endDate, statCd
+siteNumber, parameterCd, startDate, endDate, statCd
 </td>
 </tr>
 <tr>
@@ -170,7 +169,6 @@ siteNumbers, parameterCd, startDate, endDate, tz
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 
 Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info).
 
@@ -198,7 +196,6 @@ The following are examples of how to use each of the readNWIS family of function
 
 ### readNWISdata
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -250,7 +247,6 @@ timezone as a character string. See for a list of possibilities.
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisdata-county"></a>
 
 **Historic mean daily streamflow for sites in Maui County, Hawaii.**
@@ -266,12 +262,12 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-03-28          5.25                P   UTC
-    ## 2      USGS 16401000 1929-08-31         18.00                A   UTC
-    ## 3      USGS 16402000 1957-07-31         51.00                A   UTC
-    ## 4      USGS 16403000 1957-06-30          5.50                A   UTC
-    ## 5      USGS 16403600 1970-09-30          2.40                A   UTC
-    ## 6      USGS 16403900 1996-09-30          1.30                A   UTC
+    ## 1      USGS 16400000 2017-04-17         184.0                P   UTC
+    ## 2      USGS 16401000 1929-08-31          18.0                A   UTC
+    ## 3      USGS 16402000 1957-07-31          51.0                A   UTC
+    ## 4      USGS 16403000 1957-06-30           5.5                A   UTC
+    ## 5      USGS 16403600 1970-09-30           2.4                A   UTC
+    ## 6      USGS 16403900 1996-09-30           1.3                A   UTC
 
 ``` r
 # How many sites are returned?
@@ -302,7 +298,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-03-28          19.5                P   UTC
+    ## 6      USGS 16618000 2017-04-17          18.1                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -348,87 +344,42 @@ names(SaltLake_totalN)
     ## [16] "p00010"                             
     ## [17] "p00020"                             
     ## [18] "p00025"                             
-    ## [19] "p00035"                             
-    ## [20] "p00041"                             
-    ## [21] "p00061"                             
-    ## [22] "p00063"                             
-    ## [23] "p00065"                             
-    ## [24] "p00095"                             
-    ## [25] "p00098"                             
-    ## [26] "p00191"                             
-    ## [27] "p00300"                             
-    ## [28] "p00301"                             
-    ## [29] "p00400"                             
-    ## [30] "p00403"                             
-    ## [31] "p00405"                             
-    ## [32] "p00480"                             
-    ## [33] "p00608"                             
-    ## [34] "p00665"                             
-    ## [35] "p00666"                             
-    ## [36] "p00900"                             
-    ## [37] "p00905"                             
-    ## [38] "p00915"                             
-    ## [39] "p00925"                             
-    ## [40] "p00930"                             
-    ## [41] "p00931"                             
-    ## [42] "p00932"                             
-    ## [43] "p00935"                             
-    ## [44] "p00940"                             
-    ## [45] "p00945"                             
-    ## [46] "p00950"                             
-    ## [47] "p00955"                             
-    ## [48] "p01046"                             
-    ## [49] "p01350"                             
-    ## [50] "p29801"                             
-    ## [51] "p30207"                             
-    ## [52] "p30209"                             
-    ## [53] "p30211"                             
-    ## [54] "p50014"                             
-    ## [55] "p50015"                             
-    ## [56] "p50016"                             
-    ## [57] "p50280"                             
-    ## [58] "p62854"                             
-    ## [59] "p62855"                             
-    ## [60] "p70300"                             
-    ## [61] "p70301"                             
-    ## [62] "p70302"                             
-    ## [63] "p70303"                             
-    ## [64] "p70305"                             
-    ## [65] "p71820"                             
-    ## [66] "p71846"                             
-    ## [67] "p71999"                             
-    ## [68] "p72012"                             
-    ## [69] "p72013"                             
-    ## [70] "p72020"                             
-    ## [71] "p72053"                             
-    ## [72] "p72104"                             
-    ## [73] "p72105"                             
-    ## [74] "p72219"                             
-    ## [75] "p72220"                             
-    ## [76] "p72263"                             
-    ## [77] "p81904"                             
-    ## [78] "p82398"                             
-    ## [79] "p84164"                             
-    ## [80] "p84171"                             
-    ## [81] "p84182"                             
-    ## [82] "p90095"                             
-    ## [83] "p99111"                             
-    ## [84] "p99156"                             
-    ## [85] "p99159"                             
-    ## [86] "p99206"                             
-    ## [87] "startDateTime"                      
-    ## [88] "sample_start_time_datum_cd"
+    ## [19] "p00061"                             
+    ## [20] "p00063"                             
+    ## [21] "p00065"                             
+    ## [22] "p00095"                             
+    ## [23] "p00098"                             
+    ## [24] "p00191"                             
+    ## [25] "p00300"                             
+    ## [26] "p00301"                             
+    ## [27] "p00400"                             
+    ## [28] "p30207"                             
+    ## [29] "p30209"                             
+    ## [30] "p50015"                             
+    ## [31] "p50280"                             
+    ## [32] "p70305"                             
+    ## [33] "p71999"                             
+    ## [34] "p72104"                             
+    ## [35] "p72263"                             
+    ## [36] "p81904"                             
+    ## [37] "p82398"                             
+    ## [38] "p84164"                             
+    ## [39] "p84171"                             
+    ## [40] "p99111"                             
+    ## [41] "p99156"                             
+    ## [42] "p99206"                             
+    ## [43] "startDateTime"                      
+    ## [44] "sample_start_time_datum_cd"
 
 ``` r
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
 ```
 
-    ## [1] 9
+    ## [1] 6
 
 ### readNWISdv
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -448,7 +399,7 @@ Description
 <tbody>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-siteNumbers
+siteNumber
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 character USGS site number. This is usually an 8 digit number. Multiple sites can be requested with a character vector.
@@ -488,7 +439,6 @@ character USGS statistic code. This is usually 5 digits. Daily mean (00003) is t
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisdv"></a>
 
 **Minimum and maximum pH daily data for a site on the Missouri River near Townsend, MT.**
@@ -558,7 +508,6 @@ head(mt_site_pH)
 
 ### readNWISgwl
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -618,7 +567,6 @@ character to set timezone attribute of dateTime. Default is an empty quote, whic
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisgwl"></a>
 
 **Historic groundwater levels for a site near Portland, Oregon.**
@@ -653,7 +601,6 @@ head(or_site_gwl)
 
 ### readNWISmeas
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -721,7 +668,6 @@ logical, defaults to . If , the function will convert the data to dates, datetim
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwismeas"></a>
 
 **Historic surface water measurements for a site near Dade City, Florida.**
@@ -747,7 +693,6 @@ names(fl_site_meas)
 
 ### readNWISpCode
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -775,7 +720,6 @@ character of USGS parameter codes (or multiple parameter codes). These are 5 dig
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwispcode"></a>
 
 **Get information about the parameters gage height, specific conductance, and total phosphorus.**
@@ -809,7 +753,6 @@ readNWISpCode(c("00095", "00665"))
 
 ### readNWISpeak
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -869,7 +812,6 @@ logical, defaults to . If , the function will convert the data to dates, datetim
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwispeak"></a>
 
 **Peak flow values for a site near Cassia, Florida.**
@@ -904,7 +846,6 @@ fl_site_peak_incomp$peak_dt[is.na(fl_site_peak$peak_dt)]
 
 ### readNWISqw
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -980,7 +921,6 @@ character to set timezone attribute of output columns: startDateTime and endDate
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisqw-multsite"></a>
 
 **Dissolved oxygen for two sites near the Columbia River in Oregon for water year 2016**
@@ -1047,7 +987,6 @@ head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
 
 ### readNWISrating
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1091,7 +1030,6 @@ logical, defaults to . If , the function will convert the data to dates, datetim
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisrating"></a>
 
 **Rating table for Mississippi River at St. Louis, MO**
@@ -1157,7 +1095,6 @@ head(miss_rating_exsa)
 
 ### readNWISsite
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1185,7 +1122,6 @@ character USGS site number (or multiple sites). This is usually an 8 digit numbe
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwissite"></a>
 
 **Get metadata information for a site in Bronx, NY**
@@ -1217,7 +1153,6 @@ readNWISsite(siteNumbers="01302020")
 
 ### readNWISstat
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1293,7 +1228,6 @@ character type(s) of statistics to output for daily values. Default is mean, whi
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisstat"></a>
 
 **Historic annual average discharge near Mississippi River outlet**
@@ -1320,7 +1254,6 @@ head(mississippi_avgQ)
 
 ### readNWISuse
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1367,7 +1300,7 @@ integer Years for data retrieval. Must be years ending in 0 or 5. Default is all
 categories
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character categories of water use. Defaults to . Specific categories must be supplied as two- letter abbreviations as seen in the URL when using the NWIS water use web interface. Note that there are different codes for national and state level data.
+character categories of water use. Defaults to . Specific categories must be supplied as two- letter abbreviations as seen in the URL when using the NWIS water use web interface.
 </td>
 </tr>
 <tr>
@@ -1388,10 +1321,8 @@ logical only intended for use with national data. Defaults to , with data being 
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1603,7 +1534,6 @@ WW
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisuse"></a>
 
 **Las Vegas historic water use**
@@ -1676,7 +1606,6 @@ head(vegas_wu[,1:7])
 
 ### readNWISuv
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -1736,7 +1665,6 @@ character to set timezone attribute of dateTime. Default is an empty quote, whic
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 <a name="readnwisuv"></a>
 
 **Turbidity and discharge for April 2016 near Lake Tahoe in California.**
@@ -1795,7 +1723,7 @@ length(attributes(miss_rating_base))
 names(attributes(miss_rating_base))
 ```
 
-    ## [1] "class"     "names"     "row.names" "comment"   "queryTime" "url"      
+    ## [1] "class"     "row.names" "names"     "comment"   "queryTime" "url"      
     ## [7] "header"    "RATING"    "siteInfo"
 
 ``` r
@@ -1867,7 +1795,7 @@ chicago_q_uv <- readNWISdata(chicago_q_args, service="uv")
 nrow(chicago_q_uv)
 ```
 
-    ## [1] 14543
+    ## [1] 14488
 
 ``` r
 # same query but for daily values
