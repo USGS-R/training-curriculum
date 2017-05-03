@@ -119,7 +119,7 @@ You may be tempted to use `print()` or `cat()` to keep users informed, but it's 
 
 -   You can control which conditions you see: `suppressWarnings()` and `suppressMessages()` hide warnings and messages from specific function calls, and `options(warn = 2)` treats warnings like errors (again, helpful for debugging).
 
--   The `tryCatch()` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See the [Retries](#retries) section below for an example.
+-   The `tryCatch()` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See the [Retries](#the-exception-to-fast-failure-retries) section below for an example.
 
 Fail fast
 ---------
@@ -183,7 +183,7 @@ apply_method('hyperbolic') # useful error message
 
     ## Error in match.arg(method): 'arg' should be one of "linear", "polynomial"
 
-### The exception to fast failure: Retries<name="retries"</a>
+### The exception to fast failure: Retries
 
 Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the [**httr**](https://cran.r-project.org/web/packages/httr/index.html) package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
 
