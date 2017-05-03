@@ -42,7 +42,7 @@ Defensive programming means anticipating and avoiding problems before they occur
 
 Functions sometimes fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that any failures are quick to surface, hard to miss, and easy to understand.
 
-Defend your code from three threats: unanticipated inputs from users, unanticipated results from other functions, and unreliable processes. 
+Defend your code from three threats:
 
 * **Unanticipated user inputs** are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data frame that lacks an essential column, or `"true"` instead of `TRUE`. For scientific programming, some of the most important unanticipated inputs will be formatted correctly but wrong in more subtle ways. A user might supply discharge data in cubic feet per second while your function expects cubic meters per second, or they might request `"hyperbolic"` when the only available options are `"linear"` and `"polynomial"`.
 
