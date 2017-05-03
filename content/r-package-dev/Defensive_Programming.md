@@ -23,13 +23,13 @@ What is there to defend against?
 
 Functions sometimes fail. It's inevitable. Defensive programming is not about preventing your functions from failing; rather, it's about ensuring that any failures are quick to surface, hard to miss, and easy to understand.
 
-Defend your code from three threats: unanticipated inputs from users, unanticipated results from other functions, and unreliable processes.
+Defend your code from three threats:
 
--   Unanticipated user inputs are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data frame that lacks an essential column, or `"true"` instead of `TRUE`. For scientific programming, some of the most important unanticipated inputs will be formatted correctly but wrong in more subtle ways. A user might supply discharge data in cubic feet per second while your function expects cubic meters per second, or they might request `"hyperbolic"` when the only available options are `"linear"` and `"polynomial"`.
+-   **Unanticipated user inputs** are usually function arguments that don't conform to your function's assumptions. For example, a user might pass you a vector where you expected a scalar, a data frame that lacks an essential column, or `"true"` instead of `TRUE`. For scientific programming, some of the most important unanticipated inputs will be formatted correctly but wrong in more subtle ways. A user might supply discharge data in cubic feet per second while your function expects cubic meters per second, or they might request `"hyperbolic"` when the only available options are `"linear"` and `"polynomial"`.
 
--   Unanticipated results can come from functions that your function uses. Your function might call `sapply` expecting a vector, but on certain datasets the output could be a list instead. And `diff(as.POSIXct(c('2014-03-01','2014-04-01')))` will return a time difference of `31 days` if your computer is in Arizona but `30.95833 days` if it's in Colorado.
+-   **Unanticipated results** can come from functions that your function uses. Your function might call `sapply` expecting a vector, but on certain datasets the output could be a list instead. And `diff(as.POSIXct(c('2014-03-01','2014-04-01')))` will return a time difference of `31 days` if your computer is in Arizona but `30.95833 days` if it's in Colorado.
 
--   Unreliable processes usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs and results, unreliable processes can fail in especially frustrating and unreproducible ways.
+-   **Unreliable processes** usually involve the internet. Does your function download a file or send an email? These processes are prone to random failures. Although you'll probably devote more keystrokes to defending against unanticipated inputs and results, unreliable processes can fail in especially frustrating and unreproducible ways.
 
 ### Common gotchas
 
@@ -115,11 +115,11 @@ You may be tempted to use `print()` or `cat()` to keep users informed, but it's 
 
 -   RStudio prints conditions in a bright color to attract the user's attention. They are appropriately conspicuous.
 
--   You can call `traceback()` on any condition to find out where it originated. This can be very helpful for debugging.
+-   You can call `traceback()` on any condition to find out where it originated. This can be very helpful for [debugging](/r-package-dev/debugging).
 
 -   You can control which conditions you see: `suppressWarnings()` and `suppressMessages()` hide warnings and messages from specific function calls, and `options(warn = 2)` treats warnings like errors (again, helpful for debugging).
 
--   The `tryCatch()` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See the "Retries" section below for an example.
+-   The `tryCatch()` function automatically recognizes conditions and lets you choose how to handle them. You can add information to an error message, convert a warning to an error or a message, ignore specific warnings, and even retry the failed operation. See the [Retries](#the-exception-to-fast-failure-retries) section below for an example.
 
 Fail fast
 ---------
@@ -185,7 +185,7 @@ apply_method('hyperbolic') # useful error message
 
 ### The exception to fast failure: Retries
 
-Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the **httr** package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
+Fast failure is usually the best option, but there are cases where retries are better. These arise most often with internet data transfers, which are the flakiest thing we do with computers these days. For other failures we can usually rely on the user to fix a problem by supplying different inputs, but in the case of internet transfers our function can sometimes solve the problem just by trying again. If using the [**httr**](https://cran.r-project.org/web/packages/httr/index.html) package, you can identify a problem using a built-in test `stop_for_status()`, which throws an error if the transfer was unsuccessful:
 
 ``` r
 library(httr)
@@ -196,7 +196,7 @@ flaky_GET <- function() {
 }
 ```
 
-For this demonstration, let's also write an unreliable function that fails even more often:
+For this demonstration, let's also invent an unreliable function that pretends to do an internet transfer but fails even more often:
 
 ``` r
 flaky_process <- function() {
@@ -206,7 +206,7 @@ flaky_process <- function() {
 }
 ```
 
-To add in retries, wrap the call to your unreliable process in a call to `tryCatch`, then put it in a loop that keeps iterating until `flaky_process()` returns successfully or we run out of `attempt`s. The `error` argument to `tryCatch` is a function you define to control what happens if `expr` returns an error; in this case, we simply return the error as an object to be inspected on the following line.
+To add in retries, wrap the call to your unreliable process in a call to `tryCatch`, then put it in a loop that keeps iterating until `flaky_process()` returns successfully or we run out of `attempt`s. The `error` argument to `tryCatch` is a function you define to control what happens if `expr` returns an error; in this case, we simply return the error as an object to be inspected on the following line. If that inspection shows that the output is not an `error` object, we conclude that the attempt was successful and we exit the `for` loop immediately (without doing any more iterations) with `break`.
 
 ``` r
 set.seed(4433)
@@ -298,7 +298,7 @@ thoughtful_and_sweet(data.frame(date=as.Date("2017-06-07")), status="red sky at 
 
 As a user, which function would you rather encounter?
 
-You can do all the checking and communication that's required with `if()` and `stop()` alone. But if you're passionate about writing less code while still producing informative error messages, check out the **checkmate**, **assertive**, **assertr**, and **assertthat** packages. Each of these packages provides a slightly different approach to a common problem. Most of them provide:
+You can do all the checking and communication that's required with `if()` and `stop()` alone. But if you're passionate about writing less code while still producing informative error messages, check out the [**checkmate**](https://cran.r-project.org/web/packages/checkmate/index.html), [**assertive**](https://cran.r-project.org/web/packages/assertive/index.html), [**assertr**](https://cran.r-project.org/web/packages/assertr/index.html), and [**assertthat**](https://cran.r-project.org/web/packages/assertthat/index.html) packages. Each of these packages provides a slightly different approach to a common problem. Most of them provide:
 
 -   pre-packaged tests for common requirements, e.g., whether a variable falls within some range of values or dates, whether a file has some specific extension, or whether a list has some specific length.
 
@@ -306,12 +306,12 @@ You can do all the checking and communication that's required with `if()` and `s
 
 -   a choice of what action to take when a test is not passed. Most of these packages let you choose among throwing an error, receiving a `TRUE` or `FALSE`, receiving a character string describing the test failure, or defining your own action.
 
-**assertive** provides a huge number of pre-defined tests; **assertthat** is concise and quick to learn; **assertr** works elegantly with piping workflows; **checkmate** is optimized for computational speed. If one of these packages sounds like a good fit for your needs, have at it!
+[**assertive**](https://cran.r-project.org/web/packages/assertive/index.html) provides a huge number of pre-defined tests; [**assertthat**](https://cran.r-project.org/web/packages/assertthat/index.html) is concise and quick to learn; [**assertr**](https://cran.r-project.org/web/packages/assertr/index.html) works elegantly with piping workflows; [**checkmate**](https://cran.r-project.org/web/packages/checkmate/index.html) is optimized for computational speed. If one of these packages sounds like a good fit for your needs, have at it!
 
 Balancing defensiveness with efficiency
 ---------------------------------------
 
-Defensive programming is an art. Not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgement to know how many tests are enough. When you're deciding which tests to create in your functions, consider the following:
+Defensive programming is an art. Not only does it require great imagination to think up all the crazy inputs that might enter your function, but it also requires your judgment to know how many tests are enough. When you're deciding which tests to create in your functions, consider the following:
 
 -   What are the most likely forms of bad input to this function?
 

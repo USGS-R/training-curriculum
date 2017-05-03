@@ -1,0 +1,169 @@
+---
+title: "dataRetrieval - readWQP"
+date: "9999-10-31"
+author: "Lindsay R. Carr"
+slug: "dataRetrieval-readWQP"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 3
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/dataRetrieval-readWQP/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+## readWQP functions
+
+After discovering Water Quality Portal (WQP) data in the [data discovery section](/dataRetrieval-discovery), we can now read it in using the desired parameters. There are two functions to do this in `dataRetrieval`. Table 1 describes them below. 
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+library(dataRetrieval)
+Function <- c("readWQPdata", 'readWQPqw')
+Description <- c(
+  "Most general WQP data import function. Users must define each parameter.",
+  "Used for querying by site numbers and parameter codes only.")
+Arguments <- unlist(lapply(Function, function(f) { paste(names(formals(f)), collapse = ", ") }))
+
+Function_fancy <- c('<a href="#readwqpdata">readWQPdata</a>', 
+                    '<a href="#readwqpqw">readWQPqw</a>')
+
+library(htmlTable)
+htmlTable(data.frame(Function = Function_fancy, 
+                     Description = Description, 
+                     Arguments = Arguments), caption="Table 1. readWQP function definitions",
+          rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+
+source("arg_table_functions.R")
+```
+
+\html{<br>}
+
+The main difference between these two functions is that `readWQPdata` is general and accepts any of the paremeters described in the [WQP Web Services Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). In contrast, `readWQPqw` has five arguments and users can only use this if they know the site number(s) and parameter code(s) for which they want data.
+
+The following are examples of how to use each of the readWQP family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
+
+1. [readWQPdata, state, site type, and characteristic name](#readwqpdata-state)
+2. [readWQPdata, county and characteristic group](##readwqpdata-county)
+3. [readWQPdata, bbox, characteristic name, and start date](##readwqpdata-bbox)
+4. [readNWISqw](#readwqpqw)
+
+### readWQPdata
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readWQPdata", table.num=2)
+```
+
+This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain).
+
+<a name="readwqpdata-state"></a>
+
+**Phosphorus data in Wisconsin lakes for water year 2010**
+
+```{r readwqpdata-state, message=FALSE, warning=FALSE}
+# This takes about 3 minutes to complete.
+WI_lake_phosphorus_2010 <- readWQPdata(statecode="WI", 
+                                       siteType="Lake, Reservoir, Impoundment", 
+                                       characteristicName="Phosphorus", 
+                                       startDate="2009-10-01", endDate="2010-09-30")
+
+# What columns are available?
+names(WI_lake_phosphorus_2010)
+
+#How much data is returned?
+nrow(WI_lake_phosphorus_2010)
+```
+
+<a name="readwqpdata-county"></a>
+
+**All nutrient data in Napa County, California lakes**
+
+```{r readwqpdata-county, message=FALSE, warning=FALSE}
+# Use empty character strings to specify that you want the historic record.
+# This takes about 3 minutes to run.
+Napa_lake_nutrients_Aug2010 <- readWQPdata(statecode="CA", countycode="055", 
+                                           characteristicType="Nutrient")
+
+#How much data is returned?
+nrow(Napa_lake_nutrients_Aug2010)
+```
+
+<a name="readwqpdata-bbox"></a>
+
+**Everglades water temperature data since 2016**
+
+```{r readwqpdata-bbox, message=FALSE, warning=FALSE}
+# Bounding box defined by a vector of Western-most longitude, Southern-most latitude, 
+# Eastern-most longitude, and Northern-most longitude.
+# This takes about 3 minutes to run.
+Everglades_temp_2016_present <- readWQPdata(bBox=c(-81.70, 25.08, -80.30, 26.51),  
+                                            characteristicName="Temperature, water",
+                                            startDate="2016-01-01")
+
+#How much data is returned?
+nrow(Everglades_temp_2016_present)
+```
+
+### readWQPqw
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
+makeArgDefTable("readWQPqw", table.num=3)
+```
+
+This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below.
+
+<a name="readwqpqw"></a>
+
+** Dissolved oxygen data since 2010 for 2 South Carolina USGS sites **
+
+```{r readwqpqw, message=FALSE, warning=FALSE}
+# Using a few USGS sites, get dissolved oxygen data
+# This takes ~ 30 seconds to complete.
+SC_do_data_since2010 <- readWQPqw(siteNumbers = c("USGS-02146110", "USGS-325427080014600"),
+                                  parameterCd = "00300", startDate = "2010-01-01")
+
+# How much data was returned?
+nrow(SC_do_data_since2010)
+
+# What are the DO values and the dates the sample was collected?
+head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
+```
+
+## Attributes and metadata
+
+Similar to the data frames returned from `readNWIS` functions, there are attributes (aka metadata) attached to the data. Use `attributes` to see all of them and `attr` to extract a particular attribute.
+
+```{r readwqp-attributes, message=FALSE, warning=FALSE}
+# This query takes about 30 seconds
+data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
+
+# What are the attributes available?
+wqp_attributes <- attributes(data)
+names(wqp_attributes)
+
+# Look more closely at the site information
+attr(data, "siteInfo")
+
+# Look at the variable information
+attr(data, "variableInfo")
+```
+
+You can now find and download Water Quality Portal data from R! 
