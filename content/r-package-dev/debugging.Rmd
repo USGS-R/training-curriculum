@@ -29,7 +29,7 @@ opts_chunk$set(
 set.seed(1)
 ```
 
-Debugging is an integral part of package development and maintenance.  As you write more complex code (hopefully well-functionalized), errors can often happen several functions deep.  Unlike in a script, you don't by default have access to the R variables where the error occured.  Fortunately, RStudio provides many useful tools to help.  
+Debugging is an integral part of package development and maintenance.  As you write more complex code, errors can often happen several functions deep.  Unlike in a script, you don't by default have access to the R variables where the error occured.  Fortunately, RStudio provides many useful tools to help.  
 
 ## Lesson Objectives
 
@@ -46,11 +46,11 @@ Broadly speaking, there are three ways your code can fail:
 
 * *logical* - Logical errors are the most insidious, as the program runs to completion but does not produce the desired results.
 
-If you have done a good job with testing and defensive programming **(LINK TO SECTIONS HERE)**, most all logic problems should result in explicit run-time errors.     
+If you have done a good job with testing and defensive programming **(LINK TO SECTIONS HERE)**, most logic problems should result in explicit run-time errors.     
 
 ## The debugging process
 
-Firstly, you need to determine where the error occured.    Note that is only means the *line where the function failed* -- this is not necessarily the problem line of code, only where it was caught. From here, you can work backwards to the source of the problem.  For instance, a data frame could lose a column you weren't expecting during a join, but a failure doesn't occur until much later when that missing column is actually used.
+Firstly, you need to determine where the error occured.  Note that this only means the *line where the function failed* -- this is not necessarily the problem line of code, only where it was caught. However, knowing where the error happened gives you a starting point you can work backwards from to the real source of the problem.  For instance, a data frame could lose a column you weren't expecting during a join, but a failure doesn't occur until much later when that missing column is actually used.
 
 To start, lets create some simple functions ourselves.  This example is modified from [Hadley Wickham's page on debugging.](http://adv-r.had.co.nz/Exceptions-Debugging.html#debugging-tools)  We know `func4` will fail since it is adding a numeric and a character, but lets see how we would approach it if we didn't know this.
 ```{r error=TRUE}
@@ -117,7 +117,11 @@ Click the red breakpoint dot to make it go away.
 
 Note that when you are working on a package from source [better wording here?], you will often need to rebuild it to make breakpoints take effect.  A somewhat more explicit (and non-RStudio-dependent) way to accomplish the same thing is to insert a `browser()` call inside your function.  However, it is important to remember to delete `browser()` statements when you are done with them, so they don't find their way onto your repository!
 
-What if we have a logical error, and therefore don't have a particular line to key in on from `traceback()`?  We can use the `debug()` or `debugonce()`.  These functions insert a `browser` call behind the scenes at the start of a function.  Then you can step through the entire function by individual blocks or lines, using the debugging buttons on the console or the corresponding key commands as shown above.  If you use `debug` instead of `debugonce`, you will need to use `undebug` when you are done to turn of debugging mode. If you click the "Rerun with Debug" button on the error window it will use debug on the function where there error occured.  However, this frequently occurs deep in a base R function, not your code where the actual bug is, and can therefore be less useful than `traceback` or using `debug` yourself. 
+What if we have a logical error (i.e. the code runs, but doesn't produce the correct result), and therefore don't have a particular line to key in on from `traceback()`?  We can use the `debug()` or `debugonce()` functions.  These functions insert a `browser` call behind the scenes at the start of a function.  Then you can step through the entire function by individual blocks or lines, using the debugging buttons on the console or the corresponding key commands as shown above.  Logic errors can be harder to pin down, since there isn't an obvious starting point.  To be most thorough, you could start by running `debug()` on the function you call directly, and follow it through step-by-step.  Or if you have a suspicion of what function is causing the problem, run `debug()` on it and then execute, so you can jump straight to where you want. 
+
+When you find the cause of a logic error, it is a good idea to implement a test that will catch it if turns up again in the future.  
+
+Note that if you use `debug` instead of `debugonce`, you will need to use `undebug` when you are done to turn of debugging mode. If you click the "Rerun with Debug" button on the error window it will use `debugonce` on the function where there error occured.  However, this frequently occurs deep in a base R function, not your code where the actual bug is, and can therefore be less useful than `traceback` or using `debug` yourself. 
 
 ## More Examples and Details
 
