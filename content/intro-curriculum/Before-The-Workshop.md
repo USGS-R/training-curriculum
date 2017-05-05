@@ -3,7 +3,6 @@ author: Jeffrey W. Hollister & Luke Winslow
 date: 9998-01-01
 slug: Before
 title: Before The Workshop
-draft: True
 image: 
 menu:
   main:
