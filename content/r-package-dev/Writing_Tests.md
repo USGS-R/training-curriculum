@@ -3,6 +3,7 @@ author: Jordan I. Walker
 date: 9999-08-31
 slug: writing-tests
 title: Writing Tests
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -103,10 +104,10 @@ Through a bit of magic we can look at the results of these tests. Normally this 
     ## 1 <NA> Valid pH values   pH values inside valid range return true  1
     ## 2 <NA> Valid pH values pH values outside valid range return false  2
     ## 3 <NA> Valid pH values                  pH edge cases return true  2
-    ##   failed skipped error warning  user system  real
-    ## 1      0   FALSE FALSE       0 0.001      0 0.001
-    ## 2      0   FALSE FALSE       0 0.001      0 0.001
-    ## 3      0   FALSE FALSE       0 0.001      0 0.001
+    ##   failed skipped error warning user system real
+    ## 1      0   FALSE FALSE       0    0      0    0
+    ## 2      0   FALSE FALSE       0    0      0    0
+    ## 3      0   FALSE FALSE       0    0      0    0
 
 One final set of tools in the testing toolbox are mocks. Mocks are used to isolate code so it isn't effected by other pieces that it depends on. As an example, really long running code is not good to have in tests since it is best to run tests often. So we will create a function that calls another function that takes a long time to return, but then mock that function in order to isolate the behavior.
 
@@ -130,7 +131,7 @@ One final set of tools in the testing toolbox are mocks. Mocks are used to isola
 ```
 
     ##    user  system elapsed 
-    ##   0.002   0.000   0.002
+    ##       0       0       0
 
 For more information:
 

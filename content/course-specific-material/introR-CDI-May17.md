@@ -1,7 +1,7 @@
 ---
 date: 2017-05-19
 slug: introR-CDI-May17
-title: Community for Data Integration Conference
+title: 2017 CDI Conference
 menu:
   main:
     parent: Course Specific Material

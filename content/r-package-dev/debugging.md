@@ -3,6 +3,7 @@ author: David Watkins
 date: 9999-04-30
 slug: debugging
 title: Debugging
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
