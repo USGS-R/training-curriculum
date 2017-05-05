@@ -268,7 +268,7 @@ Save your new R Markdown file. The next time you build your package, your vignet
 
 The README file is a top-level markdown file that usually contains information about how to install the package, how to get started on some basic functions, where to go for reporting bugs or feature requests, and a disclaimer or copyright information about the open source software. All USGS packages have the Disclaimer field in the README that points to [the official USGS copyright policy](https://www2.usgs.gov/visual-id/credit_usgs.html#copyright/). Note that README files are shown on the home page of a GitHub repository, and is a good way to summarize why people should use your package. 
 
-![](../static/img/README_on_github.png)
+![What README files look like on GitHub](../static/img/README_on_github.png "readme file")
 
 The previous section discussed how to format R Markdown (`.Rmd` ) files and knit them to Markdown files (`.md`). README files are created in a similar way, you just need to include the following as your R Markdown header:
 
