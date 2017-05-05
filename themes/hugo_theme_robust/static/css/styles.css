@@ -252,6 +252,11 @@ img {
   width: 100%;
 }
 
+img[src$='#inline-img'] {
+  max-width: 100%;
+  width: auto;
+}
+
 h1, h2, h3, h4, h5 ,h6 { margin: 0; font-weight:normal; }
 h1 { font-size: 1.6rem; line-height: 2rem; }
 h2 { font-size: 1.3rem; line-height: 2rem; }
