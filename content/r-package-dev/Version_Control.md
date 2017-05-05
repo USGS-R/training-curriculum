@@ -123,21 +123,21 @@ There are many ways to use Git, GitHub, and RStudio in your version control work
 
 The initial setup requires a master repository on GitHub. To create a new master repo on GitHub, follow [these instructions](https://help.github.com/articles/creating-a-new-repository/). Once there is a master repository, the user looking to contribute to this code base would Fork the repository to their own account.
 
-![](../static/img/fork_repo.png#inline-img)
+![What button to press for forking a repo](../static/img/fork_repo.png#inline-img "fork repo")
 
 Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control, then select Git, and then paste the URL to the forked repository. It should automatically populate the Project directory name from the URL. Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git".
 
-![](../static/img/new_proj_version_control.png#inline-img)
+![The version control button for creating a new project](../static/img/new_proj_version_control.png#inline-img "new project version ctrl")
 
-![](../static/img/new_proj_git.png#inline-img)
+![Choose Git as the version control tool](../static/img/new_proj_git.png#inline-img "git version control")
 
-![](../static/img/new_proj_create.png#inline-img)
+![Window for entering the GitHub repo URL & Create Project button](../static/img/new_proj_create.png#inline-img "Create project GitHub repo url")
 
-![](../static/img/git_tab.png#inline-img)
+![New tab available called Git](../static/img/git_tab.png#inline-img "git tab available")
 
 Next, you need to setup your local repository to recognize the main repository as the "upstream" version. To do this, click the "More" drop down in your RStudio Git tab, then select "Shell...".
 
-![](../static/img/git_shell.png#inline-img)
+![How to open the git shell window](../static/img/git_shell.png#inline-img "git shell")
 
 In the command prompt, type `git remote -v` and hit enter. This will show you which remote repositories (available on online) are connected to your local repository. You should initially only see your forked repository and it is labeled "origin". To add the main repo as an "upstream" repository, type `git remote add upstream <url>` with the correct URL and hit enter. E.g. `git remote add upstream https://github.com/USGS-R/dataRetrieval`. Now when you run `git remote -v` in the shell, you should see both origin and upstream listed. This means you are set up to get new changes from the main repo and add your local changes to your remote repo. We will see how to do that next.
 
@@ -149,17 +149,17 @@ Now that you have the three repositories set up, you can start making changes to
 
 Click the check box next to the file(s) you would like to commit. To view the changes, select "Diff".
 
-![](../static/img/commit_change.png#inline-img)
+![Use Diff button to look at code changes](../static/img/commit_change.png#inline-img "view code changes")
 
 You can select the different files and it will show what was added (highlighted green) and what was deleted (highlighted red). Then, type your comment about the commit and click "Commit".
 
-![](../static/img/commit_msg.png#inline-img)
+![Window to write a commit message and submit](../static/img/commit_msg.png#inline-img "commit msg")
 
 #### Pushing local changes to a remote fork
 
 It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka master). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell.
 
-![](../static/img/git_push.png#inline-img)
+![Use Push button to send your local commits to your remote repository](../static/img/git_push.png#inline-img "push to remote repo")
 
 To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to the remote repo on GitHub ("master").
 
@@ -169,11 +169,11 @@ To get to the shell, go to the "Git" tab, then click "More", and then "Shell..."
 
 To submit a pull request, you need to be on your remote fork's GitHub page. The URL would say `github.com/YOUR_USERNAME/REPO_NAME`, e.g. `github.com/lindsaycarr/dataRetrieval`. It also shows where your repo was forked from:
 
-![](../static/img/remote_fork_ex.png#inline-img)
+![Example of name on remote fork URL](../static/img/remote_fork_ex.png#inline-img "user fork name")
 
 From this page, click "New pull request". Now, you should have a screen that is comparing your changes. Double check that the left repo name (1 in the figure) is the master repository that you intend to merge your changes into. Then double check that the fork you are planning to merge is your remote fork (3 in the figure). For now, branches should both be "master" (2 and 4 in the figure). See [the section on branching to learn more](#branching).
 
-![](../static/img/pr_change_comp.png#inline-img)
+![Setting up correct forks for pull request](../static/img/pr_change_comp.png#inline-img "compare forks for PR")
 
 Once you have verified that you are merging the correct forks and branches, you can select "Create Pull Request". Then add the title and comments. Make sure that you describe your changes sufficiently: include information for whoever reviews this, e.g. what should it do in order for them to approve it? Also, link to any existing issues or related pull requests by typing `#` and the number of the issue or PR.
 
@@ -181,7 +181,7 @@ Now, you wait while someone else reviews and merges your PR. To learn how to mer
 
 #### Commit workflow overview
 
-![](../static/img/github_workflow.png#inline-img)
+![Suggested commit workflow overview diagram](../static/img/github_workflow.png#inline-img "commit process")
 
 Getting upstream changes
 ------------------------
@@ -227,7 +227,7 @@ If you'd prefer the latter method, follow the blog until the "Merging branches b
 3.  As noted in the [section on submitting a pull request](#submitting-pr), double check that your repositories and branches are correct on the "Comparing changes" page. The only difference is that you want to change the farthest right drop-down to your branch.
 4.  Now follow the rest of steps for completing your PR submission as described in the [how-to-submit-a-PR section](#submitting-pr).
 
-![](../static/img/pr_change_branch.png#inline-img)
+![Dropdown menu to change branches for PR](../static/img/pr_change_branch.png#inline-img "branch PR")
 
 gitignore file
 --------------
@@ -246,7 +246,7 @@ Stashing
 
 If you have uncommitted changes on your local repository and try to pull down updates from the master repository, you'll notice that you get an error message:
 
-![](../static/img/uncommitted_changes.png#inline-img)
+![Error message when merging upstream with uncommitted changes](../static/img/uncommitted_changes.png#inline-img "error merging with changes")
 
 If you're ready, you can go ahead and commit those changes. Then try pulling from upstream again. If you're not ready to commit these changes, you can "stash" them, pull from upstream, and then bring them back as uncommitted changes.
 
@@ -261,7 +261,7 @@ Reviewing code changes
 
 If you are the reviewer for an open pull request, you will likely need to pull down the suggested changes and test them out locally before approving the PR. It's pretty simple to do this because you can copy and paste git commands for making a new branch of the PR. Next to the "Merge pull request" button, select "command line instructions".
 
-![](../static/img/cmd_line_instr.png#inline-img)
+![See what commands to use to review PR changes as local branch](../static/img/cmd_line_instr.png#inline-img "get PR as branch")
 
 Copy the two git commands from Step 1, *From your project repository, check out a new branch and test the changes.* Paste these lines into your Git shell (Git tab &gt;&gt; More &gt;&gt; Shell). You might not be able to right click and paste, or use the CTRL + V method. Instead, right click the top bar of the shell window, hover over "Edit", then click "Paste". Once the code is in the shell, hit enter.
 
@@ -270,7 +270,7 @@ git checkout -b otherusername-master master
 git pull https://github.com/otherusername/dataRetrieval.git master
 ```
 
-![](../static/img/paste_in_shell.png#inline-img)
+![Right click on top of window to paste in git shell](../static/img/paste_in_shell.png#inline-img "paste in shell")
 
 RStudio should now have a different branch name in the top right. Before you can test the changes available in this branch, you need to build and reload the package.
 
