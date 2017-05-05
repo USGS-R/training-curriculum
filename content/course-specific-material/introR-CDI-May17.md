@@ -15,7 +15,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 ### Data files
 
-Please download `course_NWISdata.csv` and `course_NWISdata_cleaned.csv` datasets from the [Data page](/intro-curriculum/data/) **prior to the start of the course**.
+Please download `course_NWISdata.csv` and `course_NWISdata_cleaned.csv` datasets from the [Data page](/intro-curriculum/data/) <span style="color:red">prior to the start of the course</span>.
 
 ### Tentative schedule
 
