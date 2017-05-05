@@ -52,7 +52,7 @@ Here are the components of package documentation.
 
 Help files are accessed when users run `?functionName`, e.g. `?mean` brings you to the help file for the function `mean`. Help files describe a function, provide the arguments and argument definitions, show default arguments when applicable, describe what the function returns to the user, points to additional resources or related functions, provides reproducible examples, and documents statistical methods and references. We create these helpfiles using Roxygen syntax, where documentation lives with the code it corresponds to. Roxygen comments are added to the same file the function is declared. When the package source files are "roxygenized", the roxygen-formatted comments are converted into `.Rd` files and added to the folder `man`. Although, the `.Rd` files look complex, R converts them to human readable formats to show when the `?` or `help` functions are used.
 
-Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. **RoxygenNote: 6.0.1 ?!?! in dataRetrieval**
+Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. When you build roxygen documentation, `RoxygenNote:` and a version number is automatically added at the end of your `DESCRIPTION` file.
 
 Roxygen comments always begin with an apostrophe after the regular R comment symbol. They are followed by an `@` and then the tag specifying what section of the help file is being described. Then, details about that section are added. The roxygen comments go directly above the function you are documenting. 
 
@@ -109,6 +109,8 @@ This function only has one argument, but if there were more they would be added 
 - What class is required? Numeric, logical, character?
 
 This is your opportunity to tell the user exactly what they need to know in order to effectively use your function. You can also use [markdown formatting](https://en.support.wordpress.com/markdown-quick-reference/) to make words bold, italic, code (as shown in this example), or links to web or other help pages. You can also reference the [RStudio devtools Cheatsheet for examples](https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf).
+
+If you are using Markdown syntax, you will need to be using `roxygen2` version 6.0 or greater. In addition, add `Roxygen: list(markdown=TRUE)` to your `DESCRIPTION` file to make that syntax available for all of your Roxygen documentation. Otherwise, add the tag `@md` in your function documentation to use it for just that function.
 
 Next, you should describe the output of this function using the tag `@return`. 
 
@@ -177,7 +179,7 @@ is.valid.pH <- function(pH){
 
 Now that your roxygen comments have been added, you need to build the resulting `.Rd` files. Setup your *Build Tools* to automatically convert roxygen to `.Rd` each time you build and reload the package. Go to the *Build Tab*, click *More*, then *Configure Build Tools*, and then click the checkmark next to *Generate documentation with Roxygen*. Next to *Generate documentation with Roxygen*, click *Configure* and make sure that everything is checked. 
 
-Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`.
+Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`. You will also see a new file, `NAMESPACE` in your top-level directory. This is automatically generated from the roxygen comments - don't edit it.
 
 ## Vignettes
 
