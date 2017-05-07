@@ -1,0 +1,77 @@
+---
+title: "Maintenance"
+date: "9999-09-30"
+author: "Jordan S. Read"
+slug: "maintenance"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: R Package Development
+weight: 1
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/git/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+Package maintenance is ...
+
+## Lesson Objectives
+
+1. Define various levels of maintenance and user groups
+2. Discuss strategies for short- and long-term package maintenance.
+3. ?
+
+## Package maintenance
+
+So, what are you really on the hook for when creating a package? It depends on ... user group, expected level of support, and complexity
+
+### User groups
+
+* Individual (you are building this package for yourself, and future you)
+* Core group of knowledgeable users (a package created to capture common or shared processes within a group)
+* Mix of known users with various levels of skill (similar to above, but with users that may not understand R basics)
+* Unknown users with wide distribution (the typical case of CRAN)
+
+### Level of support
+
+Defining the level of support you offer users can help you priorotize maintenance efforts and keep ...
+
+
+## Setting expectations 
+
+### Communicating through the package version
+
+### Sunset dates and other disclaimers
+
+
+
+## PP
+
+### The many benefits to simpler code
+
+### Understanding the dependency tree
+
+* on CRAN
+
+### Getting out ahead of incoming problems
+
+## Other useful resources
+
+- [linkshere](http://google.com)
+
