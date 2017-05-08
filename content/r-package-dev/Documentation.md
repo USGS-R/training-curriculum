@@ -34,9 +34,11 @@ Here are the components of package documentation.
 Help files
 ----------
 
-Help files are accessed when users run `?functionName`, e.g. `?mean` brings you to the help file for the function `mean`. Help files describe a function, provide the arguments and argument definitions, show default arguments when applicable, describe what the function returns to the user, points to additional resources or related functions, provides reproducible examples, and documents statistical methods and references. We create these helpfiles using Roxygen syntax, where documentation lives with the code it corresponds to. Roxygen comments are added to the same file the function is declared. When the package source files are "roxygenized", the roxygen-formatted comments are converted into `.Rd` files and added to the folder `man`. Although, the `.Rd` files look complex, R converts them to human readable formats to show when the `?` or `help` functions are used.
+Help files are accessed when users run `?functionName`, e.g. `?mean` brings you to the help file for the function `mean`. Help files describe a function, provide the arguments and argument definitions, show default arguments when applicable, describe what the function returns to the user, points to additional resources or related functions, provides reproducible examples, and documents statistical methods and references. You can also create a [package-level help file](#pkg-level). We create these helpfiles using Roxygen syntax, where documentation lives with the code it corresponds to. Roxygen comments are added to the same file the function is declared. When the package source files are "roxygenized", the roxygen-formatted comments are converted into `.Rd` files and added to the folder `man`. Although, the `.Rd` files look complex, R converts them to human readable formats to show when the `?` or `help` functions are used.
 
-Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. **RoxygenNote: 6.0.1 ?!?! in dataRetrieval**
+Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. When you build roxygen documentation, `RoxygenNote:` and a version number is automatically added at the end of your `DESCRIPTION` file.
+
+### Function-level help files
 
 Roxygen comments always begin with an apostrophe after the regular R comment symbol. They are followed by an `@` and then the tag specifying what section of the help file is being described. Then, details about that section are added. The roxygen comments go directly above the function you are documenting.
 
@@ -93,6 +95,8 @@ This function only has one argument, but if there were more they would be added 
 -   What class is required? Numeric, logical, character?
 
 This is your opportunity to tell the user exactly what they need to know in order to effectively use your function. You can also use [markdown formatting](https://en.support.wordpress.com/markdown-quick-reference/) to make words bold, italic, code (as shown in this example), or links to web or other help pages. You can also reference the [RStudio devtools Cheatsheet for examples](https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf).
+
+If you are using Markdown syntax, you will need to be using `roxygen2` version 6.0 or greater. In addition, add `Roxygen: list(markdown=TRUE)` to your `DESCRIPTION` file to make that syntax available for all of your Roxygen documentation. Otherwise, add the tag `@md` in your function documentation to use it for just that function.
 
 Next, you should describe the output of this function using the tag `@return`.
 
@@ -159,9 +163,37 @@ is.valid.pH <- function(pH){
 }
 ```
 
-Now that your roxygen comments have been added, you need to build the resulting `.Rd` files. Setup your *Build Tools* to automatically convert roxygen to `.Rd` each time you build and reload the package. Go to the *Build Tab*, click *More*, then *Configure Build Tools*, and then click the checkmark next to *Generate documentation with Roxygen*. Next to *Generate documentation with Roxygen*, click *Configure* and make sure that everything is checked.
+Now that your roxygen comments have been added, you need to build the resulting `.Rd` files. To manually build your help files, execute `roxygen2::roxygenize()`. To setup your *Build Tools* to automatically convert roxygen to `.Rd` each time you build and reload the package:
 
-Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`.
+1.  Go to the *Build Tab*, click *More*, and then *Configure Build Tools*.
+2.  Click the checkmark next to *Generate documentation with Roxygen*.
+3.  Next to *Generate documentation with Roxygen*, click *Configure...* and make sure that everything is checked. Caveat: if you create long-running [vignettes](#vignettes), you might want to uncheck that field so that they don't knit every time you build the package.
+
+Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`. You will also see a new file, `NAMESPACE` in your top-level directory. This is automatically generated from the roxygen comments - don't edit it.
+
+<name="pkg-level"</a>
+
+### Package-level help file
+
+These are optional help files that don't match a specific function. They can be about the whole package, or document datasets available in the package. The developer can name them anything using that roxygen tag `@name`, and users access them with `?name`. They are written with similar roxygen syntax, but instead of the function you use `NULL`. Here's an example:
+
+``` r
+#' @title My top-level help file
+#' @description Some additional information that should be available to users.
+#' @name toplevel
+#' @author My Name
+NULL
+```
+
+The `dataRetrieval` package has good examples of these files [here](https://github.com/USGS-R/dataRetrieval/blob/master/R/tabbedDataRetrievals.R). Access some from that file via:
+
+``` r
+?`dataRetrieval-package`
+?parameterCdFile
+?stateCd
+```
+
+<name="vignettes"</a>
 
 Vignettes
 ---------
@@ -179,7 +211,7 @@ Most vignettes you will see now are HTML not PDF files because it can be difficu
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-03"
+    date: "2017-05-05"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -193,7 +225,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-03"
+    date: "2017-05-05"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -216,13 +248,13 @@ READMEs
 
 The README file is a top-level markdown file that usually contains information about how to install the package, how to get started on some basic functions, where to go for reporting bugs or feature requests, and a disclaimer or copyright information about the open source software. All USGS packages have the Disclaimer field in the README that points to [the official USGS copyright policy](https://www2.usgs.gov/visual-id/credit_usgs.html#copyright/). Note that README files are shown on the home page of a GitHub repository, and is a good way to summarize why people should use your package.
 
-![](../static/img/README_on_github.png)
+![What README files look like on GitHub](../static/img/README_on_github.png "readme file")
 
 The previous section discussed how to format R Markdown (`.Rmd` ) files and knit them to Markdown files (`.md`). README files are created in a similar way, you just need to include the following as your R Markdown header:
 
     title: "README"
     author: "R"
-    date: "03 May, 2017"
+    date: "05 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -232,7 +264,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "03 May, 2017"
+    date: "05 May, 2017"
     output:
       md_document:
         variant: markdown_github
