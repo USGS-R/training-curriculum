@@ -230,7 +230,7 @@ rdb_data <- importRDB1(path_to_data)
 
 ### data subdirectory
 
-If the raw file format is not important, data sets can be included in the "data" subdirectory. This data needs to be saved as either ".RData" or ".rda" (both R binary extensions). The [`EGRET`](https://github.com/USGS-R/EGRET) package offers some example datasets in the "data" folder: `Choptank_eList` and `Arkansas_eList`. The data still needs to be exported (this will be discussed later). See [here](https://github.com/USGS-R/EGRET/blob/master/R/EGRET.R) for the `EGRET` example.
+If the raw file format is not important, data sets can be included in the "data" subdirectory. This data needs to be saved as either ".RData" or ".rda" (both R binary extensions). The [`EGRET`](https://github.com/USGS-R/EGRET) package offers some example data sets in the "data" folder: `Choptank_eList` and `Arkansas_eList`. The data still needs to be exported (this will be discussed later). See [here](https://github.com/USGS-R/EGRET/blob/master/R/EGRET.R) for the `EGRET` example.
 
 If you have `LazyData: true` in the DESCRIPTION file, the data can be accessed easily:
 
@@ -239,7 +239,7 @@ library(EGRET)
 names(Choptank_eList)
 ```
 
-A minor detail...this data will not appear in your Enviornment until you specifically load it:
+A minor detail...this data will not appear in your Environment until you specifically load it:
 
 ```{r eval=FALSE}
 Choptank_eList <- Choptank_eList
@@ -251,16 +251,148 @@ Choptank_eList <- Choptank_eList
 
 If data is to be used within the R code (for example, a look-up table), it can go in a R binary file called "sysdata.rda" that is placed within the "R" subdirectory. By default, this data is available for functions within your package, but not exposed. 
 
+To expose the sysdata, see the example in [`dataRetrieval`](https://github.com/USGS-R/dataRetrieval/blob/master/R/tabbedDataRetrievals.R). The important lines in the `roxygen2` code (much more to be discussed on that in the [Documentation Lesson](/r-package-dev/doc)):
+
+```
+#' @docType data
+#' @export stateCd
+NULL
+```
+
+This adds the line `export(stateCd)` to the NAMESPACE file.
+
 <a name="Depends"></a>
 
 ## Depending on other packges
 
+There are many good reasons for your package to use functions from other packages. These are called dependencies. 
+
+Use care, however, to decide if the package is stable and actively maintained. If you depend on packages that change their behavior or results, **your** package will also start to change it's behavior. 
+
+When you do require a package, it's best to only import the specific functions that you need. So, rather than depending on the entire `dataRetrieval` package, only depend on the functions within `dataRetrieval` that you need. Let's create a throwaway function in our `demoPackage` that gets daily discharge values from a site, and then uses `dplyr` to calculate daily summaries. 
+
+Here's the function if we were to write it as a script:
+
+```{r eval=FALSE}
+library(dataRetrieval)
+library(dplyr)
+
+summary_dv <- function(site){
+  dv_data <- readNWISdv(siteNumbers=site, 
+                        parameterCd = "00060", startDate = "", endDate = "")
+
+  dv_summ <- renameNWISColumns(dv_data)
+  dv_summ <- mutate(dv_summ, doy = as.numeric(strftime(Date, format = "%j")))
+  dv_summ <- group_by(dv_summ, doy)
+  dv_summ <- summarise(dv_summ,
+                       max = max(Flow, na.rm = TRUE),
+                       min = min(Flow, na.rm = TRUE))
+  return(dv_summ)
+
+}
+
+summary_dv("08279500")
+
+```
+
+To get that into our `demoPackage`, first we need to add `dataRetrieval` and `dplyr` to the "Imports" section. It is best-practice to add them to "Imports" rather than "Depends" because the packages will only be imported when needed, rather than fully loaded. So, first, let's update the DESCRIPTION file to this:
+
+```
+Package: demoPackage
+Type: Package
+Title: Throwaway demo package
+Version: 0.1.0
+Authors@R: c(person("Laura", "DeCicco", role = c("aut","cre"),
+    email = "ldecicco@usgs.gov"))
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Imports: 
+  dataRetrieval,
+  dplyr
+
+```
+
+Now, we need to add some `roxygen2` info to the function (this will be described in detail in the [Documentation](/r-package-dev/doc) section). So, save this to a file in the "R" folder in the `demoPackage` project:
+
+
+```
+#' summary_dv
+#'
+#' Get max and min of discharge for day of the year.
+#'
+#' @export
+#' @param site character USGS site ID
+#' @importFrom dataRetrieval readNWISdv
+#' @importFrom dataRetrieval renameNWISColumns
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @examples
+#' site <- "08279500"
+#' sum_dv <- summary_dv(site)
+summary_dv <- function(site){
+  Date <- doy <- Flow <- ".dplyr.var"
+
+  dv_data <- readNWISdv(siteNumbers=site,
+                        parameterCd = "00060", startDate = "", endDate = "")
+
+  dv_summ <- renameNWISColumns(dv_data)
+  dv_summ <- mutate(dv_summ, doy = as.numeric(strftime(Date, format = "%j")))
+  dv_summ <- group_by(dv_summ, doy)
+  dv_summ <- summarise(dv_summ,
+                       max = max(Flow, na.rm = TRUE),
+                       min = min(Flow, na.rm = TRUE))
+  return(dv_summ)
+
+}
+```
+
+Your first question might be, what is this line?
+```{r}
+Date <- doy <- Flow <- ".dplyr.var"
+```
+
+`dplyr` uses "Non-Standard Evaluation" (NSE) so that we can refer to columns in a data frame without surrounding them in quotes. On the package Check though, these NSE names get flagged with notes. Creating these "dummy" variables eliminates the Note. See more [here](https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html) for details. There are also ways within the `dplyr` package to perform Standard Evaluations. 
+
+I also deleted the `hello` function, and it's corresponding .Rd file in the "man" folder. We could keep it...but now that we're depending on `roxygen2` to create the documentation, we'd need to add the mandatory header information to that function. Since this is just a throw-away package, I just deleted it. Also, to get `roxygen2` to build the NAMESPACE file, I had to delete the originally created file. This is a precautionary measure from `roxygen2` to not overwrite anything that doesn't have a header "# Generated by roxygen2: do not edit by hand".
+
+When we build the package, if we have `roxygen2` working properly, our NAMESPACE file should now look like this:
+
+```
+# Generated by roxygen2: do not edit by hand
+
+export(summary_dv)
+importFrom(dataRetrieval,readNWISdv)
+importFrom(dataRetrieval,renameNWISColumns)
+importFrom(dplyr,group_by)
+importFrom(dplyr,mutate)
+importFrom(dplyr,summarise)
+```
+
+Run the Check to make sure there are still no error or warnings. 
+
+We can load the updates to the package, and see our in-development help files:
+
+```{r eval=FALSE}
+library(demoPackage)
+?summary_dv
+
+#Try out the example:
+site <- "08279500"
+sum_dv <- summary_dv(site)
+
+```
+
+Finally, be aware there is a 3rd level of package dependency. We could add packages to the "Suggests" field in the DESCRIPTION file. These are packages that might be used in the vignette or help files, or packages such as `knitr` or `testthat` that are not directly used within the package itself, but needed to build.
 
 <a name="License"></a>
 
 ## License and Disclaimers
 
-It is important to understand the policies of distributing code as a federal US employee. Please check for updates to any policy before releasing software. We do not garuntee that the following information will always be up-to-date and correct. See [USGS-manual](https://www2.usgs.gov/laws/info_policies.html), [DOI](https://www.doi.gov/disclaimer), and [software release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html) for the most official guidance on licenses and disclaimers. 
+It is important to understand the policies of distributing code as a federal US employee. Please check for updates to any policy before releasing software. We do not guarantee that the following information will always be up-to-date and correct. See [USGS-manual](https://www2.usgs.gov/laws/info_policies.html), [DOI](https://www.doi.gov/disclaimer), and [software release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html) for the most official guidance on licenses and disclaimers. 
 
 Technically, US federal employees should not have a license associated with their code (completely open, unrestricted code). R requires a license, and we have been told then that it's OK to use the [CC0](https://wiki.creativecommons.org/wiki/CC0) license:
 
