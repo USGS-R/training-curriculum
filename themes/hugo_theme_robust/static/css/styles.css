@@ -49,6 +49,10 @@
    .sideBySide{
     width:49% !important;
   }
+  
+    .autoImg{
+    width:auto !important;
+  }
 }
 
 .hljs{

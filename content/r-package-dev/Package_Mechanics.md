@@ -2,6 +2,7 @@
 author: 
 date: 9999-11-15
 slug: mechanics
+draft: true
 title: Package Mechanics
 image: img/main/intro-icons-300px/r-logo.png
 menu:
