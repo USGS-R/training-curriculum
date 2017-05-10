@@ -2,7 +2,6 @@
 author: 
 date: 9999-11-30
 slug: packages
-draft: True
 title: What Is a Package?
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -67,7 +66,9 @@ If you submit your package to CRAN, you **have** to take care of new errors that
 
 When developing an R-package as a USGS employee, it is also important to understand the policies of the USGS.
 
-[Federal Source Code](https://sourcecode.cio.gov/) [USGS Software Release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html)
+[Federal Source Code](https://sourcecode.cio.gov/)
+
+[USGS Software Release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html)
 
 R-package development can be done in the open, for example on github. There needs to be a disclaimer on the readme and package-startup, this will be addressed in the next section.
 

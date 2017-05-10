@@ -2,7 +2,6 @@
 author: 
 date: 9999-11-15
 slug: mechanics
-draft: True
 title: Package Mechanics
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -32,23 +31,26 @@ Package Skeleton
 
 Let's build a bare-bones package from scratch, defining each section as we go. We are using RStudio as our working environment, so let's first create a new Project called "demoPackage". Note we could do all of this by hand as well.
 
-Step 1: Open New Project:
+**Step 1:** Open New Project:
 
 <img class="sideBySide" src="../static/img/newProject.png" alt="New Project", title="New Project">
 
-Step 2: Choose New Package option:
+**Step 2:** Choose New Package option:
 
 <img class="sideBySide" src="../static/img/newPackage.png" alt="New Package", title="New Package">
 
-Step 3: Name your package:
+**Step 3:** Name your package:
 
 <img class="sideBySide" src="../static/img/newPackageII.png" alt="Name Package", title="Name Package">
 
-So now, let's look at what was created:
+**Step 4:** Discover your package!
 
 <img class="sideBySide" src="../static/img/packageSkeleton.png" alt="Minimum Package Requirements", title="Minimum Package Requirements">
 
-OK...so that is the absolute minimum required content required to create a package.
+Minimum Required Content
+------------------------
+
+There are just a few files and folders created in the above process. These are the absolute minimum required to build a package. As this workshop goes on, we will introduce more options for directories and files.
 
 ### R folder
 
@@ -60,16 +62,352 @@ The "man" folder contains the files used to create each function's "help" file (
 
 ### DESCRIPTION file
 
-The [DESCRIPTION](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) file contains basic information on the package.
+The [DESCRIPTION](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) file contains basic information on the package. Do not leave the fields with their defaults. See also [here](http://r-pkgs.had.co.nz/description.html) for more information.
+
+One thing to remember...we will be using `roxygen2` for most of our documentation work. `roxgyen2` will **not** update the DESCRIPTION file. If you add a new package dependency....you **must** manually add that to this file, either in the "Depends", "Imports", or "Suggests" field. More [below](#Depends)
 
 ### NAMESPACE file
 
-The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file
+The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file shows what functions and methods are exported and imported. Assuming we use the `roxygen2` package, this file should not need to be changed by hand. However, it is a very important file for R packages. It is also a somewhat difficult subject to explain in a simple way. See \[here\] \[\](<http://r-pkgs.had.co.nz/namespace.html>) for a detailed discussion.
+
+Build, Check, Share
+-------------------
+
+RStudio created a package skeleton. Let's build the package to see if it builds correctly. Then, we can check it, to see if it passes all of the R-package requirements.
+
+**Step 1:** Build:
+
+<img class="sideBySide" src="../static/img/Build.png" alt="Build Package", title="Build Package">
+
+Our `demoPackage` built! This screenshot used RStudio's "Build" tab which. There are other ways to build a package, but during this workshop, we will focus on the tools embedded in RStudio.
+
+**Step 2:** Check:
+
+<img class="sideBySide" src="../static/img/Check.png" alt="Check Package", title="Check Package">
+
+The initial "Check" shows 0 errors (great!), 1 warning (need to fix!), and 0 notes (great!). The warning's message is pretty informative (`Non-standard license specification What license is it under`). So, we need to update our DESCRIPTION file with the license information. See [below](#License) for more discussion on licenses.
+
+**Step 3:** Share:
+
+Let's say you've fixed all the errors, warnings, and notes on your package, and now you'd like to share it with a few people. You can build the package "source" file. Here is how you build the source:
+
+<img class="sideBySide" src="../static/img/Build_Source.png" alt="Create Source", title="Create Source">
+
+The output in the "Build" tab window is:
+
+    ==> devtools::build()
+
+    "C:/PROGRA~1/R/R-34~1.0PA/bin/x64/R" --no-site-file --no-environ --no-save  \
+      --no-restore --quiet CMD build "D:\LADData\RCode\demoPackage"  \
+      --no-resave-data --no-manual 
+
+    * checking for file 'D:\LADData\RCode\demoPackage/DESCRIPTION' ... OK
+    * preparing 'demoPackage':
+    * checking DESCRIPTION meta-information ... OK
+    * checking for LF line-endings in source and make files
+    * checking for empty or unneeded directories
+    * building 'demoPackage_0.1.0.tar.gz'
+
+    [1] "D:/LADData/RCode/demoPackage_0.1.0.tar.gz"
+
+So, now I can take my file "demoPackage\_0.1.0.tar.gz" and share it. Maybe to start, I want to just email it to a co-worker, and have them install it. If you can send them that file, and they put it in their working directory, they can install like this:
+
+``` r
+install.packages("demoPackage_0.1.0.tar.gz", repos = NULL, type = "source")
+```
+
+If you are a Windows developer sending to a Windows developer, or Mac sending to Mac, you could choose the "Build Binary Package" option. To avoid confusion, assuming you have a package that doesn't rely on compiled code, choosing "source" makes it easier to handle cross-operating-system collaborations.
+
+Then to run the package:
+
+    library(demoPackage)
+    hello()
+    [1] "Hello, world!"
+
+We will discuss other methods to share your package, including [Github](https://github.com), [GRAN](https://owi.usgs.gov/R/gran.html), and [CRAN](https://cran.r-project.org/).
+
+More Sub-Directories
+--------------------
+
+Aside from the "R" and "man" folders, there are others that can be included in a package. Here is a brief introduction to those folders. Some will be discussed further in this course. Others can be explored further from online references.
+
+<!--html_preserve-->
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Table 1. Possible Folders in an R-Package
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Folder
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+R
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Collection of R code
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+data
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Example data sets saved in R binary format
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+demo
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+R scripts to show example workflows. These are losing favor over vignettes
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+exec
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Executable scripts
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+inst
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Installed files, basically, any file that you want to include in it's original format can be stored here
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+man
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Documentation/help files
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+po
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Translations for R- and C-level error and warning messages
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+src
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Compiled Code such as C, C++, or Fortran
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+tests
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+testthat code testing files
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+tools
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Auxiliary files needed during configuration
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+vignettes
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+Files to create the detailed vignette files/user guides
+</td>
+</tr>
+</tbody>
+</table>
+<!--/html_preserve-->
+More Files
+----------
+
+Aside from the "DESCRIPTION" and "NAMESPACE" files, there are others that can be included in a package. Here is a brief introduction to those files Some will be discussed further in this course. Others can be explored further from online references. This list is not exhaustive. There are many other files that can be seen on R-Package github repositories. Some that we may explore in this workshop for example, ".travis.yml", "appveyor.yml", "codecov.yml" are used to configure continuous integration services.
+
+<!--html_preserve-->
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Table 2. Possible Files in an R-Package
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Files
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+DESCRIPTION
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Basic information on the package
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+NAMESPACE
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Exported and imported functions and methods
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+NEWS
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Information on package changes/updates
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+README
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Useful information to package users, but ignored by R
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+CITATION
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Official information on how to cite the package
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+LICENSE
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+Specific information on licencing
+</td>
+</tr>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+CONTRIBUTING
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+Information on how to contribute to the package
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+.Rbuildignore
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+List of files to ignore when doing the package build
+</td>
+</tr>
+</tbody>
+</table>
+<!--/html_preserve-->
+Data
+----
+
+There are several ways to add data to your package. See [here](http://r-pkgs.had.co.nz/data.html#data) for more information. We will describe 3 methods here:
+
+### inst/extdata subdirectory
+
+You can put data in a folder in the "inst/extdata" folder. This data will be available to the user in it's original format. For example, in the `dataRetrieval` package, we include example data that shows various data formats. This data can be accessed as follows:
+
+``` r
+library(dataRetrieval)
+
+path_to_data <- system.file("extdata", "RDB1Example.txt", package = "dataRetrieval")
+
+path_to_data
+```
+
+    ## [1] "C:/Users/ldecicco/Documents/R/win-library/3.4/dataRetrieval/extdata/RDB1Example.txt"
+
+This data is not automatically exported in the package. For `dataRetrieval`, we could open the data file by using `dataRetrieval` parsing functions:
+
+``` r
+rdb_data <- importRDB1(path_to_data)
+```
+
+### data subdirectory
+
+If the raw file format is not important, data sets can be included in the "data" subdirectory. This data needs to be saved as either ".RData" or ".rda" (both R binary extensions). The [`EGRET`](https://github.com/USGS-R/EGRET) package offers some example datasets in the "data" folder: `Choptank_eList` and `Arkansas_eList`. The data still needs to be exported (this will be discussed later). See [here](https://github.com/USGS-R/EGRET/blob/master/R/EGRET.R) for the `EGRET` example.
+
+If you have `LazyData: true` in the DESCRIPTION file, the data can be accessed easily:
+
+``` r
+library(EGRET)
+names(Choptank_eList)
+```
+
+    ## [1] "INFO"     "Daily"    "Sample"   "surfaces"
+
+### sysdata.rda
+
+<a name="Depends"></a>
+
+Depending on other packges
+--------------------------
+
+<a name="License"></a>
+
+License and Disclaimers
+-----------------------
+
+It is important to understand the policies of distributing code as a federal US employee. Please check for updates to any policy before releasing software. We do not garuntee that the following information will always be up-to-date and correct. See [USGS-manual](https://www2.usgs.gov/laws/info_policies.html), [DOI](https://www.doi.gov/disclaimer), and [software release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html) for the most official guidance on licenses and disclaimers.
+
+Technically, US federal employees should not have a license associated with their code (completely open, unrestricted code). R requires a license, and we have been told then that it's OK to use the [CC0](https://wiki.creativecommons.org/wiki/CC0) license:
+
+<img class="autoImg" src="http://i.creativecommons.org/p/zero/1.0/88x31.png" alt="CC0", title="CC0", height="31" width="88">
+
+USGS employees should also be adding a Disclaimer to their README:
+
+    Disclaimer: This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the official USGS copyright policy
+
+    Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+    This software is provided "AS IS."
+
+We also require a message on packages that have not been officially released. Adding this to any file in the R folder will cause a message to be displayed when a user opens the library:
+
+    .onAttach <- function(libname, pkgname) {
+      packageStartupMessage("Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.")
+    }
+
+If this was added to our `demoPackage`, we would see this on load:
+
+    library(demoPackage)
+    Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
 
 Other useful resources
 ----------------------
 
-There is no shortage of resources on R developers documenting how to create a package.
-
 -   [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
 -   [Hadley's R packages](http://r-pkgs.had.co.nz/)
+-   [devtools](https://github.com/hadley/devtools)

@@ -47,26 +47,28 @@ There are many excellent resources on how to create an R package. The official d
 
 Let's build a bare-bones package from scratch, defining each section as we go. We are using RStudio as our working environment, so let's first create a new Project called "demoPackage". Note we could do all of this by hand as well.
 
-Step 1: Open New Project:
+**Step 1:** Open New Project:
 
 <img class="sideBySide" src="../static/img/newProject.png" alt="New Project", title="New Project">
 
 
-Step 2: Choose New Package option:
+**Step 2:** Choose New Package option:
 
 <img class="sideBySide" src="../static/img/newPackage.png" alt="New Package", title="New Package">
 
-Step 3: Name your package:
+**Step 3:** Name your package:
 
 <img class="sideBySide" src="../static/img/newPackageII.png" alt="Name Package", title="Name Package">
 
 
-So now, let's look at what was created:
+**Step 4:** Discover your package!
 
 <img class="sideBySide" src="../static/img/packageSkeleton.png" alt="Minimum Package Requirements", title="Minimum Package Requirements">
 
 
-OK...so that is the absolute minimum required content required to create a package.
+## Minimum Required Content
+
+There are just a few files and folders created in the above process. These are the absolute minimum required to build a package. As this workshop goes on, we will introduce more options for directories and files. 
 
 ### R folder
 
@@ -78,16 +80,216 @@ The "man" folder contains the files used to create each function's "help" file (
 
 ### DESCRIPTION file
 
-The [DESCRIPTION](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) file contains basic information on the package. 
+The [DESCRIPTION](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) file contains basic information on the package. Do not leave the fields with their defaults. See also [here](http://r-pkgs.had.co.nz/description.html) for more information.
+
+One thing to remember...we will be using `roxygen2` for most of our documentation work. `roxgyen2` will **not** update the DESCRIPTION file. If you add a new package dependency....you **must** manually add that to this file, either in the "Depends", "Imports", or "Suggests" field. More [below](#Depends)
 
 ### NAMESPACE file
 
-The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file 
+The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file shows what functions and methods are exported and imported. Assuming we use the `roxygen2` package, this file should not need to be changed by hand. However, it is a very important file for R packages. It is also a somewhat difficult subject to explain in a simple way. See [here] [](http://r-pkgs.had.co.nz/namespace.html) for a detailed discussion.
+
+
+## Build, Check, Share
+
+RStudio created a package skeleton. Let's build the package to see if it builds correctly. Then, we can check it, to see if it passes all of the R-package requirements.
+
+**Step 1:** Build:
+
+<img class="sideBySide" src="../static/img/Build.png" alt="Build Package", title="Build Package">
+
+Our `demoPackage` built! This screenshot used RStudio's "Build" tab which. There are other ways to build a package, but during this workshop, we will focus on the tools embedded in RStudio. 
+
+**Step 2:** Check:
+
+<img class="sideBySide" src="../static/img/Check.png" alt="Check Package", title="Check Package">
+
+The initial "Check" shows 0 errors (great!), 1 warning (need to fix!), and 0 notes (great!). The warning's message is pretty informative (`Non-standard license specification What license is it under`). So, we need to update our DESCRIPTION file with the license information. See [below](#License) for more discussion on licenses.
+
+**Step 3:** Share:
+
+Let's say you've fixed all the errors, warnings, and notes on your package, and now you'd like to share it with a few people. You can build the package "source" file. Here is how you build the source:
+
+<img class="sideBySide" src="../static/img/Build_Source.png" alt="Create Source", title="Create Source">
+
+The output in the "Build" tab window is:
+```
+==> devtools::build()
+
+"C:/PROGRA~1/R/R-34~1.0PA/bin/x64/R" --no-site-file --no-environ --no-save  \
+  --no-restore --quiet CMD build "D:\LADData\RCode\demoPackage"  \
+  --no-resave-data --no-manual 
+
+* checking for file 'D:\LADData\RCode\demoPackage/DESCRIPTION' ... OK
+* preparing 'demoPackage':
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+* building 'demoPackage_0.1.0.tar.gz'
+
+[1] "D:/LADData/RCode/demoPackage_0.1.0.tar.gz"
+```
+
+So, now I can take my file "demoPackage_0.1.0.tar.gz" and share it. Maybe to start, I want to just email it to a co-worker, and have them install it. If you can send them that file, and they put it in their working directory, they can install like this:
+
+```{r eval=FALSE}
+install.packages("demoPackage_0.1.0.tar.gz", repos = NULL, type = "source")
+
+```
+
+If you are a Windows developer sending to a Windows developer, or Mac sending to Mac, you could choose the "Build Binary Package" option. To avoid confusion, assuming you have a package that doesn't rely on compiled code, choosing "source" makes it easier to handle cross-operating-system collaborations.
+
+Then to run the package:
+
+```
+library(demoPackage)
+hello()
+[1] "Hello, world!"
+```
+
+We will discuss other methods to share your package, including [Github](https://github.com), [GRAN](https://owi.usgs.gov/R/gran.html), and [CRAN](https://cran.r-project.org/).
+
+## More Sub-Directories
+
+Aside from the "R" and "man" folders, there are others that can be included in a package. Here is a brief introduction to those folders. Some will be discussed further in this course. Others can be explored further from online references. 
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+Folder <- c("R", "data", "demo", "exec", "inst", "man", "po", "src", "tests", "tools", "vignettes")
+
+Description <- c("Collection of R code",
+                "Example data sets saved in R binary format",
+                "R scripts to show example workflows. These are losing favor over vignettes",
+                "Executable scripts",
+                "Installed files, basically, any file that you want to include in it's original format can be stored here",
+                "Documentation/help files",
+                "Translations for R- and C-level error and warning messages",
+                "Compiled Code such as C, C++, or Fortran",
+                "testthat code testing files",
+                "Auxiliary files needed during configuration",
+                "Files to create the detailed vignette files/user guides"
+                
+  
+)
+
+library(htmlTable)
+htmlTable(data.frame(Folder, Description), 
+          caption="Table 1. Possible Folders in an R-Package",
+          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+```
+
+
+## More Files
+
+Aside from the "DESCRIPTION" and "NAMESPACE" files, there are others that can be included in a package. Here is a brief introduction to those files Some will be discussed further in this course. Others can be explored further from online references. This list is not exhaustive. There are many other files that can be seen on R-Package github repositories. Some that we may explore in this workshop for example, ".travis.yml", "appveyor.yml", "codecov.yml" are used to configure continuous integration services.
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+Files <- c("DESCRIPTION", "NAMESPACE", "NEWS", "README", "CITATION", "LICENSE","CONTRIBUTING",".Rbuildignore")
+
+Description <- c("Basic information on the package",
+                 "Exported and imported functions and methods",
+                 "Information on package changes/updates",
+                 "Useful information to package users, but ignored by R",
+                 "Official information on how to cite the package",
+                 "Specific information on licencing",
+                 "Information on how to contribute to the package",
+                 "List of files to ignore when doing the package build")
+
+library(htmlTable)
+htmlTable(data.frame(Files, Description), 
+          caption="Table 2. Possible Files in an R-Package",
+          rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+```
+
+
+
+
+## Data
+
+There are several ways to add data to your package. See [here](http://r-pkgs.had.co.nz/data.html#data) for more information. We will describe 3 methods here:
+
+### inst/extdata subdirectory
+
+You can put data in a folder in the "inst/extdata" folder. This data will be available to the user in it's original format. For example, in the `dataRetrieval` package, we include example data that shows various data formats. This data can be accessed as follows:
+
+```{r}
+library(dataRetrieval)
+
+path_to_data <- system.file("extdata", "RDB1Example.txt", package = "dataRetrieval")
+
+path_to_data
+
+```
+
+This data is not automatically exported in the package. For `dataRetrieval`, we could open the data file by using `dataRetrieval` parsing functions:
+
+```{r eval=FALSE}
+rdb_data <- importRDB1(path_to_data)
+
+```
+
+### data subdirectory
+
+If the raw file format is not important, data sets can be included in the "data" subdirectory. This data needs to be saved as either ".RData" or ".rda" (both R binary extensions). The [`EGRET`](https://github.com/USGS-R/EGRET) package offers some example datasets in the "data" folder: `Choptank_eList` and `Arkansas_eList`. The data still needs to be exported (this will be discussed later). See [here](https://github.com/USGS-R/EGRET/blob/master/R/EGRET.R) for the `EGRET` example.
+
+If you have `LazyData: true` in the DESCRIPTION file, the data can be accessed easily:
+
+```{r }
+library(EGRET)
+names(Choptank_eList)
+```
+
+
+### sysdata.rda
+
+
+<a name="Depends"></a>
+
+## Depending on other packges
+
+
+<a name="License"></a>
+
+## License and Disclaimers
+
+It is important to understand the policies of distributing code as a federal US employee. Please check for updates to any policy before releasing software. We do not garuntee that the following information will always be up-to-date and correct. See [USGS-manual](https://www2.usgs.gov/laws/info_policies.html), [DOI](https://www.doi.gov/disclaimer), and [software release](https://www2.usgs.gov/usgs-manual/im/IM-OSQI-2016-01.html) for the most official guidance on licenses and disclaimers. 
+
+Technically, US federal employees should not have a license associated with their code (completely open, unrestricted code). R requires a license, and we have been told then that it's OK to use the [CC0](https://wiki.creativecommons.org/wiki/CC0) license:
+
+<img class="autoImg" src="http://i.creativecommons.org/p/zero/1.0/88x31.png" alt="CC0", title="CC0", height="31" width="88">
+
+USGS employees should also be adding a Disclaimer to their README:
+
+```
+Disclaimer: This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the official USGS copyright policy
+
+Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+This software is provided "AS IS."
+```
+
+We also require a message on packages that have not been officially released. Adding this to any file in the R folder will cause a message to be displayed when a user opens the library:
+
+```
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.")
+}
+
+```
+
+If this was added to our `demoPackage`, we would see this on load:
+
+```
+library(demoPackage)
+Although this software program has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+```
 
 ## Other useful resources
-There is no shortage of resources on R developers documenting how to create a package. 
+
 
 - [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
 - [Hadley's R packages](http://r-pkgs.had.co.nz/)
+- [devtools](https://github.com/hadley/devtools)
 
 
