@@ -2,7 +2,6 @@
 author: 
 date: 9999-11-15
 slug: mechanics
-draft: true
 title: Package Mechanics
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -369,7 +368,17 @@ names(Choptank_eList)
 
     ## [1] "INFO"     "Daily"    "Sample"   "surfaces"
 
+A minor detail...this data will not appear in your Enviornment until you specifically load it:
+
+``` r
+Choptank_eList <- Choptank_eList
+```
+
+<img class="sideBySide" src="../static/img/EGRET_data.png" alt="EGRET data", title="EGRET data">
+
 ### sysdata.rda
+
+If data is to be used within the R code (for example, a look-up table), it can go in a R binary file called "sysdata.rda" that is placed within the "R" subdirectory. By default, this data is available for functions within your package, but not exposed.
 
 <a name="Depends"></a>
 
