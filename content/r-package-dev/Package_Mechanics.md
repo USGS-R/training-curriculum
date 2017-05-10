@@ -69,7 +69,7 @@ One thing to remember...we will be using `roxygen2` for most of our documentatio
 
 ### NAMESPACE file
 
-The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file shows what functions and methods are exported and imported. Assuming we use the `roxygen2` package, this file should not need to be changed by hand. However, it is a very important file for R packages. It is also a somewhat difficult subject to explain in a simple way. See \[here\] \[\](<http://r-pkgs.had.co.nz/namespace.html>) for a detailed discussion.
+The [NAMESPACE](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-namespaces) file shows what functions and methods are exported and imported. Assuming we use the `roxygen2` package, this file should not need to be changed by hand. However, it is a very important file for R packages. It is also a somewhat difficult subject to explain in a simple way. See [here](http://r-pkgs.had.co.nz/namespace.html) for a detailed discussion.
 
 Build, Check, Share
 -------------------
@@ -80,7 +80,7 @@ RStudio created a package skeleton. Let's build the package to see if it builds 
 
 <img class="sideBySide" src="../static/img/Build.png" alt="Build Package", title="Build Package">
 
-Our `demoPackage` built! This screenshot used RStudio's "Build" tab which. There are other ways to build a package, but during this workshop, we will focus on the tools embedded in RStudio.
+Our `demoPackage` built! This screenshot used RStudio's "Build" tab. There are other ways to build a package, but during this workshop, we will focus on the tools embedded in RStudio.
 
 **Step 2:** Check:
 
