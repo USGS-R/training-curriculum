@@ -8,9 +8,10 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 1
-draft: true
 ---
 **USGS R Packages: Collaborative and reproducible data analysis using R**
+
+**The following material is IN DEVELOPMENT**
 
 As free, open-source software, the statistical programming language R has a growing community of developers and users for data analysis and visualizations. Getting started with R can be challenging, but there are many online resources for learning the basics of the language. Many users can accomplish simple analyses through self-taught skills, or learn R in a more formal setting. R users can also use online forums to find solutions for recurrent errors and help with commonly used R packages. However, there are many R packages built by and for USGS purposes that are more specific to the USGS. The user community for these packages is small, so there are not as many online resources available, nor online help forums able to offer assistance. With the creation of this online course, there will be canonical online resources for learning USGS packages, while simultaneously building a larger user community.
 

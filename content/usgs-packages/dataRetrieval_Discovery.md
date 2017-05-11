@@ -9,8 +9,10 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 3
-draft: true
 ---
+
+**The following material is IN DEVELOPMENT**
+
 Before continuing with this lesson, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
 
 ``` r

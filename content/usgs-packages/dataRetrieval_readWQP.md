@@ -3,7 +3,6 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: dataRetrieval-readWQP
 title: dataRetrieval - readWQP
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -12,6 +11,8 @@ menu:
 ---
 readWQP functions
 -----------------
+
+**The following material is IN DEVELOPMENT**
 
 After discovering Water Quality Portal (WQP) data in the [data discovery section](/dataRetrieval-discovery), we can now read it in using the desired parameters. There are two functions to do this in `dataRetrieval`. Table 1 describes them below.
 
