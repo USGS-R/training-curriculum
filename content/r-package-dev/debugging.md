@@ -8,6 +8,7 @@ menu:
   main:
     parent: R Package Development
     weight: 1
+draft: true
 ---
 Debugging is an integral part of package development and maintenance. As you write more complex code, errors can often happen several functions deep. Unlike in a script, you don't by default have access to the R variables where the error occured. Fortunately, RStudio provides many useful tools to help.
 
