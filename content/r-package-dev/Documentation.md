@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-07-31
 slug: doc
 title: Documentation
-draft: true
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -155,7 +155,7 @@ Once you build your `.Rd` files, you will see them appear in the `man` folder. E
 
 ### Package-level help file
 
-It is optional, but nice to the user to have a "package-level" help file. Users are use to looking for help by typing a `?` and function name, but if they type `?` and package name, it's nice to give them information on the package. Here is a modified example of the `dataRetrieval` package-level help file:
+It is optional, but nice to the user to have a "package-level" help file. Users are accustomed to looking for help by typing a `?` and function name, but if they type `?` and the package name, it's nice to give them information on the package. Here is a modified example of the `dataRetrieval` package-level help file:
 
 ``` r
 #' Retrieval functions for USGS and EPA data
@@ -248,7 +248,7 @@ We will only show how to create HTML vignettes here. To start, create a top-leve
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-12"
+    date: "2017-05-22"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -262,7 +262,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-12"
+    date: "2017-05-22"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -297,7 +297,7 @@ The previous section discussed how to format R Markdown (`.Rmd` ) files and knit
 
     title: "README"
     author: "R"
-    date: "12 May, 2017"
+    date: "22 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -307,7 +307,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "12 May, 2017"
+    date: "22 May, 2017"
     output:
       md_document:
         variant: markdown_github

@@ -172,7 +172,7 @@ Once you build your `.Rd` files, you will see them appear in the `man` folder. E
 
 ### Package-level help file
 
-It is optional, but nice to the user to have a "package-level" help file. Users are use to looking for help by typing a `?` and function name, but if they type `?` and package name, it's nice to give them information on the package. Here is a modified example of the `dataRetrieval` package-level help file:
+It is optional, but nice to the user to have a "package-level" help file. Users are accustomed to looking for help by typing a `?` and function name, but if they type `?` and the package name, it's nice to give them information on the package. Here is a modified example of the `dataRetrieval` package-level help file:
 
 ```{r eval=FALSE}
 #' Retrieval functions for USGS and EPA data
