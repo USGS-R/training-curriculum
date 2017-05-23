@@ -233,12 +233,14 @@ If you are the reviewer for an open pull request, you will likely need to pull d
 
 ![See what commands to use to review PR changes as local branch](../static/img/cmd_line_instr.png#inline-img "get PR as branch")
 
-Copy the two git commands from Step 1, *From your project repository, check out a new branch and test the changes.* Paste these lines into your Git shell (Git tab >> More >> Shell). You might not be able to right click and paste, or use the CTRL + V method. Instead, right click the top bar of the shell window, hover over "Edit", then click "Paste". Once the code is in the shell, hit enter.
+Copy the two git commands from Step 1, *From your project repository, check out a new branch and test the changes.* Paste these lines into your Git shell  (Git tab >> More >> Shell). 
 
 ```{r eval=FALSE}
 git checkout -b otherusername-master master
 git pull https://github.com/otherusername/dataRetrieval.git master
 ```
+
+You might not be able to right click and paste, or use the CTRL + V method. Instead, right click the top bar of the shell window, hover over "Edit", then click "Paste". Once the code is in the shell, hit enter.
 
 ![Right click on top of window to paste in git shell](../static/img/paste_in_shell.png#inline-img "paste in shell")
 
