@@ -171,7 +171,7 @@ It's best to keep commits as concise and specific as possible. So, commit often 
 
 ![Use Push button to send your local commits to your remote repository](../static/img/git_push.png#inline-img "push to remote repo")
 
-To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to the remote repo on GitHub ("master").
+To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to your remote repo on GitHub ("master").
 
 <name="submitting-pr"></a>
 
@@ -201,7 +201,7 @@ To get changes available on the remote master fork to your local repository, you
 Handling merge conflicts
 ------------------------
 
-Even though Git and GitHub make simultaneous code development easier, it is not entire fool-proof. If a code line you are working on was edited by someone else since the last time you synced with the master branch, you might run into "merge conflicts". When you encounter conflicts during a pull from the upstream repo, you will see all changed files since the previous sync in your Git tab. Files with checkmarks are just fine. Any file with a filled in checkbox means that only part of the changes are being committed - this is where you have merge conflicts.
+Even though Git and GitHub make simultaneous code development easier, it is not entirely fool-proof. If a code line you are working on was edited by someone else since the last time you synced with the master branch, you might run into "merge conflicts". When you encounter conflicts during a pull from the upstream repo, you will see all changed files since the previous sync in your Git tab. Files with checkmarks are just fine. Any file with a filled in checkbox means that only part of the changes are being committed - this is where you have merge conflicts.
 
 When you open the file(s) with merge conflicts, look for the section that looks like this:
 
@@ -284,7 +284,7 @@ git pull https://github.com/otherusername/dataRetrieval.git master
 
 RStudio should now have a different branch name in the top right. Before you can test the changes available in this branch, you need to build and reload the package.
 
-Once you have thoroughly tested this branch and approve of it, go back to the PR on GitHub. Write a few comments about what you tested and why you are accepting these changes, the click "Merge pull request" and then "Confirm". You can now delete the branch you were using to test these changes. Don't forget to pull down these new changes to your local repository master branch!
+Once you have thoroughly tested this branch and approve of it, go back to the PR on GitHub. Write a few comments about what you tested and why you are accepting these changes, then click "Merge pull request" and then "Confirm". You can now delete the branch you were using to test these changes. Don't forget to pull down these new changes to your local repository master branch!
 
 Common Git commands
 -------------------
