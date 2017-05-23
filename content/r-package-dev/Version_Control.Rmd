@@ -246,7 +246,13 @@ You might not be able to right click and paste, or use the CTRL + V method. Inst
 
 RStudio should now have a different branch name in the top right. Before you can test the changes available in this branch, you need to build and reload the package.
 
-Once you have thoroughly tested this branch and approve of it, go back to the PR on GitHub. Write a few comments about what you tested and why you are accepting these changes, then click "Merge pull request" and then "Confirm". You can now delete the branch you were using to test these changes. Don't forget to pull down these new changes to your local repository master branch!
+Once you have thoroughly tested this branch and approve of it, go back to the PR on GitHub. Write a few comments about what you tested and why you are accepting these changes, then click "Merge pull request" and then "Confirm". You can now delete the branch you were using to test these changes. Continuing the example for checking out a branch called `otherusername-master` above,  
+
+```{r eval=FALSE}
+git branch -d otherusername-master
+```
+
+Don't forget to pull down these new changes to your local repository master branch!
 
 ## Common Git commands
 
