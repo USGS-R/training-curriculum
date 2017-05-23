@@ -155,6 +155,10 @@ In the command prompt, type `git remote -v` and hit enter. This will show you wh
 
 Now that you have the three repositories set up, you can start making changes to the code and commit them. First, you would make a change to a file or files in RStudio. When you save the file(s), you should see them appear in the Git tab. A blue "M" icon next to them means they were existing files that you modified, a green "A" means they are new files you added, and a red "D" means they were files that you deleted.
 
+#### **Getting upstream changes**
+
+To get changes available on the remote master fork to your local repository, you will need to "pull" those changes down. To do this, go to the Git shell through RStudio (Git tab &gt;&gt; More &gt;&gt; Shell) and use the command `git pull` with the name of the remote master fork followed by the name of your local repo, e.g. `git pull upstream master`. It is generally a good idea to do this before you start making changes to avoid [conflicts](#handling-merge-conflicts).
+
 #### **Committing changes**
 
 Click the check box next to the file(s) you would like to commit. To view the changes, select "Diff".
@@ -196,11 +200,6 @@ Now, you wait while someone else reviews and merges your PR. To learn how to mer
 #### **Commit workflow overview**
 
 ![Suggested commit workflow overview diagram](../static/img/github_workflow.png#inline-img "commit process")
-
-Getting upstream changes
-------------------------
-
-To get changes available on the remote master fork to your local repository, you will need to "pull" those changes down. To do this, go to the Git shell through RStudio (Git tab &gt;&gt; More &gt;&gt; Shell) and use the command `git pull` with the name of the remote master fork followed by the name of your local repo, e.g. `git pull upstream master`.
 
 Handling merge conflicts
 ------------------------
