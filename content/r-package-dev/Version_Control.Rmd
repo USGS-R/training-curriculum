@@ -147,7 +147,11 @@ From this page, click "New pull request". Now, you should have a screen that is 
 
 ![Setting up correct forks for pull request](../static/img/pr_change_comp.png#inline-img "compare forks for PR")
 
-Once you have verified that you are merging the correct forks and branches, you can select "Create Pull Request". Then add the title and comments. Make sure that you describe your changes sufficiently: include information for whoever reviews this, e.g. what should it do in order for them to approve it? Also, link to any existing issues or related pull requests by typing `#` and the number of the issue or PR. 
+Once you have verified that you are merging the correct forks and branches, you can select "Create Pull Request". Be sure to describe your changes sufficiently (see [this wiki](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for more tips):
+
+- add a title and comments
+- include information for whoever reviews this, e.g. what should it do in order for them to approve it?
+- link to any existing issues or related pull requests by typing `#` and the number of the issue or PR
 
 Now, you wait while someone else reviews and merges your PR. To learn how to merge a pull request, see the [section on reviewing code changes](#code-review). You should avoid merging your own pull requests, and instead should always have a peer review of your code.
 
