@@ -230,7 +230,7 @@ Now that you've addressed the merge conflict in the file, it's time to commit th
 Branching
 ---------
 
-Branches are an optional feature of Git version control. It allows you to have a non-linear commit history where multiple features/bug fixes could be developed and merged independently. You have been working on the "master" branch for the previous sections. We could add another branch off of this called "bug-fix", and another from the master called "new-feature". You could change the code on either of those branches independed of one another, and merge when one is done without the need to have the other completed at the same time.
+Branches are an optional feature of Git version control. It allows you to have a non-linear commit history where multiple features/bug fixes could be developed and merged independently. You have been working on the "master" branch for the previous sections. We could add another branch off of this called "bug-fix", and another from the master called "new-feature". You could change the code on either of those branches independed of one another, and merge when one is done without the need to have the other completed at the same time. Be careful though, you can create branches from a non-master branch which is often not the behavior you want. Just be aware of your current branch when you are creating a new one.
 
 When the time comes to merge the branch, you can either merge it with the master branch locally or create a pull request to the main repository specifying changes from your new branch. Follow [this blog](https://nicercode.github.io/git/branches.html) to learn how to do the former method.
 
