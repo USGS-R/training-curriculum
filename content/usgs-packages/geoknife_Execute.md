@@ -3,7 +3,6 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - construct calls
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -12,6 +11,8 @@ menu:
 ---
 Setting up a geojob
 -------------------
+
+**The following material is IN DEVELOPMENT**
 
 A `geojob` is the object that contains all of the necessary processing information to execute a data request to GDP. The `geojob` is made up of the `stencil`, `fabric`, and `knife` (if you need to learn what these components are, please visit [the previous lesson](/usgs-packages/geoknife-data)).
 

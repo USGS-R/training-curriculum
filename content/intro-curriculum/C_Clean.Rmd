@@ -270,7 +270,7 @@ If we wanted to remove some of the columns from `siteInfo.csv`, we can use `sele
 ```
 
 ##Exercise 2
-In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see) the code snippet below). First, we need to create the two subsets and will do this by selecting random rows using the `dplyr` function `sample_n`. In order to select the same random rows (so that the class is on the same page), use `set.seed`. 
+In this exercise we are going to practice merging data. We will be using two subsets of`intro_df` (see the code snippet below). First, we need to create the two subsets and will do this by selecting random rows using the `dplyr` function `sample_n`. In order to select the same random rows (so that the class is on the same page), use `set.seed`. 
 
 ```{r exercise2, warning=FALSE, message=FALSE}
 # specify what the seed will be

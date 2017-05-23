@@ -94,7 +94,7 @@ nrow(WI_lake_phosphorus_2010)
 
 <a name="readwqpdata-county"></a>
 
-**All nutrient data in Napa County, California lakes**
+**All nutrient data in Napa County, California**
 
 ```{r readwqpdata-county, message=FALSE, warning=FALSE}
 # Use empty character strings to specify that you want the historic record.
@@ -159,11 +159,19 @@ data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
 wqp_attributes <- attributes(data)
 names(wqp_attributes)
 
-# Look more closely at the site information
-attr(data, "siteInfo")
+```
 
-# Look at the variable information
-attr(data, "variableInfo")
+Let's make a quick map to look at the stations that collected the Everglades data:
+
+```{r}
+siteInfo <- attr(Everglades_temp_2016_present, "siteInfo")
+
+library(maps)
+map('state', regions='florida')
+title(main="Everglade Sites")
+points(x=siteInfo$dec_lon_va, 
+       y=siteInfo$dec_lat_va)
+
 ```
 
 You can now find and download Water Quality Portal data from R! 

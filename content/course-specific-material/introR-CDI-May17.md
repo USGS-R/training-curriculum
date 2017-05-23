@@ -1,13 +1,13 @@
 ---
 date: 2017-05-19
 slug: introR-CDI-May17
-title: Community for Data Integration Conference
+title: 2017 CDI Conference
 menu:
   main:
     parent: Course Specific Material
     weight: 1
 ---
-May 19 2017 in Denver, CO
+May 19, 2017 in Denver, CO
 
 ### Installation
 
@@ -34,7 +34,7 @@ Please download `course_NWISdata.csv` and `course_NWISdata_cleaned.csv` datasets
 
 ### Script files
 
-Scripts we create during the workshop will be available here at the end.
+[This zip file](https://drive.google.com/file/d/0B54YFPSk4XN8NlVZcUdzRHJDa0U) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class. Download and unzip to access. Note that these were scripts created for instructional purposes only.
 
 ### Additional resources
 

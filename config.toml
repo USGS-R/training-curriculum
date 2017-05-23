@@ -16,3 +16,7 @@ canonifyurls = true
   name = "Course Specific Material"
   url = "/course-specific-material/"
   weight = 1
+[[menu.main]]
+  name = "Introduction to USGS R Packages"
+  url = "/usgs-packages/"
+  weight = 1

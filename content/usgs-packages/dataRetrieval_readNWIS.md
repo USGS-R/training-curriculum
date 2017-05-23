@@ -3,7 +3,6 @@ author: Lindsay R. Carr
 date: 9999-11-01
 slug: dataRetrieval-readNWIS
 title: dataRetrieval - readNWIS
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -12,6 +11,8 @@ menu:
 ---
 readNWIS functions
 ------------------
+
+**The following material is IN DEVELOPMENT**
 
 We have learned how to discover data available in NWIS, but now we will look at how to retrieve data. There are many functions to do this, see the table below for a description of each. Each variation of `readNWIS` is accessing a different web service. For a definition and more information on each of these services, please see <https://waterservices.usgs.gov/rest/>. Also, refer to the previous lesson for a description of the major arguments to `readNWIS` functions.
 

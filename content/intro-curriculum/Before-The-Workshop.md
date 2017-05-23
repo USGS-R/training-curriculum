@@ -65,7 +65,7 @@ version$version.string
 Verify your installed R version
 -------------------------------
 
-Ideally you should be running the latest stable release (3.3.X as of July 2016, where X can be any number), although 3.2.X is also ok. If you have an older version, please install the newest version using the instructions above.
+Ideally you should be running the latest stable release (3.3.X as of May 2017, where X can be any number). If you have an older version, please install the newest version using the instructions above.
 
 Here is what my R version looks like.
 
