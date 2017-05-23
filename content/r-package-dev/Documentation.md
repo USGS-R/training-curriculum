@@ -38,7 +38,7 @@ Help files are accessed when users run `?functionName`, e.g. `?mean` brings you 
 
 Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. When you build roxygen documentation, `RoxygenNote:` and a version number is automatically added at the end of your `DESCRIPTION` file.
 
-Another note for help files: if you plan to submit your package to CRAN (see the [package maintenance](/r-package-dev/maintenance) section to learn more about considerations for CRAN), you cannot use `#` in any help file URLs. Warnings are being flagged on CRAN's check, but aren't being caught in local checks. Running `rhub::check_with_rdevel()` does seem to give a clue that they would cause an issue, but it might be best to just avoid using `#` in URLs for help files in CRAN packages.
+Another note for help files: if you plan to submit your package to CRAN (see the [package maintenance](/r-package-dev/maintenance) section to learn more about considerations for CRAN), you cannot use `#` in any help file URLs.
 
 ### Function-level help files
 
