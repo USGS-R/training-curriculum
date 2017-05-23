@@ -34,7 +34,7 @@ Please download `course_NWISdata.csv` and `course_NWISdata_cleaned.csv` datasets
 
 ### Script files
 
-[This zip file](https://drive.google.com/file/d/0B54YFPSk4XN8NlVZcUdzRHJDa0U) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class. Download and unzip to access.
+[This zip file](https://drive.google.com/file/d/0B54YFPSk4XN8NlVZcUdzRHJDa0U) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class. Download and unzip to access. Note that these were scripts created for instructional purposes only.
 
 ### Additional resources
 
