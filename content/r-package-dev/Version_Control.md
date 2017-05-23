@@ -254,6 +254,8 @@ It is sometimes useful to have a text file name `.gitignore`. This file let's Gi
 *.Rproj
 ```
 
+Mac users might want to consider adding `.DS_Store` to their `.gitignore` file. `.DS_Store` is a file automatically created containing information about icons and their positions. There is no need to include this in your repo.
+
 Stashing
 --------
 
