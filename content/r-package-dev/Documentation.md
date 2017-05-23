@@ -147,7 +147,7 @@ Now that your roxygen comments have been added, you need to build the resulting 
 
 1.  Go to the *Build Tab*, click *More*, and then *Configure Build Tools*.
 2.  Click the check mark next to *Generate documentation with Roxygen*.
-3.  Next to *Generate documentation with Roxygen*, click *Configure...* and make sure that everything is checked. Caveat: if you create long-running [vignettes](#vignettes), you might want to uncheck that field so that they don't knit every time you build the package.
+3.  Next to *Generate documentation with Roxygen*, click *Configure...* and make sure that everything is checked. Caveat: if you create long-running [vignettes](#vignettes), you might want to uncheck that field so that they don't knit every time you build the package. Also, this configuration won't complete all the steps necessary to build the vignettes. It will only create the correct files, but not move them to the correct folders. See how to robustly build vignettes [here](#build-vignettes).
 
 Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`. You will also see a new file, `NAMESPACE` in your top-level directory. This is automatically generated from the roxygen comments - don't edit it.
 
@@ -248,7 +248,7 @@ We will only show how to create HTML vignettes here. To start, create a top-leve
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-22"
+    date: "2017-05-23"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -262,7 +262,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-22"
+    date: "2017-05-23"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -278,13 +278,15 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
 
     etc ...
 
+<a name="build-vignettes"</a>
+
 Save your new R Markdown file. To get the vignette to show up in your R package, you then need to:
 
 ``` r
 devtools::build_vignettes()
 ```
 
-This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder.
+This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder. Don't rely on your Build configurations to automatically do these steps for you - it will only create the `.R` and `.html` files, but not move them to the correct folders.
 
 READMEs
 -------
@@ -297,7 +299,7 @@ The previous section discussed how to format R Markdown (`.Rmd` ) files and knit
 
     title: "README"
     author: "R"
-    date: "22 May, 2017"
+    date: "23 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -307,7 +309,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "22 May, 2017"
+    date: "23 May, 2017"
     output:
       md_document:
         variant: markdown_github
