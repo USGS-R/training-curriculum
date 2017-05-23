@@ -125,17 +125,23 @@ The initial setup requires a master repository on GitHub. To create a new master
 
 ![What button to press for forking a repo](../static/img/fork_repo.png#inline-img "fork repo")
 
-Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control, then select Git, and then paste the SSH key to the forked repository. To find the SSH key, click "Clone or download" on the GitHub repo. It should automatically populate the Project directory name from the key.
+Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control,
+
+![The version control button for creating a new project](../static/img/new_proj_version_control.png#inline-img "new project version ctrl")
+
+then select Git,
+
+![Choose Git as the version control tool](../static/img/new_proj_git.png#inline-img "git version control")
+
+and then paste the SSH key to the forked repository. It should automatically populate the Project directory name from the key.
+
+![Window for entering the GitHub repo URL & Create Project button](../static/img/new_proj_create.png#inline-img "Create project GitHub repo url")
+
+To find the SSH key, click "Clone or download" on the GitHub repo.
 
 ![Choose the SSH key, not HTTPS](../static/img/ssh_key.png#inline-img "SSH key")
 
 Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git".
-
-![The version control button for creating a new project](../static/img/new_proj_version_control.png#inline-img "new project version ctrl")
-
-![Choose Git as the version control tool](../static/img/new_proj_git.png#inline-img "git version control")
-
-![Window for entering the GitHub repo URL & Create Project button](../static/img/new_proj_create.png#inline-img "Create project GitHub repo url")
 
 ![New tab available called Git](../static/img/git_tab.png#inline-img "git tab available")
 
