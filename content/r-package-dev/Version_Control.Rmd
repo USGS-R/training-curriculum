@@ -87,7 +87,11 @@ The initial setup requires a master repository on GitHub. To create a new master
 
 ![What button to press for forking a repo](../static/img/fork_repo.png#inline-img "fork repo")
 
-Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control, then select Git, and then paste the URL to the forked repository. It should automatically populate the Project directory name from the URL. Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git". 
+Next, the user would create the local version of the forked repo in an RStudio project. When creating a new RStudio project, select Version Control, then select Git, and then paste the SSH key to the forked repository. To find the SSH key, click "Clone or download" on the GitHub repo. It should automatically populate the Project directory name from the key.
+
+![Choose the SSH key, not HTTPS](../static/img/ssh_key.png#inline-img "SSH key")
+
+Then you can select "Create Project" and it will open a new RStudio project. You should see a new tab in the environment pane that you have not seen before called "Git". 
 
 ![The version control button for creating a new project](../static/img/new_proj_version_control.png#inline-img "new project version ctrl")
 
@@ -101,7 +105,7 @@ Next, you need to setup your local repository to recognize the main repository a
 
 ![How to open the git shell window](../static/img/git_shell.png#inline-img "git shell")
 
-In the command prompt, type `git remote -v` and hit enter. This will show you which remote repositories (available on online) are connected to your local repository. You should initially only see your forked repository and it is labeled "origin". To add the main repo as an "upstream" repository, type `git remote add upstream <url>` with the correct URL and hit enter. E.g. `git remote add upstream https://github.com/USGS-R/dataRetrieval`. Now when you run `git remote -v` in the shell, you should see both origin and upstream listed. This means you are set up to get new changes from the main repo and add your local changes to your remote repo. We will see how to do that next.
+In the command prompt, type `git remote -v` and hit enter. This will show you which remote repositories (available on online) are connected to your local repository. You should initially only see your forked repository and it is labeled "origin". To add the main repo as an "upstream" repository, type `git remote add upstream <SSH key>` with the correct SSH key and hit enter. E.g. `git remote add upstream git@github.com:USGS-R/dataRetrieval.git`. Now when you run `git remote -v` in the shell, you should see both origin and upstream listed. This means you are set up to get new changes from the main repo and add your local changes to your remote repo. We will see how to do that next.
 
 ### Workflow for every change you want to submit
 
