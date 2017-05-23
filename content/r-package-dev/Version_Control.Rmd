@@ -117,7 +117,7 @@ In the command prompt, type `git remote -v` and hit enter. This will show you wh
 
 Now that you have the three repositories set up, you can start making changes to the code and commit them. First, you would make a change to a file or files in RStudio. When you save the file(s), you should see them appear in the Git tab. A blue "M" icon next to them means they were existing files that you modified, a green "A" means they are new files you added, and a red "D" means they were files that you deleted. 
 
-#### Committing changes
+#### **Committing changes**
 
 Click the check box next to the file(s) you would like to commit. To view the changes, select "Diff". 
 
@@ -127,7 +127,7 @@ You can select the different files and it will show what was added (highlighted 
 
 ![Window to write a commit message and submit](../static/img/commit_msg.png#inline-img "commit msg")
 
-#### Pushing local changes to a remote fork
+#### **Pushing local changes to a remote fork**
 
 It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka master). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell. 
 
@@ -137,7 +137,7 @@ To get to the shell, go to the "Git" tab, then click "More", and then "Shell..."
 
 <name="submitting-pr"></a>
 
-#### Submitting a pull request
+#### **Submitting a pull request**
 
 To submit a pull request, you need to be on your remote fork's GitHub page. The URL would say `github.com/YOUR_USERNAME/REPO_NAME`, e.g. `github.com/lindsaycarr/dataRetrieval`. It also shows where your repo was forked from:
 
@@ -151,7 +151,7 @@ Once you have verified that you are merging the correct forks and branches, you 
 
 Now, you wait while someone else reviews and merges your PR. To learn how to merge a pull request, see the [section on reviewing code changes](#code-review). You should avoid merging your own pull requests, and instead should always have a peer review of your code.
 
-#### Commit workflow overview
+#### **Commit workflow overview**
 
 ![Suggested commit workflow overview diagram](../static/img/github_workflow.png#inline-img "commit process")
 
