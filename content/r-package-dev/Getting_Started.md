@@ -10,8 +10,6 @@ menu:
     parent: R Package Development
     weight: 1
 ---
-**R Package Development**
-
 There are a number of advanced R developers across the USGS who write scripts to perform important analyses. They often want to share the workflows and steps associated with the analysis, but passing around scripts that require users to change hard-coded inputs can be cumbersome and inefficient. This course gives advanced R programmers the skills they need to turn their scripted workflows into an R package. R packages allow code to be bundled into functions and easily downloaded and installed by users. Packages contain documentation and help files that should minimize questions asked of package authors.
 
 Objectives for attendees
