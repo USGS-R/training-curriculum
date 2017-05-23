@@ -31,7 +31,7 @@ set.seed(1)
 
 There are a number of advanced R developers across the USGS who write scripts to perform important analyses. They often want to share the workflows and steps associated with the analysis, but passing around scripts that require users to change hard-coded inputs can be cumbersome and inefficient. This course gives advanced R programmers the skills they need to turn their scripted workflows into an R package. R packages allow code to be bundled into functions and easily downloaded and installed by users. Packages contain documentation and help files that should minimize questions asked of package authors.
 
-## Objectives for attendees
+## Course objectives
 
 1. Improve R programming skills.
 2. Create a manageable, testable, and version-controlled codebase for your analysis.
@@ -40,25 +40,26 @@ There are a number of advanced R developers across the USGS who write scripts to
 ## Software setup
 
 Software installation:
-* [R](https://cran.rstudio.com/bin/windows/base/) (latest version)
-* [RStudio](https://www.rstudio.com/products/rstudio/download2/) (>1.0)
-* [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version)
-* R packages: devtools, roxygen2, testthat, knitr
+- [R](https://cran.rstudio.com/bin/windows/base/) (latest version)
+- [RStudio](https://www.rstudio.com/products/rstudio/download2/) (>1.0)
+- [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version)
+- R packages: devtools, roxygen2, testthat, knitr
 
 ## Suggested prerequisite knowledge
 
 This course discusses advanced topics in programming. Transitioning from scripting mentality to package development can be challenging; we recommend you have advanced knowledge of R programming to use this curriculum. Please refer to the list below to see if you qualify. In addition, putting time and effort into package development is more useful if you have an existing script that could be useful to yourself and others if it were turned into a package.
 
 I am comfortable ...
-* loading files into data.frames.
-* differentiating data structures and data types.
-* indexing vectors, data.frames, or lists.
-* creating scatter, line, or boxplots and saving the output as a PNG/JPG.
-* writing for loops.
-* using logical statements (>, >=, ==).
-* writing conditional statements (if, if-else).
-* installing, loading, and using additional packages.
-* troubleshooting/decrypting error messages.
+
+- loading files into data.frames.
+- differentiating data structures and data types.
+- indexing vectors, data.frames, or lists.
+- creating scatter, line, or boxplots and saving the output as a PNG/JPG.
+- writing for loops.
+- using logical statements (>, >=, ==).
+- writing conditional statements (if, if-else).
+- installing, loading, and using additional packages.
+- troubleshooting/decrypting error messages.
 
 ## Course overview
 
