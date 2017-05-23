@@ -288,7 +288,7 @@ Save your new R Markdown file. To get the vignette to show up in your R package,
 devtools::build_vignettes()
 ```
 
-This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder. Don't rely on your Build configurations to automatically do these steps for you - it will only create the `.R` and `.html` files, but not move them to the correct folders.
+This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder. Don't rely on your build configurations to automatically do these steps for you - it will only create the `.R` and `.html` files, but not move them to the correct folders.
 
 READMEs
 -------
