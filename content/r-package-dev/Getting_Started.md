@@ -22,7 +22,12 @@ Course objectives
 Software setup
 --------------
 
-Software installation: - [R](https://cran.rstudio.com/bin/windows/base/) (latest version) - [RStudio](https://www.rstudio.com/products/rstudio/download2/) (&gt;1.0) - [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version) - R packages: devtools, roxygen2, testthat, knitr
+Software installation:
+
+-   [R](https://cran.rstudio.com/bin/windows/base/) (latest version)
+-   [RStudio](https://www.rstudio.com/products/rstudio/download2/) (&gt;1.0)
+-   [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version)
+-   R packages: devtools, roxygen2, testthat, knitr
 
 Suggested prerequisite knowledge
 --------------------------------

@@ -40,6 +40,7 @@ There are a number of advanced R developers across the USGS who write scripts to
 ## Software setup
 
 Software installation:
+
 - [R](https://cran.rstudio.com/bin/windows/base/) (latest version)
 - [RStudio](https://www.rstudio.com/products/rstudio/download2/) (>1.0)
 - [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version)
