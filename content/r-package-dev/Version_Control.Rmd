@@ -185,6 +185,20 @@ The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is t
 
 Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Comment these changes as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
 
+Here's an example. When you try to merge upstream with your local code, the shell will say something similar to `CONFLICT ... Merge conflict in [filename]`.
+
+![Shell script shows where conflicts are during merge](../static/img/merge_conflict_shell.PNG#inline-img "shell shows conflicts")
+
+The actual code will indicate the conflicting lines. Something similar to:
+
+![Actual code that is conflicting](../static/img/merge_conflict_code.PNG#inline-img "code shows conflicts")
+
+The Git tab will also indicate what files have conflicts by a colored-in check box. 
+
+![Git tab shows conflicting files](../static/img/merge_conflict_git_tab.PNG#inline-img "git tab shows conflicts")
+
+Once you edit and save the file, just check the box and commit along with everything else that is in the Git tab. Usually, the commit message can just say "Merging conflics".
+
 <name="branching"></a>
 
 ## Branching
