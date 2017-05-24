@@ -153,7 +153,7 @@ Now that your roxygen comments have been added, you need to build the resulting 
 
 Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`. You will also see a new file, `NAMESPACE` in your top-level directory. This is automatically generated from the roxygen comments - don't edit it.
 
-<a name="pkg-level"</a>
+<a name="pkg-level"></a>
 
 ### Package-level help file
 
@@ -187,7 +187,7 @@ NULL
 
 Make sure the end of the `roxygen2` code ends with a `NULL` line as shown above.
 
-<a name="data"</a>
+<a name="data"></a>
 
 Exposed Data
 ------------
@@ -232,7 +232,7 @@ On the other-hand, if you simply want to create a reference for a data set that 
     #' head(Choptank_eList$Daily)
     NULL
 
-<a name="vignettes"</a>
+<a name="vignettes"></a>
 
 Vignettes
 ---------
@@ -250,7 +250,7 @@ We will only show how to create HTML vignettes here. To start, create a top-leve
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-23"
+    date: "2017-05-24"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -264,7 +264,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-23"
+    date: "2017-05-24"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -301,7 +301,7 @@ The previous section discussed how to format R Markdown (`.Rmd` ) files and knit
 
     title: "README"
     author: "R"
-    date: "23 May, 2017"
+    date: "24 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -311,7 +311,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "23 May, 2017"
+    date: "24 May, 2017"
     output:
       md_document:
         variant: markdown_github

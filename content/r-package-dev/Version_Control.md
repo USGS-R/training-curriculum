@@ -163,7 +163,7 @@ It's best to keep commits as concise and specific as possible. So, commit often 
 
 To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to the remote repo on GitHub ("master").
 
-<name="submitting-pr"</a>
+<a name="submitting-pr"></a>
 
 #### Submitting a pull request
 
@@ -211,7 +211,7 @@ The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is t
 
 Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Comment these changes as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
 
-<name="branching"</a>
+<a name="branching"></a>
 
 Branching
 ---------
@@ -254,7 +254,7 @@ To stash all uncommitted changes, run `git stash` in your Git shell (Git tab &gt
 
 That is the basic use of stashing, but there are more complicated ways to stash uncommited changes. Please visit the [git documentation page on stashing](https://git-scm.com/docs/git-stash) for more information.
 
-<name="code-review"</a>
+<a name="code-review"></a>
 
 Reviewing code changes
 ----------------------
@@ -379,7 +379,7 @@ restore all stashed changes to the repo
 </tbody>
 </table>
 
-<name="additional-resources"</a>
+<a name="additional-resources"></a>
 
 Other useful resources
 ----------------------
