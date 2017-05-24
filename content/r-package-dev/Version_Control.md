@@ -177,7 +177,7 @@ It's best to keep commits as concise and specific as possible. So, commit often 
 
 To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to your remote repo on GitHub ("master").
 
-<name="submitting-pr"></a>
+<a name="submitting-pr"></a>
 
 #### **Submitting a pull request**
 
@@ -238,7 +238,7 @@ The Git tab will also indicate what files have conflicts by a colored-in check b
 
 Once you edit and save the file, just check the box and commit along with everything else that is in the Git tab. Usually, the commit message can just say "Merging conflics".
 
-<name="branching"></a>
+<a name="branching"></a>
 
 Branching
 ---------
@@ -283,7 +283,7 @@ To stash all uncommitted changes, run `git stash` in your Git shell (Git tab &gt
 
 That is the basic use of stashing, but there are more complicated ways to stash uncommited changes. Please visit the [git documentation page on stashing](https://git-scm.com/docs/git-stash) for more information.
 
-<name="code-review"></a>
+<a name="code-review"></a>
 
 Reviewing code changes
 ----------------------
@@ -416,7 +416,7 @@ restore all stashed changes to the repo
 </tbody>
 </table>
 
-<name="additional-resources"></a>
+<a name="additional-resources"></a>
 
 Other useful resources
 ----------------------

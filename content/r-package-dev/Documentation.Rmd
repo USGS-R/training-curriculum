@@ -54,6 +54,8 @@ Help files are accessed when users run `?functionName`, e.g. `?mean` brings you 
 
 Roxygen style documentation requires the R package `roxygen2`. This package needs to be installed in order to generate the `.Rd` files, but does not need to be listed as a dependency in the `DESCRIPTION` file. When you build roxygen documentation, `RoxygenNote:` and a version number is automatically added at the end of your `DESCRIPTION` file.
 
+Another note for help files: if you plan to submit your package to CRAN (see the [package maintenance](/r-package-dev/maintenance) section to learn more about considerations for CRAN), you cannot use `#` in any help file URLs. 
+
 ### Function-level help files
 
 Roxygen comments always begin with an apostrophe after the regular R comment symbol. They are followed by an `@` and then the tag specifying what section of the help file is being described. Then, details about that section are added. The roxygen comments go directly above the function you are documenting. 
@@ -164,11 +166,11 @@ Now that your roxygen comments have been added, you need to build the resulting 
 
 1. Go to the *Build Tab*, click *More*, and then *Configure Build Tools*.
 2. Click the check mark next to *Generate documentation with Roxygen*. 
-3. Next to *Generate documentation with Roxygen*, click *Configure...* and make sure that everything is checked. Caveat: if you create long-running [vignettes](#vignettes), you might want to uncheck that field so that they don't knit every time you build the package.
+3. Next to *Generate documentation with Roxygen*, click *Configure...* and make sure that everything is checked. Caveat: if you create long-running [vignettes](#vignettes), you might want to uncheck that field so that they don't knit every time you build the package. Also, this configuration won't complete all the steps necessary to build the vignettes. It will only create the correct files, but not move them to the correct folders. See how to robustly build vignettes [here](#build-vignettes).
 
 Once you build your `.Rd` files, you will see them appear in the `man` folder. Each function will have its own `.Rd`. You should now be able to use `?functionName` and see your help file. For the example we have been following, we should be able to see our help file by executing `?is.valid.pH`. You will also see a new file, `NAMESPACE` in your top-level directory. This is automatically generated from the roxygen comments - don't edit it.
 
-<a name="pkg-level"</a>
+<a name="pkg-level"></a>
 
 ### Package-level help file
 
@@ -203,7 +205,7 @@ NULL
 
 Make sure the end of the `roxygen2` code ends with a `NULL` line as shown above.
 
-<a name="data"</a>
+<a name="data"></a>
 
 ## Exposed Data
 
@@ -252,7 +254,7 @@ On the other-hand, if you simply want to create a reference for a data set that 
 NULL
 ```
 
-<a name="vignettes"</a>
+<a name="vignettes"></a>
 
 ## Vignettes
 
@@ -303,6 +305,7 @@ This package is really great. It does a bunch of cool stuff. This vignette walks
 etc ...
 
 ```
+<a name="build-vignettes"</a>
 
 Save your new R Markdown file. To get the vignette to show up in your R package, you then need to:
 
@@ -310,7 +313,7 @@ Save your new R Markdown file. To get the vignette to show up in your R package,
 devtools::build_vignettes()
 ```
 
-This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder.
+This will create the html output, an R script that is just the executable R code in the vignette, and a copy of the markdown file, moving all 3 of those files into the inst/doc folder. Don't rely on your build configurations to automatically do these steps for you - it will only create the `.R` and `.html` files, but not move them to the correct folders. 
 
 ## READMEs
 
