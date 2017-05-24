@@ -47,12 +47,19 @@ In this course, we will be using Git and GitHub in conjunction with RStudio to c
 
 ## Setting up Git to work with RStudio
 
-To use Git for version control, you will need to download it and should get set up with SSH keys. Follow these steps before continuing with this lesson.
+To use Git for version control, you will need to download it, configure RStudio, and should get set up with SSH keys. SSH keys allow you to connect to GitHub without specifying your username and password each time. Follow these steps before continuing with this lesson.
 
-1. Download [Git](https://git-scm.com/downloads).
-2. Tell RStudio where to find the Git executable.
-3. Create an SSH key following [these instructions](https://help.github.com/articles/connecting-to-github-with-ssh/).
-4. Tell RStudio where to find your SSH RSA key.
+1. Download and install [Git](https://git-scm.com/downloads).
+2. Tell RStudio where to find the Git executable. See [details below](#config-git)
+3. Create an SSH key following [these instructions](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
+
+<a name="config-git"></a>
+
+#### **Configure Git in RStudio**
+
+Once you have downloaded and installed Git, you will need to tell RStudio where it can be found. In RStudio, navigate to Tools >> Global Options, and then click the Git/SVN tab. At the top, there is a place for the filepath of the Git executable. Click Browse and select your Git executable (a `.exe` file extension).
+
+![Configure RStudio to recognize Git](../static/img/git_setup.PNG#inline-img "configure rstudio git")
 
 ## Git/GitHub Definitions
 
