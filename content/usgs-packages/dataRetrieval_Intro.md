@@ -9,8 +9,10 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 2
-draft: true
 ---
+
+**The following material is IN DEVELOPMENT**
+
 Lesson Summary
 --------------
 
