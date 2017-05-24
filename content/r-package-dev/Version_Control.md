@@ -259,7 +259,7 @@ If you'd prefer the latter method, follow the blog until the "Merging branches b
 gitignore file
 --------------
 
-It is sometimes useful to have a text file name `.gitignore`. This file let's Git know which files it should not worry about tracking. For RStudio projects, it's a good idea to have the `.Rproj` and `.Rhistory` files specified in a gitignore. You can use `*` before a file extension to say any file with that extension should be ignored. Here's an example of what the `.gitignore` content might look like:
+It is sometimes useful to have a text file name `.gitignore`. This file let's Git know which files it should not worry about tracking. For RStudio projects, it's a good idea to have the `.Rproj` and `.Rhistory` files specified in a gitignore. You can use `*` before a file extension to say any file with that extension should be ignored (including ones in sub-folders). Here's an example of what the `.gitignore` content might look like:
 
 ``` r
 .Rproj.user
@@ -268,7 +268,7 @@ It is sometimes useful to have a text file name `.gitignore`. This file let's Gi
 *.Rproj
 ```
 
-Mac users might want to consider adding `.DS_Store` to their `.gitignore` file. `.DS_Store` is a file automatically created containing information about icons and their positions. There is no need to include this in your repo.
+Mac users might want to consider adding `*.DS_Store` to their `.gitignore` file. `.DS_Store` is a file automatically created containing information about icons and their positions. There is no need to include this in your repo.
 
 Stashing
 --------
