@@ -32,7 +32,7 @@ Software installation:
 Suggested prerequisite knowledge
 --------------------------------
 
-This course discusses advanced topics in programming. Transitioning from scripting mentality to package development can be challenging; we recommend you have advanced knowledge of R programming to use this curriculum. Please refer to the list below to see if you qualify. In addition, putting time and effort into package development is more useful if you have an existing script that could be useful to yourself and others if it were turned into a package.
+This course discusses advanced topics in programming. Transitioning from a scripting mentality to package development can be challenging; we recommend you have advanced knowledge of R programming to use this curriculum. Please refer to the list below to see if you qualify. In addition, putting time and effort into package development is more useful if you have an existing script that could be useful to yourself and others if it were turned into a package.
 
 I am comfortable ...
 
@@ -45,6 +45,7 @@ I am comfortable ...
 -   writing conditional statements (if, if-else).
 -   installing, loading, and using additional packages.
 -   troubleshooting/decrypting error messages.
+-   writing and using my own functions.
 
 Course overview
 ---------------
