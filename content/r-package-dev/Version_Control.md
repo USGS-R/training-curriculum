@@ -104,11 +104,19 @@ used to refer to the original repository
 </td>
 </tr>
 <tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+origin
+</td>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+used to refer to your forked repository
+</td>
+</tr>
+<tr style="background-color: #f7f7f7;">
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
 master
 </td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-used to refer to your forked repository
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+refers to the main branch in a repository
 </td>
 </tr>
 </tbody>
@@ -117,11 +125,11 @@ used to refer to your forked repository
 Our recommended workflow
 ------------------------
 
-There are many ways to use Git, GitHub, and RStudio in your version control workflow. We will discuss the method USGS-R has predominately used. It is most similar to the "fork-and-branch" workflow (see the [additional resources](#additional-resources) section below). There are three locations of the repository: 1) master on GitHub, 2) forked repository on GitHub, and 3) the user's local repository.
+There are many ways to use Git, GitHub, and RStudio in your version control workflow. We will discuss the method USGS-R has predominately used. It is most similar to the "fork-and-branch" workflow (see the [additional resources](#additional-resources) section below). There are three locations of the repository: 1) canonical on GitHub ("upstream"), 2) forked repository on GitHub ("origin"), and 3) the user's local repository.
 
 ### Initial version control setup for a project
 
-The initial setup requires a master repository on GitHub. To create a new master repo on GitHub, follow [these instructions](https://help.github.com/articles/creating-a-new-repository/). Once there is a master repository, the user looking to contribute to this code base would Fork the repository to their own account.
+The initial setup requires a canonical repository on GitHub. To create a new repo on GitHub, follow [these instructions](https://help.github.com/articles/creating-a-new-repository/). Once there is a canonical repository, the user looking to contribute to this code base would Fork the repository to their own account.
 
 ![What button to press for forking a repo](../static/img/fork_repo.png#inline-img "fork repo")
 
@@ -157,7 +165,7 @@ Now that you have the three repositories set up, you can start making changes to
 
 #### **Getting upstream changes**
 
-To get changes available on the remote master fork to your local repository, you will need to "pull" those changes down. To do this, go to the Git shell through RStudio (Git tab &gt;&gt; More &gt;&gt; Shell) and use the command `git pull` with the name of the remote master fork followed by the name of your local repo, e.g. `git pull upstream master`. It is generally a good idea to do this before you start making changes to avoid [conflicts](#handling-merge-conflicts).
+To get changes available on the remote canonical fork to your local repository, you will need to "pull" those changes down. To do this, go to the Git shell through RStudio (Git tab &gt;&gt; More &gt;&gt; Shell) and use the command `git pull` with the name of the remote fork followed by the name of your local repo, e.g. `git pull upstream master`. It is generally a good idea to do this before you start making changes to avoid [conflicts](#handling-merge-conflicts).
 
 #### **Committing changes**
 
@@ -171,11 +179,11 @@ You can select the different files and it will show what was added (highlighted 
 
 #### **Pushing local changes to a remote fork**
 
-It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka master). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell.
+It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka origin). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell.
 
 ![Use Push button to send your local commits to your remote repository](../static/img/git_push.png#inline-img "push to remote repo")
 
-To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying which repository is being pushed, and where it is going: `git push origin master` will push commits from the local repo ("origin") to your remote repo on GitHub ("master").
+To get to the shell, go to the "Git" tab, then click "More", and then "Shell...". Now type your git command specifying where changes are going, and which repository is being pushed: `git push origin master` will push commits from the local repo ("master") to your remote repo on GitHub ("origin").
 
 <a name="submitting-pr"></a>
 
@@ -185,7 +193,7 @@ To submit a pull request, you need to be on your remote fork's GitHub page. The 
 
 ![Example of name on remote fork URL](../static/img/remote_fork_ex.png#inline-img "user fork name")
 
-From this page, click "New pull request". Now, you should have a screen that is comparing your changes. Double check that the left repo name (1 in the figure) is the master repository that you intend to merge your changes into. Then double check that the fork you are planning to merge is your remote fork (3 in the figure). For now, branches should both be "master" (2 and 4 in the figure). See [the section on branching to learn more](#branching).
+From this page, click "New pull request". Now, you should have a screen that is comparing your changes. Double check that the left repo name (1 in the figure) is the canonical repository that you intend to merge your changes into. Then double check that the fork you are planning to merge is your remote fork (3 in the figure). For now, branches should both be "master" (2 and 4 in the figure). See [the section on branching to learn more](#branching).
 
 ![Setting up correct forks for pull request](../static/img/pr_change_comp.png#inline-img "compare forks for PR")
 
@@ -204,7 +212,7 @@ Now, you wait while someone else reviews and merges your PR. To learn how to mer
 Handling merge conflicts
 ------------------------
 
-Even though Git and GitHub make simultaneous code development easier, it is not entirely fool-proof. If a code line you are working on was edited by someone else since the last time you synced with the master branch, you might run into "merge conflicts". When you encounter conflicts during a pull from the upstream repo, you will see all changed files since the previous sync in your Git tab. Files with checkmarks are just fine. Any file with a filled in checkbox means that only part of the changes are being committed - this is where you have merge conflicts.
+Even though Git and GitHub make simultaneous code development easier, it is not entirely fool-proof. If a code line you are working on was edited by someone else since the last time you synced with the upstream branch, you might run into "merge conflicts". When you encounter conflicts during a pull from the upstream repo, you will see all changed files since the previous sync in your Git tab. Files with checkmarks are just fine. Any file with a filled in checkbox means that only part of the changes are being committed - this is where you have merge conflicts.
 
 When you open the file(s) with merge conflicts, look for the section that looks like this:
 
@@ -217,10 +225,10 @@ some code
 your code 
 your code 
 your code
->>>>>>> master
+>>>>>>> upstream/master
 ```
 
-The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is the code that exists in the master repository. The chunk of code wrapped in `=======` and then `>>>>>>> master` (the second chunk) is the code that you changed in your local repo. To reconcile these differences, you need to pick which code you are keeping and which you aren't. Once you correctly edit the code, make sure to delete the conflict markers (`<<<<<<< HEAD`, `=======`, and `>>>>>>> master`). Then, save the file.
+The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is the code that exists in the local repository. The chunk of code wrapped in `=======` and then `>>>>>>> upstream/master` (the second chunk) is the code from upstream that you are trying to merge. To reconcile these differences, you need to pick which code you are keeping and which you aren't. Once you correctly edit the code, make sure to delete the conflict markers (`<<<<<<< HEAD`, `=======`, and `>>>>>>> upstream/master`). Then, save the file.
 
 Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Comment these changes as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
 
@@ -273,7 +281,7 @@ Mac users might want to consider adding `*.DS_Store` to their `.gitignore` file.
 Stashing
 --------
 
-If you have uncommitted changes on your local repository and try to pull down updates from the master repository, you'll notice that you get an error message:
+If you have uncommitted changes on your local repository and try to pull down updates from the upstream repository, you'll notice that you get an error message:
 
 ![Error message when merging upstream with uncommitted changes](../static/img/uncommitted_changes.png#inline-img "error merging with changes")
 
