@@ -128,13 +128,13 @@ Click the check box next to the file(s) you would like to commit. To view the ch
 
 ![Use Diff button to look at code changes](../static/img/commit_change.png#inline-img "view code changes")
 
-You can select the different files and it will show what was added (highlighted green) and what was deleted (highlighted red). Then, type your comment about the commit and click "Commit".
+You can select the different files and it will show what was added (highlighted green) and what was deleted (highlighted red). Then, type your message about the commit and click "Commit".
 
 ![Window to write a commit message and submit](../static/img/commit_msg.png#inline-img "commit msg")
 
 #### **Pushing local changes to a remote fork**
 
-It's best to keep commits as concise and specific as possible. So, commit often and with useful comments. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka origin). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell. 
+It's best to keep commits as concise and specific as possible. So, commit often and with useful messages. When you are ready to add these changes to the main repository, you need to create a pull request. First, push your changes to your remote fork (aka origin). Either use the "push" button in RStudio (this only works when you are on your master branch) OR type the git command into the shell. 
 
 ![Use Push button to send your local commits to your remote repository](../static/img/git_push.png#inline-img "push to remote repo")
 
@@ -184,7 +184,7 @@ your code
 
 The chunk of code wrapped in `<<<<<<< HEAD` and `=======` (the first chunk) is the code that exists in the local repository. The chunk of code wrapped in `=======` and then `>>>>>>> upstream/master` (the second chunk) is the code from upstream that you are trying to merge. To reconcile these differences, you need to pick which code you are keeping and which you aren't. Once you correctly edit the code, make sure to delete the conflict markers (`<<<<<<< HEAD`, `=======`, and `>>>>>>> upstream/master`). Then, save the file.
 
-Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Comment these changes as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
+Now that you've addressed the merge conflict in the file, it's time to commit those changes. All the non-conflicted files should still have a checkmark next to them in the Git tab. Check the box next to your reconciled file and select commit. Add a message about these changes, such as "merged conflicts" or something similar. Then commit. Now, you should be back on track to continue your edits.
 
 Here's an example. When you try to merge upstream with your local code, the shell will say something similar to `CONFLICT ... Merge conflict in [filename]`.
 
