@@ -29,18 +29,18 @@ opts_chunk$set(
 set.seed(1)
 ```
 
-Package maintenance is ...
+Package maintenance is the process of continuing to keep your package operating effectively over time, including keeping up with changes to R itself and the underlying packages that your package depends on. Additionally package maintainence often involves addressing minor bugs and optionally includes adding new features. 
 
 ## Lesson Objectives
 
 Defining these and fleshing them are all WIP:
 1. Define various levels of maintenance and user groups 
 2. Discuss strategies for short- and long-term package maintenance.
-3. ?
+3. Communicating your level of support
 
 ## Introduction to package maintenance concepts
 
-So, what are you really on the hook for when creating a package? It depends on ... user group, expected level of support, and complexity
+So, what are you really on the hook for when creating a package? It depends on what your package was intended for, how complex it is, how robust well designed it is for imand what the expectations are from the users you are supporting. Your level of effort  user group, expected level of support, and complexity
 
 ### User groups
 
