@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 20
 ---
 The quality of documentation for an R package can determine success or failure. Less documentation generally results in higher burdens, so it's best add extensive documentation as early as possible. Consider different audiences when writing package documentation: the users, current or future developers, and future you. The better documented your package, the less like you are to be burdened by answering user questions, helping onboard future developers, and spending time remembering details about the code.
 

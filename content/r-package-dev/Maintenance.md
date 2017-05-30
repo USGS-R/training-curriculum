@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 40
 ---
 Package maintenance is the process of continuing to keep your package operating effectively over time, including keeping up with changes to R itself and the underlying packages that your package depends on. Additionally package maintainence often involves addressing minor bugs and optionally includes adding new features.
 

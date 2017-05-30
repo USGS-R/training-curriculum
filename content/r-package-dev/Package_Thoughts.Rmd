@@ -5,7 +5,7 @@ slug: "packages"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development
-weight: 1
+weight: 5
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}

@@ -6,7 +6,7 @@ date: "9999-10-15"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development
-weight: 1
+weight: 25
 draft: true
 ---
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
