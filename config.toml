@@ -1,5 +1,5 @@
 languageCode = "en-us"
-title = "Introduction to R"
+title = "R Curriculum"
 theme = "hugo_theme_robust"
 preserveTaxonomyNames = true
 paginate = 100
@@ -7,16 +7,16 @@ canonifyurls = true
 [[menu.main]]
   name = "Home: R Training Curriculum"
   url = "/"
-  weight = -1
-[[menu.main]]
-  name = "Introduction to R Course"
-  url = "/intro-curriculum/"
   weight = 1
 [[menu.main]]
   name = "Course Specific Material"
   url = "/course-specific-material/"
-  weight = 1
+  weight = 2
+[[menu.main]]
+  name = "Introduction to R Course"
+  url = "/intro-curriculum/"
+  weight = 3
 [[menu.main]]
   name = "Introduction to USGS R Packages"
   url = "/usgs-packages/"
-  weight = 1
+  weight = 4
