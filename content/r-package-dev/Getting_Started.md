@@ -26,7 +26,7 @@ Software installation:
 
 -   [R](https://cran.rstudio.com/bin/windows/base/) (latest version)
 -   [RStudio](https://www.rstudio.com/products/rstudio/download2/) (&gt;1.0)
--   [RTools](https://cran.r-project.org/bin/windows/Rtools/) (most recent frozen version)
+-   [RTools](https://cran.r-project.org/bin/windows/Rtools/) (compatible with your version of R)
 -   R packages: devtools, roxygen2, testthat, knitr
 
 Suggested prerequisite knowledge
