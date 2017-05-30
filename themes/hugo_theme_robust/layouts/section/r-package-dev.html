@@ -8,7 +8,7 @@
       <h1 class="p-page-title">Introduction to R Package Development</h1>
 
       <div class="row">
-        {{ range $key, $value := first 10 (.Data.Pages.ByDate).Reverse }}
+        {{ range $key, $value := first 10 (.Data.Pages.ByWeight) }}
         
         <div class="col-sm-6">
           {{ .Render "grid" }}
