@@ -1,6 +1,6 @@
 ---
 author: Jordan S. Read
-date: 9999-09-30
+date: 9999-06-30
 slug: maintenance
 title: Maintenance
 draft: True
@@ -83,7 +83,7 @@ The package version is meaningful regardless of whether you are supporting one o
 packageVersion('graphics')
 ```
 
-    ## [1] '3.4.0'
+    ## [1] '3.3.2'
 
 When you start a package, the major version should remain at 0 and stay that way until the package and features are mature enough to represent a set of functions and data that users of your package can program against as expect consistency. Changes to the major version represent changes that are expected to *break* the code of users that are relying on your package. Using a major version of 0 communicates to users that are familiar with these guidelines that the package features are unstable and subject to change without warning.
 

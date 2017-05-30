@@ -1,6 +1,6 @@
 ---
 title: "Maintenance"
-date: "9999-09-30"
+date: "9999-06-30"
 author: "Jordan S. Read"
 slug: "maintenance"
 image: "img/main/intro-icons-300px/r-logo.png"
