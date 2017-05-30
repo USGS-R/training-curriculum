@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 30
 ---
 Defensive programming means anticipating and avoiding problems before they occur. By giving informative messages as soon as you see a problem coming, you can simplify debugging, educate your users, and avoid long computations that you know will fail.
 

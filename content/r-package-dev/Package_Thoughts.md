@@ -2,13 +2,13 @@
 author: 
 date: 9999-11-30
 slug: packages
-draft: true
 title: What Is a Package?
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 5
 ---
 By the end of the R-Package development course, the act of creating a package should be considered almost trivial. This lesson is intended to give developers topics to consider to decide if a group of work would make a thoughtful package.
 

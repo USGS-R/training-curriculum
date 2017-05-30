@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 35
 ---
 Formal software testing lays down a safety net to ensure that software performs the function it claims to. Not only will testing your packages improve the confidence level you have in your code, but it will make adding new functionality easier, improve the structure of your code, and save time that would otherwise be used to manually test. This lesson will go over general principles of testing and how to accomplish them in R using testthat.
 
@@ -129,7 +129,7 @@ One final set of tools in the testing toolbox are mocks. Mocks are used to isola
 ```
 
     ##    user  system elapsed 
-    ##   0.003   0.000   0.003
+    ##    0.02    0.00    0.02
 
 For more information:
 

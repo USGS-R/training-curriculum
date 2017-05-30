@@ -1,12 +1,12 @@
 ---
 title: "Documentation"
-date: "9999-07-31"
+date: "9999-10-20"
 author: "Lindsay R. Carr"
 slug: "doc"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development
-weight: 1
+weight: 20
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
