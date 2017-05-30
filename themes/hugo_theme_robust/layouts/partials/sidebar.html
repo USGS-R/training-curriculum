@@ -13,7 +13,7 @@
             <span class="accordionSignal"></span>
             <a href="{{ .URL }}">{{ .Pre }} {{ .Name }}</a>
             <ul>
-              {{ range .Children }}
+              {{ range .Children.ByWeight }}
               <li><a href="{{ .URL }}">{{ .Name }}</a></li>
               {{ end }}
             </ul>
@@ -21,7 +21,7 @@
           {{ else }}
           <li><a href="{{ .URL }}">{{ .Pre }} {{ .Name }}</a></li>
           {{ end }}
-          {{end}}
+          {{ end }}
         </ul>
         {{end}}
       </nav>
