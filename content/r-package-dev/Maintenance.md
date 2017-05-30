@@ -41,7 +41,7 @@ When a package is created for a core group of collaborators that are familiar wi
 
 #### **Mixed user support**
 
-Colloborations often involve diverse skill sets and when your package supports a group of mixed users, some of the expectations you can excercise when supporting "Core groups" will need to be dialed back initially. The goal of supporting a mixed user group should be to convert those users into a "Core group" that is more knowledgeable about solving some problems themselves and can learn how to request package changes or file thoughtful bug reports. Effort spent in the early days of package maintenance to teach users how to engage will be worth it.
+Collaborations often involve diverse skill sets and when your package supports a group of mixed users (i.e., some users have the familiarity defined in "Core" but others are quite new to R), some of the expectations you can excercise when supporting "Core groups" will need to be dialed back initially. The goal of supporting a mixed user group should be to convert those users into a "Core group" that is more knowledgeable about solving some problems themselves and can learn how to request package changes or file thoughtful bug reports. Effort spent in the early days of package maintenance to teach users how to engage will be worth it.
 
 #### **CRAN distribution support**
 
