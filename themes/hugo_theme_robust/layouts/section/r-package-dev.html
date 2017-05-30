@@ -1,0 +1,31 @@
+{{ partial "header_before.html" . }}
+{{ partial "header_after.html" . }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+
+      <h1 class="p-page-title">Introduction to R Package Development</h1>
+
+      <div class="row">
+        {{ range $key, $value := first 10 (.Data.Pages.ByDate).Reverse }}
+        
+        <div class="col-sm-6">
+          {{ .Render "grid" }}
+        </div>
+        {{ end }}
+      </div>
+
+      {{ partial "pagination.html" . }}
+
+    </div>
+
+    <div class="col-md-3">
+      {{ partial "sidebar.html" . }}
+    </div>
+
+  </div>
+
+</div>
+
+{{ partial "footer.html" . }}
