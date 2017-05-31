@@ -1,5 +1,5 @@
 ---
-author: 
+author: Laura DeCicco
 date: 9999-11-30
 slug: packages
 title: What Is a Package?

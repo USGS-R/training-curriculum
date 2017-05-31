@@ -1,5 +1,5 @@
 ---
-author: 
+author: Laura DeCicco
 date: 9999-11-15
 slug: mechanics
 title: Package Mechanics
