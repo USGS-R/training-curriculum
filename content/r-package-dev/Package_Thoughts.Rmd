@@ -32,10 +32,10 @@ By the end of the R-Package development course, the act of creating a package sh
 
 ## Lesson Objectives
 
-1. Why make a package?
-2. Who will use my package?
-3. What will users expect?
-4. Should I make a package?
+1. Distinguish scripts and packages.
+2. Compare benefits and challenges of package creation.
+3. Identify alternatives to packages.
+4. Recall USGS and DOI policies related to publishing and maintaining code.
 
 ## Packages ARE Great!
 
