@@ -23,6 +23,8 @@ Lesson Objectives
 Packages ARE Great!
 -------------------
 
+Packages are essentially a set of scripts that define functions. These functions can communicate to create powerful workflows. A simple install command can unlock a ton of functionality, and can simplify how you share your workflows.
+
 There are a great many reasons to make an R package:
 
 -   The "fundamental units of reproducible R code" (Hadley)
