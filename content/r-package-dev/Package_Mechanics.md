@@ -2,8 +2,8 @@
 author: 
 date: 9999-11-15
 slug: mechanics
-draft: true
 title: Package Mechanics
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -15,12 +15,12 @@ This lesson provides definitions and examples of
 Lesson Objectives
 -----------------
 
-1.  What are the structural components of an R-package?
-2.  How do packages depend on other packages?
-3.  How can data be included?
-4.  USGS-specific: License and Disclaimers
-5.  How-to: build and check
-6.  Why create internal functions?
+1.  List the structural components of an R-package.
+2.  Understand package dependency trees.
+3.  Be familiar with different ways data can be included in packages.
+4.  Correctly define what licenses and disclaimers are needed for USGS software.
+5.  Apply the build and check features to a package.
+6.  Define internal functions and know their benefits.
 
 Minimum Package Requirements
 ----------------------------
@@ -132,7 +132,6 @@ More Sub-Directories
 
 Aside from the "R" and "man" folders, there are others that can be included in a package. Here is a brief introduction to those folders. Some will be discussed further in this course. Others can be explored further from online references.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -240,13 +239,11 @@ Files to create the detailed vignette files/user guides
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 More Files
 ----------
 
 Aside from the "DESCRIPTION" and "NAMESPACE" files, there are others that can be included in a package. Here is a brief introduction to those files Some will be discussed further in this course. Others can be explored further from online references. This list is not exhaustive. There are many other files that can be seen on R-Package github repositories. Some that we may explore in this workshop for example, ".travis.yml", "appveyor.yml", "codecov.yml" are used to configure continuous integration services.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -330,7 +327,6 @@ List of files to ignore when doing the package build
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 Data
 ----
 
@@ -348,7 +344,7 @@ path_to_data <- system.file("extdata", "RDB1Example.txt", package = "dataRetriev
 path_to_data
 ```
 
-    ## [1] "C:/Users/ldecicco/Documents/R/win-library/3.4/dataRetrieval/extdata/RDB1Example.txt"
+    ## [1] "C:/Users/lcarr/Documents/R/R-3.3.2/library/dataRetrieval/extdata/RDB1Example.txt"
 
 This data is not automatically exported in the package. For `dataRetrieval`, we could open the data file by using `dataRetrieval` parsing functions:
 
