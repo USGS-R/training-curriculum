@@ -250,7 +250,7 @@ We will only show how to create HTML vignettes here. To start, create a top-leve
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-30"
+    date: "2017-05-31"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -264,7 +264,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-30"
+    date: "2017-05-31"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -280,7 +280,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
 
     etc ...
 
-<a name="build-vignettes"</a>
+<a name="build-vignettes"></a>
 
 Save your new R Markdown file. To get the vignette to show up in your R package, you then need to:
 
@@ -301,7 +301,7 @@ The previous section discussed how to format R Markdown (`.Rmd` ) files and knit
 
     title: "README"
     author: "R"
-    date: "30 May, 2017"
+    date: "31 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -311,7 +311,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "30 May, 2017"
+    date: "31 May, 2017"
     output:
       md_document:
         variant: markdown_github

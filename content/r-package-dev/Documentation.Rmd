@@ -305,7 +305,7 @@ This package is really great. It does a bunch of cool stuff. This vignette walks
 etc ...
 
 ```
-<a name="build-vignettes"</a>
+<a name="build-vignettes"></a>
 
 Save your new R Markdown file. To get the vignette to show up in your R package, you then need to:
 
