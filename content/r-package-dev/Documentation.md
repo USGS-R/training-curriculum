@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 9999-07-31
+date: 9999-10-20
 slug: doc
 title: Documentation
 draft: True
@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 20
 ---
 The quality of documentation for an R package can determine success or failure. Less documentation generally results in higher burdens, so it's best add extensive documentation as early as possible. Consider different audiences when writing package documentation: the users, current or future developers, and future you. The better documented your package, the less like you are to be burdened by answering user questions, helping onboard future developers, and spending time remembering details about the code.
 
@@ -250,7 +250,7 @@ We will only show how to create HTML vignettes here. To start, create a top-leve
 
     title: "Vignette Title"
     author: "Vignette Author"
-    date: "2017-05-24"
+    date: "2017-05-30"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -264,7 +264,7 @@ In the body of the R Markdown document, add a code chunk that loads the `rmarkdo
     ---
     title: "Basic workflow of `myAwesomePackage`"
     author: "Vignette Author"
-    date: "2017-05-24"
+    date: "2017-05-30"
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Vignette Title}
@@ -301,7 +301,7 @@ The previous section discussed how to format R Markdown (`.Rmd` ) files and knit
 
     title: "README"
     author: "R"
-    date: "24 May, 2017"
+    date: "30 May, 2017"
     output:
       md_document:
         variant: markdown_github
@@ -311,7 +311,7 @@ Here is an example `README.Rmd`:
     ---
     title: "README"
     author: "R"
-    date: "24 May, 2017"
+    date: "30 May, 2017"
     output:
       md_document:
         variant: markdown_github

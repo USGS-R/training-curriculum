@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 10
 ---
 This lesson provides definitions and examples of
 

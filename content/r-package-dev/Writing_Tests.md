@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: R Package Development
-    weight: 1
+    weight: 35
 ---
 Formal software testing lays down a safety net to ensure that software performs the function it claims to. Not only will testing your packages improve the confidence level you have in your code, but it will make adding new functionality easier, improve the structure of your code, and save time that would otherwise be used to manually test. This lesson will go over general principles of testing and how to accomplish them in R using testthat.
 
@@ -22,9 +22,9 @@ Lesson Objectives
 Why should I test my code?
 --------------------------
 
-Formal testing of code is like showing your work on a hard math problem. You may come to the correct solution, but unless you show exactly how you got to that solution you may not get full credit. The same is true in software. Adding functionality to a package should be accompanied by code that exercises said functionality and asserts its validity. Tests are also meant to signal to future developers what the requirements of particular functionality are and to warn when those are not being met.
+You've learned the language and some techniques for writing good code in R, so there is a good chance that your code will perform the task it sets out to do correctly and efficiently. It is natural to be confident that code will just work, but it is critical to follow a strategy of "trust, but verify". Trust that the code you are writing will do what you intend, then verify that that is truly the case by writing a test for that piece of functionality. Adding functionality to a package should be accompanied by code that exercises said functionality and asserts its validity.
 
-In developing a package, you will be adding code to perform certain functions. In order to prove that this code does what it claims to, write a test that runs the function with different inputs and verify the output (or side effects). Test edge cases and error conditions to make sure they are handled appropriately. Creating tests covering expected behavior and edge cases as part of a testing framework in your package ensures the following:
+In developing a package, you will be adding code to perform certain functions. In order to verify that this code does what it claims to, write a test that runs the function with different inputs and verify the output (or side effects). Test edge cases and error conditions to make sure they are handled appropriately. Tests are also meant to signal to future developers what the requirements of particular functionality are and to warn when those are not being met. Creating tests covering expected behavior and edge cases as part of a testing framework in your package ensures the following:
 
 **Document expected behavior:** Tests should clearly indicate what, given certain inputs, is expected to result from a given function. This lays out the requirements for a piece of code and shows that it performs as specified.
 
@@ -51,12 +51,14 @@ There are many terms to tackle when discussing software testing. It is useful to
 
 **Data testing:** Data is often treated differently than code, but it can be tested in quite similar ways. Assumptions about data types, valid ranges, and other aspects of the data should be explicitly tested for to ensure validity.
 
-Applying these techniques where applicable will develop a solid suite of tests that will instill confidence in those developing on or against your package. It is helpful to gather code coverage metrics to quantify the level of testing that exists. The R package `covr` is available to generate these metrics and push them to a location to share the results.
+Applying these techniques where applicable will develop a solid suite of tests that will instill confidence in those developing on or against your package. It is helpful to gather code coverage metrics to quantify the level of testing that exists. Code coverage measures percentage of code in a package that are hit in some way by the tests. The R package `covr` is available to generate these metrics and push them to a location to share the results. The resulting badge can be placed in your README.md file to show users of your package the level of effort placed in testing they can expect.
+
+![Coveralls badge](../static/img/coveralls.png#inline-img "100% coverage")
 
 How do I write tests?
 ---------------------
 
-We are going to build on what was covered in the documentation section by writing some tests. Here is a reminder of the pH validity function we created earlier.
+We are going to add a test to the pH function from the [documentation section](../doc). As a reminder this function was defined as:
 
 ``` r
 is.valid.pH <- function(pH){
@@ -64,7 +66,16 @@ is.valid.pH <- function(pH){
 }
 ```
 
-The `testthat` package provides the functions we are going to use for testing. Files performing the testing should be placed in the `tests/testthat` directory and a `testhat.R` script should invoke `test_check()` on your package.
+The `testthat` package provides the functions we are going to use for testing. A `testhat.R` script should be placed in the `tests` directory off your package root. Running `devtools::use_testthat()` will automate some of this setup. This file is used to run `testthat` tests and should take this form (with myPackage replaced by your package name):
+
+``` r
+library(testhat)
+library(myPackage)
+
+test_check("myPackage")
+```
+
+Files performing the testing should be placed in the `tests/testthat` directory and test file names must begin with `test`. If there is shared code that is needed across test files, this code should be placed in files named `helper-*.R`. The initial case here doesn't require any helpers, so the first test would look like:
 
 ``` r
 library(testthat)
@@ -74,7 +85,7 @@ test_that("pH values inside valid range return true", {
 })
 ```
 
-The `test_that()` is provided the test name in BDD form. The second argment to this function is the code block containing the code to exercise the functionality and expectations of the results. The `expect_*()` calls are used to declare these expectations, and will fail when the expectation is not met. You'll also note that `context()` is called before running the test case, this groups a number of test cases together into logical chunks to add a bit more information to the test reporting.
+The `test_that()` is provided the test name in BDD form. The second argument to this function is the code block containing the code to exercise the functionality and expectations of the results. The `expect_*()` calls are used to declare these expectations, and will fail when the expectation is not met. You'll also note that `context()` is called before running the test case, this groups a number of test cases together into logical chunks to add a bit more information to the test reporting.
 
 We also want to make sure that non-valid pH values are correctly identified.
 
@@ -95,19 +106,6 @@ test_that("pH edge cases return true", {
 ```
 
 Through a bit of magic we can look at the results of these tests. Normally this will happen by running "Build &gt; Test Package" through RStudio (Ctrl+Shift+T shortcut).
-
-``` r
-  reporter$get_results() # only works for ListReporter
-```
-
-    ##   file         context                                       test nb
-    ## 1 <NA> Valid pH values   pH values inside valid range return true  1
-    ## 2 <NA> Valid pH values pH values outside valid range return false  2
-    ## 3 <NA> Valid pH values                  pH edge cases return true  2
-    ##   failed skipped error warning user system real
-    ## 1      0   FALSE FALSE       0    0      0    0
-    ## 2      0   FALSE FALSE       0    0      0    0
-    ## 3      0   FALSE FALSE       0    0      0    0
 
 One final set of tools in the testing toolbox are mocks. Mocks are used to isolate code so it isn't effected by other pieces that it depends on. As an example, really long running code is not good to have in tests since it is best to run tests often. So we will create a function that calls another function that takes a long time to return, but then mock that function in order to isolate the behavior.
 
@@ -131,7 +129,7 @@ One final set of tools in the testing toolbox are mocks. Mocks are used to isola
 ```
 
     ##    user  system elapsed 
-    ##       0       0       0
+    ##    0.02    0.00    0.02
 
 For more information:
 
