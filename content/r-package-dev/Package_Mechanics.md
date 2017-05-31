@@ -10,7 +10,7 @@ menu:
     parent: R Package Development
     weight: 10
 ---
-This lesson provides definitions and examples of
+This lesson provides definitions and examples of the structural components of an R-package, and the minimum setup requirements.
 
 Lesson Objectives
 -----------------
