@@ -197,7 +197,7 @@ Now that you've addressed the merge conflict in the file, it's time to commit th
 
 Here's an example. When you try to merge upstream with your local code, the shell will say something similar to `CONFLICT ... Merge conflict in [filename]`.
 
-![Shell script shows where conflicts are during merge](../static/img/merge_conflict_shell.PNG#inline-img "shell shows conflicts")
+![Shell script shows where conflicts are during merge](../static/img/merge_conflict_shell.png#inline-img "shell shows conflicts")
 
 The actual code will indicate the conflicting lines. Something similar to:
 

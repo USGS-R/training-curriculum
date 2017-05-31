@@ -50,6 +50,7 @@ Git/GitHub Definitions
 
 Here are some terms to be familiar with as we go through our recommended version control workflow.
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -133,6 +134,7 @@ refers to the main branch in a repository
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 
 Our recommended workflow
 ------------------------
@@ -246,7 +248,7 @@ Now that you've addressed the merge conflict in the file, it's time to commit th
 
 Here's an example. When you try to merge upstream with your local code, the shell will say something similar to `CONFLICT ... Merge conflict in [filename]`.
 
-![Shell script shows where conflicts are during merge](../static/img/merge_conflict_shell.PNG#inline-img "shell shows conflicts")
+![Shell script shows where conflicts are during merge](../static/img/merge_conflict_shell.png#inline-img "shell shows conflicts")
 
 The actual code will indicate the conflicting lines. Something similar to:
 
@@ -336,6 +338,7 @@ Don't forget to pull down these new changes to your local repository master bran
 Common Git commands
 -------------------
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -435,6 +438,7 @@ restore all stashed changes to the repo
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 
 <a name="additional-resources"></a>
 
