@@ -45,7 +45,7 @@ It **is** easy and convenient to create an R-package. So why is this course 4 da
 Considerations
 --------------
 
-We fully expect you leave this workshop with the information, tools, and practice to create and maintain a high-quality R-package. One of your first steps to creating a package....is to carefully consider whether or not it makes sense to create a package. Things to think about:
+We fully expect you leave this workshop with the information, tools, and practice to create and maintain a high-quality R-package. One of your first steps to creating a package is to carefully consider whether or not it makes sense to create a package. Things to think about:
 
 ### Does it already (mostly) exist?
 
