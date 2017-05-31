@@ -15,9 +15,10 @@ Formal software testing lays down a safety net to ensure that software performs 
 Lesson Objectives
 -----------------
 
-1.  Recognize the purpose and value of writing tests
-2.  Understand different types of testing and when to apply them
-3.  Learn some test writing practices and how often to run them
+1.  Recognize the purpose and value of writing tests.
+2.  Understand different types of testing and when to apply them.
+3.  Describe good test writing practices.
+4.  Identify appropriate testing frequency.
 
 Why should I test my code?
 --------------------------
@@ -129,7 +130,7 @@ One final set of tools in the testing toolbox are mocks. Mocks are used to isola
 ```
 
     ##    user  system elapsed 
-    ##    0.02    0.00    0.02
+    ##       0       0       0
 
 For more information:
 
