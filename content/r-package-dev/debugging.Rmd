@@ -33,8 +33,10 @@ Debugging is an integral part of package development and maintenance.  As you wr
 
 ## Lesson Objectives
 
-1. Understand and be able to use the debugging tools in R and RStudio, namely `traceback()`, `debug()`, breakpoints, and `browser()`.  
-2. Be able to track down an error to a particular line in an unfamiliar function, and view the environment where the error occurred
+1. Identify different types of errors.
+2. Describe the available debugging tools in R and RStudio, namely `traceback()`, `debug()`, breakpoints, and `browser()`.  
+3. Apply debugging tools to locate a particular error in your code.
+4. Use debugging tools to find errors in unfamiliar functions.
 
 ## Types of errors
 <a name="error-types"></a>

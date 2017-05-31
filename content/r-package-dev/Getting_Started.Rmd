@@ -11,6 +11,7 @@ weight: 1
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
+library(htmlTable)
 
 knit_hooks$set(plot=function(x, options) {
   sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
@@ -65,14 +66,44 @@ I am comfortable ...
 
 ## Course overview
 
-| Module | Objectives |
-| --- | --- |
-| What is a Package? | Distinguish scripts and packages; discuss situations where a package would be better than a script; define the required directories and files for a package; compare and contrast the package repositories GRAN and CRAN; and recall USGS and DOI policies related to publishing and maintaining code. |
-| Package mechanics | List the structural components of an R-package; understand package dependency trees; be familiar with different ways data can be included in packages; correctly define what licenses and disclaimers are needed for USGS software; apply the build and check features to a package; and define internal functions and know their benefits. |
-| Version control | Define version control and give examples of how it is useful; navigate the GitHub interface; and summarize a typical GitHub-to-R workflow. |
-| Documentation | Distinguish the different types of documentation for R packages; develop documentation for individual functions; create a vignette to highlight the top-level package uses; and edit and update README files. |
-| Debugging | Track down the source of an error; understand the different ways of debugging (browser, traceback, breakpoints); and learn how to use the different debug buttons in RStudio. |
-| Defensive programming | Define defensive programming; list common techniques for defensive programming; and construct and execute defensive programming functions. |
-| Writing tests | Describe the importance of tests; explain test-driven development; and construct and execute simple tests using the testthat package. |
-| Maintenance | Organize tasks on GitHub in Milestones and Projects; reference tasks in GitHub Pull requests and Issues; use reviewer requests on GitHub; and describe process to update packages on GRAN. |
-| Application/practice | Construct the directory skeleton of a package; design and develop functions, documentation, and tests from scratch; and integrate local changes with GitHub. |
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+getWeight <- function(rmdPath){
+  rmdLines <- readLines(rmdPath)
+  weight_i <- grep("weight:", rmdLines)
+  weight_format <- gsub('weight: ', '', rmdLines[weight_i])
+  weight_final <- as.numeric(weight_format)
+  return(weight_final)
+}
+
+getTitle <- function(rmdPath){
+  rmdLines <- readLines(rmdPath)
+  title_i <- grep("title:", rmdLines)[1]
+  title_format <- gsub('title: ', '', rmdLines[title_i])
+  title_final <- gsub('\"', '', title_format)
+  return(title_final)
+}
+
+getObjectives <- function(rmdPath){
+  rmdLines <- readLines(rmdPath)
+  start_i <- grep("## Lesson Objectives", rmdLines)
+  all_sections <- grep("##", rmdLines)
+  end_i <- all_sections[which(all_sections == start_i) + 1]
+  all_lines <- rmdLines[start_i:end_i]
+  all_rmsections <- all_lines[!grepl("##", all_lines)]
+  all_rmblanks <- all_rmsections[-which(nchar(all_rmsections) == 0)]
+  all_final <- paste(all_rmblanks, collapse = "<br/>")
+  return(all_final)
+}
+
+fnames <- list.files(pattern = ".Rmd")
+fnames <- fnames[-grep("Getting_Started", fnames)]
+weights <- unlist(lapply(fnames, getWeight))
+Module <- unlist(lapply(fnames, getTitle))[order(weights)]
+Objectives <- unlist(lapply(fnames, getObjectives))[order(weights)]
+
+htmlTable(data.frame(Module, Objectives), 
+            caption=paste0("Table 1. Summary of available modules."),
+            rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
+            css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+
+```

@@ -33,9 +33,9 @@ Package maintenance is the process of continuing to keep your package operating 
 
 ## Lesson Objectives
 
-1. Define various levels of maintenance and user groups 
+1. Define various levels of maintenance and user groups.
 2. Discuss strategies for short- and long-term package maintenance.
-3. Communicating your level of support
+3. Explain how to communicate your level of support.
 
 ## Introduction to package maintenance concepts
 

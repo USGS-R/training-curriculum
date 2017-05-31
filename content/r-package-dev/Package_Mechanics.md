@@ -1,5 +1,5 @@
 ---
-author: 
+author: Laura DeCicco
 date: 9999-11-15
 slug: mechanics
 title: Package Mechanics
@@ -10,17 +10,17 @@ menu:
     parent: R Package Development
     weight: 10
 ---
-This lesson provides definitions and examples of
+This lesson provides definitions and examples of the structural components of an R-package, and the minimum setup requirements.
 
 Lesson Objectives
 -----------------
 
-1.  What are the structural components of an R-package?
-2.  How do packages depend on other packages?
-3.  How can data be included?
-4.  USGS-specific: License and Disclaimers
-5.  How-to: build and check
-6.  Why create internal functions?
+1.  List the structural components of an R-package.
+2.  Understand package dependency trees.
+3.  Be familiar with different ways data can be included in packages.
+4.  Correctly define what licenses and disclaimers are needed for USGS software.
+5.  Apply the build and check features to a package.
+6.  Define internal functions and know their benefits.
 
 Minimum Package Requirements
 ----------------------------

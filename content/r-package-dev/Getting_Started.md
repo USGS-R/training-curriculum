@@ -50,53 +50,86 @@ I am comfortable ...
 Course overview
 ---------------
 
-<table style="width:11%;">
-<colgroup>
-<col width="5%" />
-<col width="5%" />
-</colgroup>
+<table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >
 <thead>
-<tr class="header">
-<th>Module</th>
-<th>Objectives</th>
+<tr>
+<td colspan="2" style="text-align: left;">
+Table 1. Summary of available modules.
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Module
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Objectives
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>What is a Package?</td>
-<td>Distinguish scripts and packages; discuss situations where a package would be better than a script; define the required directories and files for a package; compare and contrast the package repositories GRAN and CRAN; and recall USGS and DOI policies related to publishing and maintaining code.</td>
-</tr>
-<tr class="even">
-<td>Package mechanics</td>
-<td>List the structural components of an R-package; understand package dependency trees; be familiar with different ways data can be included in packages; correctly define what licenses and disclaimers are needed for USGS software; apply the build and check features to a package; and define internal functions and know their benefits.</td>
-</tr>
-<tr class="odd">
-<td>Version control</td>
-<td>Define version control and give examples of how it is useful; navigate the GitHub interface; and summarize a typical GitHub-to-R workflow.</td>
-</tr>
-<tr class="even">
-<td>Documentation</td>
-<td>Distinguish the different types of documentation for R packages; develop documentation for individual functions; create a vignette to highlight the top-level package uses; and edit and update README files.</td>
-</tr>
-<tr class="odd">
-<td>Debugging</td>
-<td>Track down the source of an error; understand the different ways of debugging (browser, traceback, breakpoints); and learn how to use the different debug buttons in RStudio.</td>
-</tr>
-<tr class="even">
-<td>Defensive programming</td>
-<td>Define defensive programming; list common techniques for defensive programming; and construct and execute defensive programming functions.</td>
-</tr>
-<tr class="odd">
-<td>Writing tests</td>
-<td>Describe the importance of tests; explain test-driven development; and construct and execute simple tests using the testthat package.</td>
-</tr>
-<tr class="even">
-<td>Maintenance</td>
-<td>Organize tasks on GitHub in Milestones and Projects; reference tasks in GitHub Pull requests and Issues; use reviewer requests on GitHub; and describe process to update packages on GRAN.</td>
-</tr>
-<tr class="odd">
-<td>Application/practice</td>
-<td>Construct the directory skeleton of a package; design and develop functions, documentation, and tests from scratch; and integrate local changes with GitHub.</td>
-</tr>
-</tbody>
-</table>
+<tr>
+<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+What Is a Package?
+</td>
+<td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;'>
+1.  Distinguish scripts and packages.<br/>2. Compare benefits and challenges of package creation.<br/>3. Identify alternatives to packages.<br/>4. Recall USGS and DOI policies related to publishing and maintaining code.
+    </td>
+    </tr>
+    <tr style='background-color: #f7f7f7;'>
+    <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+    Package Mechanics
+    </td>
+    <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;'>
+    1.  List the structural components of an R-package.<br/>2. Understand package dependency trees.<br/>3. Be familiar with different ways data can be included in packages.<br/>4. Correctly define what licenses and disclaimers are needed for USGS software.<br/>5. Apply the build and check features to a package.<br/>6. Define internal functions and know their benefits.
+        </td>
+        </tr>
+        <tr>
+        <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+        Version Control
+        </td>
+        <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;'>
+        1.  Define version control and give examples of how it is useful.<br/>2. Navigate the GitHub interface.<br/>3. Summarize a typical GitHub-to-R workflow.
+            </td>
+            </tr>
+            <tr style='background-color: #f7f7f7;'>
+            <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+            Documentation
+            </td>
+            <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;'>
+            1.  Distinguish the types of documentation for R packages.<br/>2. Develop documentation for individual functions.<br/>3. Create a vignette to highlight the top-level package uses.<br/>4. Edit and update README files.
+                </td>
+                </tr>
+                <tr>
+                <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+                Debugging
+                </td>
+                <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;'>
+                1.  Identify different types of errors.<br/>2. Describe the available debugging tools in R and RStudio, namely `traceback()`, `debug()`, breakpoints, and `browser()`. <br/>3. Apply debugging tools to locate a particular error in your code.<br/>4. Use debugging tools to find errors in unfamiliar functions.
+                    </td>
+                    </tr>
+                    <tr style='background-color: #f7f7f7;'>
+                    <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
+                    Defensive Programming
+                    </td>
+                    <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;'>
+                    1.  Define defensive programming and give examples of problems to defend against.<br/>2. List common techniques for defensive programming.<br/>3. Construct and execute defensive programming functions.
+                        </td>
+                        </tr>
+                        <tr>
+                        <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
+                        Writing Tests
+                        </td>
+                        <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;'>
+                        1.  Recognize the purpose and value of writing tests.<br/>2. Understand different types of testing and when to apply them.<br/>3. Describe good test writing practices.<br/>4. Identify appropriate testing frequency.
+                            </td>
+                            </tr>
+                            <tr style='background-color: #f7f7f7;'>
+                            <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+                            Maintenance
+                            </td>
+                            <td style='padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;'>
+                            1.  Define various levels of maintenance and user groups.<br/>2. Discuss strategies for short- and long-term package maintenance.<br/>3. Explain how to communicate your level of support.
+                                </td>
+                                </tr>
+                                </tbody>
+                                </table>

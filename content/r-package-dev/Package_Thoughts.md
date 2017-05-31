@@ -1,5 +1,5 @@
 ---
-author: 
+author: Laura DeCicco
 date: 9999-11-30
 slug: packages
 title: What Is a Package?
@@ -15,13 +15,15 @@ By the end of the R-Package development course, the act of creating a package sh
 Lesson Objectives
 -----------------
 
-1.  Why make a package?
-2.  Who will use my package?
-3.  What will users expect?
-4.  Should I make a package?
+1.  Distinguish scripts and packages.
+2.  Compare benefits and challenges of package creation.
+3.  Identify alternatives to packages.
+4.  Recall USGS and DOI policies related to publishing and maintaining code.
 
 Packages ARE Great!
 -------------------
+
+Packages are essentially a set of scripts that define functions. These functions can communicate to create powerful workflows. A simple install command can unlock a ton of functionality, and can simplify how you share your workflows.
 
 There are a great many reasons to make an R package:
 
@@ -45,7 +47,7 @@ It **is** easy and convenient to create an R-package. So why is this course 4 da
 Considerations
 --------------
 
-We fully expect you leave this workshop with the information, tools, and practice to create and maintain a high-quality R-package. One of your first steps to creating a package....is to carefully consider whether or not it makes sense to create a package. Things to think about:
+We fully expect you leave this workshop with the information, tools, and practice to create and maintain a high-quality R-package. One of your first steps to creating a package is to carefully consider whether or not it makes sense to create a package. Things to think about:
 
 ### Does it already (mostly) exist?
 
