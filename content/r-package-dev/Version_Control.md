@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: git
 title: Version Control
-draft: True
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
