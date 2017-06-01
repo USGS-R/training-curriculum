@@ -86,6 +86,7 @@ htmlTable(data.frame(Term, Definition),
 ```
 
 \html{<br>}
+<a name="our-workflow"></a>
 
 ## Our recommended workflow
 
