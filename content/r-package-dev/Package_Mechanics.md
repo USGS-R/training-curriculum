@@ -3,7 +3,6 @@ author: Laura DeCicco
 date: 9999-11-15
 slug: mechanics
 title: Package Mechanics
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:

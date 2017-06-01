@@ -3,7 +3,6 @@ author: Alison P. Appling
 date: 9999-09-30
 slug: defense
 title: Defensive Programming
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:

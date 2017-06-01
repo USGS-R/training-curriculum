@@ -3,7 +3,6 @@ author: Jordan S. Read
 date: 9999-06-30
 slug: maintenance
 title: Maintenance
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
