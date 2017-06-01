@@ -3,7 +3,6 @@ author: Laura DeCicco
 date: 9999-11-30
 slug: packages
 title: What Is a Package?
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:

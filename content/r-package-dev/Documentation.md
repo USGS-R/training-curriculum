@@ -3,7 +3,6 @@ author: Lindsay R. Carr
 date: 9999-10-20
 slug: doc
 title: Documentation
-draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
