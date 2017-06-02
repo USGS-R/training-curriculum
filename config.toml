@@ -20,3 +20,8 @@ canonifyurls = true
   name = "Introduction to USGS R Packages"
   url = "/usgs-packages/"
   weight = 4
+[[menu.main]]
+  name = "R Package Development"
+  url = "/r-package-dev/"
+  weight = 5 
+
