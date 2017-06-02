@@ -27,9 +27,10 @@
       </br>
 
       <ul>
-      {{ range $section, $pages := .Site.Sections }}
-         <li><a href="/{{ $section }}">{{ title $section }}</a></li>
-      {{ end }}
+
+        <li><a href="{{ .Site.BaseURL }}intro-curriculum">Introduction to R</a></li>
+        <li><a href="{{ .Site.BaseURL }}r-package-dev">R Package Developement</a></li>
+        <li><a href="{{ .Site.BaseURL }}course-specific-material">Course Specific Materials</a></li>
       </ul>
 
       {{ partial "pagination.html" . }}

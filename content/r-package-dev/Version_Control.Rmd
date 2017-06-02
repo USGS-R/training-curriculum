@@ -3,6 +3,7 @@ title: "Version Control"
 date: "9999-10-31"
 author: "Lindsay R. Carr"
 slug: "git"
+draft: "FALSE"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development
@@ -86,6 +87,7 @@ htmlTable(data.frame(Term, Definition),
 ```
 
 \html{<br>}
+<a name="our-workflow"></a>
 
 ## Our recommended workflow
 

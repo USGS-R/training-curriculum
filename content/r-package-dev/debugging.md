@@ -3,6 +3,7 @@ author: David Watkins
 date: 9999-10-15
 slug: debugging
 title: Debugging
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -108,6 +109,8 @@ Debugging an unfamiliar function
 --------------------------------
 
 For a more complex example let's use a function from the `dataRetrieval` package, by supplying an invalid site number that will cause an error.
+
+First, fork a copy of the `dataRetrieval` package at <https://github.com/USGS-R/dataRetrieval>. Remember that you have already done this before in the version control lesson [here](../git/#our-workflow). Once you have your local copy of the package, build and reload it using either the `Build and Reload` button in the `Build` tab of the environment pane, or pressing Cntl-Shift-B. Having a package built from source gives you more options for debugging, such as breakpoints, and automatic traceback of errors. The `debug` and `traceback` functions always work though.
 
 ``` r
 #install.packages('dataRetrieval') #if you don't already have it installed
