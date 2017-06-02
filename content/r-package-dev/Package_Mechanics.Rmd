@@ -264,7 +264,7 @@ This adds the line `export(stateCd)` to the NAMESPACE file.
 
 <a name="Depends"></a>
 
-## Depending on other packges
+## Depending on other packages
 
 There are many good reasons for your package to use functions from other packages. These are called dependencies. 
 
