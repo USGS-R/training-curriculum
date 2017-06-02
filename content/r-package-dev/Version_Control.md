@@ -3,6 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: git
 title: Version Control
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -134,6 +135,7 @@ refers to the main branch in a repository
 </tbody>
 </table>
 <!--/html_preserve-->
+ <a name="our-workflow"></a>
 
 Our recommended workflow
 ------------------------
