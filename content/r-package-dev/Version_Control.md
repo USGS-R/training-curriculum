@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: git
 title: Version Control
-draft: FALSE 
+draft: True
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -26,7 +26,11 @@ Version control systems allow you to have organized code repositories by trackin
 
 A web interface called GitHub allows users to visually see their tracked changes and has additional features, such as issues, milestones, review requests, and commenting. With GitHub, changes to code can be associated with bugs and feature requests. GitHub also enables open science practices by sharing what goes on "behind-the-scenes" in the code. In addition, GitHub is a great tool for collaborative work because issues, comments, and peer reviews can be associated with a specific GitHub user account. Each user can edit the code at the same time and handle conflicts appropriately.
 
-In this course, we will be using Git and GitHub in conjunction with RStudio to complete version control workflows.
+In this course, we will be using Git and GitHub in conjunction with RStudio to complete version control workflows. Below is a generic depiction of what a version control workflow might be.
+
+![Suggested workflow generic overview diagram](../static/img/github_workflow_generic.png#inline-img "version control process")
+
+There is a main version of the code that people are collaboratively developing. Each contributor has their own version of this code online and locally. Changes are made locally, sent to their online version, and then combined with the collaborative version of the code. Contributors are able to get the changes from other users by syncing their local version with the collaborative version of the code. That is the main concept of version control, and it is illustrated with the appropriate Git/GitHub vocabulary in [a later section](#overview-diagram).
 
 Setting up Git to work with RStudio
 -----------------------------------
@@ -50,7 +54,6 @@ Git/GitHub Definitions
 
 Here are some terms to be familiar with as we go through our recommended version control workflow.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -134,8 +137,8 @@ refers to the main branch in a repository
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
- <a name="our-workflow"></a>
+
+<a name="our-workflow"></a>
 
 Our recommended workflow
 ------------------------
@@ -219,6 +222,8 @@ Once you have verified that you are merging the correct forks and branches, you 
 -   link to any existing issues or related pull requests by typing `#` and the number of the issue or PR
 
 Now, you wait while someone else reviews and merges your PR. To learn how to merge a pull request, see the [section on reviewing code changes](#code-review). You should avoid merging your own pull requests, and instead should always have a peer review of your code.
+
+<a name="overview-diagram"></a>
 
 #### **Commit workflow overview**
 
@@ -339,7 +344,6 @@ Don't forget to pull down these new changes to your local repository master bran
 Common Git commands
 -------------------
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -439,7 +443,6 @@ restore all stashed changes to the repo
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 
 <a name="additional-resources"></a>
 
