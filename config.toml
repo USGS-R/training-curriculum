@@ -24,4 +24,3 @@ canonifyurls = true
   name = "Introduction to USGS R Packages"
   url = "/usgs-packages/"
   weight = 5
-
