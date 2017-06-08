@@ -33,7 +33,7 @@ So, what are you really on the hook for when creating a package? It depends on w
 
 #### **Personal use support**
 
-If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to do. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporing several knowledgeable users.
+If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to do. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporting several knowledgeable users.
 
 #### **Core group support**
 
@@ -86,7 +86,7 @@ The package version is meaningful regardless of whether you are supporting one o
 packageVersion('graphics')
 ```
 
-    ## [1] '3.3.2'
+    ## [1] '3.4.0'
 
 When you start a package, the major version should remain at 0 and stay that way until the package and features are mature enough to represent a set of functions and data that users of your package can program against as expect consistency. Changes to the major version represent changes that are expected to *break* the code of users that are relying on your package. Using a major version of 0 communicates to users that are familiar with these guidelines that the package features are unstable and subject to change without warning.
 

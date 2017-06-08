@@ -50,7 +50,7 @@ So, what are you really on the hook for when creating a package? It depends on w
 
 #### **Personal use support**
 
-If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to do. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporing several knowledgeable users. 
+If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to do. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporting several knowledgeable users. 
 
 #### **Core group support**
 
