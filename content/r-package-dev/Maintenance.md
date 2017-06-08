@@ -51,11 +51,14 @@ When your package is hosted on CRAN, it can be installed by a wide user group wi
 
 Defining the level of support you offer can help you prioritize maintenance efforts and establish expectations for users. When defining and communicating a level of support, differentiate between R support for your package and general support for the R language. We consider three different levels of support that you can offer users:
 
--   no expectations of support
+-   No expectations of support
 -   Fixes/changes only applied when in development mode
+-   Always on duty
 -   Changes agreed upon by committee
 
-A note on support: Deferentiate between general R support and package support...
+Your level of support should be clear to users of the package if it differs from the expectation that someone will quickly answer emails sent to the package maintainer. If, for example, you are not offering any support (i.e., "Use at your own risk!"), that message should appear on package startup as a constant reminder that you will be AWOL when they come knocking.
+
+A note on support: Deferentiate between general R support and package support. I recommend
 
 Setting expectations for package maintenance
 --------------------------------------------
@@ -140,12 +143,48 @@ summarize_sim(x=c(4,5), y=c(0,89), fig_path = '../my_figure.png')
 
 ### Define *how* to engage with package developers
 
-e.g., github, email, other
+e.g., github, email, other ![Labeling github issues](../static/img/maintenance_labeled_issues.png#inline-img "using labels for github issues")
 
 Maintaining your R package
 --------------------------
 
-From GH issue: **THIS IS PLACEHOLDER TEXT** \* Identify requirements of package maintenance. \* Organize tasks on GitHub in Milestones and Projects. \* Reference tasks in GitHub Pull Requests and Issues. \* Use reviewer requests on GitHub. \* Describe process to update packages on GRAN.
+From GH issue: **THIS IS PLACEHOLDER TEXT**
+
+-   Identify requirements of package maintenance.
+-   Organize tasks on GitHub in Milestones and Projects.
+-   Reference tasks in GitHub Pull Requests and Issues.
+-   Use reviewer requests on GitHub.
+-   Updating packages on GRAN.
+
+### Identify requirements of package maintenance
+
+How do you decide on maintenance priorities? Unless you have a full time job to support a single package, you will often have to make hard decisions about what changes to prioritize over others. Priorities are decided in a number of different ways, and package developers and maintainers have different roles in that prioritization. In some cases, we take cues from a committee that decides what is important, and in other cases a single individual has full say over what the maintenance priorities are. Having a blended role can work out best, where there is oversight provided via collaboration, but the maintainer still have a clear seat at the table. Ultimately, deciding on priorities and requirements happens in different ways and we suggest formalizing the process of gathering this information in a way that is sustainable and includes clear expectations for all parties.
+
+### Organize tasks on GitHub in Milestones and Projects
+
+Organizing your planned or unplanned package work in a transparent fashion helps you keep track of things, but also keeps your users in the loop for what they can expect to see happen in the future. GitHub has two nice ways to organize existing issues (issues are a good way to capture the package tasks) in `milestones`: ![github milestones](../static/img/github_milestones.png#inline-img "github milestones")
+
+and the more elaborate `projects`: ![github projects](../static/img/github_projects.png#inline-img "github projects")
+
+Both are good options for planning and orchestrating work, and can be used together (e.g., you can have several "milestones" targeted in a project). I use milestones for things like "initial release to partners" and each minor or major version update to CRAN.
+
+### Reference tasks in GitHub Pull Requests and Issues
+
+Linking comments in your pull request to the issue (or issues) that the change is fixing helps close the loop in the conversation contained in the issue, and also lets someone who is following the issue (or you, when you are looking back at it later) understand when and where the change to the code was made. ![issue number referenced in github PR](../static/img/issue_reference_PR.png#inline-img "issue number referenced in github PR") In the above example, [\#293](https://github.com/USGS-R/streamMetabolizer/issues/293) links directly to the issue and the conversation.
+
+### Use reviewer requests on GitHub
+
+It is almost always a good idea to have some peer review on your code. We recommend this because it keeps you from getting too insolated in your development practices and helps expose others to your code, so that they can have an easier time contributing to it. This practice is made easier by requesting peer review on a github.com pull request: ![github reviewer requests](../static/img/github_reviewer_request.png#inline-img "using github reviewer requests")
+
+### Updating packages on GRAN
+
+Tag a stable release of your package on github: ![github release](../static/img/tagging_GRAN.png#inline-img "using tags for github release")
+
+Fork <https://github.com/USGS-R/grantools> repository (`grantools`): ![forking grantools](../static/img/fork_GRAN.png#inline-img "forking grantools")
+
+Add a pointer to your package in the inst/gran\_src\_list.tsv file: ![grantools change source list](../static/img/change_src_list.png#inline-img "change source list")
+
+Create a pull request of your change: ![grantools GRAN pull request](../static/img/pr_GRAN.png#inline-img "GRAN pull request")
 
 ### Planning and priorotizing maintenance and improvements
 
@@ -156,7 +195,7 @@ Common pitfalls:
 
 ### Diversifying package support
 
-add/recruit other maintainers rely on support forums or other engagement to help answer user questions
+add/recruit other maintainers ![recruiting new helpers](../static/img/beginner_code_request_label#inline-img "recruiting new development help") rely on support forums or other engagement to help answer user questions
 
 Common pitfalls: \* I can solve it quick
 
