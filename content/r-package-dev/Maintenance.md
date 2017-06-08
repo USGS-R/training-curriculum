@@ -3,6 +3,7 @@ author: Jordan S. Read
 date: 9999-06-30
 slug: maintenance
 title: Maintenance
+draft: TRUE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -32,11 +33,11 @@ So, what are you really on the hook for when creating a package? It depends on w
 
 #### **Personal use support**
 
-If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to you. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporing several knowledgeable users.
+If you are having trouble motivating yourself to fill in documentation and create tests because you are the only user of the package you are writing, remember that you are supporting future you. Future you doesn't remember the assumptions that you made when writing that package, and future you wishes you had dropped a few hints as to what that clever chunk of code was supposed to do. The "Personal use" user group is noted here because it is common (turning your scripts into a cohesize package gives you access to all of those general benefits of R packages), but our advice is to design and maintain a package for yourself in an identical fashion to supporing several knowledgeable users.
 
 #### **Core group support**
 
-When a package is created for a core group of collaborators that are familiar with R packages and the details of this particular package, you can raise expectations for their patience and willingness to make your maintanence job easier. If you are supporting this particular user tier, don't be afraid to expect more, and provide less. Core users should know how to find answers to their general R issues (and not ask you to solve it), be able to quickly navigate help files, and they should also be willing to take the time to provide good bug reports to you (which helps save you time in fixing them). This group should be able to understand that your time is limited and issues should be prioritized.
+When a package is created for a core group of collaborators that are familiar with R packages and the details of this particular package, you can raise expectations for their patience and willingness to make your maintanence job easier. If you are supporting this particular user tier, don't be afraid to expect more, and provide less. Core users should know how to find answers to their general R issues (and not ask you to solve them), be able to quickly navigate help files, and they should also be willing to take the time to provide good bug reports to you (which helps save you time in fixing them). This group should be able to understand that your time is limited and their issues and suggestions should be prioritized.
 
 #### **Mixed user support**
 
@@ -44,7 +45,7 @@ Collaborations often involve diverse skill sets and when your package supports a
 
 #### **CRAN distribution support**
 
-When your package is hosted on CRAN, it can be installed by a wide user group with variable skills. The contrast between this group and the "Mixed users" mentioned above is that there will be many more users, and you won't be able to reach the majority of them to apply the pre-emptive measures stated above. Instead, you will need to really on expanding documentation with clearn language and examples and (in some cases) limiting what functions are exposed to users to those that are robust, well tested, and aren't expected to change in major ways in the future. Widely distributing a package can be taken as a statement that you are confident the offering works as expected and that users can use the public functions without worry that they will disppear or be renamed in the next release.
+When your package is hosted on CRAN, it can be installed by a wide user group with variable skills. The contrast between this group and the "Mixed users" mentioned above is that there will be many more users, and you won't be able to reach the majority of them to apply the pre-emptive measures stated above. Instead, you will need to rely on expanding documentation with clean language and examples and (in some cases) limiting what functions are exposed to users to those that are robust, well tested, and aren't expected to change in major ways in the future. Widely distributing a package should be considered a statement that you are confident the offering works as expected and that users can use the public functions without worry that they will disppear or be renamed in the next release.
 
 ### Level of support
 
