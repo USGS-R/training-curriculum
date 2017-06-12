@@ -16,7 +16,6 @@ readWQP functions
 
 After discovering Water Quality Portal (WQP) data in the [data discovery section](/dataRetrieval-discovery), we can now read it in using the desired parameters. There are two functions to do this in `dataRetrieval`. Table 1 describes them below.
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -61,7 +60,6 @@ siteNumbers, parameterCd, startDate, endDate, tz, querySummary
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 
 The main difference between these two functions is that `readWQPdata` is general and accepts any of the paremeters described in the [WQP Web Services Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). In contrast, `readWQPqw` has five arguments and users can only use this if they know the site number(s) and parameter code(s) for which they want data.
 
@@ -74,7 +72,6 @@ The following are examples of how to use each of the readWQP family of functions
 
 ### readWQPdata
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -97,7 +94,7 @@ Description
 ...
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-see for a complete list of options. A list of arguments can also be supplied.
+see <https://www.waterqualitydata.us/webservices_documentation> for a complete list of options. A list of arguments can also be supplied.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -113,12 +110,11 @@ logical to ONLY return the number of records and unique sites that will be retur
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also for more information on time zones.
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain).
 
 <a name="readwqpdata-state"></a>
@@ -223,7 +219,7 @@ Napa_lake_nutrients_Aug2010 <- readWQPdata(statecode="CA", countycode="055",
 nrow(Napa_lake_nutrients_Aug2010)
 ```
 
-    ## [1] 4322
+    ## [1] 4490
 
 <a name="readwqpdata-bbox"></a>
 
@@ -241,11 +237,10 @@ Everglades_temp_2016_present <- readWQPdata(bBox=c(-81.70, 25.08, -80.30, 26.51)
 nrow(Everglades_temp_2016_present)
 ```
 
-    ## [1] 1034
+    ## [1] 1044
 
 ### readWQPqw
 
-<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -300,7 +295,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also for more information on time zones.
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -313,7 +308,6 @@ logical to look at number of records and unique sites that will be returned from
 </tr>
 </tbody>
 </table>
-<!--/html_preserve-->
 This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below.
 
 <a name="readwqpqw"></a>
@@ -342,10 +336,10 @@ head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
     ##                <dbl>            <date>
     ## 1                5.8        2010-09-26
     ## 2                5.9        2010-04-08
-    ## 3                7.2        2011-03-09
-    ## 4                9.2        2011-01-05
-    ## 5                6.3        2011-06-15
-    ## 6                6.5        2011-11-28
+    ## 3                4.8        2011-09-06
+    ## 4                5.0        2011-09-06
+    ## 5                6.4        2011-10-18
+    ## 6                6.3        2011-06-15
 
 Attributes and metadata
 -----------------------
