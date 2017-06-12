@@ -22,6 +22,14 @@ extract_arg_def <- function(pkg, fn, arg){
   argdef <- paste(argdef, collapse= " ")
   argdef <- gsub(argpattern, "", argdef)
   
+  # make URLs usable
+  urlpattern <- "(\\\\url)[{](.*?)[}]"
+  argdef <- gsub(urlpattern, "\\2", argdef)
+  
+  # make code show up
+  codepattern <- "(\\\\code)[{](.*?)[}]"
+  argdef <- gsub(codepattern, "`\\2`", argdef)
+  
   return(argdef)
 }
 
