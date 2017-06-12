@@ -12,6 +12,8 @@ menu:
 readWQP functions
 -----------------
 
+**The following material is IN DEVELOPMENT**
+
 After discovering Water Quality Portal (WQP) data in the [data discovery section](/dataRetrieval-discovery), we can now read it in using the desired parameters. There are two functions to do this in `dataRetrieval`. Table 1 describes them below.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
