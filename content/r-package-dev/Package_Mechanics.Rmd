@@ -3,6 +3,7 @@ title: "Package Mechanics"
 date: "9999-11-15"
 author: Laura DeCicco
 slug: "mechanics"
+draft: "FALSE"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development

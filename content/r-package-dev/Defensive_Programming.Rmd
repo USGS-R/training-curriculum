@@ -3,6 +3,7 @@ title: "Defensive Programming"
 date: "9999-09-30"
 author: "Alison P. Appling"
 slug: "defense"
+draft: "FALSE"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development

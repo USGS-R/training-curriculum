@@ -3,6 +3,7 @@ title: "Getting Started"
 date: "9999-12-31"
 author: "Lindsay R. Carr"
 slug: "getting-started"
+draft: "FALSE"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development

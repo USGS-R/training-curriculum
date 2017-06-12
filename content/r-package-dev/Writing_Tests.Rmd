@@ -3,11 +3,11 @@ title: "Writing Tests"
 date: "9999-08-31"
 author: "Jordan I. Walker"
 slug: "writing-tests"
+draft: "FALSE"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: R Package Development
 weight: 35
-draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}

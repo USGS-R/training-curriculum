@@ -3,6 +3,7 @@ author: Jordan I. Walker
 date: 9999-08-31
 slug: writing-tests
 title: Writing Tests
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -129,7 +130,7 @@ One final set of tools in the testing toolbox are mocks. Mocks are used to isola
 ```
 
     ##    user  system elapsed 
-    ##       0       0       0
+    ##    0.02    0.00    0.02
 
 For more information:
 
