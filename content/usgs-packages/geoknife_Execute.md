@@ -75,12 +75,18 @@ check(evap_geojob)
     ## [1] "Process successful"
     ## 
     ## $URL
-    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=f1c71e3b-0453-46a9-9fcd-08537473b4faOUTPUT"
+    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=ba8cf541-f761-4aa3-904c-6bf2f6aad028OUTPUT"
     ## 
     ## $statusType
     ## [1] "ProcessSucceeded"
 
-Other helpful functions to get status information about the job are `error` (returns T/F to say if there was an error during the processing) and `successful` (returns T/F indicating whether the job process was able to complete without any issues). Only one of these can return `TRUE` at a time.
+Other helpful functions to get status information about the job are `running` (returns T/F to say if the job is still processing), `error` (returns T/F to say if there was an error during the processing), and `successful` (returns T/F indicating whether the job process was able to complete without any issues). Only one of these can return `TRUE` at a time.
+
+``` r
+running(evap_geojob)
+```
+
+    ## [1] FALSE
 
 ``` r
 error(evap_geojob)
@@ -94,7 +100,7 @@ successful(evap_geojob)
 
     ## [1] TRUE
 
-The results of all the status checks say that our job was successful!
+The results of all the status checks say that our job was successful! These status checks are useful if you put a geojob in a script and want to fail gracefully when there is an error in the job.
 
 Getting geojob data
 -------------------
@@ -133,7 +139,7 @@ This was not a computationally or spatially intensive request, so the job finish
 
 For the first scenario, the workflow from above was fine. If you are manually checking that the job has completed before trying to extract results, then nothing should fail.
 
-For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job in seconds. Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=120` (2 min). The default for `sleep.time` is 5 seconds.
+For the second scenario, your code will fail because it will continue to execute the code line by line after starting the job. So, your code will fail at the code that gets the data (`result`/`download`) since the job is still running. You can prevent scripts from continuing until the job is complete by using the function `wait`. This function makes a call to GDP at specified intervals to see if the job is complete, and allows the code to continue once the job is complete. This function has two arguments: the `geojob` object and `sleep.time`. `sleep.time` defines the interval at which to check the status of the job in seconds (the default for `sleep.time` is 5 seconds). Please try to adjust `sleep.time` to limit the number of calls to GDP, e.g. if you know the job will take about an hour, set `sleep.time=120` (2 min) because every 5 seconds would be excessive.
 
 ``` r
 # typical wait workflow
@@ -175,8 +181,8 @@ knife_willemail
     ## process inputs: 
     ##    SUMMARIZE_TIMESTEP: false
     ##    SUMMARIZE_FEATURE_ATTRIBUTE: false
-    ##    REQUIRE_FULL_COVERAGE: true
     ##    DELIMITER: COMMA
+    ##    REQUIRE_FULL_COVERAGE: true
     ##    STATISTICS: 
     ##    GROUP_BY: 
     ## wait: FALSE 
