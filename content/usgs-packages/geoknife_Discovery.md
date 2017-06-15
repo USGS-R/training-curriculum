@@ -4,7 +4,6 @@ date: 9999-09-30
 slug: geoknife-data
 title: geoknife - accessible data
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -79,9 +78,9 @@ head(all_webdata)
 length(all_webdata)
 ```
 
-    ## [1] 173
+    ## [1] 169
 
-Notice that the object returned is a special `geoknife` class of `datagroup`. There are specific `geoknife` functions that only operate on an object of this class, see `?title` and `?abstract`. These two functions are used to extract metadata information about each of the available GDP datasets. With 173 datasets available, it is likely that reading through each to find ones that are of interest to you would be time consuming. You can use `grep` along with the functions `title` and `abstract` to figure out which datasets you would like to use for processing.
+Notice that the object returned is a special `geoknife` class of `datagroup`. There are specific `geoknife` functions that only operate on an object of this class, see `?title` and `?abstract`. These two functions are used to extract metadata information about each of the available GDP datasets. With 169 datasets available, it is likely that reading through each to find ones that are of interest to you would be time consuming. You can use `grep` along with the functions `title` and `abstract` to figure out which datasets you would like to use for processing.
 
 Let's say that we were interested in evapotranspiration data. To search for which GDP datasets might contain evapotranspiration data, you can use the titles and abstracts.
 
@@ -108,7 +107,7 @@ evap_abstracts[1]
 
     ## [1] "The California Basin Characterization Model (CA-BCM 2014) dataset provides historical and projected climate and hydrologic surfaces for the region that encompasses the state of California and all the streams that flow into it (California hydrologic region ). The CA-BCM 2014 applies a monthly regional water-balance model to simulate hydrologic responses to climate at the spatial resolution of a 270-m grid. The model has been calibrated using a total of 159 relatively unimpaired watersheds for the California region. The historical data is based on 800m PRISM data spatially downscaled to 270 m using the gradient-inverse distance squared approach (GIDS), and the projected climate surfaces include five CMIP-3 (GFDL, PCM, MIROC3_2, CSIRO, GISS_AOM) and nine CMIP-5 (MIROC5, MIROC , GISS, MRI, MPI, CCSM4, IPSL, CNRM, FGOALS) General Circulation Models under a range of emission scenarios or representative concentration pathways (RCPs) for a total of 18 futures that have been statistically downscaled using BCSD to 800 m and further downscaled using GIDS to 270 m for model application.   The BCM approach uses a regional water balance model based on this high resolution precipitation and temperature as well as elevation, geology, and soils to produce surfaces for the following variables: precipitation, air temperature, recharge, runoff, potential evapotranspiration (PET), actual evapotranspiration, and climatic water deficit, a parameter that is calculated as PET minus actual evapotranspiration.   The following data are available in this archive: Raw, monthly model output for historical and future periods. Projected data is available for the following GCM and emission scenario or RCP combinations: GFDL-B1, GFDL-A2 PCM-B1, PCM-A2 MIROC3_2-A2 CSIRO-A1B GISS_AOM-A1B, MIROC5-RCP2.6, MIROC-RCP4.5, MIROC-RCP6.0, MIROC-RCP8.5 GISS-RCP2.6, MRI-RCP2.6, MPI- RCP4.5, CCSM4-RCP8.5, IPSL-RCP8.5, CNRM-RCP8.5, FGOALS-RCP8.5. Data variables: Actual evapotranspiration - water available between wilting point and field capacity, mm (aet); Climatic water deficit - Potential minus actual evapotranspiration, mm (cwd); Maximum monthly temperature, degrees C - (tmx); Minimum monthly temperature, degrees C - (tmn); Potential evapotranspiration - Water that could evaporate or transpire from plants if available, mm (pet); Recharge - Amount of water that penetrates below the root zone, mm (rch); Runoff - Amount of water that becomes stream flow, mm (run); Precipitation, mm - (ppt). Note that another archive, hosted by the California Climate Commons contains various climatological summaries of these data. That archive can be found at: http://climate.calcommons.org/"
 
-10 possible datasets to look through is a lot more manageable than 173. Let's say the dataset titled "Yearly Conterminous U.S. actual evapotranspiration data" interested us enough to explore more. We have now identified a fabric of interest.
+10 possible datasets to look through is a lot more manageable than 169. Let's say the dataset titled "Yearly Conterminous U.S. actual evapotranspiration data" interested us enough to explore more. We have now identified a fabric of interest.
 
 We might want to know more about the dataset, such as what variables and time periods are available. To actually create the fabric, you will need to use `webdata` and supply the appropriate datagroup object as the input. This should result in an object with a class of `webdata`. The following functions will operate only on an object of class `webdata`.
 
@@ -175,7 +174,7 @@ variables(DelBay_fabric) <- c("Vwind", "temp")
 query(DelBay_fabric, "times")
 ```
 
-    ## [1] "2017-02-28 UTC" "2017-03-08 UTC"
+    ## [1] "2017-06-07 UTC" "2017-06-15 UTC"
 
 Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature.
 
@@ -188,7 +187,7 @@ variables(skinT_fabric) <- skinT_var
 query(skinT_fabric, "times") # your times might be different because this is forecast data
 ```
 
-    ## [1] "2017-02-05 UTC" "2017-03-06 UTC"
+    ## [1] "2017-05-15 UTC" "2017-06-13 UTC"
 
 Both examples we've included here use aggregated data, meaning there is a single URL for all the data of this type on the server. Some data that you encounter might be non-aggregated, meaning there are multiple URLs to access the same data. In these cases, you will need to create more than one geojob and join data at the end.
 
@@ -208,14 +207,15 @@ default_geoms <- query(default_stencil, "geoms")
 length(default_geoms)
 ```
 
-    ## [1] 59
+    ## [1] 43
 
 ``` r
 head(default_geoms)
 ```
 
-    ## [1] "upload:AZ"          "sample:Alaska"      "upload:Arizona"    
-    ## [4] "upload:Arizona05"   "upload:ArizonaGrid" "upload:Bluff_Creek"
+    ## [1] "sample:Alaska"                  "upload:CIDA_TEST_"             
+    ## [3] "sample:CONUS_Climate_Divisions" "derivative:CONUS_States"       
+    ## [5] "sample:CONUS_states"            "sample:CSC_Boundaries"
 
 You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. The ones you should be familiar with are `sample` and `upload`. Additionally, `webgeom` can accept a URL that points directly to a WFS. `sample` are any geoms that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**.
 
@@ -342,7 +342,7 @@ length(default_algorithms)
 head(default_algorithms)
 ```
 
-    ## $`OPeNDAP Subset`
+    ## $`Timeseries Service Subset`
     ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureTimeSeriesAlgorithm"
     ## 
     ## $`Categorical Coverage Fraction`
@@ -377,6 +377,6 @@ algorithm(default_knife)
 ```
 
     ## $`OPeNDAP Subset`
-    ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureTimeSeriesAlgorithm"
+    ## [1] "gov.usgs.cida.gdp.wps.algorithm.FeatureCoverageOPeNDAPIntersectionAlgorithm"
 
 Now that we can explore all of our options, we will learn how to construct each component and execute a geojob in the next lesson.
