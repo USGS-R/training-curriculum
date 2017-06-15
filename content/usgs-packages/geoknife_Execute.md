@@ -75,7 +75,7 @@ check(evap_geojob)
     ## [1] "Process successful"
     ## 
     ## $URL
-    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=ba8cf541-f761-4aa3-904c-6bf2f6aad028OUTPUT"
+    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=25522580-7fca-44bc-aed1-5dc812ba74d9OUTPUT"
     ## 
     ## $statusType
     ## [1] "ProcessSucceeded"
@@ -166,7 +166,7 @@ evap_geojob <- geoknife(evap_stencil, evap_fabric, evap_knife)
 evap_data <- result(evap_geojob)
 ```
 
-As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion. The email alert will contain the completed job URL and ID needed to pull down the data later using `result` (needs URL) or `download` (needs ID).
+As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion (you will see `gdp_data@usgs.gov` as the sender). The email alert will contain the completed job URL and ID needed to pull down the data later using `result` (needs URL) or `download` (needs ID). Since this process requires you to leave R and get information from an email, it is often only recommended if you don't plan to do further analysis in R. Otherwise, we recommend using the `wait()` function in a script.
 
 ``` r
 # example of how to specify an email address to get a job completion alert
@@ -187,5 +187,3 @@ knife_willemail
     ##    GROUP_BY: 
     ## wait: FALSE 
     ## email: fake.email@gmail.com
-
-The examples used for this section were simple, and we didn't run into any issues. But what if we had? [The next section](/usgs-packages/geoknife-troubleshoot) discusses how to troubleshoot your `geoknife` calls.
