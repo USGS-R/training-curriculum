@@ -15,7 +15,7 @@ Lesson Summary
 
 `sbtools` is an R package that enables access to the USGS web platform for data storage, [ScienceBase](https://www.sciencebase.gov). In this lesson, will teach how to interact with ScienceBase from the R console in order to create reproducible workflows.
 
-ScienceBase is collaborative scientific data and information management platform used by USGS scientists and their collaborators. Account holders can upload data using standard metadata practices, and choose to share the content publically or keep it private. An account is not needed to download publically available data, so the platform is a great way to share data released with publications.
+ScienceBase is collaborative scientific data and information management platform used by USGS scientists and their collaborators. Account holders can upload data and metadata, and choose to share the content publically or keep it private. An account is not needed to download publically available data, so the platform is a great way to share data released with publications.
 
 In addition to the ability to share information publically, ScienceBase enhances traditional collaborative research analyses. Scientific collaborators generally share their data and content by emailing files or using a shared drive. These methods have many limitations, especially when it comes to file size and working with non-USGS participants. By hosting files in the cloud, ScienceBase enables groups to quickly share large files with internal or external partners.
 
