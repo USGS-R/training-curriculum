@@ -174,7 +174,7 @@ variables(DelBay_fabric) <- c("Vwind", "temp")
 query(DelBay_fabric, "times")
 ```
 
-    ## [1] "2017-06-07 UTC" "2017-06-15 UTC"
+    ## [1] "2017-06-08 UTC" "2017-06-16 UTC"
 
 Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature.
 
@@ -187,7 +187,7 @@ variables(skinT_fabric) <- skinT_var
 query(skinT_fabric, "times") # your times might be different because this is forecast data
 ```
 
-    ## [1] "2017-05-15 UTC" "2017-06-13 UTC"
+    ## [1] "2017-05-16 UTC" "2017-06-14 UTC"
 
 Both examples we've included here use aggregated data, meaning there is a single URL for all the data of this type on the server. Some data that you encounter might be non-aggregated, meaning there are multiple URLs to access the same data. In these cases, you will need to create more than one geojob and join data at the end.
 
@@ -196,7 +196,7 @@ Now that we have explored options for our webdata, let's look at what options ex
 Available webgeoms
 ------------------
 
-The next component to `geonkife` jobs is the spatial extent of the data, a.k.a. the stencil. The stencil is defined by using either of the functions `simplegeom` or `webgeom`. `simplegeom` is used to explicitly define an area by the user, but `webgeom` is used to specify an existing web feature service (WFS) as the geospatial extent. Defining your stencil using `simplegeom` will be covered in the next lesson. This lesson will just show how to learn what available webgeoms exist. Users can use any WFS url to create their stencil, but there are a number of features that exist through GDP already. To determine what features exist, you can create a default webgeom object and then query its geom name, attributes, and values. This will return all available GDP default features.
+The next component to `geoknife` jobs is the spatial extent of the data, a.k.a. the stencil. The stencil is defined by using either of the functions `simplegeom` or `webgeom`. `simplegeom` is used to explicitly define an area by the user, but `webgeom` is used to specify an existing web feature service (WFS) as the geospatial extent. Defining your stencil using `simplegeom` will be covered in the next lesson. This lesson will just show you how to learn what available webgeoms exist. Users can use any WFS url to create their stencil, but there are a number of features that exist through GDP already. To determine what features exist, you can create a default webgeom object and then query its geom name, attributes, and values. This will return all available GDP default features.
 
 ``` r
 # setup a default stencil by using webgeom and not supplying any arguments
@@ -207,7 +207,7 @@ default_geoms <- query(default_stencil, "geoms")
 length(default_geoms)
 ```
 
-    ## [1] 43
+    ## [1] 50
 
 ``` r
 head(default_geoms)
@@ -217,7 +217,7 @@ head(default_geoms)
     ## [3] "sample:CONUS_Climate_Divisions" "derivative:CONUS_States"       
     ## [5] "sample:CONUS_states"            "sample:CSC_Boundaries"
 
-You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. The ones you should be familiar with are `sample` and `upload`. Additionally, `webgeom` can accept a URL that points directly to a WFS. `sample` are any geoms that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**.
+You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. Additionally, `webgeom` can accept a URL that points directly to a WFS. The categories you should be familiar with are `sample` and `upload`. `sample` geoms are any that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**.
 
 Similar to fabrics where you could not query times without setting the variables, you cannot query attributes of stencils before defining the geoms. Likewise, you cannot query for values of a stencil until you have set the attributes. Attributes give the metadata associated with the stencil and it's geom. Values tell you the individual spatial features available in that attribute of the geom.
 
@@ -275,7 +275,7 @@ values(ecoreg_stencil)
 
     ## [1] "Blue Ridge"     "Driftless Area"
 
-There are some built-in templates that allow stencils to be defined more specifically. Currently, the package only supports US States, Level III Ecoregions, or HUC8s. These are shortcuts to setting the geom, then attribute, and then values.
+There are some built-in templates that allow stencils to be defined more specifically. Currently, the package only supports US States, Level III Ecoregions, or HUC8s. Below are shortcuts to setting the geom, attribute, and values.
 
 ``` r
 # creating geoms from the available templates
@@ -312,7 +312,7 @@ webgeom('HUC8::09020306,14060009') # multiple HUCs separated by comma
     ## wfs version: 1.1.0
 
 ``` r
-webgeom('ecoregion::Colorado Plateaus,Driftless Area') # multiple regions separated by comma
+webgeom('ecoregion::Colorado Plateaus,Driftless Area') # multiple ecoregions separated by comma
 ```
 
     ## An object of class "webgeom":
