@@ -37,3 +37,4 @@ Lesson Resources
 -   Source code: [sbtools on GitHub](https://github.com/USGS-R/sbtools)
 -   Report a bug or suggest a feature: [sbtools issues on GitHub](https://github.com/USGS-R/sbtools/issues)
 -   ScienceBase Website: [ScienceBase home page](https://www.sciencebase.gov/catalog/)
+-   Data release guidance: [How to release data through ScienceBase](https://www.sciencebase.gov/about/content/data-release)
