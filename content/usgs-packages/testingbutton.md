@@ -15,7 +15,7 @@ Show/Hide Answer
 </p>
 To start, let's setup a geojob that fails.
 
-<div id="hideMe">
+<div id="hideMe" style="display:none">
 
 ``` r
 print('hello')

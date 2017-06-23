@@ -30,7 +30,7 @@ opts_chunk$set(
 knit_hooks$set(toggle = function(before, options, envir) {
   if(options$toggle){
     if(before) {
-      print('<div id="hideMe">')
+      print('<div id="hideMe" style="display:none">')
     }
     # else {
     #   print('</div>)
