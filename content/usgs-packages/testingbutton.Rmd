@@ -29,8 +29,8 @@ opts_chunk$set(
 
 knit_hooks$set(addToggle = function(before, options, envir) {
     if(before) {
-      '<button class="ToggleButton" onclick="toggle_visibility(\'hideMe\')">Show Answer</button>
-      <div id="hideMe" style="display:none">'
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
     } else {
       '</div>'
     }

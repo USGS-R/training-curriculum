@@ -12,10 +12,10 @@ menu:
 ---
 To start, let's setup a geojob that fails.
 
-<button class="ToggleButton" onclick="toggle_visibility('hideMe')">
+<button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
 </button>
-      <div id="hideMe" style="display:none">
+              <div id="unnamed-chunk-1" style="display:none">
 
 ``` r
 print('hello')
@@ -32,10 +32,10 @@ print('bonjour')
 
 then a third with the button
 
-<button class="ToggleButton" onclick="toggle_visibility('hideMe')">
+<button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
 </button>
-      <div id="hideMe" style="display:none">
+              <div id="unnamed-chunk-3" style="display:none">
 
 ``` r
 print('ciao')
