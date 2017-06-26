@@ -30,10 +30,11 @@ opts_chunk$set(
 knit_hooks$set(toggle = function(before, options, envir) {
   if(options$toggle){
     if(before) {
-      print('<div id="hideMe" style="display:none">')
-    }
+      id <- "hideMe"
+      print('<button class="ToggleButton" onclick="toggle_visibility(\'hideMe\')">Show Answer</button>\n<div id="hideMe" style="display:none">')
+    } 
     # else {
-    #   print('</div>)
+    #   print('</div>')
     # }
   }
 })
@@ -41,7 +42,7 @@ knit_hooks$set(toggle = function(before, options, envir) {
 set.seed(1)
 ```
 
-<p class="ToggleButton" onclick="toggle_visibility('hideMe')">Show/Hide Answer</p>
+
 
 To start, let's setup a geojob that fails.
 

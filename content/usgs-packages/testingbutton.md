@@ -10,11 +10,11 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-<p class="ToggleButton" onclick="toggle_visibility('hideMe')">
-Show/Hide Answer
-</p>
 To start, let's setup a geojob that fails.
 
+<button class="ToggleButton" onclick="toggle_visibility('hideMe')">
+Show Answer
+</button>
 <div id="hideMe" style="display:none">
 
 ``` r
