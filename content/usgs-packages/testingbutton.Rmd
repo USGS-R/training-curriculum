@@ -27,27 +27,32 @@ opts_chunk$set(
   toggle = FALSE
 )
 
-knit_hooks$set(toggle = function(before, options, envir) {
-  if(options$toggle){
+knit_hooks$set(addToggle = function(before, options, envir) {
     if(before) {
-      id <- "hideMe"
-      print('<button class="ToggleButton" onclick="toggle_visibility(\'hideMe\')">Show Answer</button>\n<div id="hideMe" style="display:none">')
-    } 
-    # else {
-    #   print('</div>')
-    # }
-  }
+      '<button class="ToggleButton" onclick="toggle_visibility(\'hideMe\')">Show Answer</button>
+      <div id="hideMe" style="display:none">'
+    } else {
+      '</div>'
+    }
 })
 
 set.seed(1)
 ```
 
-
-
 To start, let's setup a geojob that fails.
 
-```{r toggle=TRUE}
+```{r addToggle='ON'}
 print('hello')
 ```
 
+try one without a button
 
+```{r eval=FALSE}
+print('bonjour')
+```
+
+then a third with the button
+
+```{r addToggle='ON'}
+print('ciao')
+```

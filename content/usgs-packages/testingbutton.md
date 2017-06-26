@@ -15,10 +15,32 @@ To start, let's setup a geojob that fails.
 <button class="ToggleButton" onclick="toggle_visibility('hideMe')">
 Show Answer
 </button>
-<div id="hideMe" style="display:none">
+      <div id="hideMe" style="display:none">
 
 ``` r
 print('hello')
 ```
 
     ## [1] "hello"
+
+</div>
+try one without a button
+
+``` r
+print('bonjour')
+```
+
+then a third with the button
+
+<button class="ToggleButton" onclick="toggle_visibility('hideMe')">
+Show Answer
+</button>
+      <div id="hideMe" style="display:none">
+
+``` r
+print('ciao')
+```
+
+    ## [1] "ciao"
+
+</div>
