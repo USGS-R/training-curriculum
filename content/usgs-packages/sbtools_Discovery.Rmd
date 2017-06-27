@@ -42,13 +42,183 @@ Learn more about the [catalog search features](www.sciencebase.gov/about/content
 
 ## Discovering data via sbtools
 
-The ScienceBase search tools can be very powerful, but lack the ability to easily recreate the search. If you want to incorporate dataset queries into a reproducible workflow, you can script them using the `sbtools` query functions. The terminology differs from the web interface slightly. There are three functions available to query the catalog:
+The ScienceBase search tools can be very powerful, but lack the ability to easily recreate the search. If you want to incorporate dataset queries into a reproducible workflow, you can script them using the `sbtools` query functions. The terminology differs from the web interface slightly. Below are functions available to query the catalog:
 
-1. `query_sb_text` (matches title or description)
-2. `query_sb_doi` (use a DOI identifier)
-3. `query_sb_spatial` (data within or at a specific location)
+1. `query_sb` (generic SB query)
+2. `query_sb_text` (matches title or description)
+3. `query_sb_doi` (use a DOI identifier)
+4. `query_sb_spatial` (data within or at a specific location)
+5. `query_sb_date` (items within time range)
+6. `query_sb_datatype` (type of data, not necessarily file type)
 
+These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`.  Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
+
+```{r}
+library(sbtools)
+```
+
+### Using `query_sb`
+
+`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `DESCRIPTION` section of the help file for all options (`?query_sb`). 
+
+```{r}
+
+##### THESE FIRST TWO SEARCHES STILL NEED WORK #####
+
+# search by keyword
+precip_query <- list(q = 'precipitation')
+precip_data <- query_sb(query_list = precip_query)
+length(precip_data) # 50 entries, so there is likely more than 50 results
+head(precip_data, 2)
+
+# search by keyword + category
+precip_maps_query <- list(q = 'precipitation', browseType = "Static Map Image", sort='title')
+precip_maps_data <- query_sb(query_list = precip_query)
+head(precip_maps_data, 2)
+
+##### -------------------------------------- #####
+
+# search by 2 keywords
+hazard2_query <- list(q = 'flood', q = 'earthquake')
+hazard2_data <- query_sb(query_list = hazard2_query)
+length(hazard2_data)
+head(hazard2_data, 2)
+
+# search by 3 keywords
+hazard3_query <- list(q = 'flood', q = 'earthquake', q='drought')
+hazard3_data <- query_sb(query_list = hazard3_query)
+length(hazard3_data)
+head(hazard3_data, 2)
+```
+
+### Using `query_sb_text`
+
+`query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
+
+```{r}
+# search using a contributors name
+contrib_results <- query_sb_text("Robert Hirsch")
+head(contrib_results, 2)
+
+# search using place of interest
+park_results <- query_sb_text("Yellowstone")
+head(park_results, 2)
+
+# search using a site location
+loc_results <- query_sb_text("Embudo")
+length(loc_results)
+head(loc_results, 2)
+```
+
+### Using `query_sb_doi`
+
+Use a Digital Object Identifier (DOI) to query ScienceBase. This should return only one list item, unless there is more than one ScienceBase item referencing this very unique identifier.
+
+```{r}
+# USGS Microplastics study 
+query_sb_doi('10.5066/F7ZC80ZP')
+
+####### I've tried A TON of DOIs I found through the web interface and just
+####### keep getting empty lists returned.
+query_sb_doi('10.1016/j.coldregions.2007.05.009')
+```
+
+### Using `query_sb_spatial`
+
+`query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. You can specify a bounding box `bbox` as an `sp` spatial data object *[[[[NEED MORE TEXT HERE]]]]*.  Alternatively, you can supply a vector of latitudes and a vector of longitudes using `lat` and `long` arguments. The function will automatically use the minimum and maximum from those vectors to construct a boundary box. The last way to represent a spatial region to query ScienceBase is using a POLYGON Well-known text (WKT) object as a text string. The format is `"POLYGON(([LONG1 LAT1], [LONG2 LAT2], [LONG3 LAT3]))"`, where `LONG#` and `LAT#` are longitude and latitude pairs as decimals. See the [Open Geospatial Consortium WKT standard](http://www.opengeospatial.org/standards/wkt-crs) for more information. 
+
+```{r}
+### SPATIAL QUERY EXAMPLES NEED SOME TLC
+
+appalachia <- data.frame(
+  lat = c(34.576900, 36.114974, 37.374456, 35.919619, 39.206481),
+  long = c(-84.771119, -83.393990, -81.256731, -81.492395, -78.417345))
+
+conus <- data.frame(
+  lat = c(49.078148, 47.575022, 32.914614, 25.000481),
+  long = c(-124.722111, -67.996898, -118.270335, -80.125804))
+
+# verifying where points are supposed to be
+maps::map('usa')
+points(conus$long, conus$lat, col="red", pch=20)
+points(appalachia$long, appalachia$lat, col="green", pch=20)
+
+# query by bounding box
+bbox_sp_obj <- sp::SpatialPoints(appalachia)
+# query_sb_spatial(bbox=bbox_sp_obj)
+
+# query by latitude and longitude vectors
+query_sb_spatial(long = appalachia$long, lat = appalachia$lat)
+query_sb_spatial(long = conus$long, lat = conus$lat)
+
+# query by WKT polygon
+wkt_coord_str <- paste(conus$long, conus$lat, sep=" ", collapse = ",")
+wkt_str <- sprintf("POLYGON((%s))", wkt_coord_str)
+# query_sb_spatial(bb_wkt = wkt_str)
+```
+
+### Using `query_sb_date`
+
+`query_sb_date` returns ScienceBase items that fall within a certain time range. There are multiple timestamps applied to items, so you will need to specify which one to match the range. The default queries are to look for items last updated between 1970-01-01 and today's date. See `?query_sb_date` for more examples of which timestamps are available.
+
+```{r}
+# find data worked on in the last week
+today <- Sys.time()
+oneweekago <- today - (7*24*3600) # days * hrs/day * secs/hr
+recent_data <- query_sb_date(start = today, end = oneweekago)
+head(recent_data, 2)
+
+# find data that's been created over the last year
+oneyearago <- today - (365*24*3600) # days * hrs/day * secs/hr
+recent_data <- query_sb_date(start = today, end = oneyearago, date_type = "dateCreated")
+head(recent_data, 2)
+```
+
+### Using `query_sb_datatype`
+
+`query_sb_datatype` is used to search ScienceBase by the type of data an item is listed as. Run `sb_datatypes()` to get a list of 50 available data types.
+
+```{r}
+# get ScienceBase news items
+sbnews <- query_sb_datatype("News")
+head(sbnews, 2)
+
+# find shapefiles
+shps <- query_sb_datatype("Shapefile")
+head(shps, 2)
+
+# find raster data
+sbraster <- query_sb_datatype("Raster")
+head(sbraster, 2)
+```
 
 ## Best of both methods
 
+Although you can query from R, sometimes it's useful to look an item on the web interface. You can use the `query_sb_*` functions and then follow that URL to view items on the web. This is especially handy for viewing maps and metadata, or to check or repair a ScienceBase item if any of the `sbtools`-based commands have failed.
 
+```{r}
+sbmaps <- query_sb_datatype("Static Map Image", limit=3)
+oneitem <- sbmaps[[1]]
+
+# get and open URL from single sbitem
+url_oneitem <- oneitem[['link']][['url']]
+browseURL(url_oneitem)
+
+# get and open URLs from many sbitems
+lapply(sbmaps, function(sbitem) {
+  url <- sbitem[['link']][['url']]
+  browseURL(url)
+  return(url)
+})
+```
+
+## No results
+
+Some of your queries will probably return no results. When there are no results that match your query, the returned list will have a length of 0.
+
+```{r}
+# search for items related to a Water Quality Portal paper DOI
+query_results <- query_sb_doi(doi = '10.1002/2016WR019993')
+length(query_results)
+head(query_results)
+```
