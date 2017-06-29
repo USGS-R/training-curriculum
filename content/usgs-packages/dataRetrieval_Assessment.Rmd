@@ -101,11 +101,10 @@ mn_lake_phos <- readWQPdata(statecode="MN", siteType="Lake, Reservoir, Impoundme
                             startDate="1992-01-01", endDate="1992-01-31")
 
 # Determine which row(s) have the maximum phosphorus
-max_p <- max(mn_lake_phos[['ResultMeasureValue']], na.rm=TRUE)
-max_p_i <- which(mn_lake_phos[['ResultMeasureValue']] == max_p)
+max_p_row <- which.max(mn_lake_phos[['ResultMeasureValue']])
 
 # Extract the site numbers that correspond to the maximum phosphorus
-mn_lake_phos[['MonitoringLocationIdentifier']][max_p_i]
+mn_lake_phos[['MonitoringLocationIdentifier']][max_p_row]
 ```
 
 ## Exercise 4
