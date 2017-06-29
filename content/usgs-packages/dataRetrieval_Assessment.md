@@ -15,6 +15,9 @@ Before starting the exercises, you should make sure that the `dataRetrieval` pac
 ``` r
 # load the dataRetrieval package
 library(dataRetrieval)
+
+# and dplyr so we can easily clean up the returned data
+library(dplyr)
 ```
 
 Exercise 1
@@ -65,15 +68,14 @@ dc_2013_q <- readNWISdv(siteNumbers=dc_stream_sites[['site_no']], parameterCd="0
                    startDate="2013-08-20", endDate="2013-08-20")
 dc_2013_q <- renameNWISColumns(dc_2013_q)
 
-# Keep only sites that actually have data on August 20, 2013
+# Vector of sites that actually have data on August 20, 2013
 dc_aug20_sites <- dc_2013_q[['site_no']]
 
 # Pull down statistics information for mean flow at those sites
 mean_q <- readNWISstat(siteNumbers=dc_aug20_sites, parameterCd="00060", statType = "mean")
 
 # Pull out just rows with August 20th historic mean flows
-aug20_i <- which(mean_q[['month_nu']] == 8 & mean_q[['day_nu']] == 20)
-aug20_mean_q <- mean_q[aug20_i, ]
+aug20_mean_q <- filter(mean_q, month_nu == 8, day_nu == 20)
 
 # Compare 2013 value to historic average for each site
 dc_2013_q[['Flow']] < aug20_mean_q[['mean_va']]
@@ -121,7 +123,7 @@ Show Answer
 ``` r
 # Get longitudes and latitudes of the lake phosphorus data from Jan 1992
 mn_site_info <- attr(mn_lake_phos, 'siteInfo')
-mn_site_coords <- mn_site_info[, c('dec_lon_va', 'dec_lat_va')]
+mn_site_coords <- select(mn_site_info, dec_lon_va, dec_lat_va)
 head(mn_site_coords)
 ```
 
