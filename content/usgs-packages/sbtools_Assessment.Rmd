@@ -1,0 +1,49 @@
+---
+title: "sbtools - exercises"
+date: "9999-06-15"
+author: "Lindsay R. Carr"
+slug: "sbtools-exercises"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 3
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/sbtools-exercises/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+knit_hooks$set(addToggle = function(before, options, envir) {
+    if(before) {
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
+    } else {
+      '</div>'
+    }
+})
+
+set.seed(1)
+```
+
+Before starting the exercises, you should make sure that the `sbtools` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('sbtools')` or go to the "Update" button in the "Packages" tab in RStudio.
+
+```{r load-sbtools}
+# load the sbtools package
+library(sbtools)
+```
+
+

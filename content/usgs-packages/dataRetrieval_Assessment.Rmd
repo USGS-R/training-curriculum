@@ -1,0 +1,127 @@
+---
+title: "dataRetrieval - exercises"
+date: "9999-10-15"
+author: "Lindsay R. Carr"
+slug: "dataRetrieval-exercises"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 3
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/dataRetrieval-exercises/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO",
+  message=FALSE
+)
+
+knit_hooks$set(addToggle = function(before, options, envir) {
+    if(before) {
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
+    } else {
+      '</div>'
+    }
+})
+
+set.seed(1)
+```
+
+Before starting the exercises, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
+
+```{r load-dataRetrieval}
+# load the dataRetrieval package
+library(dataRetrieval)
+
+# and dplyr so we can easily clean up the returned data
+library(dplyr)
+```
+
+## Exercise 1
+
+*Determine the number of sites in Arizona that have lake temperature data available in NWIS. Then find how many Arizona sites have lake temperature data available in WQP.*
+
+```{r addToggle="ON"}
+# NWIS Arizona lake temperature sites
+azlaketemp_nwis <- whatNWISsites(stateCd="AZ", siteType="LK", parameterCd="00010")
+nrow(azlaketemp_nwis)
+
+# WQP Arizona lake temperature sites
+azlaketemp_wqp <- whatWQPsites(statecode="AZ", 
+                               siteType="Lake, Reservoir, Impoundment", 
+                               characteristicName="Temperature, water")
+nrow(azlaketemp_wqp)
+```
+
+## Exercise 2
+
+*Determine which sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use three different functions to figure this out (find site numbers, then statistics data, and then daily value data).*
+
+```{r addToggle="ON"}
+# Find DC site numbers that have streamflow
+dc_stream_sites <- whatNWISsites(stateCd = "DC", siteType="ST", parameterCd="00060")
+
+# Get streamflow from August 20, 2013
+dc_2013_q <- readNWISdv(siteNumbers=dc_stream_sites[['site_no']], parameterCd="00060",
+                   startDate="2013-08-20", endDate="2013-08-20")
+dc_2013_q <- renameNWISColumns(dc_2013_q)
+
+# Vector of sites that actually have data on August 20, 2013
+dc_aug20_sites <- dc_2013_q[['site_no']]
+
+# Pull down statistics information for mean flow at those sites
+mean_q <- readNWISstat(siteNumbers=dc_aug20_sites, parameterCd="00060", statType = "mean")
+
+# Pull out just rows with August 20th historic mean flows
+aug20_mean_q <- filter(mean_q, month_nu == 8, day_nu == 20)
+
+# Compare 2013 value to historic average for each site
+dc_2013_q[['Flow']] < aug20_mean_q[['mean_va']]
+```
+
+## Exercise 3
+
+*Find which Minnesota lake sites have the maximum phosphorus level in January 1992.*
+
+```{r addToggle="ON"}
+# Get all Jan 1992 phosphorus data from Minnesota lakes
+mn_lake_phos <- readWQPdata(statecode="MN", siteType="Lake, Reservoir, Impoundment", 
+                            characteristicName="Phosphorus",
+                            startDate="1992-01-01", endDate="1992-01-31")
+
+# Determine which row(s) have the maximum phosphorus
+max_p_row <- which.max(mn_lake_phos[['ResultMeasureValue']])
+
+# Extract the site numbers that correspond to the maximum phosphorus
+mn_lake_phos[['MonitoringLocationIdentifier']][max_p_row]
+```
+
+## Exercise 4
+
+*Map the Minnesota lake phosphorus sites using your data from Exercise 3. Hint: look at metadata and consider using the `maps` package.*
+
+```{r addToggle="ON", fig.cap="Minnesota lake phosphorus site map"}
+# Get longitudes and latitudes of the lake phosphorus data from Jan 1992
+mn_site_info <- attr(mn_lake_phos, 'siteInfo')
+mn_site_coords <- select(mn_site_info, dec_lon_va, dec_lat_va)
+head(mn_site_coords)
+
+# Put the sites on a simple state map
+library(maps)
+map('state', 'Minnesota', col="lightblue", lwd=2)
+points(mn_site_coords)
+```
+
