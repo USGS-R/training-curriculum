@@ -9,18 +9,22 @@ canonifyurls = true
   url = "/"
   weight = 1
 [[menu.main]]
+  name = "R Installation Instructions"
+  url = "/installr/"
+  weight = 2
+[[menu.main]]
   name = "Introduction to R Course"
   url = "/intro-curriculum/"
-  weight = 2
+  weight = 3
 [[menu.main]]
   name = "R Package Development"
   url = "/r-package-dev/"
-  weight = 3
+  weight = 4
 [[menu.main]]
   name = "Course Specific Material"
   url = "/course-specific-material/"
-  weight = 4
+  weight = 5
 [[menu.main]]
   name = "Introduction to USGS R Packages"
   url = "/usgs-packages/"
-  weight = 5
+  weight = 6
