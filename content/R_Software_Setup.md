@@ -133,4 +133,4 @@ Now that you have installed R and some basic packages, you should get in a good 
 Optional: Install Rtools
 ========================
 
-Rtools is used in package development, which is an advanced skill, but one which you might be doing as you become more experienced. It would be handy to have Rtools installed. You will need to install this using admin privileges. Install from [here](https://cran.r-project.org/bin/windows/Rtools/).
+Rtools is used in package development, which is an advanced skill, but one which you might be doing as you become more experienced. It would be handy to have Rtools installed. You will need to install this using admin privileges. Install from [here](https://cran.r-project.org/bin/windows/Rtools/). Rtools is only needed for Windows users; Mac users do not need Rtools for package development.
