@@ -20,7 +20,9 @@ These instructions are for Windows install. Download and install R for Mac [here
 Download and install R
 ----------------------
 
-Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Once the installer downloads, Right-click on it and select "Run as administrator".
+Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version (v3.4.1 as of June 2017).
+
+Once the installer downloads, Right-click on it and select "Run as administrator".
 
 Type in your PR credentials and click yes (or have your IT rep install with Admin privileges).
 
