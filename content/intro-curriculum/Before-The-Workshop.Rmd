@@ -86,7 +86,7 @@ version$version.string
 ```
 
 ## Verify your installed R version
-Ideally you should be running the latest stable release (3.3.X as of May 2017, where X can be any number). If you have an older version, please install the newest version using the instructions above.
+Ideally you should be running the latest stable release (v3.4.1 as of June 2017). If you have an older version, please install the newest version using the instructions above.
 
 Here is what my R version looks like.
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
