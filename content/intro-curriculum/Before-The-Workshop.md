@@ -22,20 +22,30 @@ Download and install R
 
 Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Once the installer downloads, Right-click on it and select "Run as administrator".
 
-Type in your PR credentials and click yes (or have your IT rep install with Admin privileges). ![Run as admin](../static/img/install_open_as_admin.png#inline-img "run as admin")
+Type in your PR credentials and click yes (or have your IT rep install with Admin privileges).
 
-You can click next through the standard dialogs and accept most defaults. But at the destination screen, please verify that it is installing it to C:Files(version number may vary) ![Install Destination screen](../static/img/install_destination.png#inline-img "install destination screen")
+![Run as admin](../static/img/install_open_as_admin.png#inline-img "run as admin")
 
-At the "Select Components" screen, you can accept the default and install both 32-bit and 64-bit versions. ![Select Architecture](../static/img/install_arch_window.png#inline-img "select architecture")
+You can click next through the standard dialogs and accept most defaults. But at the destination screen, please verify that it is installing it to C:Files(version number may vary)
 
-At this screen, uncheck 'Create a desktop icon' because non-admin users in Windows will be unable to delete it. ![Uncheck desktop icon](../static/img/install_tasks.png#inline-img "uncheck desktop icon")
+![Install Destination screen](../static/img/install_destination.png#inline-img "install destination screen")
+
+At the "Select Components" screen, you can accept the default and install both 32-bit and 64-bit versions.
+
+![Select Architecture](../static/img/install_arch_window.png#inline-img "select architecture")
+
+At this screen, uncheck 'Create a desktop icon' because non-admin users in Windows will be unable to delete it.
+
+![Uncheck desktop icon](../static/img/install_tasks.png#inline-img "uncheck desktop icon")
 
 Download and install RStudio
 ----------------------------
 
 [Download RStudio Desktop](https://www.rstudio.com/products/rstudio/download/)
 
-Double-click the installer. It will ask for your administrator credentials to install (you might need to have your IT rep install again). Accept all the default options for the RStudio install. ![RStudio install screen](../static/img/install_rstudio.png#inline-img "RStudio install screen")
+Double-click the installer. It will ask for your administrator credentials to install (you might need to have your IT rep install again). Accept all the default options for the RStudio install.
+
+![RStudio install screen](../static/img/install_rstudio.png#inline-img "RStudio install screen")
 
 Check Install
 =============
