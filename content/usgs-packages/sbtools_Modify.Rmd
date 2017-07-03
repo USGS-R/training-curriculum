@@ -1,0 +1,102 @@
+---
+title: "sbtools - modify sbitems"
+date: "9999-06-25"
+author: "Lindsay R. Carr"
+slug: "sbtools-modify"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 2
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/sbtools-modify/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+This lesson will teach you how to manage your ScienceBase items and folders from R. **[why is this useful???]** You can add, remove, or edit ScienceBase items from R. The first half of the lesson will show you how to modify existing items, and the second half will how you how to add or remove items.
+
+The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that some functions start with `items_*`, plural. These require at least 2 items to run, so they are good for updating in bulk. If you have only one, you will need to use the equivalent `item_*` function.
+
+In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in. Refer to the [previous lesson](#sbtools-download) for information on logging in. 
+
+All the functions used here will have either `parent_id` or `sb_id` as the first argument. `parent_id` is looking for information on the location to create a new item or folder. Sometimes this defaults to your user account, but can be overridden with an object of class `sbitem` or the ScienceBase ID as a character value. The `sb_id` argument does not have a default and is looking for the ID of the ScienceBase item you are modifying. You can give this either the character string of the ScienceBase item ID or an object of class `sbitem`. 
+
+```{r sbtools-setup, echo=FALSE}
+library(sbtools)
+# authenticate_sb()
+```
+
+## Creating ScienceBase items and "folders"
+
+ScienceBase can be used to create a hierarchical organization for projects. To do this, we can create folders and items within those folders directly from R using `sbtools`. 
+
+This section will give examples for the following functions: 
+
+* `folder_create`
+* `item_create`
+* `items_create`
+
+First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account. So, leave the default for the `parent_id` argument. 
+
+```{r add-folder, eval=FALSE}
+new_folder <- folder_create(name = "usgs-r-pkgs-test")
+```
+
+Now, create a single item inside of the newly created folder. To do this, use the `sbitem` object from the previous step as the `parent_id` here.
+
+```{r add-single-item, eval=FALSE}
+item_create(parent_id = new_folder, title = "single item")
+```
+
+Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder.
+
+```{r add-multiple-items, eval=FALSE}
+items_create(parent_id = list(new_folder, new_folder, user_id),
+             title = c("item 1", "item 2", "item 3"))
+```
+
+Now navigate to your user account. You should see two items: "item 3" and the new folder "usgs-r-pkgs-test" with 3 nested items named "single item", "item 1", and "item 2". 
+
+## Uploading your files
+
+This section will give examples for the following functions: 
+
+* `item_upload_create`
+* `item_append_files`
+
+## Organizing and querying your files
+
+This section will give examples for the following functions: 
+
+* `items_update`
+* `items_upsert`
+* `item_move`
+* `item_update`
+* `item_update_identifier`
+* `item_upsert`
+
+## Replacing and deleting your files
+
+This section will give examples for the following functions: 
+
+*`item_rename_files`
+*`item_replace_files`
+*`item_rm`
+*`item_rm_files`
