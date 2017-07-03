@@ -43,8 +43,10 @@ item_create(parent_id = new_folder, title = "single item")
 
 Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder.
 
+**introduce user\_id() somewhere**
+
 ``` r
-items_create(parent_id = list(new_folder, new_folder, user_id),
+items_create(parent_id = list(new_folder, new_folder, user_id()),
              title = c("item 1", "item 2", "item 3"))
 ```
 
