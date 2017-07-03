@@ -1,0 +1,82 @@
+---
+title: "sbtools - sbitem"
+date: "9999-07-20"
+author: "Lindsay R. Carr"
+slug: "sbtools-sbitem"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 2
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/sbtools-sbitem/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+"Items" are the objects in which ScienceBase stores and organizes data, and are necessary to understand for using `sbtools`. This lesson will introduce ScienceBase items and the R equivalent, `sbitem`. 
+
+## What is a ScienceBase "item"?
+
+A ScienceBase "item" is the fundamental digital object available through ScienceBase. Items can contain files, contain and display metadata, or contain other items to create a hierarchical item/folder structure. Items all follow the same type of metadata model, so they have a structured format. Visit the [ScienceBase Items help page](https://www.sciencebase.gov/about/content/sciencebase-items) for more information, and look at the table below for some examples of items.
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+
+Item <- c(
+  "[Oil producer well: Record Number 2016815](https://www.sciencebase.gov/catalog/item/58a36dcbe4b0c82512870172)", 
+  "[Bathymetric DEM of the lower Nooksack River, August 2015](https://www.sciencebase.gov/catalog/item/58c03c2de4b014cc3a3bb802)", 
+  "[Data for calculating population, collision and displacement vulnerability among marine birds of the California Current System associated with offshore wind energy infrastructure](https://www.sciencebase.gov/catalog/item/5733bc85e4b0dae0d5dd627b)"
+)
+
+Description <- c(
+  "a standalone item",
+  "item with files and metadata",
+  "item that contains files and child items")
+
+library(htmlTable)
+htmlTable(data.frame(Item = Item, Description = Description), 
+          caption="Table 1. ScienceBase item examples.",
+          rnames=FALSE, align=c("l","l"), 
+          col.rgroup = c("none", "#F7F7F7"), 
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+```
+
+## What is an "sbitem"?
+
+An `sbitem` is the `sbtools` equivalent of ScienceBase items. In R, ScienceBase items are represented with the class `sbitem`, which is a lightweight representation containing the item's essential metadata. `sbitems` also contain links that allow you to query ScienceBase for even more information on the item.
+
+Below is an example of what an `sbitem` looks like in R. [This item](https://www.sciencebase.gov/catalog/item/4f4e4b24e4b07f02db6aea14) was downloaded to the R object `itemexample`. The code to download this ScienceBase item will be explained in the lesson on [getting data from ScienceBase](#sbtools-download).
+
+```{r sbitem-example, echo=FALSE, eval=TRUE}
+library(sbtools)
+itemexample <- item_get("4f4e4b24e4b07f02db6aea14")
+```
+
+```{r sbitem-display, echo=TRUE, eval=TRUE}
+# check class - it should be "sbitem"
+class(itemexample)
+
+# all fields in sbitem
+names(itemexample)
+
+# view the item
+itemexample
+```
+
+Now that you understand the fundamental unit of ScienceBase and the `sbtools` equivalent unit, you can learn how to search ScienceBase for available data, download items, and modify or create items from R. 
