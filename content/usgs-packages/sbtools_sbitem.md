@@ -10,12 +10,12 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-"items" are the fundamental unit of data that are available through ScienceBase, and are necessary to understand for using `sbtools`. This lesson will introduce ScienceBase items and the R equivalent, `sbitem`.
+"Items" are the objects in which ScienceBase stores and organizes data, and are necessary to understand for using `sbtools`. This lesson will introduce ScienceBase items and the R equivalent, `sbitem`.
 
 What is a ScienceBase "item"?
 -----------------------------
 
-A ScienceBase "item" is any digital object available through ScienceBase. Items can contain files, contain and display metadata, or contain other items to create a hierarchical item/folder structure. Items all follow the same type of metadata model, so they have a structured format. Visit the [ScienceBase Items help page](https://www.sciencebase.gov/about/content/sciencebase-items) for more information, and look at the table below for some examples of items.
+A ScienceBase "item" is the fundamental digital object available through ScienceBase. Items can contain files, contain and display metadata, or contain other items to create a hierarchical item/folder structure. Items all follow the same type of metadata model, so they have a structured format. Visit the [ScienceBase Items help page](https://www.sciencebase.gov/about/content/sciencebase-items) for more information, and look at the table below for some examples of items.
 
 <!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
