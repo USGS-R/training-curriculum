@@ -59,36 +59,53 @@ library(sbtools)
 
 ### Using `query_sb`
 
-`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `DESCRIPTION` section of the help file for all options (`?query_sb`). 
+`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`). 
 
 ```{r}
-
-##### THESE FIRST TWO SEARCHES STILL NEED WORK #####
-
 # search by keyword
-precip_query <- list(q = 'precipitation')
-precip_data <- query_sb(query_list = precip_query)
-length(precip_data) # 50 entries, so there is likely more than 50 results
+precip_data <- query_sb(query_list = list(q = 'precipitation'))
+length(precip_data) # 20 entries, but there is likely more than 20 results
 head(precip_data, 2)
 
-# search by keyword + category
-precip_maps_query <- list(q = 'precipitation', browseType = "Static Map Image", sort='title')
-precip_maps_data <- query_sb(query_list = precip_query)
+# search by keyword, sort by last updated, and increase num results allowed
+precip_data_recent <- query_sb(query_list = list(q = 'precipitation', 
+                                                 sort = 'lastUpdated',
+                                                 limit = 50))
+length(precip_data_recent) # 50 entries, but the search criteria is the same, just sorted
+head(precip_data_recent, 2)
+
+# search by keyword + type
+precip_maps_data <- query_sb(query_list = list(q = 'precipitation', browseType = "Static Map Image", sort='title'))
 head(precip_maps_data, 2)
+```
 
-##### -------------------------------------- #####
+It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
 
-# search by 2 keywords
-hazard2_query <- list(q = 'flood', q = 'earthquake')
-hazard2_data <- query_sb(query_list = hazard2_query)
-length(hazard2_data)
-head(hazard2_data, 2)
+```{r}
+# look at all titles returned from the map query previously made
+sapply(precip_maps_data, function(item) item$title)
+```
 
-# search by 3 keywords
-hazard3_query <- list(q = 'flood', q = 'earthquake', q='drought')
-hazard3_data <- query_sb(query_list = hazard3_query)
+Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
+
+If you want to search by more than one keyword, you should use Lucene query syntax. Visit [this page](http://www.lucenetutorial.com/lucene-query-syntax.html) for information on Lucene queries. For instance, you can have results returned that include both "flood" and "earthquake", or either "flood" or "earthquake". Current functionality requires a regular query to be specified in order for `lq` to return results. So, just include `q = ''` when executing Lucene queries (this is a known [issue](https://github.com/USGS-R/sbtools/issues/236) in `sbtools`).
+
+```{r}
+# search by 2 keywords (AND)
+hazard2and_data <- query_sb(query_list = list(q = '', lq = 'flood AND earthquake'), 
+                            limit=200)
+length(hazard2and_data)
+
+# search by 2 keywords (OR)
+hazard2or_data <- query_sb(query_list = list(q = '', lq = 'flood OR earthquake'),
+                           limit=200)
+length(hazard2or_data)
+
+# search by 3 keywords with grouped query
+hazard3_data <- query_sb(query_list = 
+                           list(q = '', lq = '(flood OR earthquake) AND drought'),
+                         limit=200)
 length(hazard3_data)
-head(hazard3_data, 2)
 ```
 
 ### Using `query_sb_text`
@@ -98,16 +115,16 @@ head(hazard3_data, 2)
 ```{r}
 # search using a contributors name
 contrib_results <- query_sb_text("Robert Hirsch")
-head(contrib_results, 2)
+sapply(contrib_results, function(item) item$title)
 
 # search using place of interest
 park_results <- query_sb_text("Yellowstone")
-head(park_results, 2)
+sapply(park_results, function(item) item$title)
 
 # search using a site location
 loc_results <- query_sb_text("Embudo")
 length(loc_results)
-head(loc_results, 2)
+sapply(loc_results, function(item) item$title)
 ```
 
 ### Using `query_sb_doi`
@@ -166,12 +183,12 @@ wkt_str <- sprintf("POLYGON((%s))", wkt_coord_str)
 today <- Sys.time()
 oneweekago <- today - (7*24*3600) # days * hrs/day * secs/hr
 recent_data <- query_sb_date(start = today, end = oneweekago)
-head(recent_data, 2)
+sapply(recent_data, function(item) item$title)
 
 # find data that's been created over the last year
 oneyearago <- today - (365*24*3600) # days * hrs/day * secs/hr
 recent_data <- query_sb_date(start = today, end = oneyearago, date_type = "dateCreated")
-head(recent_data, 2)
+sapply(recent_data, function(item) item$title)
 ```
 
 ### Using `query_sb_datatype`
@@ -181,15 +198,15 @@ head(recent_data, 2)
 ```{r}
 # get ScienceBase news items
 sbnews <- query_sb_datatype("News")
-head(sbnews, 2)
+sapply(sbnews, function(item) item$title)
 
 # find shapefiles
 shps <- query_sb_datatype("Shapefile")
-head(shps, 2)
+sapply(shps, function(item) item$title)
 
 # find raster data
 sbraster <- query_sb_datatype("Raster")
-head(sbraster, 2)
+sapply(sbraster, function(item) item$title)
 ```
 
 ## Best of both methods
