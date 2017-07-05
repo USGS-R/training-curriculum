@@ -44,14 +44,14 @@ Learn more about the [catalog search features](www.sciencebase.gov/about/content
 
 The ScienceBase search tools can be very powerful, but lack the ability to easily recreate the search. If you want to incorporate dataset queries into a reproducible workflow, you can script them using the `sbtools` query functions. The terminology differs from the web interface slightly. Below are functions available to query the catalog:
 
-1. `query_sb` (generic SB query)
-2. `query_sb_text` (matches title or description)
-3. `query_sb_doi` (use a DOI identifier)
-4. `query_sb_spatial` (data within or at a specific location)
-5. `query_sb_date` (items within time range)
-6. `query_sb_datatype` (type of data, not necessarily file type)
+1. `query_sb_text` (matches title or description)
+2. `query_sb_doi` (use a DOI identifier)
+3. `query_sb_spatial` (data within or at a specific location)
+4. `query_sb_date` (items within time range)
+5. `query_sb_datatype` (type of data, not necessarily file type)
+6. `query_sb` (generic SB query)
 
-These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`.  Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
+These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. The `query_sb` is a generalization of the other functions, and has a number of additional query specifications: [Lucene query string](http://www.lucenetutorial.com/lucene-query-syntax.html), folder and parent items, item ids, or project status. Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
 
 ```{r}
 library(sbtools)

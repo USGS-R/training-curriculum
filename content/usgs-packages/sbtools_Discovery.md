@@ -26,14 +26,14 @@ Discovering data via sbtools
 
 The ScienceBase search tools can be very powerful, but lack the ability to easily recreate the search. If you want to incorporate dataset queries into a reproducible workflow, you can script them using the `sbtools` query functions. The terminology differs from the web interface slightly. Below are functions available to query the catalog:
 
-1.  `query_sb` (generic SB query)
-2.  `query_sb_text` (matches title or description)
-3.  `query_sb_doi` (use a DOI identifier)
-4.  `query_sb_spatial` (data within or at a specific location)
-5.  `query_sb_date` (items within time range)
-6.  `query_sb_datatype` (type of data, not necessarily file type)
+1.  `query_sb_text` (matches title or description)
+2.  `query_sb_doi` (use a DOI identifier)
+3.  `query_sb_spatial` (data within or at a specific location)
+4.  `query_sb_date` (items within time range)
+5.  `query_sb_datatype` (type of data, not necessarily file type)
+6.  `query_sb` (generic SB query)
 
-These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
+These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. The `query_sb` is a generalization of the other functions, and has a number of additional query specifications: [Lucene query string](http://www.lucenetutorial.com/lucene-query-syntax.html), folder and parent items, item ids, or project status. Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
 
 ``` r
 library(sbtools)
@@ -335,12 +335,12 @@ head(recent_data, 2)
     ## 
     ## [[2]]
     ## <ScienceBase Item> 
-    ##   Title: Digital seafloor images and sediment grain size from the mouth of the Columbia River, Oregon and Washington, 2014
+    ##   Title: National Elevation Dataset (NED) Alaska 2 arc-second
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 58812f4ce4b00a062356ffee
-    ##   Parent ID: 585c3c01e4b01224f329bb08
+    ##   Item ID: 4f70aaece4b058caae3f8de9
+    ##   Parent ID: 4f70a58ce4b058caae3f8ddb
 
 ``` r
 # find data that's been created over the last year
@@ -351,21 +351,21 @@ head(recent_data, 2)
 
     ## [[1]]
     ## <ScienceBase Item> 
-    ##   Title: USGS US Topo 7.5-minute map for Beaver C-2 NW, AK 2017
+    ##   Title: USGS NED Original Product Resolution CA Sonoma 2013 bh soco 0074 TIFF 2017
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 59520d79e4b062508e3b805a
-    ##   Parent ID: 4f554236e4b018de15819c85
+    ##   Item ID: 595cb18be4b0d1f9f0551fc9
+    ##   Parent ID: 530f4226e4b0e7e46bd2c315
     ## 
     ## [[2]]
     ## <ScienceBase Item> 
-    ##   Title: USGS US Topo 7.5-minute map for Bendeleben B-5 NE, AK 2017
+    ##   Title: USGS NED Original Product Resolution CA Sonoma 2013 bh soco 0051 TIFF 2017
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 59520d82e4b062508e3b80c2
-    ##   Parent ID: 4f554236e4b018de15819c85
+    ##   Item ID: 595cb186e4b0d1f9f0551fb3
+    ##   Parent ID: 530f4226e4b0e7e46bd2c315
 
 ### Using `query_sb_datatype`
 
