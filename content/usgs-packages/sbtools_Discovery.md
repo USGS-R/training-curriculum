@@ -250,7 +250,7 @@ query_sb_spatial(bb_wkt = wkt_str)
 
 ``` r
 # find data worked on in the last week
-today <- Sys.time()
+today <- Sys.Date()
 oneweekago <- today - as.difftime(7, units='days') # days * hrs/day * secs/hr
 recent_data <- query_sb_date(start = today, end = oneweekago)
 sapply(recent_data, function(item) item$title)
@@ -279,7 +279,7 @@ sapply(recent_data, function(item) item$title)
 
 ``` r
 # find data that's been created over the last year
-oneyearago <- today - (365*24*3600) # days * hrs/day * secs/hr
+oneyearago <- today - as.difftime(365, units='days') # days * hrs/day * secs/hr
 recent_data <- query_sb_date(start = today, end = oneyearago, date_type = "dateCreated")
 sapply(recent_data, function(item) item$title)
 ```
