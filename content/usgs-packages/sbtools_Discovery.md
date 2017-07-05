@@ -477,6 +477,7 @@ sapply(precip_data_recent, function(item) item$title)
 
 ``` r
 # search by keyword + type
+# Used sb_datatype() to figure out what types were allowed for "browseType"
 precip_maps_data <- query_sb(query_list = list(q = 'precipitation', browseType = "Static Map Image", sort='title'))
 sapply(precip_maps_data, function(item) item$title)
 ```
@@ -520,14 +521,43 @@ Some of your queries will probably return no results. When there are no results 
 
 ``` r
 # search for items related to a Water Quality Portal paper DOI
-query_results <- query_sb_doi(doi = '10.1002/2016WR019993')
-length(query_results)
+wqp_paper <- query_sb_doi(doi = '10.1002/2016WR019993')
+length(wqp_paper)
 ```
 
     ## [1] 0
 
 ``` r
-head(query_results)
+head(wqp_paper)
+```
+
+    ## list()
+
+``` r
+# spatial query in the middle of the Atlantic Ocean
+atlantic_ocean <- query_sb_spatial(long=28.790431, lat=-41.436485)
+length(atlantic_ocean)
+```
+
+    ## [1] 0
+
+``` r
+head(atlantic_ocean)
+```
+
+    ## list()
+
+``` r
+# date query during Marco Polo's life
+marco_polo <- query_sb_date(start = as.Date("1254-09-15"), 
+                           end = as.Date("1324-01-08"))
+length(marco_polo)
+```
+
+    ## [1] 0
+
+``` r
+head(marco_polo)
 ```
 
     ## list()
