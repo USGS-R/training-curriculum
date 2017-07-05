@@ -209,9 +209,8 @@ The first way to query spatially is by specifying a bounding box `bbox` as an `s
 ``` r
 # query by bounding box
 query_sb_spatial(bbox=
-                   sp::SpatialPoints(appalachia, 
-                                     proj4string = 
-                                       sp::CRS("+proj=longlat +datum=NAD27")))
+                   sp::SpatialPoints(appalachia,  proj4string = 
+                      sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")))
 ```
 
     ## Loading required namespace: sp
