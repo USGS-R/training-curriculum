@@ -185,11 +185,9 @@ query_sb_doi('10.5066/F77W699S')
 
 ### Using `query_sb_spatial`
 
-`query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. You can specify a bounding box `bbox` as an `sp` spatial data object *\[\[\[\[NEED MORE TEXT HERE\]\]\]\]*. Alternatively, you can supply a vector of latitudes and a vector of longitudes using `lat` and `long` arguments. The function will automatically use the minimum and maximum from those vectors to construct a boundary box. The last way to represent a spatial region to query ScienceBase is using a POLYGON Well-known text (WKT) object as a text string. The format is `"POLYGON(([LONG1 LAT1], [LONG2 LAT2], [LONG3 LAT3]))"`, where `LONG#` and `LAT#` are longitude and latitude pairs as decimals. See the [Open Geospatial Consortium WKT standard](http://www.opengeospatial.org/standards/wkt-crs) for more information.
+`query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. To illustrate the methods, we are going to use the spatial extents of the Appalachian Mountains and the Continental US.
 
 ``` r
-### SPATIAL QUERY EXAMPLES NEED SOME TLC
-
 appalachia <- data.frame(
   lat = c(34.576900, 36.114974, 37.374456, 35.919619, 39.206481),
   long = c(-84.771119, -83.393990, -81.256731, -81.492395, -78.417345))
@@ -202,16 +200,27 @@ conus <- data.frame(
 maps::map('usa')
 points(conus$long, conus$lat, col="red", pch=20)
 points(appalachia$long, appalachia$lat, col="green", pch=20)
-
-# query by bounding box
-bbox_sp_obj <- sp::SpatialPoints(appalachia)
 ```
 
 <img src='../static/sbtools-discovery/query_sb_spatial-1.png'/ title='TODO'/>
 
-``` r
-# query_sb_spatial(bbox=bbox_sp_obj)
+The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object *\[\[\[\[NEED MORE TEXT HERE\]\]\]\]*.
 
+``` r
+# query by bounding box
+query_sb_spatial(bbox=
+                   sp::SpatialPoints(appalachia, 
+                                     proj4string = 
+                                       sp::CRS("+proj=longlat +datum=NAD27")))
+```
+
+    ## Loading required namespace: sp
+
+    ## list()
+
+Alternatively, you can supply a vector of latitudes and a vector of longitudes using `lat` and `long` arguments. The function will automatically use the minimum and maximum from those vectors to construct a boundary box.
+
+``` r
 # query by latitude and longitude vectors
 query_sb_spatial(long = appalachia$long, lat = appalachia$lat)
 ```
@@ -224,12 +233,16 @@ query_sb_spatial(long = conus$long, lat = conus$lat)
 
     ## list()
 
+The last way to represent a spatial region to query ScienceBase is using a POLYGON Well-known text (WKT) object as a text string. The format is `"POLYGON(([LONG1 LAT1], [LONG2 LAT2], [LONG3 LAT3]))"`, where `LONG#` and `LAT#` are longitude and latitude pairs as decimals. See the [Open Geospatial Consortium WKT standard](http://www.opengeospatial.org/standards/wkt-crs) for more information.
+
 ``` r
 # query by WKT polygon
 wkt_coord_str <- paste(conus$long, conus$lat, sep=" ", collapse = ",")
 wkt_str <- sprintf("POLYGON((%s))", wkt_coord_str)
-# query_sb_spatial(bb_wkt = wkt_str)
+query_sb_spatial(bb_wkt = wkt_str)
 ```
+
+    ## list()
 
 ### Using `query_sb_date`
 
