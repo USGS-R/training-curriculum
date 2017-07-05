@@ -251,7 +251,7 @@ query_sb_spatial(bb_wkt = wkt_str)
 ``` r
 # find data worked on in the last week
 today <- Sys.time()
-oneweekago <- today - (7*24*3600) # days * hrs/day * secs/hr
+oneweekago <- today - as.difftime(7, units='days') # days * hrs/day * secs/hr
 recent_data <- query_sb_date(start = today, end = oneweekago)
 sapply(recent_data, function(item) item$title)
 ```
