@@ -70,17 +70,17 @@ head(contrib_results, 2)
 park_results <- query_sb_text("Yellowstone")
 head(park_results, 2)
 
-# search using a site location
-loc_results <- query_sb_text("Embudo")
-length(loc_results)
-head(loc_results, 2)
+# search using a river
+river_results <- query_sb_text("Rio Grande")
+length(river_results)
+head(river_results, 2)
 ```
 
 It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
 
 ```{r query_sb-sapply}
 # look at all titles returned from the site location query previously made
-sapply(loc_results, function(item) item$title)
+sapply(river_results, function(item) item$title)
 ```
 
 Now you can use `sapply` to look at the titles for your returned searches instead of `head`.

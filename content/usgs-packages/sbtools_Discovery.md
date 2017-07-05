@@ -92,59 +92,62 @@ head(park_results, 2)
     ##   Parent ID: 529e1574e4b0516126f68e8a
 
 ``` r
-# search using a site location
-loc_results <- query_sb_text("Embudo")
-length(loc_results)
+# search using a river
+river_results <- query_sb_text("Rio Grande")
+length(river_results)
 ```
 
-    ## [1] 17
+    ## [1] 20
 
 ``` r
-head(loc_results, 2)
+head(river_results, 2)
 ```
 
     ## [[1]]
     ## <ScienceBase Item> 
-    ##   Title: Embudo, New Mexico, birthplace of systematic stream gaging
+    ##   Title: Middle Rio Grande Multitemporal Land Cover Classifications - 1935, 1962, 1987, 1999, and 2014
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 4f4e4a19e4b07f02db6058ea
-    ##   Parent ID: 4f4e4771e4b07f02db47e1e4
+    ##   Item ID: 58fe18eee4b0f87f0854ad3f
+    ##   Parent ID: 5474ec49e4b04d7459a7eab2
     ## 
     ## [[2]]
     ## <ScienceBase Item> 
-    ##   Title: Rio Grande gauging station, Rio Grande River, Embudo, Rio Arriba County, New Mexico. Circa 1899.
+    ##   Title: Water and Air Temperature Throughout the Range of Rio Grande Cutthroat Trout in Colorado and New Mexico; 2010-2015 V2
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 51ddce45e4b0f72b44721a4f
-    ##   Parent ID: 519ba0a3e4b0e4e151ef5dd9
+    ##   Item ID: 56d08559e4b015c306ee98c7
+    ##   Parent ID: 5274215be4b097f32ac3f3d5
 
 It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
 
 ``` r
 # look at all titles returned from the site location query previously made
-sapply(loc_results, function(item) item$title)
+sapply(river_results, function(item) item$title)
 ```
 
-    ##  [1] "Embudo, New Mexico, birthplace of systematic stream gaging"                                                                           
-    ##  [2] "Rio Grande gauging station, Rio Grande River, Embudo, Rio Arriba County, New Mexico. Circa 1899."                                     
-    ##  [3] "Interior of Rio Grande gauging station, Rio Grande River, Embudo, Rio Arriba County, New Mexico. Circa 1899."                         
-    ##  [4] "The USGS at Embudo, New Mexico: 125 years of systematic streamgaging in the United States"                                            
-    ##  [5] "Embudo camp. Rio Arriba County, New Mexico. 1888."                                                                                    
-    ##  [6] "Hydrologic analysis of the Rio Grande Basin north of Embudo, New Mexico; Colorado and New Mexico"                                     
-    ##  [7] "A shifting riftGeophysical insights into the evolution of Rio Grande rift margins and the Embudo transfer zone near Taos, New Mexico"
-    ##  [8] "Geologic map and cross sections of the Embudo Fault Zone in the Southern Taos Valley, Taos County, New Mexico"                        
-    ##  [9] "Low-flow water-quality and discharge data for lined channels in Northeast Albuquerque, New Mexico, 1990 to 1994"                      
-    ## [10] "USGS reservoir and lake gage network: Elevation and volumetric contents data, and their uses"                                         
-    ## [11] "Report of progress of stream measurements for the calendar year 1905, Part XI, Colorado River drainage above Yuma"                    
-    ## [12] "Measuring streamflow in Virginia (2002 revision)"                                                                                     
-    ## [13] "U.S. Geological Survey water-resources programs in New Mexico, FY 2015"                                                               
-    ## [14] "Recent Improvements to the U.S. Geological Survey Streamgaging Program...from the National Streamflow Information Program"            
-    ## [15] "Measuring streamflow in Virginia (1999 revision)"                                                                                     
-    ## [16] "Summary of urban stormwater quality in Albuquerque, New Mexico, 2003-12"                                                              
-    ## [17] "100 years of sedimentation study by the USGS"
+    ##  [1] "Middle Rio Grande Multitemporal Land Cover Classifications - 1935, 1962, 1987, 1999, and 2014"                                                  
+    ##  [2] "Water and Air Temperature Throughout the Range of Rio Grande Cutthroat Trout in Colorado and New Mexico; 2010-2015 V2"                          
+    ##  [3] "Upper Rio Grande"                                                                                                                               
+    ##  [4] "Acoustic Doppler current profiler velocity data collected during 2015 and 2016 in the Calumet Harbor, Illinois"                                 
+    ##  [5] "Data for a Comprehensive Survey of Fault Zones, Breccias, and Fractures in and Flanking the Eastern Española Basin, Rio Grande Rift, New Mexico"
+    ##  [6] "Magnetotelluric sounding locations, stations 1 to 22, Southern San Luis Valley, Colorado, 2006"                                                 
+    ##  [7] "Notropis jemezanus (Rio Grande shiner)"                                                                                                         
+    ##  [8] "Etheostoma grahami (Rio Grande darter)"                                                                                                         
+    ##  [9] "Pseudemys gorzugi (Rio Grande Cooter)"                                                                                                          
+    ## [10] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
+    ## [11] "View of the Rio Grande near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                   
+    ## [12] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
+    ## [13] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
+    ## [14] "View of the Rio Grande, near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                  
+    ## [15] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
+    ## [16] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874."                                                               
+    ## [17] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874. (Stereoscopic view)"                                           
+    ## [18] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
+    ## [19] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
+    ## [20] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874."
 
 Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
 
