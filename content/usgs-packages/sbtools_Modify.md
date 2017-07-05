@@ -12,7 +12,7 @@ menu:
 ---
 This lesson will teach you how to manage your ScienceBase items and folders from R. **\[why is this useful???\]** You can add, remove, or edit ScienceBase items from R. The first half of the lesson will show you how to modify existing items, and the second half will how you how to add or remove items.
 
-The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that some functions start with `items_*`, plural. These require at least 2 items to run, so they are good for updating in bulk. If you have only one, you will need to use the equivalent `item_*` function.
+The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.
 
 In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in. Refer to the [previous lesson](#sbtools-download) for information on logging in.
 
