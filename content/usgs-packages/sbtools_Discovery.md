@@ -204,7 +204,7 @@ points(appalachia$long, appalachia$lat, col="green", pch=20)
 
 <img src='../static/sbtools-discovery/query_sb_spatial-1.png'/ title='TODO'/>
 
-The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object *\[\[\[\[NEED MORE TEXT HERE\]\]\]\]*.
+The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object. Visit the [`sp` package documentation](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf) for more information on spatial data objects.
 
 ``` r
 # query by bounding box

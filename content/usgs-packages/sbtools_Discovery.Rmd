@@ -116,7 +116,7 @@ points(conus$long, conus$lat, col="red", pch=20)
 points(appalachia$long, appalachia$lat, col="green", pch=20)
 ```
 
-The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object *[[[[NEED MORE TEXT HERE]]]]*.  
+The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object. Visit the [`sp` package documentation](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf) for more information on spatial data objects.  
 
 ```{r query_sb_spatial-bbox}
 # query by bounding box
