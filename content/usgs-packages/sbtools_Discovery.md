@@ -170,12 +170,18 @@ query_sb_doi('10.5066/F7ZC80ZP')
     ##   Parent ID: 55a9170be4b0183d66e4667e
 
 ``` r
-####### I've tried A TON of DOIs I found through the web interface and just
-####### keep getting empty lists returned.
-query_sb_doi('10.1016/j.coldregions.2007.05.009')
+# Environmental Characteristics data
+query_sb_doi('10.5066/F77W699S')
 ```
 
-    ## list()
+    ## [[1]]
+    ## <ScienceBase Item> 
+    ##   Title: Selected Environmental Characteristics of Sampled Sites, Watersheds, and Riparian Zones for the U.S. Geological Survey Midwest Stream Quality Assessment
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 5714ec24e4b0ef3b7ca85d75
+    ##   Parent ID: 569972c5e4b0ec051295ece5
 
 ### Using `query_sb_spatial`
 

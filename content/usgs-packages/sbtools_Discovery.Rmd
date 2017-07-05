@@ -93,9 +93,8 @@ Use a Digital Object Identifier (DOI) to query ScienceBase. This should return o
 # USGS Microplastics study 
 query_sb_doi('10.5066/F7ZC80ZP')
 
-####### I've tried A TON of DOIs I found through the web interface and just
-####### keep getting empty lists returned.
-query_sb_doi('10.1016/j.coldregions.2007.05.009')
+# Environmental Characteristics data
+query_sb_doi('10.5066/F77W699S')
 ```
 
 ### Using `query_sb_spatial`
