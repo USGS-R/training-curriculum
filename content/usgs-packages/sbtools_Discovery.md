@@ -39,128 +39,6 @@ These functions take a variety of inputs, and all return an R list of `sbitems` 
 library(sbtools)
 ```
 
-### Using `query_sb`
-
-`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`).
-
-``` r
-# search by keyword
-precip_data <- query_sb(query_list = list(q = 'precipitation'))
-length(precip_data) # 20 entries, but there is likely more than 20 results
-```
-
-    ## [1] 20
-
-``` r
-head(precip_data, 2)
-```
-
-    ## [[1]]
-    ## <ScienceBase Item> 
-    ##   Title: Change in Precipitation (Projected and Observed) and Change in Standard Precipitation For Emissions Scenarios A2, A1B and B1 for the Gulf of Mexico
-    ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):   / 
-    ##   Children: 
-    ##   Item ID: 5947ffa5e4b062508e3442eb
-    ##   Parent ID: 5931cdcee4b0e9bd0eaa47cc
-    ## 
-    ## [[2]]
-    ## <ScienceBase Item> 
-    ##   Title: Precipitation as Snow (PAS)
-    ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):   / 
-    ##   Children: 
-    ##   Item ID: 52d6bdcde4b0b566e996b438
-    ##   Parent ID: 52d6b312e4b0b566e996b38a
-
-``` r
-# search by keyword, sort by last updated, and increase num results allowed
-precip_data_recent <- query_sb(query_list = list(q = 'precipitation', 
-                                                 sort = 'lastUpdated',
-                                                 limit = 50))
-length(precip_data_recent) # 50 entries, but the search criteria is the same, just sorted
-```
-
-    ## [1] 20
-
-``` r
-head(precip_data_recent, 2)
-```
-
-    ## [[1]]
-    ## <ScienceBase Item> 
-    ##   Title: Developing an Agroforestry Dashboard for the Marshall Islands
-    ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):   / 
-    ##   Children: 
-    ##   Item ID: 537bafe0e4b0929ba498b965
-    ##   Parent ID: 5362adade4b0c409c6289bab
-    ## 
-    ## [[2]]
-    ## <ScienceBase Item> 
-    ##   Title: Measured and estimated monthly precipitation values for precipitation gages in the Black Hills area, South Dakota, water years 1931-98
-    ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):   / 
-    ##   Children: 
-    ##   Item ID: 535ea343e4b08e65d60fafb4
-    ##   Parent ID: 52824fe6e4b08f1425d6e23c
-
-``` r
-# search by keyword + type
-precip_maps_data <- query_sb(query_list = list(q = 'precipitation', browseType = "Static Map Image", sort='title'))
-head(precip_maps_data, 2)
-```
-
-    ## [[1]]
-    ## <ScienceBase Item> 
-    ##   Title: The Washington-British Columbia Transboundary Climate-Connectivity Project
-    ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):   / 
-    ##   Children: 
-    ##   Item ID: 57b3b8e7e4b03bcb0103980a
-    ##   Parent ID: 5318c6bae4b0ae6e9d5a3bb1
-
-It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
-
-``` r
-# look at all titles returned from the map query previously made
-sapply(precip_maps_data, function(item) item$title)
-```
-
-    ## [1] "The Washington-British Columbia Transboundary Climate-Connectivity Project"
-
-Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
-
-If you want to search by more than one keyword, you should use Lucene query syntax. Visit [this page](http://www.lucenetutorial.com/lucene-query-syntax.html) for information on Lucene queries. For instance, you can have results returned that include both "flood" and "earthquake", or either "flood" or "earthquake". Current functionality requires a regular query to be specified in order for `lq` to return results. So, just include `q = ''` when executing Lucene queries (this is a known [issue](https://github.com/USGS-R/sbtools/issues/236) in `sbtools`).
-
-``` r
-# search by 2 keywords (AND)
-hazard2and_data <- query_sb(query_list = list(q = '', lq = 'flood AND earthquake'), 
-                            limit=200)
-length(hazard2and_data)
-```
-
-    ## [1] 62
-
-``` r
-# search by 2 keywords (OR)
-hazard2or_data <- query_sb(query_list = list(q = '', lq = 'flood OR earthquake'),
-                           limit=200)
-length(hazard2or_data)
-```
-
-    ## [1] 200
-
-``` r
-# search by 3 keywords with grouped query
-hazard3_data <- query_sb(query_list = 
-                           list(q = '', lq = '(flood OR earthquake) AND drought'),
-                         limit=200)
-length(hazard3_data)
-```
-
-    ## [1] 158
-
 ### Using `query_sb_text`
 
 `query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
@@ -168,56 +46,50 @@ length(hazard3_data)
 ``` r
 # search using a contributors name
 contrib_results <- query_sb_text("Robert Hirsch")
-sapply(contrib_results, function(item) item$title)
+head(contrib_results, 2)
 ```
 
-    ##  [1] "Input data and results of WRTDS models and seasonal rank-sum tests to determine trends in the quality of water in New Jersey streams, water years 1971-2011"                
-    ##  [2] "Evaluation of stream nutrient trends in the Lake Erie drainage basin in the presence of changing patterns in climate, streamflow, land drainage, and agricultural practices"
-    ##  [3] "Nitrate in the Mississippi River and its tributaries, 1980-2010: an update"                                                                                                 
-    ##  [4] "Antecedent flow conditions and nitrate concentrations in the Mississippi River basin"                                                                                       
-    ##  [5] "Decadal surface water quality trends under variable climate, land use, and hydrogeochemical setting in Iowa, USA"                                                           
-    ##  [6] "Comparison of two regression-based approaches for determining nutrient and sediment fluxes and trends in the Chesapeake Bay watershed"                                      
-    ##  [7] "Flood trends: Not higher but more often"                                                                                                                                    
-    ##  [8] "Preface; Water quality of large U.S. rivers; results from the U.S. Geological Survey's National Stream Quality Accounting Network"                                          
-    ##  [9] "Past, present, and future of water data delivery from the U.S. Geological Survey"                                                                                           
-    ## [10] "On critiques of Stationarity is dead: Whither water management?"                                                                                                          
-    ## [11] "U.S. stream flow measurement and data dissemination improve"                                                                                                                
-    ## [12] "The stream-gaging program of the U.S. Geological Survey"                                                                                                                    
-    ## [13] "Fragmented patterns of flood change across the United States"                                                                                                               
-    ## [14] "A bootstrap method for estimating uncertainty of water quality trends"                                                                                                      
-    ## [15] "Long-term changes in sediment and nutrient delivery from Conowingo Dam to Chesapeake Bay: Effects of reservoir sedimentation"                                               
-    ## [16] "Large biases in regression-based constituent flux estimates: causes and diagnostic tools"                                                                                   
-    ## [17] "Estimating probabilities of reservoir storage for the upper Delaware River basin"                                                                                           
-    ## [18] "Trend analysis of weekly acid rain data, 1978-83"                                                                                                                           
-    ## [19] "Spatial and temporal patterns of dissolved organic matter quantity and quality in the Mississippi River Basin, 19972013"                                                   
-    ## [20] "User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data"
+    ## [[1]]
+    ## <ScienceBase Item> 
+    ##   Title: Input data and results of WRTDS models and seasonal rank-sum tests to determine trends in the quality of water in New Jersey streams, water years 1971-2011
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 573e031ee4b02c61aaace7eb
+    ##   Parent ID: 56df010ae4b015c306fc2af9
+    ## 
+    ## [[2]]
+    ## <ScienceBase Item> 
+    ##   Title: Evaluation of stream nutrient trends in the Lake Erie drainage basin in the presence of changing patterns in climate, streamflow, land drainage, and agricultural practices
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 57bb0ffce4b03fd6b7dd03dd
+    ##   Parent ID: 52e6a0a0e4b012954a1a238a
 
 ``` r
 # search using place of interest
 park_results <- query_sb_text("Yellowstone")
-sapply(park_results, function(item) item$title)
+head(park_results, 2)
 ```
 
-    ##  [1] "Spatial and temporal relations between fluvial and allacustrine Yellowstone cutthroat trout, Oncorhynchus clarki bouvieri, spawning in the Yellowstone River, outlet stream of Yellowstone Lake"
-    ##  [2] "Conservation and Climate Adaptation Strategies for Yellowstone Cutthroat Trout"                                                                                                                 
-    ##  [3] "Greater Yellowstone Study Area"                                                                                                                                                                 
-    ##  [4] "DMP - FY 2013 - Conservation and Climate Adaptation Strategies for Yellowstone Cutthroat Trout"                                                                                                 
-    ##  [5] "Evaluating management alternatives to mitigate the adverse effects of climate change on whitebark pine ecosystems in the Greater Yellowstone Ecosystem"                                         
-    ##  [6] "Abronia ammophila (Yellowstone Sand Verbena)"                                                                                                                                                   
-    ##  [7] "Animal migration amid shifting patterns of phenology and predation: lessons from a Yellowstone elk herd"                                                                                        
-    ##  [8] "A multicriteria assessment of the irreplaceability and vulnerability of sites in the Greater Yellowstone Ecosystem"                                                                             
-    ##  [9] "Yellowstone Park. The Mud Geyser on Yellowstone River, north of Yellowstone Lake. Wyoming. 1921."                                                                                               
-    ## [10] "Surficial geologic map of the west Yellowstone Quadrangle, Yellowstone National Park and adjoining area, Montana, Wyoming, and Idaho"                                                           
-    ## [11] "Mapping the last frontier in Yellowstone National Park: Yellowstone Lake"                                                                                                                       
-    ## [12] "Oncorhynchus clarkii bouvieri (Yellowstone cutthroat trout)"                                                                                                                                    
-    ## [13] "Abronia ammophila var. (Yellowstone Sand Verbena)"                                                                                                                                              
-    ## [14] "Scenery of the Yellowstone. Lower canyon of the Yellowstone. Yellowstone National Park. Wyoming. 1871. (Stereoscopic view)"                                                                     
-    ## [15] "Scenery of the Yellowstone. Lower canyon of the Yellowstone. Yellowstone National Park. Wyoming. 1871."                                                                                         
-    ## [16] "Yellowstone National Park, Wyoming. Canyon walls of the Yellowstone River."                                                                                                                     
-    ## [17] "Yellowstone National Park, Wyoming. Canyon walls of the Yellowstone River."                                                                                                                     
-    ## [18] "Yellowstone National Park, Wyoming. East over Yellowstone Lake. West Thumb Yellowstone Lake."                                                                                                   
-    ## [19] "Water-chemistry data for selected springs, geysers, and streams in Yellowstone National Park, Wyoming, 1999-2000."                                                                              
-    ## [20] "Yellowstone Park. Near view of Upper Falls of Yellowstone River. Wyoming. 1921."
+    ## [[1]]
+    ## <ScienceBase Item> 
+    ##   Title: Spatial and temporal relations between fluvial and allacustrine Yellowstone cutthroat trout, Oncorhynchus clarki bouvieri, spawning in the Yellowstone River, outlet stream of Yellowstone Lake
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 50577ee7e4b01ad7e027f275
+    ##   Parent ID: 5046602fe4b0241d49d62cab
+    ## 
+    ## [[2]]
+    ## <ScienceBase Item> 
+    ##   Title: Conservation and Climate Adaptation Strategies for Yellowstone Cutthroat Trout
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 520039e8e4b0ad2d97189de0
+    ##   Parent ID: 529e1574e4b0516126f68e8a
 
 ``` r
 # search using a site location
@@ -228,6 +100,31 @@ length(loc_results)
     ## [1] 17
 
 ``` r
+head(loc_results, 2)
+```
+
+    ## [[1]]
+    ## <ScienceBase Item> 
+    ##   Title: Embudo, New Mexico, birthplace of systematic stream gaging
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 4f4e4a19e4b07f02db6058ea
+    ##   Parent ID: 4f4e4771e4b07f02db47e1e4
+    ## 
+    ## [[2]]
+    ## <ScienceBase Item> 
+    ##   Title: Rio Grande gauging station, Rio Grande River, Embudo, Rio Arriba County, New Mexico. Circa 1899.
+    ##   Creator/LastUpdatedBy:      / 
+    ##   Provenance (Created / Updated):   / 
+    ##   Children: 
+    ##   Item ID: 51ddce45e4b0f72b44721a4f
+    ##   Parent ID: 519ba0a3e4b0e4e151ef5dd9
+
+It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
+
+``` r
+# look at all titles returned from the site location query previously made
 sapply(loc_results, function(item) item$title)
 ```
 
@@ -248,6 +145,8 @@ sapply(loc_results, function(item) item$title)
     ## [15] "Measuring streamflow in Virginia (1999 revision)"                                                                                     
     ## [16] "Summary of urban stormwater quality in Albuquerque, New Mexico, 2003-12"                                                              
     ## [17] "100 years of sedimentation study by the USGS"
+
+Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
 
 ### Using `query_sb_doi`
 
@@ -481,6 +380,116 @@ lapply(sbmaps, function(sbitem) {
     ## 
     ## [[3]]
     ## [1] "https://www.sciencebase.gov/catalog/item/57b3b8e7e4b03bcb0103980a"
+
+### Using `query_sb`
+
+`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`).
+
+``` r
+# search by keyword
+precip_data <- query_sb(query_list = list(q = 'precipitation'))
+length(precip_data) # 20 entries, but there is likely more than 20 results
+```
+
+    ## [1] 20
+
+``` r
+sapply(precip_data, function(item) item$title)
+```
+
+    ##  [1] "Change in Precipitation (Projected and Observed) and Change in Standard Precipitation For Emissions Scenarios A2, A1B and B1 for the Gulf of Mexico"
+    ##  [2] "Precipitation as Snow (PAS)"                                                                                                                        
+    ##  [3] "Precipitation"                                                                                                                                      
+    ##  [4] "Mean Summer (May to Sep) Precipitation (MSP)"                                                                                                       
+    ##  [5] "Summer (Jun to Aug) Precipitation (PPTSM)"                                                                                                          
+    ##  [6] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ##  [7] "Mean Annual Precipitation (MAP)"                                                                                                                    
+    ##  [8] "Precipitation mm/year projections for years 2010-2080 RCP 8.5"                                                                                      
+    ##  [9] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [10] "Winter (Dec to Feb) Precipitation (PPTWT)"                                                                                                          
+    ## [11] "Precipitation mm/year projections for years 2010-2080 RCP 4.5"                                                                                      
+    ## [12] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [13] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [14] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [15] "Average, Standard and Projected Precipitation for Emissions Scenarios A2, A1B, and B1 for the Gulf of Mexico"                                       
+    ## [16] "30 Year Mean Annual Precipitation 1960- 1990 PRISM"                                                                                                 
+    ## [17] "Precipitation variability and primary productivity in water-limited ecosystems: how plants 'leverage' precipitation to 'finance' growth"            
+    ## [18] "Climate change and precipitation - Consequences of more extreme precipitation regimes for terrestrial ecosystems"                                   
+    ## [19] "A Numerical Study of the 1996 Saguenay Flood Cyclone: Effect of Assimilation of Precipitation Data on Quantitative Precipitation Forecasts"         
+    ## [20] "A precipitation-runoff model for part of the Ninemile Creek Watershed near Camillus, Onondaga County, New York"
+
+``` r
+# search by keyword, sort by last updated, and increase num results allowed
+precip_data_recent <- query_sb(query_list = list(q = 'precipitation', 
+                                                 sort = 'lastUpdated',
+                                                 limit = 50))
+length(precip_data_recent) # 50 entries, but the search criteria is the same, just sorted
+```
+
+    ## [1] 20
+
+``` r
+sapply(precip_data_recent, function(item) item$title)
+```
+
+    ##  [1] "Developing an Agroforestry Dashboard for the Marshall Islands"                                                                                                 
+    ##  [2] "Measured and estimated monthly precipitation values for precipitation gages in the Black Hills area, South Dakota, water years 1931-98"                        
+    ##  [3] "Polygons Representing Sensitivity of Ground Water to Contamination in Lawrence County, SD"                                                                     
+    ##  [4] "Arcs Representing Potential Streamflow-loss Zones in Lawrence County, SD"                                                                                      
+    ##  [5] "Polygons Representing Drainage Areas Upstream from Potential Streamflow-loss Zones in Lawrence County, SD"                                                     
+    ##  [6] "Saturation overland flow estimated by TOPMODEL for the conterminous United States"                                                                             
+    ##  [7] "GSFLOW model simulations used to evaluate the impact of irrigated agriculture on surface water - groundwater interaction"                                      
+    ##  [8] "A model for evaluating stream temperature response to climate change scenarios in Wisconsin"                                                                   
+    ##  [9] "Response of deep groundwater to land use change in desert basins of the Trans-Pecos region, Texas, USA: Effects on infiltration, recharge, and nitrogen fluxes"
+    ## [10] "Microbiological reduction of Sb(V) in anoxic freshwater sediments"                                                                                             
+    ## [11] "Region-wide ecological responses of arid Wyoming big sagebrush communities to fuel treatments"                                                                 
+    ## [12] "Soil resources influence vegetation and response to fire and fire-surrogate treatments in sagebrush-steppe ecosystems"                                         
+    ## [13] "Depletion and capture: revisiting The source of water derived from wells\""                                                                                   
+    ## [14] "Different historical fireclimate patterns in California"                                                                                                      
+    ## [15] "Evaluation of downscaled General Circulation Model (GCM) output for current conditions and associated error in simulated runoff for CONUS"                     
+    ## [16] "Projected Hydrologic Changes Under Mid-21st Century Climatic Conditions in a Sub-arctic Watershed"                                                             
+    ## [17] "Basic principles of wind erosion control"                                                                                                                      
+    ## [18] "National Water Census Data Resources Portal"                                                                                                                   
+    ## [19] "Basin Characteristics of Streamgages in New Mexico and Adjacent States (2017)"                                                                                 
+    ## [20] "Are modern geothermal waters in northwest Nevada forming epithermal gold deposits?"
+
+``` r
+# search by keyword + type
+precip_maps_data <- query_sb(query_list = list(q = 'precipitation', browseType = "Static Map Image", sort='title'))
+sapply(precip_maps_data, function(item) item$title)
+```
+
+    ## [1] "The Washington-British Columbia Transboundary Climate-Connectivity Project"
+
+If you want to search by more than one keyword, you should use Lucene query syntax. Visit [this page](http://www.lucenetutorial.com/lucene-query-syntax.html) for information on Lucene queries. For instance, you can have results returned that include both "flood" and "earthquake", or either "flood" or "earthquake". Current functionality requires a regular query to be specified in order for `lq` to return results. So, just include `q = ''` when executing Lucene queries (this is a known [issue](https://github.com/USGS-R/sbtools/issues/236) in `sbtools`).
+
+``` r
+# search by 2 keywords (AND)
+hazard2and_data <- query_sb(query_list = list(q = '', lq = 'flood AND earthquake'), 
+                            limit=200)
+length(hazard2and_data)
+```
+
+    ## [1] 62
+
+``` r
+# search by 2 keywords (OR)
+hazard2or_data <- query_sb(query_list = list(q = '', lq = 'flood OR earthquake'),
+                           limit=200)
+length(hazard2or_data)
+```
+
+    ## [1] 200
+
+``` r
+# search by 3 keywords with grouped query
+hazard3_data <- query_sb(query_list = 
+                           list(q = '', lq = '(flood OR earthquake) AND drought'),
+                         limit=200)
+length(hazard3_data)
+```
+
+    ## [1] 158
 
 No results
 ----------
