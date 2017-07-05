@@ -299,7 +299,7 @@ points(appalachia$long, appalachia$lat, col="green", pch=20)
 bbox_sp_obj <- sp::SpatialPoints(appalachia)
 ```
 
-<img src='../static/sbtools-discovery/unnamed-chunk-7-1.png'/ title='TODO'/>
+<img src='../static/sbtools-discovery/query_sb_spatial-1.png'/ title='TODO'/>
 
 ``` r
 # query_sb_spatial(bbox=bbox_sp_obj)
@@ -455,7 +455,7 @@ sapply(sbraster, function(item) item$title)
 Best of both methods
 --------------------
 
-Although you can query from R, sometimes it's useful to look an item on the web interface. You can use the `query_sb_*` functions and then follow that URL to view items on the web. This is especially handy for viewing maps and metadata, or to check or repair a ScienceBase item if any of the `sbtools`-based commands have failed.
+Although you can query from R, sometimes it's useful to look at an item on the web interface. You can use the `query_sb_*` functions and then follow that URL to view items on the web. This is especially handy for viewing maps and metadata, or to check or repair a ScienceBase item if any of the `sbtools`-based commands have failed.
 
 ``` r
 sbmaps <- query_sb_datatype("Static Map Image", limit=3)

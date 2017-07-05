@@ -53,7 +53,7 @@ The ScienceBase search tools can be very powerful, but lack the ability to easil
 
 These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. The `query_sb` is a generalization of the other functions, and has a number of additional query specifications: [Lucene query string](http://www.lucenetutorial.com/lucene-query-syntax.html), folder and parent items, item ids, or project status. Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
 
-```{r}
+```{r load, message=FALSE, warning=FALSE}
 library(sbtools)
 ```
 
@@ -61,7 +61,7 @@ library(sbtools)
 
 `query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`). 
 
-```{r}
+```{r query_sb-keywords}
 # search by keyword
 precip_data <- query_sb(query_list = list(q = 'precipitation'))
 length(precip_data) # 20 entries, but there is likely more than 20 results
@@ -81,7 +81,7 @@ head(precip_maps_data, 2)
 
 It might be easier to look at the results returned from queries by just looking at their titles. The other information stored in an sbitem is useful, but a little distracting when you are looking at many results. You can use `sapply` to extract the titles.
 
-```{r}
+```{r query_sb-sapply}
 # look at all titles returned from the map query previously made
 sapply(precip_maps_data, function(item) item$title)
 ```
@@ -90,7 +90,7 @@ Now you can use `sapply` to look at the titles for your returned searches instea
 
 If you want to search by more than one keyword, you should use Lucene query syntax. Visit [this page](http://www.lucenetutorial.com/lucene-query-syntax.html) for information on Lucene queries. For instance, you can have results returned that include both "flood" and "earthquake", or either "flood" or "earthquake". Current functionality requires a regular query to be specified in order for `lq` to return results. So, just include `q = ''` when executing Lucene queries (this is a known [issue](https://github.com/USGS-R/sbtools/issues/236) in `sbtools`).
 
-```{r}
+```{r query_sb-lucene}
 # search by 2 keywords (AND)
 hazard2and_data <- query_sb(query_list = list(q = '', lq = 'flood AND earthquake'), 
                             limit=200)
@@ -112,7 +112,7 @@ length(hazard3_data)
 
 `query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
 
-```{r}
+```{r query_sb_text}
 # search using a contributors name
 contrib_results <- query_sb_text("Robert Hirsch")
 sapply(contrib_results, function(item) item$title)
@@ -131,7 +131,7 @@ sapply(loc_results, function(item) item$title)
 
 Use a Digital Object Identifier (DOI) to query ScienceBase. This should return only one list item, unless there is more than one ScienceBase item referencing this very unique identifier.
 
-```{r}
+```{r query_sb_doi}
 # USGS Microplastics study 
 query_sb_doi('10.5066/F7ZC80ZP')
 
@@ -144,7 +144,7 @@ query_sb_doi('10.1016/j.coldregions.2007.05.009')
 
 `query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. You can specify a bounding box `bbox` as an `sp` spatial data object *[[[[NEED MORE TEXT HERE]]]]*.  Alternatively, you can supply a vector of latitudes and a vector of longitudes using `lat` and `long` arguments. The function will automatically use the minimum and maximum from those vectors to construct a boundary box. The last way to represent a spatial region to query ScienceBase is using a POLYGON Well-known text (WKT) object as a text string. The format is `"POLYGON(([LONG1 LAT1], [LONG2 LAT2], [LONG3 LAT3]))"`, where `LONG#` and `LAT#` are longitude and latitude pairs as decimals. See the [Open Geospatial Consortium WKT standard](http://www.opengeospatial.org/standards/wkt-crs) for more information. 
 
-```{r}
+```{r query_sb_spatial}
 ### SPATIAL QUERY EXAMPLES NEED SOME TLC
 
 appalachia <- data.frame(
@@ -178,7 +178,7 @@ wkt_str <- sprintf("POLYGON((%s))", wkt_coord_str)
 
 `query_sb_date` returns ScienceBase items that fall within a certain time range. There are multiple timestamps applied to items, so you will need to specify which one to match the range. The default queries are to look for items last updated between 1970-01-01 and today's date. See `?query_sb_date` for more examples of which timestamps are available.
 
-```{r}
+```{r query_sb_date}
 # find data worked on in the last week
 today <- Sys.time()
 oneweekago <- today - (7*24*3600) # days * hrs/day * secs/hr
@@ -195,7 +195,7 @@ sapply(recent_data, function(item) item$title)
 
 `query_sb_datatype` is used to search ScienceBase by the type of data an item is listed as. Run `sb_datatypes()` to get a list of 50 available data types.
 
-```{r}
+```{r query_sb_datatype}
 # get ScienceBase news items
 sbnews <- query_sb_datatype("News")
 sapply(sbnews, function(item) item$title)
@@ -211,9 +211,9 @@ sapply(sbraster, function(item) item$title)
 
 ## Best of both methods
 
-Although you can query from R, sometimes it's useful to look an item on the web interface. You can use the `query_sb_*` functions and then follow that URL to view items on the web. This is especially handy for viewing maps and metadata, or to check or repair a ScienceBase item if any of the `sbtools`-based commands have failed.
+Although you can query from R, sometimes it's useful to look at an item on the web interface. You can use the `query_sb_*` functions and then follow that URL to view items on the web. This is especially handy for viewing maps and metadata, or to check or repair a ScienceBase item if any of the `sbtools`-based commands have failed.
 
-```{r}
+```{r query_sb-website}
 sbmaps <- query_sb_datatype("Static Map Image", limit=3)
 oneitem <- sbmaps[[1]]
 
@@ -233,7 +233,7 @@ lapply(sbmaps, function(sbitem) {
 
 Some of your queries will probably return no results. When there are no results that match your query, the returned list will have a length of 0.
 
-```{r}
+```{r query_sb-empty}
 # search for items related to a Water Quality Portal paper DOI
 query_results <- query_sb_doi(doi = '10.1002/2016WR019993')
 length(query_results)
