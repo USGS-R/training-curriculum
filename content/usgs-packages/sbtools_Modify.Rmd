@@ -56,16 +56,23 @@ This section will give examples for the following functions:
 * `item_create`
 * `items_create`
 
-First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account. So, leave the default for the `parent_id` argument. 
+First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account. So, leave the default for the `parent_id` argument. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
 
 ```{r add-folder, eval=FALSE}
 new_folder <- folder_create(name = "usgs-r-pkgs-test")
+
+# verify that it worked
+is.sbitem(item_get(new_folder))
 ```
 
-Now, create a single item inside of the newly created folder. To do this, use the `sbitem` object from the previous step as the `parent_id` here.
+Now, create a single item inside of the newly created folder. To do this, use the `sbitem` object from the previous step as the `parent_id` here. Verify that the item was added to the folder.
 
 ```{r add-single-item, eval=FALSE}
-item_create(parent_id = new_folder, title = "single item")
+new_item <- item_create(parent_id = new_folder, title = "single item")
+
+# verify that it worked
+is.sbitem(item_get(new_item))
+"usgs-r-pkgs-test" == item_get_parent(new_item)$title
 ```
 
 Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder.
@@ -73,11 +80,17 @@ Next, add three items at once. Nest the first two items under the new folder, an
 **introduce user_id() somewhere**
 
 ```{r add-multiple-items, eval=FALSE}
-items_create(parent_id = list(new_folder, new_folder, user_id()),
-             title = c("item 1", "item 2", "item 3"))
+# this throws an error for right now
+# Error: If parent_id length > 1, it must be of same length as title and info
+# but I thought "info" was an optional parameter
+add_mult <- items_create(parent_id = c(new_folder, new_folder, user_id()),
+                         title = c("item 1", "item 2", "top-level item"))
+
+is.sbitem(item_get(add_mult))
+c("usgs-r-pkgs-test", "usgs-r-pkgs-test", "??") == item_get_parent(add_mult)$title
 ```
 
-Now navigate to your user account. You should see two items: "item 3" and the new folder "usgs-r-pkgs-test" with 3 nested items named "single item", "item 1", and "item 2". 
+If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 nested items named "single item", "item 1", and "item 2". 
 
 ## Uploading your files
 
@@ -104,22 +117,18 @@ Currently, the title of the new item defaults to the first file that is uploaded
 Verify that your new item was created and the two files were added by using functions introduced in the previous lesson. 
 
 ```{r sbtools-upload-verify, eval=FALSE}
-# item_exists("books.json", "books.json", "books.json")
+is.sbitem(item_get(test_item))
 sbtools_files %in% item_list_files(test_item$id)$fname
 ```
 
-Now that you have an ScienceBase item, append an additional file to it using the `item_append_files` function. Use the third file available in `sbtools`. 
+Now that you have an ScienceBase item, append an additional file to it using the `item_append_files` function. Use the third file available in `sbtools`. Then, verify that this new file was added to the existing item.
 
 ```{r sbtools-append, eval=FALSE}
 another_sbtools_file <- list.files(dir)[3]
 another_sbtools_filepath <- file.path(dir, another_sbtools_file)
 item_append_files(sb_id = test_item$id,
                   files = another_sbtools_filepath)
-```
 
-Now verify that this new file was added to the existing item.
-
-```{r sbtools-append-verify, eval=FALSE}
 another_sbtools_file %in% item_list_files(test_item)$fname
 ```
 
@@ -207,9 +216,7 @@ item_list_files(test_item)
 
 ## Moving and removing items
 
-
-
-This section will give examples for the following functions: 
+You can relocate and delete items on SB from R as well. There are two functions that are used to do this:
 
 * `item_move`
 * `item_rm`
@@ -224,4 +231,15 @@ To remove entire items, use the `item_rm` function. The only required argument i
 
 ```{r sbtools-rm, eval=FALSE}
 item_rm(test_item)
+```
+
+In this lesson, we've added a few items: "usgs-r-pkgs-test" folder, "top-level" item, and then multiple files under the "books.json" item. Since this was all just to check out the functionality, let's remove these to get back to our original state. We already removed the "books.json" item, so remove the "usgs-r-pkgs-test" folder and the "top-level" item which were saved as the `sbitems` `new_folder` and `add_mult`, respectively.
+
+```{r sbtools-reset-state, eval=FALSE}
+item_rm(new_folder)
+item_rm(add_mult)
+
+# verify that those were removed by looking at what items are
+# available through your account
+sapply(item_list_children(user_id()), function(item) item$title)
 ```
