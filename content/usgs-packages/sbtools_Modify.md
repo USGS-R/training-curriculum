@@ -10,20 +10,19 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-This lesson will teach you how to manage your ScienceBase items and folders from R. **\[why is this useful???\]** You can add, remove, or edit ScienceBase items from R. The first half of the lesson will show you how to modify existing items, and the second half will how you how to add or remove items.
+This lesson will teach you how to manage your ScienceBase items and folders from R. **\[why is this useful???\]** The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.
 
-The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.
-
-In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in. Refer to the [previous lesson](#sbtools-download) for information on logging in.
-
-All the functions used here will have either `parent_id` or `sb_id` as the first argument. `parent_id` is looking for information on the location to create a new item or folder. Sometimes this defaults to your user account, but can be overridden with an object of class `sbitem` or the ScienceBase ID as a character value. The `sb_id` argument does not have a default and is looking for the ID of the ScienceBase item you are modifying. You can give this either the character string of the ScienceBase item ID or an object of class `sbitem`.
+In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in. Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](#sbtools-download) for detailed information on authentication.
 
 ``` r
+library(sbtools)
 authenticate_sb()
 ```
 
-Creating ScienceBase items and "folders"
-----------------------------------------
+All the functions used here will have either `parent_id` or `sb_id` as the first argument. `parent_id` is looking for information on the location to create a new item or folder. Sometimes this defaults to your user account, but can be overridden with an object of class `sbitem` or the ScienceBase ID as a character value. The `sb_id` argument does not have a default and is looking for an object of class `sbitem` or the ID of the ScienceBase item you are modifying.
+
+Creating ScienceBase items
+--------------------------
 
 ScienceBase can be used to create a hierarchical organization for projects. To do this, we can create folders and items within those folders directly from R using `sbtools`.
 
@@ -33,7 +32,7 @@ This section will give examples for the following functions:
 -   `item_create`
 -   `items_create`
 
-First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account. So, leave the default for the `parent_id` argument. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
+First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account by using the default for the `parent_id` argument. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
 
 ``` r
 new_folder <- folder_create(name = "usgs-r-pkgs-test")
@@ -67,7 +66,7 @@ is.sbitem(item_get(add_mult))
 c("usgs-r-pkgs-test", "usgs-r-pkgs-test", "??") == item_get_parent(add_mult)$title
 ```
 
-If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 nested items named "single item", "item 1", and "item 2".
+If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2".
 
 Uploading your files
 --------------------
