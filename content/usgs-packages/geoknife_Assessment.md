@@ -104,7 +104,7 @@ query(us_meterology, "times")
 Exercise 3
 ----------
 
-*What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife.*
+*What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this dataset uses 12:00 to indicate the start and end of a day.*
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
@@ -121,7 +121,7 @@ airtemp_url <-  url(all_webdata[airtemp_title])
 airtemp_fabric <- webdata(list(
   url = airtemp_url,
   variables = "tmax",
-  times = as.POSIXct(c("2007-07-04", "2007-07-04"), tz = "UTC")
+  times = as.POSIXct(c("2007-07-04 12:01", "2007-07-05 11:59"), tz = "UTC")
 ))
 
 # Now setup the stencil
@@ -139,6 +139,6 @@ air_max_data
 ```
 
     ##              DateTime    Texas variable statistic
-    ## 1 2007-07-03 12:00:00 31.13529     tmax      MEAN
+    ## 1 2007-07-04 12:00:00 29.82607     tmax      MEAN
 
 </div>
