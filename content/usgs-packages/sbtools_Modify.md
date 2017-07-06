@@ -70,30 +70,35 @@ To upload files to a new ScienceBase item, use the function `item_upload_create`
 
 ``` r
 dir <- system.file("examples", package="sbtools")
-sbtools_files <- file.path(dir, list.files(dir)[1:2])
-item_upload_create(parent_id = user_id(),
-                   files = sbtools_files)
+sbtools_files <- list.files(dir)[1:2]
+sbtools_filepaths <- file.path(dir, sbtools_files)
+test_item <- item_upload_create(parent_id = user_id(),
+                                files = sbtools_filepaths)
+test_item
 ```
 
-Verify that your new item was created by using functions introduced in the previous lesson.
+Currently, the title of the new item defaults to the first file that is uploaded, and there is no argument to override this behavior. This is a known `sbtools` [issue](https://github.com/USGS-R/sbtools/issues/49). You can change the title using the function `item_update`, which will be discusssed later in this lesson. Another interesting behavior is that uploading multiple files at once sometimes does not work for complex files. This is a [known issue](https://github.com/USGS-R/sbtools/issues/39). In the meantime, always verify that your files were actually uploaded.
+
+Verify that your new item was created and the two files were added by using functions introduced in the previous lesson.
 
 ``` r
-item_exists()
-item_list_files()
+# item_exists("books.json", "books.json", "books.json")
+sbtools_files %in% item_list_files(test_item$id)$fname
 ```
 
-Now that you have an `sbitem`, append an additional file to it using the `item_append_files` function. Use the third file available in `sbtools`.
+Now that you have an ScienceBase item, append an additional file to it using the `item_append_files` function. Use the third file available in `sbtools`.
 
 ``` r
-another_sbtools_file <- file.path(dir, list.files(dir)[2])
-item_append_files(parent_id = user_id(),
-                   files = another_sbtools_file)
+another_sbtools_file <- list.files(dir)[3]
+another_sbtools_filepath <- file.path(dir, another_sbtools_file)
+item_append_files(sb_id = test_item$id,
+                  files = another_sbtools_filepath)
 ```
 
 Now verify that this new file was added to the existing item.
 
 ``` r
-item_list_files()
+another_sbtools_file %in% item_list_files(test_item$id)
 ```
 
 Organizing and querying your files
