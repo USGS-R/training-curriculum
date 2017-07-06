@@ -65,12 +65,13 @@ Next, add three items at once. Nest the first two items under the new folder, an
 add_mult <- items_create(parent_id = list(new_folder, new_folder, user_id()),
                          title = c("item 1", "item 2", "top-level item"))
 
-is.sbitem(item_get(add_mult))
+sapply(add_mult, function(item) is.sbitem(item_get(item)))
+
 c("usgs-r-pkgs-test", "usgs-r-pkgs-test", item_get(user_id())$title) ==
-  item_get_parent(add_mult)$title
+  sapply(add_mult, function(item) item_get_parent(item)$title)
 ```
 
-If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2".
+If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2". **AGAIN, "top-level item" will not actually be top-level until [this issue](https://github.com/USGS-R/sbtools/issues/242) has been fixed.**
 
 Uploading your files
 --------------------
@@ -204,21 +205,18 @@ To replace files of a ScienceBase item, just provide the filepath for the new ve
 
 ``` r
 # create a new file named books.json
-fpath <- file.path(getwd(), 'books.json')
+fpath <- file.path(getwd(), 'bookinfo.json')
 jsonlite::write_json(x = data.frame(author=c('JK Rowling'), book=c("Harry Potter")),
                      path = fpath)
 
 # look at original file size
-dplyr::filter(item_list_files(test_item), fname == "books.json")[['size']]
+dplyr::filter(item_list_files(test_item), fname == "bookinfo.json")[['size']]
 
 # replace with the new file
 item_replace_files(test_item, fpath)
 
 # compare the new file size
-dplyr::filter(item_list_files(test_item), fname == "books.json")[['size']]
-
-# delete the local file since it was just for demonstration
-file.remove(fpath)
+dplyr::filter(item_list_files(test_item), fname == "bookinfo.json")[['size']]
 ```
 
 To remove files associated with a ScienceBase item, provide a vector of file names that you want to remove. If you leave the `files` argument empty, all files under the SB item provided will be removed. Try removing the `species.json` file from `sbitem` saved under the R object `test_item`.
@@ -265,7 +263,7 @@ In this lesson, we've added a few more items: "usgs-r-pkgs-test" folder and "top
 
 ``` r
 item_rm(new_folder, recursive = TRUE)
-item_rm(add_mult)
+sapply(add_mult, item_rm)
 
 # verify that those were removed by looking at what items are
 # available through your account
