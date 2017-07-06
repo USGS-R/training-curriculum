@@ -74,7 +74,10 @@ all_abstracts[index_both]
 *What variables are in the "University of Idaho Daily Meteorological data for continental US" dataset? Also, choose one variable and determine the range of dates. Hint: create a geoknife fabric first.*
 
 ```{r addToggle='ON'}
-# Use the all_webdata object from Exercise 1 to create the fabric
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Use the all_webdata object to create the fabric
 us_meterology <- webdata(all_webdata["University of Idaho Daily Meteorological data for continental US"])
 
 # Now use query to see what variables are available
@@ -92,7 +95,10 @@ query(us_meterology, "times")
 *What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife.*
 
 ```{r addToggle='ON'}
-# Setup the maximum air temp fabric using the URL in all_webdata from the previous lesson
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Setup the maximum air temp fabric using the URL in all_webdata
 airtemp_title <- "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States"
 airtemp_url <-  url(all_webdata[airtemp_title])
 airtemp_fabric <- webdata(list(

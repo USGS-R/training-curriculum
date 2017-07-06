@@ -71,7 +71,10 @@ Show Answer
               <div id="unnamed-chunk-2" style="display:none">
 
 ``` r
-# Use the all_webdata object from Exercise 1 to create the fabric
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Use the all_webdata object to create the fabric
 us_meterology <- webdata(all_webdata["University of Idaho Daily Meteorological data for continental US"])
 
 # Now use query to see what variables are available
@@ -109,7 +112,10 @@ Show Answer
               <div id="unnamed-chunk-3" style="display:none">
 
 ``` r
-# Setup the maximum air temp fabric using the URL in all_webdata from the previous lesson
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Setup the maximum air temp fabric using the URL in all_webdata
 airtemp_title <- "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States"
 airtemp_url <-  url(all_webdata[airtemp_title])
 airtemp_fabric <- webdata(list(
