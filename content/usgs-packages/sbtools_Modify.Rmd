@@ -96,7 +96,7 @@ This section will give examples for the following functions:
 * `item_upload_create`
 * `item_append_files`
 
-To upload files to a new ScienceBase item, use the function `item_upload_create`. Start by creating a new item and uploading the first two files available in the `sbtools` package.
+To upload files to a new ScienceBase item, use the function `item_upload_create`. This function creates a new item, and uploads new files simultaneously. Try it out by uploading the first two files available in the `sbtools` package to a new item.
 
 ```{r sbtools-upload, eval=FALSE}
 dir <- system.file("examples", package="sbtools")
@@ -107,7 +107,7 @@ test_item <- item_upload_create(parent_id = user_id(),
 test_item
 ```
 
-Currently, the title of the new item defaults to the first file that is uploaded, and there is no argument to override this behavior. This is a known `sbtools` [issue](https://github.com/USGS-R/sbtools/issues/49). You can change the title using the function `item_update`, which will be discusssed later in this lesson. Another interesting behavior is that uploading multiple files at once sometimes does not work for complex files. This is a [known issue](https://github.com/USGS-R/sbtools/issues/39). In the meantime, always verify that your files were actually uploaded.
+Currently, the title of the new item defaults to the first file that is uploaded, and there is no argument to override this behavior. This is a known `sbtools` [issue](https://github.com/USGS-R/sbtools/issues/49). For now, you can change the title using the function `item_update`, which will be discusssed later in this lesson. Another interesting behavior is that uploading multiple files at once sometimes does not work for complex files. This is a [known issue](https://github.com/USGS-R/sbtools/issues/39). In the meantime, always verify that your files were actually uploaded.
 
 Verify that your new item was created and the two files were added by using functions introduced in the previous lesson. 
 
@@ -116,7 +116,7 @@ is.sbitem(item_get(test_item))
 sbtools_files %in% item_list_files(test_item$id)$fname
 ```
 
-Now that you have an ScienceBase item, append an additional file to it using the `item_append_files` function. Use the third file available in `sbtools`. Then, verify that this new file was added to the existing item.
+Now that you have an ScienceBase item, you can append additional files to it using the `item_append_files` function. Use the third file available in `sbtools` to practice appending files. Then, verify that this new file was added to the existing item.
 
 ```{r sbtools-append, eval=FALSE}
 another_sbtools_file <- list.files(dir)[3]
