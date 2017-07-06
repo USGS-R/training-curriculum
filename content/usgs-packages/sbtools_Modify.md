@@ -21,6 +21,14 @@ authenticate_sb()
 
 All the functions used here will have either `parent_id` or `sb_id` as the first argument. `parent_id` is looking for information on the location to create a new item or folder. Sometimes this defaults to your user account, but can be overridden with an object of class `sbitem` or the ScienceBase ID as a character value. The `sb_id` argument does not have a default and is looking for an object of class `sbitem` or the ID of the ScienceBase item you are modifying.
 
+In these functions, you might notice some `parent_id` arguments defaulting to `user_id()`. This is a function that returns the id for your ScienceBase account, and is frequently used when creating items. It can also be useful with the `item_list_*` functions taught in the previous lesson to see what items are saved under your account. If you are not authenticated, this will return an error.
+
+``` r
+user_id()
+item_list_children(user_id())
+item_list_files(user_id())
+```
+
 Creating ScienceBase items
 --------------------------
 
@@ -32,7 +40,7 @@ This section will give examples for the following functions:
 -   `item_create`
 -   `items_create`
 
-First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account by using the default for the `parent_id` argument. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
+First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account by using the default for the `parent_id` argument, `user_id()`. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
 
 ``` r
 new_folder <- folder_create(name = "usgs-r-pkgs-test")
@@ -52,8 +60,6 @@ is.sbitem(item_get(new_item))
 ```
 
 Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder.
-
-**introduce user\_id() somewhere**
 
 ``` r
 # this throws an error for right now
