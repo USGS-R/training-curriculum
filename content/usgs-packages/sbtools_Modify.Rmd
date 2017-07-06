@@ -218,10 +218,25 @@ item_rename_files(test_item, names = "books.json", new_names = "bookinfo.json")
 item_list_files(test_item) # verify the name change
 ```
 
-To replace files of a ScienceBase item, **??????**
+To replace files of a ScienceBase item, just provide the filepath for the new version and the `sbitem` that the file will be replacing. The filename of the replacement must match one that exists on ScienceBase already.
 
 ```{r sbtools-replace-files, eval=FALSE}
-item_replace_files(test_item, sbtools_filepaths[1])
+# create a new file named books.json
+fpath <- file.path(getwd(), 'books.json')
+jsonlite::write_json(x = data.frame(author=c('JK Rowling'), book=c("Harry Potter")),
+                     path = fpath)
+
+# look at original file size
+dplyr::filter(item_list_files(test_item), fname == "books.json")[['size']]
+
+# replace with the new file
+item_replace_files(test_item, fpath)
+
+# compare the new file size
+dplyr::filter(item_list_files(test_item), fname == "books.json")[['size']]
+
+# delete the local file since it was just for demonstration
+file.remove(fpath)
 ```
 
 To remove files associated with a ScienceBase item, provide a vector of file names that you want to remove. If you leave the `files` argument empty, all files under the SB item provided will be removed. Try removing the `species.json` file from `sbitem` saved under the R object `test_item`. 
