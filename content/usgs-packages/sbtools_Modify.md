@@ -120,7 +120,6 @@ This section will give examples for the following functions:
 -   `item_update`
 -   `items_upsert`
 -   `item_upsert`
--   `items_upsert`
 -   `item_update_identifier`
 
 The first four functions have very similar behavior and syntax. The obvious difference is whether the function has `item` or `items` for updating an individual item or multiple items at once. The other is that there is "update" and "upsert". Update functions only work if the item already exists. Alternatively, "upsert" updates an existing item, but creates a new item if it doesn't already exist. So for an existing item, `*_update` and `*_upsert` functions have the same behavior.
@@ -159,13 +158,15 @@ In addition to updating ScienceBase items, `sbtools` has functions to edit files
 
 This section will give examples for the following functions:
 
-*`item_rename_files` *`item_replace_files` \*`item_rm_files`
+-   `item_rename_files`
+-   `item_replace_files`
+-   `item_rm_files`
 
-To rename files of a ScienceBase item, you need to provide a vector of the file name(s) and a vector of new file names in the same order. Try renaming the `books.json` file to `bookinfo.json` using the `item_rename_files` function. This file is within the `sbitem` saved as `test_item`.
+To rename files of a ScienceBase item, you need to provide a vector of the file name(s) and a vector of new file names in the same order. Try renaming the `books.json` file to `bookinfo.json` using the `item_rename_files` function. Remember, this item saved as the R object `test_item`.
 
 ``` r
 item_rename_files(test_item, names = "books.json", new_names = "bookinfo.json")
-item_list_files(test_item)
+item_list_files(test_item) # verify the name change
 ```
 
 To replace files of a ScienceBase item, **??????**
@@ -174,44 +175,50 @@ To replace files of a ScienceBase item, **??????**
 item_replace_files(test_item, sbtools_filepaths[1])
 ```
 
-To remove files associated with a ScienceBase item, provide a vector of file names that you want to remove. If you leave the `files` argument empty, all files under the SB item provided will be removed. Try removing the `species.json` file from the `test_item`.
+To remove files associated with a ScienceBase item, provide a vector of file names that you want to remove. If you leave the `files` argument empty, all files under the SB item provided will be removed. Try removing the `species.json` file from `sbitem` saved under the R object `test_item`.
 
 ``` r
 item_rm_files(test_item, "species.json")
-item_list_files(test_item)
+item_list_files(test_item) # verify species.json is removed
 ```
 
-Now, try removing all files from this item by not supplying anything to the argument `files`.
+Now, try removing all remaining files from this item by not supplying anything to the argument `files`.
 
 ``` r
 item_rm_files(test_item)
-item_list_files(test_item)
+item_list_files(test_item) # verify that this is empty
 ```
 
 Moving and removing items
 -------------------------
 
-You can relocate and delete items on SB from R as well. There are two functions that are used to do this:
+You can relocate and delete items on ScienceBase from R as well. There are two functions that are used to do this:
 
 -   `item_move`
 -   `item_rm`
 
-To move items to different parent items or folders, use the `item_move` function. It requires to arguments: the id or `sbitem` object of what you want to move, and the relocation `sbitem`. As an example, let's move the `test_item` to the folder we created previously called "usgs-r-pkgs-test" saved as the `new_folder` object in R.
+To move items to different parent items or folders, use the `item_move` function. It requires two arguments: the id or `sbitem` object of what you want to move, and the `sbitem` for where to move. As an example, let's move the `sbitem` saved as the R object `test_item` to the folder we created previously called "usgs-r-pkgs-test" which is saved as the `new_folder` object in R.
 
 ``` r
 item_move(test_item, id_new = new_folder)
+
+# verify it was moved by looking at the children of `new_folder`
+item_list_children(new_folder)
 ```
 
-To remove entire items, use the `item_rm` function. The only required argument is the `sbitem` or the SB id. Try removing the `test_item` we created.
+To remove items, use the `item_rm` function. The only required argument is the `sbitem` or the SB id of the item you want to remove. Try removing the item we created that is saved as the R object `test_item`.
 
 ``` r
 item_rm(test_item)
+
+# verify that this no longer exists under the `new_folder`
+item_list_children(new_folder)
 ```
 
-In this lesson, we've added a few items: "usgs-r-pkgs-test" folder, "top-level" item, and then multiple files under the "books.json" item. Since this was all just to check out the functionality, let's remove these to get back to our original state. We already removed the "books.json" item, so remove the "usgs-r-pkgs-test" folder and the "top-level" item which were saved as the `sbitems` `new_folder` and `add_mult`, respectively.
+In this lesson, we've added a few more items: "usgs-r-pkgs-test" folder and "top-level" item. Since this was all just to check out the functionality, let's remove these to get back to our original state. We already removed the "books.json" item, so remove the "usgs-r-pkgs-test" folder and the "top-level" item which were saved as the `sbitems` `new_folder` and `add_mult`, respectively. Note: the item saved in R as `new_folder` has child items, and you need to set the argument `recursive` to `TRUE` in order to remove an item that has children.
 
 ``` r
-item_rm(new_folder)
+item_rm(new_folder, recursive = TRUE)
 item_rm(add_mult)
 
 # verify that those were removed by looking at what items are
