@@ -59,17 +59,15 @@ is.sbitem(item_get(new_item))
 "usgs-r-pkgs-test" == item_get_parent(new_item)$title
 ```
 
-Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder.
+Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder. Note that this currently does not do the expected behavior - it just puts everything under the new folder. This is a [known issue](https://github.com/USGS-R/sbtools/issues/242) in sbtools.
 
 ``` r
-# this throws an error for right now
-# Error: If parent_id length > 1, it must be of same length as title and info
-# but I thought "info" was an optional parameter
-add_mult <- items_create(parent_id = c(new_folder, new_folder, user_id()),
+add_mult <- items_create(parent_id = list(new_folder, new_folder, user_id()),
                          title = c("item 1", "item 2", "top-level item"))
 
 is.sbitem(item_get(add_mult))
-c("usgs-r-pkgs-test", "usgs-r-pkgs-test", "??") == item_get_parent(add_mult)$title
+c("usgs-r-pkgs-test", "usgs-r-pkgs-test", item_get(user_id())$title) ==
+  item_get_parent(add_mult)$title
 ```
 
 If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2".
