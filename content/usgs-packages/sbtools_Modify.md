@@ -10,7 +10,7 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-This lesson will teach you how to manage your ScienceBase items and folders from R. **\[why is this useful???\]** The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.
+This lesson will teach you how to manage your ScienceBase items and folders from R, which can be useful for batch or automated updates and edits. The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.
 
 In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in (see `?authenticate_sb`). Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](#sbtools-download) for detailed information on authentication.
 
@@ -176,7 +176,7 @@ This section will give examples for the following functions:
 
 The first four functions have very similar behavior and syntax. The obvious difference is whether the function has `item` or `items` for updating an individual item or multiple items at once. The other is that there is "update" and "upsert". Update functions only work if the item already exists. Alternatively, "upsert" updates an existing item, but creates a new item if it doesn't already exist. So for an existing item, `*_update` and `*_upsert` functions have the same behavior.
 
-To use these functions, you need to provide the `sbitem` or id and a list of the metadata info that you intend to update. The list should be key-value pairs of the metadata field and the corresponding value. These fields can be `title`, `browseCategories`, `contacts`, etc. **NEED MORE EXAMPLES OR LINK TO MORE COMPLETE LIST**
+To use these functions, you need to provide the `sbitem` or id and a list of the metadata info that you intend to update. The list should be key-value pairs of the metadata field and the corresponding value. These fields can be `title`, `browseCategories`, `contacts`, etc. Additional fields can be found by looking at the [developer documentation for a SB item model](https://my.usgs.gov/confluence/display/sciencebase/ScienceBase+Item+Core+Model).
 
 To update an existing item, use the `item_update` function. It requires two arguments: the `sbitem` and a list of the metadata key-values of what to change. Change the title of the item created earlier and saved as `test_item` in R to "sbtools example data". Then, look at the item title to verify.
 
