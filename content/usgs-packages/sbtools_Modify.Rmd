@@ -32,18 +32,27 @@ set.seed(1)
 
 This lesson will teach you how to manage your ScienceBase items and folders from R. **[why is this useful???]** The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values. 
 
-In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in. Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](#sbtools-download) for detailed information on authentication.
+In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in (see `?authenticate_sb`). Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](#sbtools-download) for detailed information on authentication.
 
-```{r sbtools-setup, eval=FALSE, message=FALSE, warning=FALSE}
+```{r sbtools-library, message=FALSE, warning=FALSE}
 library(sbtools)
-authenticate_sb()
+```
+
+```{r sbtools-auth, echo=FALSE}
+# run vizlab::storeSBcreds() once before this can work
+home <- path.expand('~')
+sbCreds <- file.path(home, ".vizlab/sbCreds")
+credList <- readRDS(sbCreds)
+un <- rawToChar(credList$username)
+pw <- rawToChar(credList$password)
+sbtools::authenticate_sb(un, pw)
 ```
 
 All the functions used here will have either `parent_id` or `sb_id` as the first argument. `parent_id` is looking for information on the location to create a new item or folder. Sometimes this defaults to your user account, but can be overridden with an object of class `sbitem` or the ScienceBase ID as a character value. The `sb_id` argument does not have a default and is looking for an object of class `sbitem` or the ID of the ScienceBase item you are modifying. 
 
 In these functions, you might notice some `parent_id` arguments defaulting to `user_id()`. This is a function that returns the id for your ScienceBase account, and is frequently used when creating items. It can also be useful with the `item_list_*` functions taught in the previous lesson to see what items are saved under your account. If you are not authenticated, this will return an error.
 
-```{r sbtools-itemlist, eval=FALSE}
+```{r sbtools-itemlist, echo=FALSE}
 user_id()
 item_list_children(user_id())
 item_list_files(user_id())
@@ -59,9 +68,9 @@ This section will give examples for the following functions:
 * `item_create`
 * `items_create`
 
-First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account by using the default for the `parent_id` argument, `user_id()`. Then, use `item_get` to see if the folder was actually created. It should return an error if the item does not exist.
+First, we will create a folder named "usgs-r-pkgs-test". Make this folder "top-level" under your user account by using the default for the `parent_id` argument, `user_id()`. Then, use `item_get` (introduced in the previous lesson) to see if the folder was actually created. It should return an error if the item does not exist.
 
-```{r add-folder, eval=FALSE}
+```{r add-folder}
 new_folder <- folder_create(name = "usgs-r-pkgs-test")
 
 # verify that it worked
@@ -70,7 +79,7 @@ is.sbitem(item_get(new_folder))
 
 Now, create a single item inside of the newly created folder. To do this, use the `sbitem` object from the previous step as the `parent_id` here. Verify that the item was added to the folder.
 
-```{r add-single-item, eval=FALSE}
+```{r add-single-item}
 new_item <- item_create(parent_id = new_folder, title = "single item")
 
 # verify that it worked
@@ -80,17 +89,19 @@ is.sbitem(item_get(new_item))
 
 Next, add three items at once. Nest the first two items under the new folder, and the last one as a top-level folder. Note that this currently does not do the expected behavior - it just puts everything under the new folder. This is a [known issue](https://github.com/USGS-R/sbtools/issues/242) in sbtools.
 
-```{r add-multiple-items, eval=FALSE}
+```{r add-multiple-items}
 add_mult <- items_create(parent_id = list(new_folder, new_folder, user_id()),
                          title = c("item 1", "item 2", "top-level item"))
 
+# verify that all three were successfully added
 sapply(add_mult, function(item) is.sbitem(item_get(item)))
 
+# verify that they were put in the correct places
 c("usgs-r-pkgs-test", "usgs-r-pkgs-test", item_get(user_id())$title) ==
   sapply(add_mult, function(item) item_get_parent(item)$title)
 ```
 
-If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2". **AGAIN, "top-level item" will not actually be top-level until [this issue](https://github.com/USGS-R/sbtools/issues/242) has been fixed.**
+If you want to confirm with your own eyes, navigate to your user account. You should see two items: "top-level item" and the folder "usgs-r-pkgs-test" with 3 child items named "single item", "item 1", and "item 2". **AGAIN, "top-level item" will not actually be top-level until [this issue](https://github.com/USGS-R/sbtools/issues/242) has been fixed, so the third item will return FALSE for the second verification step.**
 
 ## Uploading your files
 
@@ -103,9 +114,10 @@ This section will give examples for the following functions:
 
 To upload files to a new ScienceBase item, use the function `item_upload_create`. This function creates a new item, and uploads new files simultaneously. Try it out by uploading the first two files available in the `sbtools` package to a new item.
 
-```{r sbtools-upload, eval=FALSE}
+```{r sbtools-upload}
 dir <- system.file("examples", package="sbtools")
 sbtools_files <- list.files(dir)[1:2]
+sbtools_files
 sbtools_filepaths <- file.path(dir, sbtools_files)
 test_item <- item_upload_create(parent_id = user_id(),
                                 files = sbtools_filepaths)
@@ -114,16 +126,14 @@ test_item
 
 Currently, the title of the new item defaults to the first file that is uploaded, and there is no argument to override this behavior. This is a known `sbtools` [issue](https://github.com/USGS-R/sbtools/issues/49). For now, you can change the title using the function `item_update`, which will be discusssed later in this lesson. Another interesting behavior is that uploading multiple files at once sometimes does not work for complex files. This is a [known issue](https://github.com/USGS-R/sbtools/issues/39). In the meantime, always verify that your files were actually uploaded.
 
-Verify that your new item was created and the two files were added by using functions introduced in the previous lesson. 
-
-```{r sbtools-upload-verify, eval=FALSE}
+```{r sbtools-upload-verify}
 is.sbitem(item_get(test_item))
 sbtools_files %in% item_list_files(test_item$id)$fname
 ```
 
-Now that you have an ScienceBase item, you can append additional files to it using the `item_append_files` function. Use the third file available in `sbtools` to practice appending files. Then, verify that this new file was added to the existing item.
+Now that you have a ScienceBase item, you can append additional files to it using the `item_append_files` function. Use the third file available in `sbtools` to practice appending files. Then, verify that this new file was added to the existing item.
 
-```{r sbtools-append, eval=FALSE}
+```{r sbtools-append}
 another_sbtools_file <- list.files(dir)[3]
 another_sbtools_filepath <- file.path(dir, another_sbtools_file)
 item_append_files(sb_id = test_item$id,
@@ -150,7 +160,7 @@ To use these functions, you need to provide the `sbitem` or id and a list of the
 
 To update an existing item, use the `item_update` function. It requires two arguments: the `sbitem` and a list of the metadata key-values of what to change. Change the title of the item created earlier and saved as `test_item` in R to "sbtools example data". Then, look at the item title to verify.
 
-```{r sbtools-update, eval=FALSE}
+```{r sbtools-update}
 # before
 test_item$title
 
@@ -161,11 +171,11 @@ updated_item <- item_update(test_item, info=list(title="sbtools example data"))
 updated_item$title
 ```
 
-You can also update multiple items at once using the plural of the function, `items_update`. Try adding an author contact as metadata to each of the items under your user account. The `info` argument needs to be a list the same length as the number of sbitems you are give as the first argument. Each of these lists is a list with metadata key-value pairs. The contact metadata has a strange syntax where you need two nested lists. 
+You can also update multiple items at once using the plural of the function, `items_update`. Try adding a contact as metadata to each of the items under your user account. The `info` argument needs to be a list the same length as the number of sbitems you are updating. Each of these lists is a list with metadata key-value pairs. The contact metadata has a strange syntax where you need two additional nested lists. 
 
-```{r sbtools-update-mult, eval=FALSE}
+```{r sbtools-update-mult}
 all_items <- item_list_children(user_id())
-items_update(all_items, 
+update_contacts <- items_update(all_items, 
              info = 
                list(rep(list(contacts = list(list(name="Julius Caesar"))), 2)))
 
@@ -173,7 +183,7 @@ items_update(all_items,
 sapply(all_items, item_get_fields, fields="contacts")
 ```
 
-The `*_upsert` functions also need the title of the SB item.................
+If you want to update an item but it might not exist yet, use the `upsert` functions. Currently, this function is not working as you might expect. There are two `sbtools` issues that will address this: [issue 239](https://github.com/USGS-R/sbtools/issues/239) and [issue 240](https://github.com/USGS-R/sbtools/issues/240).
 
 *EXAMPLES NOT CURRENTLY WORKING*
 
@@ -190,11 +200,11 @@ item_upsert(test_item, title=NULL, info=list(title = "sbtools stuff"))
 item_upsert(test_item, title="sbtools stuff")
 ```
 
-You can add alternative identifiers to ScienceBase items, e.g. digital object identifiers, IPDS codes, etc. They can be useful to identify your items in searches. For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23) (two sets of identifiers, one for a DOI and one for an IPDS, each of which has type/scheme/key) and [nwis_01645704](https://www.sciencebase.gov/catalog/item/556f2055e4b0d9246a9fc9f7) (one set of identifiers, created by us in our mda_streams scheme to help us search for items). Here we will show how to add alternative identifiers. See ?`query_item_identifier` if you want to know more about querying by alternative identifiers.
+Another way to edit or update SB items is to add alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. They can be useful to identify your items in searches because they have a user-defined type, scheme, and key. For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23) (two sets of identifiers, one for a DOI and one for an IPDS, each of which has type/scheme/key) and [nwis_01645704](https://www.sciencebase.gov/catalog/item/556f2055e4b0d9246a9fc9f7) (one set of identifiers, created by us in our mda_streams scheme to help us search for items). Here we will show how to add alternative identifiers. See ?`query_item_identifier` if you want to know more about querying by alternative identifiers.
 
 Add identifiers to the item stored as the R object `test_item`. 
 
-```{r sbtools-identifier, eval=FALSE}
+```{r sbtools-identifier}
 item_update_identifier(test_item, scheme="example", type="sbtools", key="number 1")
 
 item_get(test_item)$identifiers # verify that identifiers exist now
@@ -210,17 +220,17 @@ This section will give examples for the following functions:
 * `item_replace_files`
 * `item_rm_files`
 
-To rename files of a ScienceBase item, you need to provide a vector of the file name(s) and a vector of new file names in the same order. Try renaming the `books.json` file to `bookinfo.json` using the `item_rename_files` function. Remember, this item saved as the R object `test_item`. 
+To rename files of a ScienceBase item, you need to provide a vector of the file names and a vector of new file names in the same order. Try renaming the `books.json` file to `bookinfo.json` using the `item_rename_files` function.
 
-```{r sbtools-rename-files, eval=FALSE}
-item_rename_files(test_item, names = "books.json", new_names = "bookinfo.json")
-item_list_files(test_item) # verify the name change
+```{r sbtools-rename-files}
+renamed_item <- item_rename_files(test_item, names = "books.json", new_names = "bookinfo.json")
+item_list_files(test_item)$fname # verify the name change
 ```
 
-To replace files of a ScienceBase item, just provide the filepath for the new version and the `sbitem` that the file will be replacing. The filename of the replacement must match one that exists on ScienceBase already.
+To replace files of a ScienceBase item, just provide the filepath for the new version and the `sbitem` that the file will be replacing. The filename of the replacement must match the one you are replacing.
 
-```{r sbtools-replace-files, eval=FALSE}
-# create a new file named books.json
+```{r sbtools-replace-files}
+# create a new file named bookinfo.json
 fpath <- file.path(getwd(), 'bookinfo.json')
 jsonlite::write_json(x = data.frame(author=c('JK Rowling'), book=c("Harry Potter")),
                      path = fpath)
@@ -229,28 +239,28 @@ jsonlite::write_json(x = data.frame(author=c('JK Rowling'), book=c("Harry Potter
 dplyr::filter(item_list_files(test_item), fname == "bookinfo.json")[['size']]
 
 # replace with the new file
-item_replace_files(test_item, fpath)
+replaced_item <- item_replace_files(test_item, fpath)
 
 # compare the new file size
-dplyr::filter(item_list_files(test_item), fname == "bookinfo.json")[['size']]
+dplyr::filter(item_list_files(replaced_item), fname == "bookinfo.json")[['size']]
 ```
 
-```{r rm-bookinfo-json, echo=FALSE, eval=FALSE}
+```{r rm-bookinfo-json, echo=FALSE}
 # delete the local file since it was just for demonstration
 file.remove(fpath)
 ```
 
 To remove files associated with a ScienceBase item, provide a vector of file names that you want to remove. If you leave the `files` argument empty, all files under the SB item provided will be removed. Try removing the `species.json` file from `sbitem` saved under the R object `test_item`. 
 
-```{r sbtools-rm-files, eval=FALSE}
-item_rm_files(test_item, "species.json")
-item_list_files(test_item) # verify species.json is removed
+```{r sbtools-rm-files}
+removed_file <- item_rm_files(test_item, "species.json")
+item_list_files(test_item)$fname # verify species.json is removed
 ```
 
 Now, try removing all remaining files from this item by not supplying anything to the argument `files`.
 
-```{r sbtools-rm-all-files, eval=FALSE}
-item_rm_files(test_item)
+```{r sbtools-rm-all-files}
+removed_all <- item_rm_files(test_item)
 item_list_files(test_item) # verify that this is empty
 ```
 
@@ -263,27 +273,28 @@ You can relocate and delete items on ScienceBase from R as well. There are two f
 
 To move items to different parent items or folders, use the `item_move` function. It requires two arguments: the id or `sbitem` object of what you want to move, and the `sbitem` for where to move. As an example, let's move the `sbitem` saved as the R object `test_item` to the folder we created previously called "usgs-r-pkgs-test" which is saved as the `new_folder` object in R.
 
-```{r sbtools-move, eval=FALSE}
-item_move(test_item, id_new = new_folder)
+```{r sbtools-move}
+moved_item <- item_move(test_item, id_new = new_folder)
 
-# verify it was moved by looking at the children of `new_folder`
-item_list_children(new_folder)
+# verify it was moved by looking at the parent of `moved_item`
+"usgs-r-pkgs-test" == item_get_parent(moved_item)$title
 ```
 
-To remove items, use the `item_rm` function. The only required argument is the `sbitem` or the SB id of the item you want to remove. Try removing the item we created that is saved as the R object `test_item`. 
+To remove items, use the `item_rm` function. The only required argument is the `sbitem` or the SB id of the item you want to remove. Try removing the item we created that is saved as the R object `moved_item`. 
 
-```{r sbtools-rm, eval=FALSE}
-item_rm(test_item)
+```{r sbtools-rm}
+removed_item <- item_rm(moved_item)
 
 # verify that this no longer exists under the `new_folder`
-item_list_children(new_folder)
+sapply(item_list_children(new_folder), function(item) item$title)
 ```
 
-In this lesson, we've added a few more items: "usgs-r-pkgs-test" folder and "top-level" item. Since this was all just to check out the functionality, let's remove these to get back to our original state. We already removed the "books.json" item, so remove the "usgs-r-pkgs-test" folder and the "top-level" item which were saved as the `sbitems` `new_folder` and `add_mult`, respectively. Note: the item saved in R as `new_folder` has child items, and you need to set the argument `recursive` to `TRUE` in order to remove an item that has children. 
+In this lesson, we've added a few more items: "usgs-r-pkgs-test" folder and "top-level" item. Let's remove these to get back to our original state. We already removed the "books.json" item, so remove the "usgs-r-pkgs-test" folder and the "top-level" item which were saved as the `sbitems` `new_folder` and `add_mult[[3]]`, respectively. Note: the item saved in R as `new_folder` has child items, and you need to set the argument `recursive` to `TRUE` in order to remove an item that has children. 
 
-```{r sbtools-reset-state, eval=FALSE}
+```{r sbtools-reset-state}
 item_rm(new_folder, recursive = TRUE)
-sapply(add_mult, item_rm)
+# once top-level item is getting saved correctly:
+# item_rm(add_mult[[3]])
 
 # verify that those were removed by looking at what items are
 # available through your account
