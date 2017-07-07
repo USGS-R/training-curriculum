@@ -3,20 +3,19 @@ author: Lindsay R. Carr
 date: 9999-10-01
 slug: geoknife-intro
 title: geoknife - Introduction
+draft: true 
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 2
-draft: true
 ---
 Lesson Summary
 --------------
 
 This lesson will explore how to find and download large gridded datasets via the R package `geoknife`. The package was created to allow easy access to data stored in the [Geo Data Portal (GDP)](https://cida.usgs.gov/gdp/), or any gridded dataset available through the [OPeNDAP](https://www.opendap.org/) protocol DAP2. `geoknife` refers to the gridded dataset as the `fabric`, the spatial feature of interest as the `stencil`, and the subset algorithm parameters as the `knife` (see below).
 
-![geoknife terminology figure](../static/img/geoknife_summary.png "figure illustrating definitions of fabric, stencil, and knife")
+![geoknife terminology figure](../static/img/geoknife_summary.png#inline-img "figure illustrating definitions of fabric, stencil, and knife")
 
 Lesson Objectives
 -----------------
