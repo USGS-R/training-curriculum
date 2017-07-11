@@ -79,4 +79,10 @@ names(itemexample)
 itemexample
 ```
 
+There is a helper function available to verify that it has the `sbitem` class, `is.sbitem`. This would do the same check as `class(item) == "sbitem"`, just saves a bit of typing.
+
+```{r sbtools-issbitem}
+is.sbitem(itemexample)
+```
+
 Now that you understand the fundamental unit of ScienceBase and the `sbtools` equivalent unit, you can learn how to search ScienceBase for available data, download items, and modify or create items from R. 

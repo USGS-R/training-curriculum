@@ -102,4 +102,12 @@ itemexample
     ##   Item ID: 4f4e4b24e4b07f02db6aea14
     ##   Parent ID: 4f4e4771e4b07f02db47e1e4
 
+There is a helper function available to verify that it has the `sbitem` class, `is.sbitem`. This would do the same check as `class(item) == "sbitem"`, just saves a bit of typing.
+
+``` r
+is.sbitem(itemexample)
+```
+
+    ## [1] TRUE
+
 Now that you understand the fundamental unit of ScienceBase and the `sbtools` equivalent unit, you can learn how to search ScienceBase for available data, download items, and modify or create items from R.
