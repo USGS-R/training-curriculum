@@ -3,6 +3,7 @@ date: "2017-06-30"
 title: "R Installation Instructions"
 slug: "installr"
 output: USGSmarkdowntemplates::hugoTraining
+aliases: /intro-curriculum/Before/
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
