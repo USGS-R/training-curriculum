@@ -74,10 +74,25 @@ When you're done with your session, you can actively logout using the `session_l
 
 ## Inspect and download items
 
-`identifier_exists`
-`item_exists`
+The first inspection step for ScienceBase items is to determine if the item even exists. To do this, use the function `item_exists`. This function has three required arguments - `scheme`, `type`, and `key`. These refer to the alternative identifiers available for the item. *describe scheme, type, and key*
 
-`as.sbitem`
+```{r sbtools-itemexists}
+# item_exists()
+```
+
+*talk about what identifier_exists does*
+
+```{r sbtools-identifierexists}
+# identifier_exists()
+```
+
+*compare item_exists & identifier exists*
+
+*describe as.sbitem*
+
+```{r sbtools-as-sbitem}
+# as.sbitem()
+```
 
 Let's inspect various ScienceBase items. There are functions to look at the parent item, metadata fields, sub-items, and associated files. Each of these functions require the id of the sbitem as the first argument. For all of these examples, we are going to use the same sbitem id, "4f4e4b24e4b07f02db6aea14". 
 
@@ -146,11 +161,9 @@ names(ex_id_item)
 
 ## Web feature services to visualize spatial data???
 
-Need to pick a different item. This one errs since there is "no ScienceBase WFS Service available".
+*Need to pick a different item. This one errs since there is "no ScienceBase WFS Service available".*
 
-`item_get_wfs`
-
-```{r sbtools-wfs, eval=FALSE}
-ex_id_wfs <- item_get_wfs(ex_id)
-names(ex_id_item)
+```{r sbtools-wfs}
+# ex_id_wfs <- item_get_wfs(ex_id)
+# names(ex_id_item)
 ```
