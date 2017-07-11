@@ -1,6 +1,6 @@
 ---
 title: "sbtools - Data discovery"
-date: "9999-07-01"
+date: "9999-07-25"
 author: "Lindsay R. Carr"
 slug: "sbtools-discovery"
 image: "img/main/intro-icons-300px/r-logo.png"
