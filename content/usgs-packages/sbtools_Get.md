@@ -50,21 +50,46 @@ When you're done with your session, you can actively logout using the `session_l
 Inspect and download items
 --------------------------
 
-The first inspection step for ScienceBase items is to determine if the item even exists. To do this, use the function `item_exists`. This function has three required arguments - `scheme`, `type`, and `key`. These refer to the alternative identifiers available for the item. *describe scheme, type, and key*
+The first inspection step for ScienceBase items is to determine if the item even exists. To do this, use the function `identifier_exists`. The only required argument is `sb_id` which can be either a character string of the item id or an `sbitem`. It will return a logical to indicate if the item exists or not.
 
 ``` r
-# item_exists()
+identifier_exists("4f4e4acae4b07f02db67d22b")
 ```
 
-*talk about what identifier\_exists does*
+    ## [1] TRUE
 
 ``` r
-# identifier_exists()
+identifier_exists("thisisnotagoodid")
 ```
 
-*compare item\_exists & identifier exists*
+    ## [1] FALSE
 
-*describe as.sbitem*
+ScienceBase items can be described by alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. They are defined on ScienceBase with a scheme, type, and key. For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23).
+
+You can use the function `item_exists` to check whether or not a scheme-type-key tuple already exists. The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts. On ScienceBase: type, scheme, key. For `item_exists`: scheme, type, key.
+
+``` r
+# test a made up tuple
+item_exists(scheme = "made", type = "this", key = "up")
+```
+
+    ## [1] FALSE
+
+``` r
+# test a tuple from the SB item "4f4e4acae4b07f02db67d22b"
+item_exists(scheme = "State Inventory", type = "UniqueKey", key = "P1281")
+```
+
+    ## [1] TRUE
+
+``` r
+# test the same scheme & type with a made up key
+item_exists(scheme = "State Inventory", type = "UniqueKey", key = "1234")
+```
+
+    ## [1] FALSE
+
+*describe as.sbitem and why you would use it*
 
 ``` r
 # as.sbitem()
