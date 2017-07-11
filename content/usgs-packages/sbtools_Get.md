@@ -89,11 +89,26 @@ item_exists(scheme = "State Inventory", type = "UniqueKey", key = "1234")
 
     ## [1] FALSE
 
-*describe as.sbitem and why you would use it*
+You can create sbitems from just the ScienceBase id. To do this use `as.sbitem`. *why you would use it*
 
 ``` r
-# as.sbitem()
+antarctica_sbitem <- as.sbitem("4f4e4b24e4b07f02db6aea14")
+class(antarctica_sbitem)
 ```
+
+    ## [1] "sbitem"
+
+``` r
+antarctica_sbitem
+```
+
+    ## <ScienceBase Item> 
+    ##   Title: Coastal-change and glaciological maps of Antarctica
+    ##   Creator/LastUpdatedBy:     pwharvester / sbpubs
+    ##   Provenance (Created / Updated):  2010-10-06T04:25:43Z / 2017-06-12T07:39:13Z
+    ##   Children: FALSE
+    ##   Item ID: 4f4e4b24e4b07f02db6aea14
+    ##   Parent ID: 4f4e4771e4b07f02db47e1e4
 
 Let's inspect various ScienceBase items. There are functions to look at the parent item, metadata fields, sub-items, and associated files. Each of these functions require the id of the sbitem as the first argument. For all of these examples, we are going to use the same sbitem id, "4f4e4b24e4b07f02db6aea14".
 
