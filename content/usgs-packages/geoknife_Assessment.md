@@ -9,6 +9,7 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 3
+aliases: 
 ---
 Before starting the exercises, you should make sure that the `geoknife` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('geoknife')` or go to the "Update" button in the "Packages" tab in RStudio.
 
@@ -98,13 +99,13 @@ variables(us_meterology) <- metero_vars[4]
 query(us_meterology, "times")
 ```
 
-    ## [1] "1979-01-01 UTC" "2017-06-20 UTC"
+    ## [1] "1979-01-01 UTC" "2017-07-10 UTC"
 
 </div>
 Exercise 3
 ----------
 
-*What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this dataset uses 12:00 to indicate the start and end of a day.*
+*What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this data has daily values set at 12:00, and you will need to include times in your start and end dates to retrieve the correct day's value.*
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
