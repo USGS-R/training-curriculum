@@ -4,6 +4,7 @@ title: "R Installation Instructions"
 slug: "installr"
 output: USGSmarkdowntemplates::hugoTraining
 aliases: /intro-curriculum/Before/
+weight: 2
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}

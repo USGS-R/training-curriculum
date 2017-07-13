@@ -8,7 +8,7 @@ image:
 menu:
   main:
     parent: 
-    weight: 
+    weight: 2
 aliases: /intro-curriculum/Before/
 ---
 Below are the instructions for installing R and RStudio. If you do not have install access to your computer (often called "PR access"), you will need to contact your IT representative to have them install it. You can give them a link to this page for instructions.
