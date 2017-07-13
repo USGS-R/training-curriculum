@@ -9,10 +9,6 @@ canonifyurls = true
   url = "/"
   weight = 1
 [[menu.main]]
-  name = "R Installation Instructions"
-  url = "/installr/"
-  weight = 2
-[[menu.main]]
   name = "Introduction to R Course"
   url = "/intro-curriculum/"
   weight = 3
