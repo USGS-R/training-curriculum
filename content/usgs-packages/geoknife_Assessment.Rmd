@@ -1,0 +1,122 @@
+---
+title: "geoknife - exercises"
+date: "9999-08-30"
+author: "Lindsay R. Carr"
+slug: "geoknife-exercises"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 3
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/geoknife-exercises/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO",
+  message=FALSE
+)
+
+knit_hooks$set(addToggle = function(before, options, envir) {
+    if(before) {
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
+    } else {
+      '</div>'
+    }
+})
+
+set.seed(1)
+```
+
+Before starting the exercises, you should make sure that the `geoknife` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('geoknife')` or go to the "Update" button in the "Packages" tab in RStudio.
+
+```{r load-geoknife}
+# load the geoknife package
+library(geoknife)
+```
+
+## Exercise 1
+
+*How many GDP data sets are related to sea level rise? Hint: `grep`.*
+
+```{r addToggle='ON'}
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+all_titles <- title(all_webdata)
+all_abstracts <- abstract(all_webdata)
+
+# Then start sleuthing using `grep`
+keyword_str <- "sea level rise|sea level|sea level|sea rise"
+index_t <- grep(keyword_str, all_titles, ignore.case = TRUE)
+index_a <- grep(keyword_str, all_abstracts, ignore.case = TRUE)
+index_both <- unique(c(index_t, index_a))
+
+# Look at the titles and abstracts of datasets that match your criteria
+length(index_both)
+all_titles[index_both]
+all_abstracts[index_both]
+```
+
+## Exercise 2
+
+*What variables are in the "University of Idaho Daily Meteorological data for continental US" dataset? Also, choose one variable and determine the range of dates. Hint: create a geoknife fabric first.*
+
+```{r addToggle='ON'}
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Use the all_webdata object to create the fabric
+us_meterology <- webdata(all_webdata["University of Idaho Daily Meteorological data for continental US"])
+
+# Now use query to see what variables are available
+metero_vars <- query(us_meterology, "variables")
+metero_vars
+
+# Let's pick the fourth variable to look at a date range
+# To determine the times available, you must add the variable to the fabric
+variables(us_meterology) <- metero_vars[4]
+query(us_meterology, "times")
+```
+
+## Exercise 3
+
+*What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this data has daily values set at 12:00, and you will need to include times in your start and end dates to retrieve the correct day's value.*
+
+```{r addToggle='ON'}
+# First, you need to query for all web data
+all_webdata <- query("webdata")
+
+# Setup the maximum air temp fabric using the URL in all_webdata
+airtemp_title <- "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States"
+airtemp_url <-  url(all_webdata[airtemp_title])
+airtemp_fabric <- webdata(list(
+  url = airtemp_url,
+  variables = "tmax",
+  times = as.POSIXct(c("2007-07-04 12:01", "2007-07-05 11:59"), tz = "UTC")
+))
+
+# Now setup the stencil
+texas <- webgeom(geom = "sample:CONUS_states", 
+                 attribute = "STATE",
+                 values = "Texas")
+
+# Leave the default knife since we want an average over the stencil
+# Execute the geoknife job
+airtemp_job <- geoknife(stencil = texas, fabric = airtemp_fabric, wait=TRUE)
+
+# Download the data
+air_max_data <- result(airtemp_job)
+air_max_data
+```

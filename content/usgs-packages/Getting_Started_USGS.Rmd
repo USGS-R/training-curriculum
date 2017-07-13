@@ -66,4 +66,8 @@ htmlTable(data.frame(Module, Description, Duration),
 
 ## Software requirements
 
-See [Before the workshop](/intro-curriculum/Before).
+See the [R installation instructions page](/installr) for how to install/upgrade R and RStudio, add GRAN to your settings, and install some basic packages. Then, execute these lines so that you have the most up-to-date version of the packages used in this course.
+
+```{r eval=FALSE}
+install.packages(c('dataRetrieval', 'geoknife', 'sbtools'))
+```
