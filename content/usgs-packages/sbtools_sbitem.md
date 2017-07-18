@@ -9,6 +9,7 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 2
+aliases: 
 ---
 "Items" are the objects in which ScienceBase stores and organizes data, and are necessary to understand for using `sbtools`. This lesson will introduce ScienceBase items and the R equivalent, `sbitem`.
 
@@ -97,9 +98,24 @@ itemexample
     ## <ScienceBase Item> 
     ##   Title: Coastal-change and glaciological maps of Antarctica
     ##   Creator/LastUpdatedBy:      / 
-    ##   Provenance (Created / Updated):  2010-10-06T04:25:43Z / 2017-06-12T07:39:13Z
+    ##   Provenance (Created / Updated):  2010-10-06T04:25:43Z / 2017-07-12T08:55:03Z
     ##   Children: FALSE
     ##   Item ID: 4f4e4b24e4b07f02db6aea14
     ##   Parent ID: 4f4e4771e4b07f02db47e1e4
+
+There is a helper function available to verify that it has the `sbitem` class, `is.sbitem`. This would do the same check as `class(item) == "sbitem"`, just saves a bit of typing.
+
+``` r
+is.sbitem(itemexample)
+```
+
+    ## [1] TRUE
+
+Additional item descriptions
+----------------------------
+
+In addition to metadata fields, ScienceBase items can be described by alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. They can be useful to identify your items in searches because they have a user-defined type, scheme, and key.
+
+For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23) (two sets of identifiers, one for a DOI and one for an IPDS, each of which has type/scheme/key) and [nwis\_01645704](https://www.sciencebase.gov/catalog/item/556f2055e4b0d9246a9fc9f7) (one set of identifiers; we invented the mda\_streams scheme, with associated types and keys, to organize items in one of our own projects). You could create your own scheme to organize items, or use some of the [standardized schemes](https://www.sciencebase.gov/vocab/categories?offset=10&max=10&parentId=528e99f7e4b05d51c7038afd) that ScienceBase offers.
 
 Now that you understand the fundamental unit of ScienceBase and the `sbtools` equivalent unit, you can learn how to search ScienceBase for available data, download items, and modify or create items from R.

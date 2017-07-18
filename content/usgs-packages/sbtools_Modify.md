@@ -126,9 +126,9 @@ test_item
     ## <ScienceBase Item> 
     ##   Title: books.json
     ##   Creator/LastUpdatedBy:     lcarr@usgs.gov / lcarr@usgs.gov
-    ##   Provenance (Created / Updated):  2017-07-18T17:14:47Z / 2017-07-18T17:14:47Z
+    ##   Provenance (Created / Updated):  2017-07-18T18:50:29Z / 2017-07-18T18:50:29Z
     ##   Children: FALSE
-    ##   Item ID: 596e4207e4b0d1f9f062c515
+    ##   Item ID: 596e5875e4b0d1f9f062c872
     ##   Parent ID: 56215f74e4b06217fc478c3a
 
 Currently, the title of the new item defaults to the first file that is uploaded, and there is no argument to override this behavior. This is a known `sbtools` [issue](https://github.com/USGS-R/sbtools/issues/49). For now, you can change the title using the function `item_update`, which will be discusssed later in this lesson. Another interesting behavior is that uploading multiple files at once sometimes does not work for complex files. This is a [known issue](https://github.com/USGS-R/sbtools/issues/39). In the meantime, always verify that your files were actually uploaded.
@@ -156,9 +156,9 @@ item_append_files(sb_id = test_item$id,
     ## <ScienceBase Item> 
     ##   Title: books.json
     ##   Creator/LastUpdatedBy:     lcarr@usgs.gov / lcarr@usgs.gov
-    ##   Provenance (Created / Updated):  2017-07-18T17:14:47Z / 2017-07-18T17:14:49Z
+    ##   Provenance (Created / Updated):  2017-07-18T18:50:29Z / 2017-07-18T18:50:30Z
     ##   Children: FALSE
-    ##   Item ID: 596e4207e4b0d1f9f062c515
+    ##   Item ID: 596e5875e4b0d1f9f062c872
     ##   Parent ID: 56215f74e4b06217fc478c3a
 
 ``` r
@@ -240,7 +240,7 @@ item_upsert(test_item, title=NULL, info=list(title = "sbtools stuff"))
 item_upsert(test_item, title="sbtools stuff")
 ```
 
-Another way to edit or update SB items is to add alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. They can be useful to identify your items in searches because they have a user-defined type, scheme, and key. For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23) (two sets of identifiers, one for a DOI and one for an IPDS, each of which has type/scheme/key) and [nwis\_01645704](https://www.sciencebase.gov/catalog/item/556f2055e4b0d9246a9fc9f7) (one set of identifiers; we invented the mda\_streams scheme, with associated types and keys, to organize items in one of our own projects). You could create your own scheme to organize items, or use some of the [standardized schemes](https://www.sciencebase.gov/vocab/categories?offset=10&max=10&parentId=528e99f7e4b05d51c7038afd) that ScienceBase offers. Here we will show how to add alternative identifiers. See ?`query_item_identifier` if you want to know more about querying by alternative identifiers.
+Another way to edit or update SB items is to add alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. These were described in the [sbitem lesson](/usgs-packages/sbtools-sbitem). Here we will show how to add alternative identifiers. See ?`query_item_identifier` if you want to know more about querying by alternative identifiers.
 
 Add identifiers to the item stored as the R object `test_item`.
 
@@ -248,8 +248,8 @@ Add identifiers to the item stored as the R object `test_item`.
 item_update_identifier(test_item, scheme="example", type="sbtools", key="number 1")
 ```
 
-    ## Response [https://www.sciencebase.gov/catalog/item/596e4207e4b0d1f9f062c515]
-    ##   Date: 2017-07-18 17:14
+    ## Response [https://www.sciencebase.gov/catalog/item/596e5875e4b0d1f9f062c872]
+    ##   Date: 2017-07-18 18:50
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 2.92 kB
