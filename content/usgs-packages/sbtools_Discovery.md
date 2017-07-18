@@ -404,7 +404,7 @@ lapply(sbmaps, function(sbitem) {
 
 ### Using `query_sb`
 
-`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`).
+`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`). To see the available categories to use for the field `browseCategory`, visit [this SB page](https://www.sciencebase.gov/vocab/vocabulary/browseCategories).
 
 ``` r
 # search by keyword
