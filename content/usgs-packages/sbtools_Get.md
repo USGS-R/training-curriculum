@@ -9,6 +9,7 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 2
+aliases: 
 ---
 This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/sbtools-sbitem).
 
@@ -37,7 +38,7 @@ is_logged_in()
 
     ## [1] TRUE
 
-Each user has a specific ScienceBase id associated with their account. The user ids can be used to inspect what top-level items saved under your account (discussed in next section). To determine your user id, use the function `user_id` in an authenticated session. No arguments are necessary.
+Each user has a specific ScienceBase item associated with their account. You can inspect the items and files attached to your home item and even add new items and files (both discussed in the [next section](/usgs-packages/sbtools-modify)) . To determine the ScienceBase ID of your home item, use the function `user_id` in an authenticated session. No arguments are necessary.
 
 ``` r
 user_id()
@@ -45,12 +46,12 @@ user_id()
 
     ## [1] "56215f74e4b06217fc478c3a"
 
-When you're done with your session, you can actively logout using the `session_logout`. No arguments are required. If you do not do this, you will be automatically logged out after a certain amount of time or when you close R.
+When you're done with your session, you can actively logout using the `session_logout` function. No arguments are required. If you do not do this, you will be automatically logged out after a certain amount of time or when you close R.
 
 Inspect and download items
 --------------------------
 
-The first inspection step for ScienceBase items is to determine if the item even exists. To do this, use the function `identifier_exists`. The only required argument is `sb_id` which can be either a character string of the item id or an `sbitem`. It will return a logical to indicate if the item exists or not.
+The first inspection step for ScienceBase items is to determine if the item even exists. To do this, use the function `identifier_exists`. The only required argument is `sb_id` which can be either a character string of the item id or an `sbitem`. It will return a logical to indicate whether the item exists or not.
 
 ``` r
 identifier_exists("4f4e4acae4b07f02db67d22b")
@@ -64,9 +65,7 @@ identifier_exists("thisisnotagoodid")
 
     ## [1] FALSE
 
-ScienceBase items can be described by alternative identifiers, e.g. digital object identifiers, IPDS codes, etc. They are defined on ScienceBase with a scheme, type, and key. For examples of identifiers, see the "Additional Information | Identifiers" section of [Differential Heating](https://www.sciencebase.gov/catalog/item/580587a2e4b0824b2d1c1f23).
-
-You can use the function `item_exists` to check whether or not a scheme-type-key tuple already exists. The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts. On ScienceBase: type, scheme, key. For `item_exists`: scheme, type, key.
+You can use the function `item_exists` to check whether or not alternative identifiers (a scheme-type-key tuple) exist (visit the [sbitem lesson](/usgs-packages/sbtools-sbitem) if you don't know about alternative identifiers). The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts: `type, scheme, key` on ScienceBase but `scheme, type, key` for `item_exists`.
 
 ``` r
 # test a made up tuple
@@ -89,27 +88,6 @@ item_exists(scheme = "State Inventory", type = "UniqueKey", key = "1234")
 
     ## [1] FALSE
 
-You can create sbitems from just the ScienceBase id. To do this use `as.sbitem`. *why you would use it*
-
-``` r
-antarctica_sbitem <- as.sbitem("4f4e4b24e4b07f02db6aea14")
-class(antarctica_sbitem)
-```
-
-    ## [1] "sbitem"
-
-``` r
-antarctica_sbitem
-```
-
-    ## <ScienceBase Item> 
-    ##   Title: Coastal-change and glaciological maps of Antarctica
-    ##   Creator/LastUpdatedBy:     pwharvester / sbpubs
-    ##   Provenance (Created / Updated):  2010-10-06T04:25:43Z / 2017-06-12T07:39:13Z
-    ##   Children: FALSE
-    ##   Item ID: 4f4e4b24e4b07f02db6aea14
-    ##   Parent ID: 4f4e4771e4b07f02db47e1e4
-
 Let's inspect various ScienceBase items. There are functions to look at the parent item, metadata fields, sub-items, and associated files. Each of these functions require the id of the sbitem as the first argument. For all of these examples, we are going to use the same sbitem id, "4f4e4b24e4b07f02db6aea14".
 
 First, let's inspect the parent item. The function to use is `item_get_parent`, and the item id is the only necessary argument.
@@ -122,7 +100,7 @@ ex_id_parent$title
 
     ## [1] "Arizona Geological Survey"
 
-Now, let's see if this item has any children by using the `item_list_children` function. Notice that this function says "list" and not "get" as the previous one did. Functions with "list" only return a few fields associated with each item. Functions with "get" are pulling down all available information, including files, associated with an item.
+Now, let's see if this item has any children by using the `item_list_children` function.
 
 ``` r
 ex_id_children <- item_list_children(ex_id)
@@ -183,7 +161,7 @@ xml2::read_xml(ex_id_files$url[1])
     ## [1] <NGGDPPCollection originalSurveyId="325461" originalUniqueKey="P1435 ...
     ## [2] <NGGDPPSurvey>\n  <COMPLETER_FIRST_NAME>Stephen</COMPLETER_FIRST_NAM ...
 
-You can also inspect specific metadata fields of ScienceBase items. To do this, use the `item_get_fields` function. This function requires a second argument to the item id called `fields` that is a character vector of the fields you want to retrieve. See the [developer documentation for a SB item model](https://my.usgs.gov/confluence/display/sciencebase/ScienceBase+Item+Core+Model) for a list of potential fields. You can also use the argument `drop` to indicate that if only one field is requested, the object returned remains a list (`drop=FALSE`) or becomes a vector (`drop=TRUE`). The default is `drop=TRUE`.
+You can also inspect specific metadata fields of ScienceBase items. To do this, use the `item_get_fields` function. If you wish to see all fields associated with an item you could use `item_get` (discussed below) which will return the entire item. `item_get_fields` requires a second argument to the item id called `fields` that is a character vector of the fields you want to retrieve. See the [developer documentation for a SB item model](https://my.usgs.gov/confluence/display/sciencebase/ScienceBase+Item+Core+Model) for a list of potential fields. You can also use the argument `drop` to indicate that if only one field is requested, the object returned remains a list (`drop=FALSE`) or becomes a vector (`drop=TRUE`). The default is `drop=TRUE`.
 
 ``` r
 # request multiple fields
@@ -231,7 +209,7 @@ class(single_field)
 If a field is empty, it will return `NULL`.
 
 ``` r
-# request a nonexistent fields
+# request nonexistent fields
 item_get_fields(ex_id, c("dates", "citation"))
 ```
 
@@ -260,12 +238,36 @@ names(ex_id_item)
     ## [19] "extents"                     "facets"                     
     ## [21] "files"                       "distributionLinks"
 
-Web feature services to visualize spatial data???
--------------------------------------------------
+Web feature services to visualize spatial data
+----------------------------------------------
 
-*Need to pick a different item. This one errs since there is "no ScienceBase WFS Service available".*
+This function allows you to pull down web feature services (WFS) data from ScienceBase. Note that this is not the most robust function. The developers thought this could be a cool feature, but didn't want to invest too much time if there wouldn't be demand. If you'd use it a lot, visit the [`sbtools` GitHub page](https://github.com/USGS-R/sbtools/issues) and let the developers know through a new issue or "thumbs-up" an existing, related issue.
+
+When this function does work, you can use the results to create a map of the data in R. Here's a simple example using the R package `maps`. The item we will use as an example contains low flow estimations for New Jersey. We can map the sites used in the study.
 
 ``` r
-# ex_id_wfs <- item_get_wfs(ex_id)
-# names(ex_id_item)
+nj_wfs <- item_get_wfs("58cbe556e4b0849ce97dcd31")
 ```
+
+    ## Loading required namespace: rgdal
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\lcarr\AppData\Local\Temp\1\RtmpyU8xS4/filee74113572e9", layer: "NJ_low_flow_estimates_2016"
+    ## with 62 features
+    ## It has 18 fields
+
+``` r
+names(nj_wfs)
+```
+
+    ##  [1] "Date_req"   "Strm_name"  "DA"         "X1Q10"      "X7Q10"     
+    ##  [6] "w7Q10"      "X30Q10"     "w30Q10"     "X70_dura"   "X75_dura"  
+    ## [11] "latitude"   "longitude"  "Reference"  "Requestor"  "Comp_by"   
+    ## [16] "method"     "USGS_sites" "comments"
+
+``` r
+maps::map("county", "new jersey")
+points(nj_wfs$longitude, nj_wfs$latitude, col="red")
+```
+
+<img src='../static/sbtools-get/sbtools-wfs-1.png'/ title='TODO'/>
