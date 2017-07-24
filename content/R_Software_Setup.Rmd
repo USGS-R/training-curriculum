@@ -5,6 +5,7 @@ slug: "installr"
 output: USGSmarkdowntemplates::hugoTraining
 aliases: /intro-curriculum/Before/
 weight: 2
+draft: FALSE
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
