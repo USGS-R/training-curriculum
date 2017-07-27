@@ -20,7 +20,7 @@ library(sbtools)
 Exercise 1
 ----------
 
-Using querying functions, find out how many ScienceBase items exist related to lake temperature during 1992. Hint: use `query_sb` to search using more than one criteria.
+Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use `query_sb` to search using more than one criteria, and use a Lucene query string if you want an exact match.
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
@@ -28,13 +28,14 @@ Show Answer
               <div id="unnamed-chunk-1" style="display:none">
 
 ``` r
-laketemp <- query_sb(query_list = list(q = 'lake temperature', 
-                           dateRange = '{"start":"1992-01-01","end":"1992-12-31"}'),
+laketemp <- query_sb(query_list = list(q = '', lq = '"lake temperature"', 
+                                       dateRange = '{"start":"2010-01-01","end":"2010-12-31"}',
+                                       dateType = 'dateCollected'),
                    limit = 100)
 length(laketemp)
 ```
 
-    ## [1] 13
+    ## [1] 15
 
 </div>
 Exercise 2
