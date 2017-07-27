@@ -3,7 +3,7 @@ author:
 date: 2017-06-30
 slug: installr
 title: R Installation Instructions
-draft: TRUE 
+draft: FALSE 
 image: 
 menu:
   main:

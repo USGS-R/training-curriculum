@@ -1,6 +1,6 @@
 ---
 author: Lindsay R. Carr
-date: 9999-07-01
+date: 9999-07-25
 slug: sbtools-discovery
 title: sbtools - Data discovery
 draft: true 
@@ -134,20 +134,20 @@ sapply(river_results, function(item) item$title)
     ##  [4] "Acoustic Doppler current profiler velocity data collected during 2015 and 2016 in the Calumet Harbor, Illinois"                                 
     ##  [5] "Data for a Comprehensive Survey of Fault Zones, Breccias, and Fractures in and Flanking the Eastern Española Basin, Rio Grande Rift, New Mexico"
     ##  [6] "Magnetotelluric sounding locations, stations 1 to 22, Southern San Luis Valley, Colorado, 2006"                                                 
-    ##  [7] "Notropis jemezanus (Rio Grande shiner)"                                                                                                         
-    ##  [8] "Etheostoma grahami (Rio Grande darter)"                                                                                                         
-    ##  [9] "Pseudemys gorzugi (Rio Grande Cooter)"                                                                                                          
+    ##  [7] "Pseudemys gorzugi (Rio Grande Cooter)"                                                                                                          
+    ##  [8] "Notropis jemezanus (Rio Grande shiner)"                                                                                                         
+    ##  [9] "Etheostoma grahami (Rio Grande darter)"                                                                                                         
     ## [10] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
     ## [11] "View of the Rio Grande near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                   
     ## [12] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
     ## [13] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
     ## [14] "View of the Rio Grande, near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                  
-    ## [15] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
-    ## [16] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874."                                                               
-    ## [17] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874. (Stereoscopic view)"                                           
-    ## [18] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
-    ## [19] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
-    ## [20] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874."
+    ## [15] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874."                                                                             
+    ## [16] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
+    ## [17] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
+    ## [18] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
+    ## [19] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874."                                                               
+    ## [20] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874. (Stereoscopic view)"
 
 Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
 
@@ -255,26 +255,26 @@ recent_data <- query_sb_date(start = today, end = oneweekago)
 sapply(recent_data, function(item) item$title)
 ```
 
-    ##  [1] "US Topo"                                                                                   
-    ##  [2] "Collection of Field Photographs from Alaska"                                               
-    ##  [3] "National Elevation Dataset (NED) Alaska 2 arc-second"                                      
-    ##  [4] "Multi-stressor Predictive Models of Invertebrate Condition in the Corn Belt, U.S.A."       
-    ##  [5] "Topo Map Data"                                                                             
-    ##  [6] "Landscape Capability for Virginia Rail, Version 3.1, Northeast U.S."                       
-    ##  [7] "Connectivity in WA: Products of the Washington Wildlife Habitat Connectivity Working Group"
-    ##  [8] "National Transportation Dataset (NTD)"                                                     
-    ##  [9] "Terrestrial Core and Connector Network, CT River Watershed"                                
-    ## [10] "USGS US Topo 7.5-minute map for Amesville, OH 2011"                                        
-    ## [11] "USGS US Topo 7.5-minute map for Alfred, OH 2013"                                           
-    ## [12] "USGS US Topo 7.5-minute map for Addison, OH-WV 2013"                                       
-    ## [13] "USGS US Topo 7.5-minute map for Adamsville, OH 2010"                                       
-    ## [14] "USGS US Topo 7.5-minute map for Akron East, OH 2010"                                       
-    ## [15] "USGS US Topo 7.5-minute map for Alvordton, OH-MI 2013"                                     
-    ## [16] "USGS US Topo 7.5-minute map for Albertville, WI 2010"                                      
-    ## [17] "USGS US Topo 7.5-minute map for Bartlettsville, IN 2013"                                   
-    ## [18] "USGS US Topo 7.5-minute map for Elmer, NJ 2011"                                            
-    ## [19] "USGS US Topo 7.5-minute map for Briggsville, WI 2013"                                      
-    ## [20] "USGS US Topo 7.5-minute map for Brillion, WI 2010"
+    ##  [1] "Chemicals of Emerging Concern in Water and Bottom Sediment in the Great Lakes Basin, 2014 - Analytical Methods, Collection Methods,Quality-Assurance Analyses, and Data"
+    ##  [2] "U.S. Geological Survey Repositories"                                                                                                                                    
+    ##  [3] "Great Lakes Restoration Initiative"                                                                                                                                     
+    ##  [4] "2015 Sample Data Release"                                                                                                                                               
+    ##  [5] "Landsat Burned Area Essential Climate Variable products for the conterminous United States (1984 - 2015)"                                                               
+    ##  [6] "Discovery of Two Biological Mechanisms for Acetylene Metabolism in a Single Organism"                                                                                   
+    ##  [7] "Arsenic in Southeastern Carson Valley, Douglas County, Nevada - Evaluation of Existing Data"                                                                            
+    ##  [8] "Data for Gulf Coast Vulnerability Assessment"                                                                                                                           
+    ##  [9] "GIS Data and Tables Pertaining to the Agricultural Irrigated Land-Use Inventory for Escambia, Santa Rosa, and Okaloosa Counties in Florida, 2016"                       
+    ## [10] "California State Wildlife Action Plan"                                                                                                                                  
+    ## [11] "1994 Aerial Photo Mosaic Mississippi River Pool 08"                                                                                                                     
+    ## [12] "Spatial and temporal dynamics of suspended particle characteristics and composition in Navigation Pool 19 of the Upper Mississippi River"                               
+    ## [13] "Wind and Wildlife Assessment Tool"                                                                                                                                      
+    ## [14] "Collection of Geologic Paper Reports from Iowa"                                                                                                                         
+    ## [15] "Collection of Geothermal Resources of Nevada from NV"                                                                                                                   
+    ## [16] "Developing a Management Model of the Effects of Future Climate Change on Species: A Tool for the Landscape Conservation Cooperatives"                                   
+    ## [17] "Sea Level Rise Vulnerability Assessment for San Juan County, Washington"                                                                                                
+    ## [18] "Sevilleta GIS Vector Datasets"                                                                                                                                          
+    ## [19] "LANDFIRE Data Viewer"                                                                                                                                                   
+    ## [20] "Collection of Rock cuttings for Indiana"
 
 ``` r
 # find data that's been created over the last year
@@ -283,26 +283,19 @@ recent_data <- query_sb_date(start = today, end = oneyearago, date_type = "dateC
 sapply(recent_data, function(item) item$title)
 ```
 
-    ##  [1] "USGS NED Original Product Resolution CA Sonoma 2013 bh soco 0074 TIFF 2017"             
-    ##  [2] "USGS NED Original Product Resolution CA Sonoma 2013 bh soco 0051 TIFF 2017"             
-    ##  [3] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2679 10 TIFF 2017"
-    ##  [4] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2679 30 TIFF 2017"
-    ##  [5] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2679 40 TIFF 2017"
-    ##  [6] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2686 10 TIFF 2017"
-    ##  [7] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2666 40 TIFF 2017"
-    ##  [8] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2662 30 TIFF 2017"
-    ##  [9] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2660 10 TIFF 2017"
-    ## [10] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2664 40 TIFF 2017"
-    ## [11] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2658 30 TIFF 2017"
-    ## [12] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2669 30 TIFF 2017"
-    ## [13] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2795 10 TIFF 2017"
-    ## [14] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2795 30 TIFF 2017"
-    ## [15] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2795 40 TIFF 2017"
-    ## [16] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2796 20 TIFF 2017"
-    ## [17] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2862 40 TIFF 2017"
-    ## [18] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2791 10 TIFF 2017"
-    ## [19] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2785 40 TIFF 2017"
-    ## [20] "USGS NED Original Product Resolution VA Eastern-ShoreBAA 2015 DEM S23 2786 30 TIFF 2017"
+    ##  [1] "Spatial and temporal dynamics of suspended particle characteristics and composition in Navigation Pool 19 of the Upper Mississippi River"
+    ##  [2] "Population dynamics of the Laysan and other albatrosses in the North Pacific"                                                            
+    ##  [3] "Identification of polar bear den habitat in northern Alaska"                                                                             
+    ##  [4] "Polar bear research in Alaska"                                                                                                           
+    ##  [5] "Polar bear management in Alaska 1997-2000"                                                                                               
+    ##  [6] "Seaducks: A time for action"                                                                                                             
+    ##  [7] "Techniques of processing Landsat MSS imagery to map surface rock and mineral alteration on the Alaska Peninsula"                         
+    ##  [8] "GRSG Breeding Habitat Probability"                                                                                                       
+    ##  [9] "Performance and utility of satellite telemetry during field studies of free-ranging polar bears in Alaska"                               
+    ## [10] "Resilience and Resistance"                                                                                                               
+    ## [11] "Temperature - 30-year Normal (celsius)"                                                                                                  
+    ## [12] "hydrographs"                                                                                                                             
+    ## [13] "Precipitation - 30-year Normal (cm)"
 
 ### Using `query_sb_datatype`
 
@@ -360,17 +353,17 @@ sapply(sbraster, function(item) item$title)
     ##  [7] "Ecologically-relevant landforms for Southern Rockies LCC"                                                                                          
     ##  [8] "Multivariate Adaptive Constructed Analogs (MACA) CMIP5 Statistically Downscaled Data for Coterminous USA"                                          
     ##  [9] "Backscatter [USGS07]--Offshore of Gaviota Map Area, California"                                                                                    
-    ## [10] "Sediment Thickness--Pigeon Point to Monterey, California"                                                                                          
-    ## [11] "Seafloor character--Offshore of Point Conception Map Area, California"                                                                             
-    ## [12] "Trout Unlimited-Coldwater Fisheries Data"                                                                                                          
-    ## [13] "Coal Mines"                                                                                                                                        
-    ## [14] "Condition Index - Aquatic - Focal Species"                                                                                                         
-    ## [15] "Vhg: terrestrially-defined vulnerability, biome velocity for Great Northern LCC"                                                                   
-    ## [16] "Vtw: hydrologically-defined vulnerability, temperature change for Great Northern LCC"                                                              
-    ## [17] "North American vegetation model data for land-use planning in a changing climate:"                                                                 
-    ## [18] "Bathymetry hillshade--Offshore of Point Conception Map Area, California"                                                                           
-    ## [19] "Projected Future LOCA Statistical Downscaling (Localized Constructed Analogs) Statistically downscaled CMIP5 climate projections for North America"
-    ## [20] "Bathymetry Hillshade [2m]--Offshore of Monterey Map Area, California"
+    ## [10] "North American vegetation model data for land-use planning in a changing climate:"                                                                 
+    ## [11] "Bathymetry hillshade--Offshore of Point Conception Map Area, California"                                                                           
+    ## [12] "Projected Future LOCA Statistical Downscaling (Localized Constructed Analogs) Statistically downscaled CMIP5 climate projections for North America"
+    ## [13] "Bathymetry Hillshade [2m]--Offshore of Monterey Map Area, California"                                                                              
+    ## [14] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland T5 from 2003"                                                            
+    ## [15] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland T6 from 2006"                                                            
+    ## [16] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland P6 from 2006"                                                            
+    ## [17] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland T4 from 14 July 1999"                                                    
+    ## [18] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland P11 from 18 July 1990"                                                   
+    ## [19] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland P1 from 1977"                                                            
+    ## [20] "Digital Orthorectified Aerial Image of Cottonwood Lake Study Area Wetland P4 from 1977"
 
 Best of both methods
 --------------------
@@ -404,7 +397,7 @@ lapply(sbmaps, function(sbitem) {
 
 ### Using `query_sb`
 
-`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`).
+`query_sb` is the "catch-all" function for querying ScienceBase from R. It only takes one argument for specifying query parameters, `query_list`. This is an R list with specific query parameters as the list names and the user query string as the list values. See the `Description` section of the help file for all options (`?query_sb`). To see the available categories to use for the field `browseCategory`, visit [this SB page](https://www.sciencebase.gov/vocab/vocabulary/browseCategories).
 
 ``` r
 # search by keyword
@@ -421,23 +414,23 @@ sapply(precip_data, function(item) item$title)
     ##  [1] "Change in Precipitation (Projected and Observed) and Change in Standard Precipitation For Emissions Scenarios A2, A1B and B1 for the Gulf of Mexico"
     ##  [2] "Precipitation as Snow (PAS)"                                                                                                                        
     ##  [3] "Precipitation"                                                                                                                                      
-    ##  [4] "Mean Summer (May to Sep) Precipitation (MSP)"                                                                                                       
-    ##  [5] "Summer (Jun to Aug) Precipitation (PPTSM)"                                                                                                          
-    ##  [6] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
-    ##  [7] "Mean Annual Precipitation (MAP)"                                                                                                                    
+    ##  [4] "Mean Annual Precipitation (MAP)"                                                                                                                    
+    ##  [5] "Mean Summer (May to Sep) Precipitation (MSP)"                                                                                                       
+    ##  [6] "Summer (Jun to Aug) Precipitation (PPTSM)"                                                                                                          
+    ##  [7] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
     ##  [8] "Precipitation mm/year projections for years 2010-2080 RCP 8.5"                                                                                      
     ##  [9] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
-    ## [10] "Winter (Dec to Feb) Precipitation (PPTWT)"                                                                                                          
+    ## [10] "Precipitation - 30-year Normal (cm)"                                                                                                                
     ## [11] "Precipitation mm/year projections for years 2010-2080 RCP 4.5"                                                                                      
     ## [12] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
     ## [13] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
-    ## [14] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
-    ## [15] "Average, Standard and Projected Precipitation for Emissions Scenarios A2, A1B, and B1 for the Gulf of Mexico"                                       
-    ## [16] "30 Year Mean Annual Precipitation 1960- 1990 PRISM"                                                                                                 
-    ## [17] "Precipitation variability and primary productivity in water-limited ecosystems: how plants 'leverage' precipitation to 'finance' growth"            
-    ## [18] "Climate change and precipitation - Consequences of more extreme precipitation regimes for terrestrial ecosystems"                                   
-    ## [19] "A Numerical Study of the 1996 Saguenay Flood Cyclone: Effect of Assimilation of Precipitation Data on Quantitative Precipitation Forecasts"         
-    ## [20] "A precipitation-runoff model for part of the Ninemile Creek Watershed near Camillus, Onondaga County, New York"
+    ## [14] "Winter (Dec to Feb) Precipitation (PPTWT)"                                                                                                          
+    ## [15] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [16] "Average, Standard and Projected Precipitation for Emissions Scenarios A2, A1B, and B1 for the Gulf of Mexico"                                       
+    ## [17] "30 Year Mean Annual Precipitation 1960- 1990 PRISM"                                                                                                 
+    ## [18] "Precipitation variability and primary productivity in water-limited ecosystems: how plants 'leverage' precipitation to 'finance' growth"            
+    ## [19] "Climate change and precipitation - Consequences of more extreme precipitation regimes for terrestrial ecosystems"                                   
+    ## [20] "A Numerical Study of the 1996 Saguenay Flood Cyclone: Effect of Assimilation of Precipitation Data on Quantitative Precipitation Forecasts"
 
 ``` r
 # search by keyword, sort by last updated, and increase num results allowed
@@ -453,26 +446,26 @@ length(precip_data_recent) # 50 entries, but the search criteria is the same, ju
 sapply(precip_data_recent, function(item) item$title)
 ```
 
-    ##  [1] "Developing an Agroforestry Dashboard for the Marshall Islands"                                                                                                 
-    ##  [2] "Measured and estimated monthly precipitation values for precipitation gages in the Black Hills area, South Dakota, water years 1931-98"                        
-    ##  [3] "Polygons Representing Sensitivity of Ground Water to Contamination in Lawrence County, SD"                                                                     
-    ##  [4] "Arcs Representing Potential Streamflow-loss Zones in Lawrence County, SD"                                                                                      
-    ##  [5] "Polygons Representing Drainage Areas Upstream from Potential Streamflow-loss Zones in Lawrence County, SD"                                                     
-    ##  [6] "Saturation overland flow estimated by TOPMODEL for the conterminous United States"                                                                             
-    ##  [7] "GSFLOW model simulations used to evaluate the impact of irrigated agriculture on surface water - groundwater interaction"                                      
-    ##  [8] "A model for evaluating stream temperature response to climate change scenarios in Wisconsin"                                                                   
-    ##  [9] "Response of deep groundwater to land use change in desert basins of the Trans-Pecos region, Texas, USA: Effects on infiltration, recharge, and nitrogen fluxes"
-    ## [10] "Microbiological reduction of Sb(V) in anoxic freshwater sediments"                                                                                             
-    ## [11] "Region-wide ecological responses of arid Wyoming big sagebrush communities to fuel treatments"                                                                 
-    ## [12] "Soil resources influence vegetation and response to fire and fire-surrogate treatments in sagebrush-steppe ecosystems"                                         
-    ## [13] "Depletion and capture: revisiting The source of water derived from wells\""                                                                                   
-    ## [14] "Different historical fireclimate patterns in California"                                                                                                      
-    ## [15] "Evaluation of downscaled General Circulation Model (GCM) output for current conditions and associated error in simulated runoff for CONUS"                     
-    ## [16] "Projected Hydrologic Changes Under Mid-21st Century Climatic Conditions in a Sub-arctic Watershed"                                                             
-    ## [17] "Basic principles of wind erosion control"                                                                                                                      
-    ## [18] "National Water Census Data Resources Portal"                                                                                                                   
-    ## [19] "Basin Characteristics of Streamgages in New Mexico and Adjacent States (2017)"                                                                                 
-    ## [20] "Are modern geothermal waters in northwest Nevada forming epithermal gold deposits?"
+    ##  [1] "Precipitation - 30-year Normal (cm)"                                                                                                                           
+    ##  [2] "Chemistry, Microstructure, Petrology, and Diagenetic Model of Jurassic Dinosaur Bones, Dinosaur National Monument, Utah"                                       
+    ##  [3] "Fire effects on small mammal communities in Dinosaur National Monument"                                                                                        
+    ##  [4] "Geologic versus wildfire controls on hillslope processes and debris flow initiation in the Green River canyons of Dinosaur National Monument"                  
+    ##  [5] "MAPS: Monitoring Avian Productivity and Survivorship"                                                                                                          
+    ##  [6] "Global Average Annual Sum Precipitation (mm) for HADCM3 SRES B1 at a Â½ Degree Grid Resolution, 2070-2099"                                                     
+    ##  [7] "Global Average Annual Sum Precipitation (mm) for HADCM3 SRES A1B at a Â½ Degree Grid Resolution, 2070-2099"                                                    
+    ##  [8] "Global Average Annual Sum Precipitation (mm) for HADCM3 SRES A2 at a Â½ Degree Grid Resolution, 2070-2099"                                                     
+    ##  [9] "Global Average Annual Sum Precipitation (mm) for CSIRO Mk3.0 SRES A1B at a Â½ Degree Grid Resolution (2070-2099)"                                              
+    ## [10] "Global Average Annual Sum Precipitation (mm) for CSIRO Mk3.0 SRES A2 at a Â½ Degree Grid Resolution, 2070-2099"                                                
+    ## [11] "Global Average Annual Sum Precipitation (mm) for CSIRO Mk3.0 SRES B1 at a Â½ Degree Grid Resolution (2070-2099)"                                               
+    ## [12] "Global Average Annual Sum Precipitation (mm) for CRU TS 2.0 at a Â½ Degree Grid Resolution (1961-1990)"                                                        
+    ## [13] "Global Averaged maximum precipitation 1979 - 1999 (20 year average)"                                                                                           
+    ## [14] "Summer and winter drought in a cold desert ecosystem (Colorado Plateau) part I: effects on soil water and plant water uptake"                                  
+    ## [15] "Water resources of part of Canyonlands National Park, southeastern Utah"                                                                                       
+    ## [16] "Deuterium enriched irrigation indicates different forms of rain use in shrub/grass species of the Colorado Plateau"                                            
+    ## [17] "Comparison of Ion-Exchange Resin Counterions in the Nutrient Measurement of Calcareous Soils: Implications for Correlative Studies of Plant-Soil Relationships"
+    ## [18] "Dominant cold desert plants do not partition warm season precipitation by event size"                                                                          
+    ## [19] "Exotic plant invasion alters nitrogen dynamics in an arid grassland"                                                                                           
+    ## [20] "Interspecific Competition and Resource Pulse Utilization in a Cold Desert Community"
 
 ``` r
 # search by keyword + type
@@ -511,7 +504,7 @@ hazard3_data <- query_sb(query_list =
 length(hazard3_data)
 ```
 
-    ## [1] 158
+    ## [1] 159
 
 No results
 ----------
