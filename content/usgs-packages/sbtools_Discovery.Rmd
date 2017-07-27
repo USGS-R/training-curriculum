@@ -51,7 +51,9 @@ The ScienceBase search tools can be very powerful, but lack the ability to easil
 5. `query_sb_datatype` (type of data, not necessarily file type)
 6. `query_sb` (generic SB query)
 
-These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. The `query_sb` is a generalization of the other functions, and has a number of additional query specifications: [Lucene query string](http://www.lucenetutorial.com/lucene-query-syntax.html), folder and parent items, item ids, or project status. Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
+These functions take a variety of inputs, and all return an R list of `sbitems` (a special `sbtools` class). All of these functions default to 20 returned search results, but you can change that by specifying the argument `limit`. The `query_sb` is a generalization of the other functions, and has a number of additional query specifications: [Lucene query string](http://www.lucenetutorial.com/lucene-query-syntax.html), folder and parent items, item ids, or project status. Sometimes it is helpful to look at the [Advanced Search web form](https://www.sciencebase.gov/catalog/items/queryForm) to see what options are available to include in your `sbtools` code.
+
+Before we practice using these functions, make sure you load the `sbtools` package in your current R session.
 
 ```{r load, message=FALSE, warning=FALSE}
 library(sbtools)

@@ -39,6 +39,16 @@ knit_hooks$set(addToggle = function(before, options, envir) {
 set.seed(1)
 ```
 
+```{r sbtools-auth, echo=FALSE}
+# run vizlab::storeSBcreds() once before this can work
+home <- path.expand('~')
+sbCreds <- file.path(home, ".vizlab/sbCreds")
+credList <- readRDS(sbCreds)
+un <- rawToChar(credList$username)
+pw <- rawToChar(credList$password)
+sbtools::authenticate_sb(un, pw)
+```
+
 Before starting the exercises, you should make sure that the `sbtools` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('sbtools')` or go to the "Update" button in the "Packages" tab in RStudio.
 
 ```{r load-sbtools}
@@ -46,4 +56,56 @@ Before starting the exercises, you should make sure that the `sbtools` package i
 library(sbtools)
 ```
 
+## Exercise 1
 
+Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use `query_sb` to search using more than one criteria, and use a Lucene query string if you want an exact match. 
+
+```{r addToggle="ON"}
+laketemp <- query_sb(query_list = list(q = '', lq = '"lake temperature"', 
+                                       dateRange = '{"start":"2010-01-01","end":"2010-12-31"}',
+                                       dateType = 'dateCollected'),
+                   limit = 100)
+length(laketemp)
+```
+
+## Exercise 2
+
+Using [this item](https://www.sciencebase.gov/catalog/item/5979248ee4b0ec1a488a49c6), create a new child item. Then, add a subtitle and explanation about this new child item (e.g. "this is a practice item for using sbtools"). Hint: have you authenticated?
+
+```{r addToggle="ON"}
+new_item <- item_create(parent_id = "5979248ee4b0ec1a488a49c6", 
+                        title = "My new item")
+updated_item <- item_update(new_item, 
+                            info = list(subTitle = "Test item for sbtools",
+                                        body = "This is my practice item for using sbtools."))
+```
+
+## Exercise 3
+
+Using the folder "Example NWIS Data" under [this item](https://www.sciencebase.gov/catalog/item/5979248ee4b0ec1a488a49c6), read each file in as a data frame. Hint: JSON files can be read using `fromJSON` from the `jsonlite` package.
+
+```{r addToggle="ON"}
+# You can either use the parent folder to determine the "Example NWIS Data" id;
+# or go online and get the item id from the end of the URL.
+
+# Use parent folder to get specific child folder reproducibly
+all_children <- item_list_children("5979248ee4b0ec1a488a49c6")
+children_titles <- unlist(lapply(all_children, function(item) item$title))
+folder_item <- all_children[[grep("Example NWIS Data", children_titles)]]
+
+# Use the "Example NWIS Data" id from the website
+folder_item <- item_get("59792b28e4b0ec1a488a49dc")
+
+# download the item file info and the files
+nwis_files <- item_list_files(folder_item)
+nwis_files
+
+ca_dissolvedoxygen <- read.csv(nwis_files$url[1])
+id_flow <- read.csv(nwis_files$url[2])
+ms_siteinfo <- jsonlite::fromJSON(nwis_files$url[3])
+```
+
+```{r cleanup, echo=FALSE, messages=FALSE, warnings=FALSE}
+# leave parent folder, but delete anything created in this .Rmd
+removed_item <- item_rm(updated_item)
+```
