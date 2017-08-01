@@ -7,11 +7,11 @@ menu:
     parent: Course Specific Material
     weight: 1
 ---
-August 27-29 in Reston, VA
+August 29-31 in Reston, VA
 
 ### Installation
 
-See [Before the Workshop](/intro-curriculum/Before) for information on what software should be installed prior to the course.
+See [R Installation Instructions](/installr) for information on what software should be installed prior to the course.
 
 ### Tentative schedule
 
@@ -34,7 +34,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 -   10:15 am - 10:30 am -- *Break*
 -   10:30 am - 12:00 pm -- [Analyze: Base](/intro-curriculum/Analyze)
 -   12:00 pm - 01:00 pm -- *Lunch*
--   01:00 pm - 02:30 pm -- Analyze: [EGRET](https://cran.r-project.org/web/packages/EGRET/EGRET.pdf), dataRetrieval
+-   01:00 pm - 02:30 pm -- [Analyze: dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf)
 -   02:30 pm - 02:45 pm -- *Break*
 -   02:45 pm - 04:15 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
 -   04:15 pm - 04:30 pm -- End of day wrap-up
@@ -43,7 +43,7 @@ See [Before the Workshop](/intro-curriculum/Before) for information on what soft
 
 -   08:00 am - 08:30 am -- Instructors available for questions
 -   08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
--   10:00 am - 12:00 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+-   10:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
