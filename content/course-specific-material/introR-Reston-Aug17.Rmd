@@ -1,6 +1,6 @@
 ---
 title: "Reston Intro to R Training"
-date: "2017-08-27"
+date: "2017-08-29"
 slug: "introR-Reston-Aug17"
 output: USGSmarkdowntemplates::hugoTraining_course
 parent: Course Specific Material

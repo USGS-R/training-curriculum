@@ -1,5 +1,5 @@
 ---
-date: 2017-08-27
+date: 2017-08-29
 slug: introR-Reston-Aug17
 title: Reston Intro to R Training
 menu:
