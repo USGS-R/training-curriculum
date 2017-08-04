@@ -60,16 +60,9 @@
       <img id="mobileBurger" src="{{ $.Site.BaseURL }}images/mobileburger.png" alt="mobile nav menu"/>
       <ul id="navigation">
         <li><a href="http://owi.usgs.gov/R/index.html">Home</a></li>
-        <li><a href="http://owi.usgs.gov/R/about.html">About</a></li>
-        <li><a href="http://owi.usgs.gov/R/resources.html">Resources</a></li>
-        <li class="shower"><a href="http://owi.usgs.gov/R/training.html">Training</a>
+        <li class="shower">
+          <a href="http://owi.usgs.gov/R/Resources.html">Resources</a>
           <ul id="trainingDropdown">
-					  <li><a href="http://owi.usgs.gov/R/training.html">Training Schedule</a></li>
-						<li>
-    				  <a href="{{ .Site.BaseURL }}">
-    				  Training Curriculum
-    				  </a>
-    			  </li>
 					  <li>
 						  <a href="{{ .Site.BaseURL }}intro-curriculum">
 					      Introduction to R
@@ -95,9 +88,15 @@
 				  R Package Development
 				  </a>
 			  </li>
-			  <li class="mobileLinks"><a href="{{ .Site.BaseURL }}course-specific-material/">Course Specific Materials</a></li>
+			  <li class="mobileLinks">
+			    <a href="{{ .Site.BaseURL }}course-specific-material/">Course Specific Materials</a>
+			  </li>
+        <li><a href="http://owi.usgs.gov/R/resources.html">Resources</a></li>
+        <li><a href="http://owi.usgs.gov/R/training.html">Training</a></li>
+        
         <li><a href="http://owi.usgs.gov/R/gran.html">GRAN</a></li>
 		    <li><a href="http://owi.usgs.gov/R/contact_contribute.html">Contact</a></li>
+		    <li><a href="http://owi.usgs.gov/R/about.html">About</a></li>
       </ul>
 
     </div>
