@@ -31,3 +31,8 @@ By the end of this lesson, the learner will be able to:
 1.  Automate retrieval of data via NWIS Web, ScienceBase, and the GDP through scripted, reproducible code.
 2.  Use USGS packages within an overall data analysis workflow (apply modularity).
 3.  Contribute to and seek help within the USGS-R community.
+
+The Challenge
+-------------
+
+You want to produce a monthly report that summarizes the rainfall, and nutrient concentrations for your local partners. Your local partners provide an updated list of sites they want to see in the report through ScienceBase. Using the packages taught in this course, create a reproducible, modular workflow that pulls in the correct data and produces a useful summary. Have your workflow automatically "publish" the report on ScienceBase. The following lessons will walk you through the process.

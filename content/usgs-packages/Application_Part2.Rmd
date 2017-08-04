@@ -1,0 +1,131 @@
+---
+title: "Application - Part 2: Download data."
+date: "9999-05-01"
+author: "Lindsay R. Carr"
+slug: "app-part2"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 2
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/app-part2/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+knit_hooks$set(addToggle = function(before, options, envir) {
+    if(before) {
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
+    } else {
+      '</div>'
+    }
+})
+
+set.seed(1)
+```
+
+```{r sbtools-auth, echo=FALSE}
+# run vizlab::storeSBcreds() once before this can work
+credList <- readRDS(file.path(path.expand('~'), ".vizlab/sbCreds"))
+un <- rawToChar(credList$username)
+pw <- rawToChar(credList$password)
+sbtools::authenticate_sb(un, pw)
+```
+
+In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/app-part1).
+
+We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. If you need a reminder, below is the code that we used to get the site and 8-digit HUC numbers.
+
+```{r get-sb-sites, addToggle="ON", echo=FALSE, message=FALSE, warning=FALSE}
+library(sbtools)
+library(dataRetrieval)
+
+# identify site id and query for files
+sb_site_id <- "59848b35e4b0e2f5d46717d1"
+avail_files <- item_list_files(sb_site_id)
+
+# use appropriate reader to get file (tab delimited) into R & get site numbers
+sb_sites_df <- read.table(avail_files$url[1], sep="\t", header=TRUE,
+                          colClasses = "character", stringsAsFactors = FALSE)
+sites <- sb_sites_df$site_number
+
+# get HUC 8 codes for precip data
+sb_sites_info <- readNWISsite(sites)
+huc8s <- sb_sites_info$huc_cd
+```
+
+Before downloading the data, make sure you select the time period that this should be created for. For this example, we are going to use water year 2016.
+
+```{r setup-time-period}
+startDate <- "2015-10-01"
+endDate <- "2016-09-30"
+```
+
+Now, use `dataRetrieval` functions to pull down data for nitrogen and phosphorus. You can choose your own parameter codes to define these nutrients using `parameterCdFile` or use the ones below.
+
+```{r nutrient-pcodes}
+pcodes_nitrogen <- c("00613", "00618", "00631")
+pcodes_phosphorus <- c("00665")
+```
+
+Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Expand the code below to once you've made an attempt.
+
+```{r nutrient-data, addToggle="ON"}
+nitrogen_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_nitrogen,
+                            startDate = startDate, endDate = endDate)
+head(nitrogen_data)
+
+phosphorus_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_phosphorus,
+                              startDate = startDate, endDate = endDate)
+head(phosphorus_data)
+```
+
+Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need the dataset (title: "United States Stage IV Quantitative Precipitation Archive") and appropriate HUCs. See `?webgeom` for an example of how to format the geom for 8-digit HUCs. Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](geoknife-data) and [geoknife execute](geoknife-job) lessons for assistance.
+
+```{r precip-data, addToggle="ON"}
+library(geoknife)
+
+# Create appropriate webgeom string for 8-digit hucs
+huc8_geoknife_str <- paste0('HUC8::', paste(huc8s, collapse=","))
+huc8_geoknife_str
+
+# Create the stencil and process
+precip_stencil <- webgeom(huc8_geoknife_str)
+precip_knife <- webprocess() # accept defaults for weighted average
+
+# First find and initiate the fabric
+all_webdata <- query("webdata")
+precip_fabric <- webdata(all_webdata["United States Stage IV Quantitative Precipitation Archive"])
+
+# Now find/add variables (there is only one)
+precip_vars <- query(precip_fabric, 'variables')
+variables(precip_fabric) <- precip_vars
+
+# Add times to complete fabric
+times(precip_fabric) <- c(startDate, endDate)
+
+# Create geojob + get results
+precip_geojob <- geoknife(precip_stencil, precip_fabric, precip_knife)
+wait(precip_geojob, sleep.time = 10) # add `wait` when running scripts
+precip_data <- result(precip_geojob)
+```
+
+```{r save-intermediate, echo=FALSE}
+# this takes a long time to process, don't want to hold up knitting
+saveRDS(list(geojob = precip_geojob, data = precip_data), "precip_geoknife.RDS")
+```
