@@ -91,6 +91,7 @@ precip_data_long <- gather(precip_data, huc8, precip, -which(!names(precip_data)
 ```
 
 </div>
+
 Now choose one site to create the plots. Seperate the data so each data frame contains only one site (see `?filter` from `dplyr` for hints). After we establish the plotting code, we will automate this for all sites.
 
 <button class="ToggleButton" onclick="toggle_visibility('filter-data')">
