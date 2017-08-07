@@ -95,7 +95,7 @@ li{
     position: relative;
     height: 35px;
     margin: 0 auto;
-	background:#003366;
+	  background:#003366;
   }
   #owiLogoSmall {
     display: block;
@@ -232,6 +232,8 @@ body {
 
 a {
   color: #003366;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 
 a:hover, a:focus, a:active {
