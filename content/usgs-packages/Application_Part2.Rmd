@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 2, Download data."
+title: "Application - Part 2, download data"
 date: "9999-05-01"
 author: "Lindsay R. Carr"
 slug: "app-part2"
@@ -49,9 +49,9 @@ sbtools::authenticate_sb(un, pw)
 
 In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/usgs-packages/app-part1).
 
-We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. If you need a reminder, below is the code that we used to get the site and 8-digit HUC numbers.
+We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. If you need a reminder, the code that we used to get the site and 8-digit HUC numbers is available below.
 
-```{r get-sb-sites, addToggle="ON", echo=FALSE, message=FALSE, warning=FALSE}
+```{r get-sb-sites, addToggle="ON", message=FALSE, warning=FALSE}
 library(sbtools)
 library(dataRetrieval)
 
@@ -69,12 +69,14 @@ sb_sites_info <- readNWISsite(sites)
 huc8s <- sb_sites_info$huc_cd
 ```
 
-Before downloading the data, make sure you select the time period that this should be created for. For this example, we are going to use water year 2016.
+Before downloading the data, make sure you identify the time period of interest. For this example, we are going to use water year 2016.
 
 ```{r setup-time-period}
 startDate <- "2015-10-01"
 endDate <- "2016-09-30"
 ```
+
+## Get nutrient data
 
 Now, use `dataRetrieval` functions to pull down data for nitrogen and phosphorus. You can choose your own parameter codes to define these nutrients using `parameterCdFile` or use the ones below.
 
@@ -83,21 +85,25 @@ pcodes_nitrogen <- c("00613", "00618", "00631")
 pcodes_phosphorus <- c("00665")
 ```
 
-Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Expand the code below to once you've made an attempt.
+Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Revisit the [lesson on downloading NWIS data](/usgs-packages/dataretrieval-readnwis/) to see what functions are available. Expand the code below once you've made an attempt. 
 
 ```{r nutrient-data, addToggle="ON"}
 nitrogen_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_nitrogen,
                             startDate = startDate, endDate = endDate)
-head(nitrogen_data)
+head(nitrogen_data[,c('site_no', 'sample_dt', 'result_va')])
 
 phosphorus_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_phosphorus,
                               startDate = startDate, endDate = endDate)
-head(phosphorus_data)
+head(phosphorus_data[,c('site_no', 'sample_dt', 'result_va')])
 ```
 
-Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need the dataset (title: "United States Stage IV Quantitative Precipitation Archive") and appropriate HUCs. See `?webgeom` for an example of how to format the geom for 8-digit HUCs. Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
+## Get precip data
 
-```{r precip-data, addToggle="ON"}
+Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need a dataset and appropriate HUCs. Use the dataset title "United States Stage IV Quantitative Precipitation Archive". See `?webgeom` for an example of how to format the geom for 8-digit HUCs. 
+
+Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
+
+```{r precip-data, addToggle="ON", message=FALSE, warning=FALSE}
 library(geoknife)
 
 # Create appropriate webgeom string for 8-digit hucs
@@ -123,6 +129,7 @@ times(precip_fabric) <- c(startDate, endDate)
 precip_geojob <- geoknife(precip_stencil, precip_fabric, precip_knife)
 wait(precip_geojob, sleep.time = 10) # add `wait` when running scripts
 precip_data <- result(precip_geojob)
+head(precip_data)
 ```
 
 ```{r save-intermediate, echo=FALSE}

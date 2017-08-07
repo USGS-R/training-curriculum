@@ -1,8 +1,8 @@
 ---
 author: Lindsay R. Carr
 date: 9999-05-25
-slug: app-part-one
-title: Application - Part 1, Determine sites and regions
+slug: app-part1
+title: Application - Part 1, find sites
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -10,7 +10,10 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-As stated in the Challenge description, site information has been provided via ScienceBase. For the purposes of this exercise, let's assume your cooperator gave you the ScienceBase item ID that contained the site information. Using functions taught earlier in `sbtools` lessons, create a vector of the ScienceBase site numbers.
+As stated in the Challenge description, site information has been provided via ScienceBase. For the purposes of this exercise, let's assume your cooperator gave you the ScienceBase [item ID that contained the site information](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1). Using functions taught earlier in `sbtools` lessons, create a vector of the ScienceBase site numbers. In addition, use functions in `dataRetrieval` to gather relevant regional data about each site (e.g. HUC ids).
+
+Get sites
+---------
 
 First, authenticate your ScienceBase session using `authenticate_sb()`. Now, use `sbtools` functions to read the appropriate file from the [SB item created by your cooperator](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) into R as a data frame. Try it on your own before looking at the answer below. Don't hesitate to go back to the [sbtools download data lesson](/usgs-packages/sbtools-get) for a refresher.
 
@@ -63,7 +66,10 @@ sites
     ## [1] "04067500" "04085427" "04208000"
 
 </div>
-In anticipation of downloading precipitation data through the Geo Data Portal, we need to determine which regions to use since it does not operate based on NWIS sites. GDP can use 8-digit hydrologic unit codes (HUCs), which can be determined for each site number using `readNWISsite`. Try it on your own before looking at the answer below.
+Get relevant site metadata
+--------------------------
+
+In anticipation of downloading precipitation data through the Geo Data Portal, we need to determine which regions to use since it does not operate based on NWIS sites. GDP can use 8-digit hydrologic unit codes (HUCs), which can be determined for each site number using `readNWISsite`. Use `readNWISsite` to get a vector of 8-digit HUCs. Try it on your own before looking at the answer below.
 
 <button class="ToggleButton" onclick="toggle_visibility('get_hucs')">
 Show Answer

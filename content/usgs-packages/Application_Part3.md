@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9999-04-25
 slug: app-part3
-title: Application - Part 3, Plots and maps.
+title: Application - Part 3, plots and maps
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -10,7 +10,7 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 2
 ---
-In this section, you will use data downloaded from the [previous section](/app-part2) to create time series plots and a map. The goal is to have 3 timeseries plots per site/HUC (precipitation, nitrogen concentration, and phosphorus concentration), and one summary map of cumulative precipition for each HUC.
+In this section, you will use data downloaded from the [previous section](/usgs-packages/app-part2) to create time series plots and a map. The goal is to have 3 timeseries plots per site/HUC (precipitation, nitrogen concentration, and phosphorus concentration), and one summary map of cumulative precipition for each HUC.
 
 This will be put together as a single script at the end, but use the code below to remind yourself what we have done up to this point.
 
@@ -19,8 +19,48 @@ Getting sites and data:
 <button class="ToggleButton" onclick="toggle_visibility('get-sites-data')">
 Show Answer
 </button>
-              <div id="get-sites-data" style="display:none"></div>
+              <div id="get-sites-data" style="display:none">
 
+``` r
+library(sbtools)
+library(dataRetrieval)
+library(geoknife)
+
+# identify site id and query for files
+sb_site_id <- "59848b35e4b0e2f5d46717d1"
+avail_files <- item_list_files(sb_site_id)
+
+# use appropriate reader to get file (tab delimited) into R & get site numbers
+sb_sites_df <- read.table(avail_files$url[1], sep="\t", header=TRUE,
+                          colClasses = "character", stringsAsFactors = FALSE)
+sites <- sb_sites_df$site_number
+
+# get HUC 8 codes for precip data
+sb_sites_info <- readNWISsite(sites)
+huc8s <- sb_sites_info$huc_cd
+
+# define period
+startDate <- "2015-10-01"
+endDate <- "2016-09-30"
+
+# download nutrient data
+pcodes_nitrogen <- c("00613", "00618", "00631")
+pcodes_phosphorus <- c("00665")
+nitrogen_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_nitrogen,
+                            startDate = startDate, endDate = endDate)
+phosphorus_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_phosphorus,
+                              startDate = startDate, endDate = endDate)
+
+# download precip data
+precip_stencil <- webgeom(paste0('HUC8::', paste(huc8s, collapse=",")))
+precip_knife <- webprocess() # accept defaults for weighted average
+all_webdata <- query("webdata")
+precip_fabric <- webdata(all_webdata["United States Stage IV Quantitative Precipitation Archive"])
+variables(precip_fabric) <- query(precip_fabric, 'variables')
+times(precip_fabric) <- c(startDate, endDate)
+```
+
+</div>
 Executing the geojob:
 
 <button class="ToggleButton" onclick="toggle_visibility('execute-job-off')">
@@ -35,6 +75,9 @@ precip_data <- result(precip_geojob)
 ```
 
 </div>
+Prepare data for plotting
+-------------------------
+
 First re-organize the precipitation into a long format (one column for value, one for HUC) rather than a separate column of precip for each HUC. See `gather` from the package `tidyr` for ideas on how to do it.
 
 <button class="ToggleButton" onclick="toggle_visibility('reorganize-precip-data')">
@@ -57,24 +100,7 @@ Show Answer
 
 ``` r
 library(dplyr)
-```
 
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following object is masked from 'package:geoknife':
-    ## 
-    ##     id
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 nitrogen_site1 <- filter(nitrogen_data, site_no == sites[1])
 phosphorus_site1 <- filter(phosphorus_data, site_no == sites[1])
 
@@ -83,6 +109,9 @@ precip_site1 <- filter(precip_data_long, huc8 == huc_site1)
 ```
 
 </div>
+Create time series plots
+------------------------
+
 Create a separate time series plot of precipitation, nitrogen, and phosphorus for each site using the separated data frames. See `?layout` to see how to include all three in one graphics device.
 
 <button class="ToggleButton" onclick="toggle_visibility('time-series-plots')">
@@ -102,7 +131,10 @@ plot(phosphorus_site1$sample_dt, phosphorus_site1$result_va,
 
 <img src='../static/app-part3/time-series-plots-1.png'/ title='TODO'/>
 </div>
-Now that we have established the code required to make all three timeseries plots for each site, automate this so it happens for each site (a.k.a. make a [for loop](/intro-curriculum/Reproduce/#looping)).
+Automate the plots for all sites
+--------------------------------
+
+Now that we have established the code required to make all three timeseries plots for each site, automate this so it happens for each site (a.k.a. make a [for loop](/intro-curriculum/reproduce/#looping)).
 
 <button class="ToggleButton" onclick="toggle_visibility('automate-time-series-plots')">
 Show Answer
@@ -130,6 +162,9 @@ for(i in sites){
 
 <img src='../static/app-part3/automate-time-series-plots-1.png'/ title='TODO'/><img src='../static/app-part3/automate-time-series-plots-2.png'/ title='TODO'/><img src='../static/app-part3/automate-time-series-plots-3.png'/ title='TODO'/>
 </div>
+Map cumulative precip
+---------------------
+
 Finally, create a map that summarizes all HUC yearly cumulative precipitation at once. This will take some data massaging first: determine the cumulative annual (by water year) precipitation for each HUC.
 
 <button class="ToggleButton" onclick="toggle_visibility('cumulative-precip')">

@@ -34,7 +34,7 @@ set.seed(1)
 
 This lesson will revisit the packages taught in previous lessons and use some of their functions to create a common data analysis workflow in a modular and reproducible manner. 
 
-What is modularity and why is it more reproducible? 
+**_What is modularity and why is it more reproducible?_**
 
 Modularity is the idea that your workflow leverages other tools to do some of the more general tasks. You can think of it as a sort of "plug-and-play" approach, where you are relying on functionality from another developer to perform pieces of your analysis. This also means that you should choose your tools wisely and scrutinize the tools you plan to use in your analyses. 
 

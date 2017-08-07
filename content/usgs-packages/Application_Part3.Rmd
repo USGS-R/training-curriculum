@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 3, Plots and maps."
+title: "Application - Part 3, plots and maps"
 date: "9999-04-25"
 author: "Lindsay R. Carr"
 slug: "app-part3"
@@ -53,7 +53,7 @@ This will be put together as a single script at the end, but use the code below 
 
 Getting sites and data:
 
-```{r get-sites-data, addToggle="ON", echo=FALSE, message=FALSE, warning=FALSE}
+```{r get-sites-data, addToggle="ON", message=FALSE, warning=FALSE}
 library(sbtools)
 library(dataRetrieval)
 library(geoknife)
@@ -106,6 +106,8 @@ precip_geojob <- geoknife_list$geojob
 precip_data <- geoknife_list$data
 ```
 
+## Prepare data for plotting
+
 First re-organize the precipitation into a long format (one column for value, one for HUC) rather than a separate column of precip for each HUC. See `gather` from the package `tidyr` for ideas on how to do it.
 
 ```{r reorganize-precip-data, addToggle="ON"}
@@ -115,7 +117,7 @@ precip_data_long <- gather(precip_data, huc8, precip, -which(!names(precip_data)
 
 Now choose one site to create the plots. Seperate the data so each data frame contains only one site (see `?filter` from `dplyr` for hints). After we establish the plotting code, we will automate this for all sites. 
 
-```{r filter-data, addToggle="ON"}
+```{r filter-data, addToggle="ON", message=FALSE, warning=FALSE}
 library(dplyr)
 
 nitrogen_site1 <- filter(nitrogen_data, site_no == sites[1])
@@ -124,6 +126,8 @@ phosphorus_site1 <- filter(phosphorus_data, site_no == sites[1])
 huc_site1 <- filter(sb_sites_info, site_no == sites[1])$huc_cd # corresponding HUC8
 precip_site1 <- filter(precip_data_long, huc8 == huc_site1)
 ```
+
+## Create time series plots
 
 Create a separate time series plot of precipitation, nitrogen, and phosphorus for each site using the separated data frames. See `?layout` to see how to include all three in one graphics device. 
 
@@ -137,7 +141,9 @@ plot(phosphorus_site1$sample_dt, phosphorus_site1$result_va,
      col="blue", pch=20, xlab = "Time", ylab = "Phosphorus concentration, mg/l")
 ```
 
-Now that we have established the code required to make all three timeseries plots for each site, automate this so it happens for each site (a.k.a. make a [for loop](/intro-curriculum/Reproduce/#looping)). 
+## Automate the plots for all sites
+
+Now that we have established the code required to make all three timeseries plots for each site, automate this so it happens for each site (a.k.a. make a [for loop](/intro-curriculum/reproduce/#looping)). 
 
 ```{r automate-time-series-plots, addToggle="ON"}
 for(i in sites){
@@ -157,6 +163,8 @@ for(i in sites){
        col="blue", pch=20, xlab = "Time", ylab = "Phosphorus concentration, mg/l")
 }
 ```
+
+## Map cumulative precip
 
 Finally, create a map that summarizes all HUC yearly cumulative precipitation at once. This will take some data massaging first: determine the cumulative annual (by water year) precipitation for each HUC.
 

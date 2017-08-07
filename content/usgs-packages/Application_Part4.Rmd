@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 4, Publish."
+title: "Application - Part 4, publish results"
 date: "9999-04-01"
 author: "Lindsay R. Carr"
 slug: "app-part4"
@@ -39,7 +39,7 @@ knit_hooks$set(addToggle = function(before, options, envir) {
 set.seed(1)
 ```
 
-```{r sbtools-auth, echo=FALSE}
+```{r sbtools-auth, include=FALSE}
 # run vizlab::storeSBcreds() once before this can work
 credList <- readRDS(file.path(path.expand('~'), ".vizlab/sbCreds"))
 un <- rawToChar(credList$username)
@@ -51,7 +51,7 @@ In this section, we will complete the workflow and push the finished plots to Sc
 
 Getting sites and data:
 
-```{r sites-data-plot, addToggle="ON", echo=FALSE, message=FALSE, warning=FALSE}
+```{r sites-data-plot, addToggle="ON", message=FALSE, warning=FALSE}
 library(sbtools)
 library(dataRetrieval)
 library(geoknife)
@@ -100,7 +100,7 @@ wait(precip_geojob, sleep.time = 10) # add `wait` when running scripts
 precip_data <- result(precip_geojob)
 ```
 
-```{r read-intermediate, echo=FALSE}
+```{r read-intermediate, include=FALSE}
 geoknife_list <- readRDS("precip_geoknife.RDS")
 precip_geojob <- geoknife_list$geojob
 precip_data <- geoknife_list$data
@@ -130,6 +130,8 @@ for(i in sites){
 }
 ```
 
+## Create location to publish on SB
+
 The challenge with this application was to provide summaries of precipitation, nitrogen, and phosphorus data for a specific set of sites provided by a cooperator. The challenge was to automate the entire workflow, so the final step is to publish our results to ScienceBase. It would make most since to push the results to the same ScienceBase item that the cooperator provided for sites, but since this is an exercise and others will be completing it, we will save the results to a personal SB item. 
 
 Therefore, the first step is to create a folder under your user to save the results. Title this new item "usgs-pkgs-application-results". Visit the [sbtools modify lesson](/usgs-packages/sbtools-modify) to remind yourself how to do this. Try it on your own before expanding the solution code!
@@ -142,9 +144,11 @@ sb_results_item <- item_create(title = "usgs-pkgs-application-results")
 sb_results_id <- sb_results_item$id
 ```
 
+## Publish plots as images
+
 Next save the graphics as PNG files and upload to ScienceBase (add this code to the loop where the plots are rendered). 
 
-```{r automate-plots-publish, addToggle="ON", echo=FALSE}
+```{r automate-plots-publish, addToggle="ON"}
 site_fnames <- paste0("timeseries_", sites, ".png")
 
 for(i in seq_along(sites)){
@@ -170,7 +174,7 @@ for(i in seq_along(sites)){
 }
 
 updated_item <- item_append_files(sb_results_id, files = site_fnames)
-file.remove(site_fnames) # now that it's online, remove local copy
+rm_files <- file.remove(site_fnames) # now that it's online, remove local copy
 ```
 
 Check to see if the files were successfully uploaded to SB:
@@ -180,7 +184,9 @@ sb_fnames <- item_list_files(sb_results_id)
 all(site_fnames %in% sb_fnames$fname)
 ```
 
-You should now have a complete, modular workflow - from data retrieval to processing to visualizing, and finally to publishing and sharing. See the completed workflow below.
+## Completed modular workflow
+
+You should now have a complete, modular workflow - from data retrieval to processing to visualizing, and finally to publishing and sharing. You could change the ScienceBase item ID to point to different site numbers to use for other cooperator's data. See the completed workflow below. 
 
 ```{r complete-workflow, addToggle="ON", eval=FALSE}
 library(sbtools)
@@ -254,9 +260,9 @@ for(i in seq_along(sites)){
 }
 
 updated_item <- item_append_files(sb_results_id, files = site_fnames)
-file.remove(site_fnames) # now that it's online, remove local copy
+rm_files <- file.remove(site_fnames) # now that it's online, remove local copy
 ```
 
-```{r sbtools-reset-state, echo=FALSE}
+```{r sbtools-reset-state, include=FALSE}
 item_rm(sb_results_item, recursive = TRUE)
 ```
