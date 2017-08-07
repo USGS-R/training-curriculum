@@ -96,6 +96,8 @@ li{
     height: 35px;
     margin: 0 auto;
 	  background:#003366;
+	  border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
   }
   #owiLogoSmall {
     display: block;
@@ -230,13 +232,13 @@ body {
   background-color: #fff;
 }
 
-a {
+.p-logo a {
   color: #003366;
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
 }
 
-a:hover, a:focus, a:active {
+.p-logo a:hover, a:focus, a:active {
   color: #000;
   text-decoration: none;
 }
