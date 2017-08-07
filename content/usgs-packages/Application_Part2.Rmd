@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 2: Download data."
+title: "Application - Part 2, Download data."
 date: "9999-05-01"
 author: "Lindsay R. Carr"
 slug: "app-part2"
@@ -47,7 +47,7 @@ pw <- rawToChar(credList$password)
 sbtools::authenticate_sb(un, pw)
 ```
 
-In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/app-part1).
+In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/usgs-packages/app-part1).
 
 We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. If you need a reminder, below is the code that we used to get the site and 8-digit HUC numbers.
 
@@ -95,7 +95,7 @@ phosphorus_data <- readNWISqw(siteNumbers = sites, parameterCd = pcodes_phosphor
 head(phosphorus_data)
 ```
 
-Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need the dataset (title: "United States Stage IV Quantitative Precipitation Archive") and appropriate HUCs. See `?webgeom` for an example of how to format the geom for 8-digit HUCs. Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](geoknife-data) and [geoknife execute](geoknife-job) lessons for assistance.
+Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need the dataset (title: "United States Stage IV Quantitative Precipitation Archive") and appropriate HUCs. See `?webgeom` for an example of how to format the geom for 8-digit HUCs. Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
 
 ```{r precip-data, addToggle="ON"}
 library(geoknife)

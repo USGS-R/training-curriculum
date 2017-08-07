@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 4: Publish."
+title: "Application - Part 4, Publish."
 date: "9999-04-01"
 author: "Lindsay R. Carr"
 slug: "app-part4"
@@ -47,7 +47,7 @@ pw <- rawToChar(credList$password)
 sbtools::authenticate_sb(un, pw)
 ```
 
-In this section, we will complete the workflow and push the finished plots to ScienceBase from within the script. See the [previous section](/app-part3) to see how we created the plots (or expand the code below).
+In this section, we will complete the workflow and push the finished plots to ScienceBase from within the script. See the [previous section](/usgs-packages/app-part3) to see how we created the plots (or expand the code below).
 
 Getting sites and data:
 
@@ -132,7 +132,7 @@ for(i in sites){
 
 The challenge with this application was to provide summaries of precipitation, nitrogen, and phosphorus data for a specific set of sites provided by a cooperator. The challenge was to automate the entire workflow, so the final step is to publish our results to ScienceBase. It would make most since to push the results to the same ScienceBase item that the cooperator provided for sites, but since this is an exercise and others will be completing it, we will save the results to a personal SB item. 
 
-Therefore, the first step is to create a folder under your user to save the results. Title this new item "usgs-pkgs-application-results". Visit the [sbtools modify lesson](/usgs-pkgs/sbtools-modify) to remind yourself how to do this. Try it on your own before expanding the solution code!
+Therefore, the first step is to create a folder under your user to save the results. Title this new item "usgs-pkgs-application-results". Visit the [sbtools modify lesson](/usgs-packages/sbtools-modify) to remind yourself how to do this. Try it on your own before expanding the solution code!
 
 ```{r create-new-item, addToggle="ON"}
 # automatically created under the authenticated user

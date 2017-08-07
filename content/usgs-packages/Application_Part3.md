@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9999-04-25
 slug: app-part3
-title: Application - Part 3: Plots and maps.
+title: Application - Part 3, Plots and maps.
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:

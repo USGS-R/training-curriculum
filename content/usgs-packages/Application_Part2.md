@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9999-05-01
 slug: app-part2
-title: Application - Part 2: Download data.
+title: Application - Part 2, Download data.
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:

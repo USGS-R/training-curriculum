@@ -1,8 +1,8 @@
 ---
 author: Lindsay R. Carr
 date: 9999-05-25
-slug: app-part1
-title: Application - Part 1: Determine sites and regions
+slug: app-part-one
+title: Application - Part 1, Determine sites and regions
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
@@ -12,7 +12,7 @@ menu:
 ---
 As stated in the Challenge description, site information has been provided via ScienceBase. For the purposes of this exercise, let's assume your cooperator gave you the ScienceBase item ID that contained the site information. Using functions taught earlier in `sbtools` lessons, create a vector of the ScienceBase site numbers.
 
-First, authenticate your ScienceBase session using `authenticate_sb()`. Now, use `sbtools` functions to read the appropriate file from the [SB item created by your cooperator](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) into R as a data frame. Try it on your own before looking at the answer below. Don't hesitate to go back to the [sbtools download data lesson](/sbtools-get) for a refresher.
+First, authenticate your ScienceBase session using `authenticate_sb()`. Now, use `sbtools` functions to read the appropriate file from the [SB item created by your cooperator](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) into R as a data frame. Try it on your own before looking at the answer below. Don't hesitate to go back to the [sbtools download data lesson](/usgs-packages/sbtools-get) for a refresher.
 
 <button class="ToggleButton" onclick="toggle_visibility('get-sb-sites')">
 Show Answer

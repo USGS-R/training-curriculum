@@ -1,5 +1,5 @@
 ---
-title: "Application - Part 3: Plots and maps."
+title: "Application - Part 3, Plots and maps."
 date: "9999-04-25"
 author: "Lindsay R. Carr"
 slug: "app-part3"
@@ -47,7 +47,7 @@ pw <- rawToChar(credList$password)
 sbtools::authenticate_sb(un, pw)
 ```
 
-In this section, you will use data downloaded from the [previous section](/app-part2) to create time series plots and a map. The goal is to have 3 timeseries plots per site/HUC (precipitation, nitrogen concentration, and phosphorus concentration), and one summary map of cumulative precipition for each HUC.
+In this section, you will use data downloaded from the [previous section](/usgs-packages/app-part2) to create time series plots and a map. The goal is to have 3 timeseries plots per site/HUC (precipitation, nitrogen concentration, and phosphorus concentration), and one summary map of cumulative precipition for each HUC.
 
 This will be put together as a single script at the end, but use the code below to remind yourself what we have done up to this point.
 

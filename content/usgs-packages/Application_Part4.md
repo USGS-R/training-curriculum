@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9999-04-01
 slug: app-part4
-title: Application - Part 4: Publish.
+title: Application - Part 4, Publish.
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
