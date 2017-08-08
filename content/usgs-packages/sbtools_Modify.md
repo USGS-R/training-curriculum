@@ -2,13 +2,13 @@
 author: Lindsay R. Carr
 date: 9999-06-25
 slug: sbtools-modify
-title: sbtools - modify sbitems
+title: sbtools - Modify sbitems
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 34
 aliases: 
 ---
 This lesson will teach you how to manage your ScienceBase items and folders from R, which can be useful for batch or automated updates and edits. The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values.

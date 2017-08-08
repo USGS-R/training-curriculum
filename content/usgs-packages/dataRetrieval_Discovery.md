@@ -2,13 +2,13 @@
 author: Lindsay R. Carr
 date: 9999-11-30
 slug: dataRetrieval-discovery
-title: dataRetrieval - data discovery
+title: dataRetrieval - Data discovery
 image: img/main/intro-icons-300px/r-logo.png
 identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 3
+    weight: 11
 ---
 
 **The following material is IN DEVELOPMENT**

@@ -1,12 +1,12 @@
 ---
-title: "geoknife - exercises"
+title: "geoknife - Exercises"
 date: "9999-08-30"
 author: "Lindsay R. Carr"
 slug: "geoknife-exercises"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 3
+weight: 23
 draft: true
 ---
 

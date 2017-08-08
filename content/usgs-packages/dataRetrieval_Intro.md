@@ -8,7 +8,7 @@ identifier:
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 10
 ---
 
 **The following material is IN DEVELOPMENT**

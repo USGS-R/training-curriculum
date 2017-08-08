@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 45
 ---
 After going through parts 1 through 4, you now have a complete, modular workflow - from data retrieval to processing to visualizing, and finally to publishing and sharing. You could change the ScienceBase item ID to point to different site numbers to use for other another cooperator's data. See the completed workflow below.
 

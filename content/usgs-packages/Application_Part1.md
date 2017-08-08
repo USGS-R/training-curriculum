@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 41
 ---
 As stated in the Challenge description, site information has been provided via ScienceBase. For the purposes of this exercise, let's assume your cooperator gave you the [link to the ScienceBase item](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) that contained the site information. Using functions taught earlier in `sbtools` lessons, create a vector of the ScienceBase site numbers. In addition, use functions in `dataRetrieval` to gather relevant location data about each site (e.g. HUC ids).
 
