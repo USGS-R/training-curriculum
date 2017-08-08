@@ -12,32 +12,8 @@ menu:
 ---
 In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/usgs-packages/app-part1).
 
-We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. If you need a reminder, the code that we used to get the site and 8-digit HUC numbers is available below.
+We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. The code that we used to get the site and 8-digit HUC numbers is available in [Part 5](/usgs-packages/app-part5).
 
-<button class="ToggleButton" onclick="toggle_visibility('get-sb-sites')">
-Show Answer
-</button>
-              <div id="get-sb-sites" style="display:none">
-
-``` r
-library(sbtools)
-library(dataRetrieval)
-
-# identify site id and query for files
-sb_site_id <- "59848b35e4b0e2f5d46717d1"
-avail_files <- item_list_files(sb_site_id)
-
-# use appropriate reader to get file (tab delimited) into R & get site numbers
-sb_sites_df <- read.table(avail_files$url[1], sep="\t", header=TRUE,
-                          colClasses = "character", stringsAsFactors = FALSE)
-sites <- sb_sites_df$site_number
-
-# get HUC 8 codes for precip data
-sb_sites_info <- readNWISsite(sites)
-huc8s <- sb_sites_info$huc_cd
-```
-
-</div>
 Before downloading the data, make sure you identify the time period of interest. For this example, we are going to use water year 2016.
 
 ``` r
@@ -55,7 +31,7 @@ pcodes_nitrogen <- c("00613", "00618", "00631")
 pcodes_phosphorus <- c("00665")
 ```
 
-Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Revisit the [lesson on downloading NWIS data](/usgs-packages/dataretrieval-readnwis/) to see what functions are available. Expand the code below once you've made an attempt.
+Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Revisit the [lesson on downloading NWIS data](/usgs-packages/dataretrieval-readnwis/) to see what functions are available.
 
 <button class="ToggleButton" onclick="toggle_visibility('nutrient-data')">
 Show Answer
@@ -94,7 +70,7 @@ head(phosphorus_data[,c('site_no', 'sample_dt', 'result_va')])
 Get precip data
 ---------------
 
-Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need a dataset and appropriate HUCs. Use the dataset title "United States Stage IV Quantitative Precipitation Archive". See `?webgeom` for an example of how to format the geom for 8-digit HUCs.
+Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need a dataset and appropriate HUCs. Use the dataset titled "United States Stage IV Quantitative Precipitation Archive". See `?webgeom` for an example of how to format the geom for 8-digit HUCs.
 
 Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
 
