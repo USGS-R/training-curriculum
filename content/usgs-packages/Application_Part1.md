@@ -33,8 +33,8 @@ avail_files <- item_list_files(sb_site_id)
 avail_files
 ```
 
-    ##          fname size
-    ## 1 wi_sites.tsv  176
+    ##            fname size
+    ## 1 usgs_sites.tsv  176
     ##                                                                                                                                       url
     ## 1 https://www.sciencebase.gov/catalog/file/get/59848b35e4b0e2f5d46717d1?f=__disk__cd%2Fb2%2F60%2Fcdb260a105e1eccca222642f18b891e35e62eada
 

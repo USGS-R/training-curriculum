@@ -10,38 +10,10 @@ weight: 2
 draft: true
 ---
 
-```{r setup-part4, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/app-part4/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-knit_hooks$set(addToggle = function(before, options, envir) {
-    if(before) {
-      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
-              <div id="%1$s" style="display:none">', opts_current$get('label'))
-    } else {
-      '</div>'
-    }
-})
-
-set.seed(1)
-```
-
 In this section, we will complete the workflow and push the finished plots to ScienceBase from within the script. See the [previous section](/usgs-packages/app-part3) to see how we created the plots (or visit [Part 5](/usgs-packages/app-part5) to see the completed Part 3 code).
 
 ```{r include=FALSE}
+library(knitr)
 knit_child("Application_Part3.Rmd")
 ```
 

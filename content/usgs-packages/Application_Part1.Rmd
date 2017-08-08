@@ -10,7 +10,7 @@ weight: 2
 draft: true
 ---
 
-```{r setup-part1, include=FALSE, warning=FALSE, message=FALSE}
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 
 knit_hooks$set(plot=function(x, options) {
@@ -21,7 +21,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/app-part1/",
+  fig.path="static/application/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"

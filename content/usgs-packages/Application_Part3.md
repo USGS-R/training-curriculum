@@ -70,7 +70,7 @@ plot(phosphorus_site1$sample_dt, phosphorus_site1$result_va,
      col="blue", pch=20, xlab = "Time", ylab = "Phosphorus concentration, mg/l")
 ```
 
-<img src='../static/app-part1/time-series-plots-1.png'/ title='TODO'/>
+<img src='../static/application/time-series-plots-1.png'/ title='precip, nitrogen, and phosphorus time series plot'/>
 </div>
 Automate the plots for all sites
 --------------------------------
