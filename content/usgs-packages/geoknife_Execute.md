@@ -2,12 +2,12 @@
 author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
-title: geoknife - construct calls
+title: geoknife - Construct calls
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 3
 ---
 Setting up a geojob
 -------------------

@@ -1,12 +1,12 @@
 ---
-title: "sbtools - modify sbitems"
+title: "sbtools - Modify sbitems"
 date: "9999-06-25"
 author: "Lindsay R. Carr"
 slug: "sbtools-modify"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 2
+weight: 4
 draft: true
 ---
 

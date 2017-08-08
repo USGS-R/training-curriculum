@@ -1,12 +1,12 @@
 ---
-title: "dataRetrieval - exercises"
+title: "dataRetrieval - Exercises"
 date: "9999-10-15"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-exercises"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 3
+weight: 2
 draft: true
 ---
 

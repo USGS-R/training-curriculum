@@ -6,7 +6,7 @@ slug: "dataRetrieval-readNWIS"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 3
+weight: 2
 draft: true
 ---
 

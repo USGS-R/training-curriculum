@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 5
 ---
 In this section, you will use data downloaded from the [previous section](/usgs-packages/app-part2) to create time series plots and a map. The goal is to have 3 timeseries plots per site/HUC (precipitation, nitrogen concentration, and phosphorus concentration), and one summary map of cumulative precipition for each HUC.
 

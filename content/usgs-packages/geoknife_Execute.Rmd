@@ -1,12 +1,12 @@
 ---
-title: "geoknife - construct calls"
+title: "geoknife - Construct calls"
 date: "9999-09-30"
 author: "Lindsay R. Carr"
 slug: "geoknife-job"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 2
+weight: 3
 draft: true
 ---
 

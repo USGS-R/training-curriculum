@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9999-08-30
 slug: geoknife-exercises
-title: geoknife - exercises
+title: geoknife - Exercises
 draft: true 
 image: img/main/intro-icons-300px/r-logo.png
 menu:

@@ -1,12 +1,12 @@
 ---
-title: "sbtools - exercises"
+title: "sbtools - Exercises"
 date: "9999-06-15"
 author: "Lindsay R. Carr"
 slug: "sbtools-exercises"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 3
+weight: 4
 draft: true
 ---
 

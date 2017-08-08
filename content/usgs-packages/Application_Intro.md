@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 2
+    weight: 5
 ---
 Lesson Summary
 --------------

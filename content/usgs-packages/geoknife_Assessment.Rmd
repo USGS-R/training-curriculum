@@ -1,5 +1,5 @@
 ---
-title: "geoknife - exercises"
+title: "geoknife - Exercises"
 date: "9999-08-30"
 author: "Lindsay R. Carr"
 slug: "geoknife-exercises"
