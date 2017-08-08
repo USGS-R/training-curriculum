@@ -6,7 +6,7 @@ slug: "sbtools-modify"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 4
+weight: 34
 draft: true
 ---
 

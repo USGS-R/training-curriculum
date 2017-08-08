@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 3
+    weight: 23
 aliases: 
 ---
 Before starting the exercises, you should make sure that the `geoknife` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('geoknife')` or go to the "Update" button in the "Packages" tab in RStudio.

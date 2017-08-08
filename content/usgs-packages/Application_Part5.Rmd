@@ -6,7 +6,7 @@ slug: "app-part5"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 5
+weight: 45
 draft: true
 ---
 
