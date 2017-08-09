@@ -84,6 +84,8 @@ t.test(intro_df$Flow ~ intro_df$Flow_cd)
     ##   mean in group A mean in group A e 
     ##          329.4729          221.3490
 
+A common application of t-tests for hydrologic data is to compare two seasons of data. We are not going to discuss dates here, but see the [Date Handling section of Additional Topics](/intro-curriculum/Additional/#date-handling) to learn more about using dates. Then you can try using t-tests for seasonal comparisons.
+
 There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info. You could also look at quantile-quantile (Q-Q) plots to compare two populations. See `?qqplot` for comparing two populations and `?qqnorm` to compare a population to a normal distribution.
 
 ### Correlation
