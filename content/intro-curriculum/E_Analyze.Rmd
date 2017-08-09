@@ -67,7 +67,7 @@ unique(intro_df$Flow_cd)
 t.test(intro_df$Flow ~ intro_df$Flow_cd)
 ```
 
-There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info.
+There's a lot more you can do with `t.test()`, but you'll have to rely on `?t.test` for more info. You could also look at quantile-quantile (Q-Q) plots to compare two populations. See `?qqplot` for comparing two populations and `?qqnorm` to compare a population to a normal distribution.
 
 ### Correlation
 Next let's take a look at correlations. To handle missing values in `cor`, `na.rm` will not work. If you look at the help for `cor()`, you'll see two main optional arguments.  First is the `use` argument which allows you to use the entire dataset or select complete cases which is useful when you have `NA` values.  There are several options. Also, the default correlation method is for Pearson's.  If you would like to use non-parametric correlations (e.g. rank), you specify that here. See `?cor` for more information. `cor.test` already has a default way of omitting NAs using the `na.action` argument. See `?cor.test`. 
