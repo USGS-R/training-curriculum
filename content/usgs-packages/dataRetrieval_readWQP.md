@@ -68,7 +68,7 @@ The following are examples of how to use each of the readWQP family of functions
 1.  [readWQPdata, state, site type, and characteristic name](#readwqpdata-state)
 2.  [readWQPdata, county and characteristic group](##readwqpdata-county)
 3.  [readWQPdata, bbox, characteristic name, and start date](##readwqpdata-bbox)
-4.  [readNWISqw](#readwqpqw)
+4.  [readWQPqw](#readwqpqw)
 
 ### readWQPdata
 
@@ -219,7 +219,7 @@ Napa_lake_nutrients_Aug2010 <- readWQPdata(statecode="CA", countycode="055",
 nrow(Napa_lake_nutrients_Aug2010)
 ```
 
-    ## [1] 4490
+    ## [1] 4634
 
 <a name="readwqpdata-bbox"></a>
 
@@ -237,7 +237,7 @@ Everglades_temp_2016_present <- readWQPdata(bBox=c(-81.70, 25.08, -80.30, 26.51)
 nrow(Everglades_temp_2016_present)
 ```
 
-    ## [1] 1044
+    ## [1] 1066
 
 ### readWQPqw
 
@@ -331,15 +331,15 @@ nrow(SC_do_data_since2010)
 head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
 ```
 
-    ## # A tibble: 6 × 2
+    ## # A tibble: 6 x 2
     ##   ResultMeasureValue ActivityStartDate
     ##                <dbl>            <date>
-    ## 1                5.8        2010-09-26
-    ## 2                5.9        2010-04-08
-    ## 3                4.8        2011-09-06
-    ## 4                5.0        2011-09-06
-    ## 5                6.4        2011-10-18
-    ## 6                6.3        2011-06-15
+    ## 1                6.5        2011-11-28
+    ## 2                4.8        2011-09-06
+    ## 3                5.0        2011-09-06
+    ## 4                6.4        2011-10-18
+    ## 5                7.2        2011-03-09
+    ## 6                9.2        2011-01-05
 
 Attributes and metadata
 -----------------------
