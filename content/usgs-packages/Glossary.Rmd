@@ -21,7 +21,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/GettingStarted/",
+  fig.path="static/glossary-usgs/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"
