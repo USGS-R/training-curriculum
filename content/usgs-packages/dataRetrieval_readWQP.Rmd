@@ -64,7 +64,7 @@ The following are examples of how to use each of the readWQP family of functions
 1. [readWQPdata, state, site type, and characteristic name](#readwqpdata-state)
 2. [readWQPdata, county and characteristic group](##readwqpdata-county)
 3. [readWQPdata, bbox, characteristic name, and start date](##readwqpdata-bbox)
-4. [readNWISqw](#readwqpqw)
+4. [readWQPqw](#readwqpqw)
 
 ### readWQPdata
 
@@ -132,7 +132,7 @@ This function has a limited number of arguments - it can only be used for pullin
 
 <a name="readwqpqw"></a>
 
-** Dissolved oxygen data since 2010 for 2 South Carolina USGS sites **
+**Dissolved oxygen data since 2010 for 2 South Carolina USGS sites**
 
 ```{r readwqpqw, message=FALSE, warning=FALSE}
 # Using a few USGS sites, get dissolved oxygen data

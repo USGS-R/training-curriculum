@@ -1,0 +1,134 @@
+---
+title: "Glossary of terms and functions"
+date: "9999-03-01"
+author: "Lindsay R. Carr"
+slug: "glossary-usgs"
+image: "img/main/intro-icons-300px/r-logo.png"
+output: USGSmarkdowntemplates::hugoTraining
+parent: Introduction to USGS R Packages
+weight: 50
+draft: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+
+knit_hooks$set(plot=function(x, options) {
+  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
+          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
+
+})
+
+opts_chunk$set(
+  echo=TRUE,
+  fig.path="static/GettingStarted/",
+  fig.width = 6,
+  fig.height = 6,
+  fig.cap = "TODO"
+)
+
+set.seed(1)
+```
+
+Below are lists of terms or functions introduced in this curriculum. Each links to the first time it is used, or the section that contains the most description.
+
+## Terms
+
+1. [fabric](/usgs-packages/geoknife-data/#geoknife-components-fabric-stencil-knife)
+1. [Geo Data Portal (GDP)](/usgs-packages/geoknife-intro/)
+1. [geojob](/usgs-packages/geoknife-data/#geoknife-components-fabric-stencil-knife)
+1. [knife](/usgs-packages/geoknife-data/#geoknife-components-fabric-stencil-knife)
+1. [modular workflow](/usgs-packages/app-intro/)
+1. [National Water Information System (NWIS)](/usgs-packages/dataRetrieval-intro/)
+1. [R package](/usgs-packages/GettingStartedUSGS/)
+1. [reproducible](/usgs-packages/app-intro/)
+1. [sbitem](/usgs-packages/sbtools-sbitem/)
+1. [ScienceBase](/usgs-packages/sbtools-intro/)
+1. [stencil](/usgs-packages/geoknife-data/#geoknife-components-fabric-stencil-knife)
+1. [Water Quality Portal (WQP)](/usgs-packages/dataRetrieval-intro/)
+
+## Functions
+
+### dataRetrieval
+
+1. [addWaterYear](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
+1. [attribute](/usgs-packages/dataRetrieval-readNWIS/#accessing-attributes)
+1. [readNWISdata](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISdv](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISgwl](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISmeas](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISpCode](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISpeak](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISqw](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISrating](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISsite](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISstat](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISuse](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readNWISuv](/usgs-packages/dataRetrieval-readNWIS/#readnwis-functions)
+1. [readWQPdata](/usgs-packages/dataRetrieval-readWQP/#readwqp-functions)
+1. [readWQPdata + querySummary](/usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
+1. [readWQPqw](/usgs-packages/dataRetrieval-readWQP/#readwqp-functions)
+1. [renameNWIScolumns](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
+1. [whatNWISdata](/usgs-packages/dataRetrieval-discovery/#whatnwisdata)
+1. [whatNWISsites](/usgs-packages/dataRetrieval-discovery/#whatnwissites)
+1. [whatWQPsites](/usgs-packages/dataRetrieval-discovery/#whatwqpsites)
+1. [zeroPad](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
+
+### geoknife
+
+1. [abstract](/usgs-packages/geoknife-data/#gdp-datasets)
+1. [algorithm](/usgs-packages/geoknife-data/#available-webprocesses)
+1. [attribute](/usgs-packages/geoknife-data/#available-webgeoms)
+1. [check](/usgs-packages/geoknife-job/#checking-the-geojob-status)
+1. [download](/usgs-packages/geoknife-job/#getting-geojob-data)
+1. [error](/usgs-packages/geoknife-job/#checking-the-geojob-status)
+1. [geoknife](/usgs-packages/geoknife-job/#setting-up-a-geojob)
+1. [geom](/usgs-packages/geoknife-data/#available-webgeoms)
+1. [query](/usgs-packages/geoknife-data/#gdp-datasets)
+1. [result](/usgs-packages/geoknife-job/#getting-geojob-data)
+1. [running](/usgs-packages/geoknife-job/#checking-the-geojob-status)
+1. [successful](/usgs-packages/geoknife-job/#checking-the-geojob-status)
+1. [title](/usgs-packages/geoknife-data/#gdp-datasets)
+1. [values](/usgs-packages/geoknife-data/#available-webgeoms)
+1. [variables](/usgs-packages/geoknife-data/#gdp-datasets)
+1. [wait](/usgs-packages/geoknife-job/#wait-and-email)
+1. [webdata](/usgs-packages/geoknife-data/#gdp-datasets)
+1. [webgeom](/usgs-packages/geoknife-data/#available-webgeoms)
+1. [webprocess](/usgs-packages/geoknife-data/#available-webprocesses)
+
+### sbtools
+
+1. [authenticate_sb](/usgs-packages/sbtools-get/#authentication)
+1. [folder_create](/usgs-packages/sbtools-modify/#creating-sciencebase-items)
+1. [identifier_exists](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [is_logged_in](/usgs-packages/sbtools-get/#authentication)
+1. [is.sbitem](/usgs-packages/sbtools-sbitem/#what-is-an-sbitem)
+1. [item_append_files](/usgs-packages/sbtools-modify/#uploading-your-files)
+1. [item_create](/usgs-packages/sbtools-modify/#creating-sciencebase-items)
+1. [item_exists](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_get](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_get_fields](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_get_parent](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_get_wfs](/usgs-packages/sbtools-get/#web-feature-services-to-visualize-spatial-data)
+1. [item_list_children](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_list_files](/usgs-packages/sbtools-get/#inspect-and-download-items)
+1. [item_move](/usgs-packages/sbtools-modify/#moving-and-removing-items)
+1. [item_rename_files](/usgs-packages/sbtools-modify/#managing-and-removing-your-files)
+1. [item_replace_files](/usgs-packages/sbtools-modify/#managing-and-removing-your-files)
+1. [item_rm](/usgs-packages/sbtools-modify/#moving-and-removing-items)
+1. [item_rm_files](/usgs-packages/sbtools-modify/#managing-and-removing-your-files)
+1. [item_update](/usgs-packages/sbtools-modify/#editing-your-items)
+1. [item_update_identifier](/usgs-packages/sbtools-modify/#editing-your-items)
+1. [item_upload_create](/usgs-packages/sbtools-modify/#uploading-your-files)
+1. [item_upsert](/usgs-packages/sbtools-modify/#editing-your-items)
+1. [items_create](/usgs-packages/sbtools-modify/#creating-sciencebase-items)
+1. [items_update](/usgs-packages/sbtools-modify/#editing-your-items)
+1. [items_upsert](/usgs-packages/sbtools-modify/#editing-your-items)
+1. [query_sb](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [query_sb_datatype](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [query_sb_date](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [query_sb_doi](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [query_sb_spatial](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [query_sb_text](/usgs-packages/sbtools-discovery/#discovering-data-via-sbtools)
+1. [sb_datatypes](/usgs-packages/sbtools-discovery/#using-query-sb-datatype)
+1. [user_id](/usgs-packages/sbtools-get/#authentication)
