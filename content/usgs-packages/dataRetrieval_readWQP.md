@@ -312,7 +312,7 @@ This function has a limited number of arguments - it can only be used for pullin
 
 <a name="readwqpqw"></a>
 
-\*\* Dissolved oxygen data since 2010 for 2 South Carolina USGS sites \*\*
+**Dissolved oxygen data since 2010 for 2 South Carolina USGS sites**
 
 ``` r
 # Using a few USGS sites, get dissolved oxygen data
