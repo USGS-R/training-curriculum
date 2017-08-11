@@ -10,7 +10,7 @@ menu:
     parent: Introduction to USGS R Packages
     weight: 33
 ---
-This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/sbtools-sbitem).
+This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/usgs-packages/sbtools-sbitem).
 
 Don't forget to load the library if you're in a new R session!
 

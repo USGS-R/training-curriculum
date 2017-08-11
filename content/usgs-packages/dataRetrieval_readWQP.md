@@ -67,8 +67,8 @@ The main difference between these two functions is that `readWQPdata` is general
 The following are examples of how to use each of the readWQP family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
 1.  [readWQPdata, state, site type, and characteristic name](#readwqpdata-state)
-2.  [readWQPdata, county and characteristic group](##readwqpdata-county)
-3.  [readWQPdata, bbox, characteristic name, and start date](##readwqpdata-bbox)
+2.  [readWQPdata, county and characteristic group](#readwqpdata-county)
+3.  [readWQPdata, bbox, characteristic name, and start date](#readwqpdata-bbox)
 4.  [readWQPqw](#readwqpqw)
 
 ### readWQPdata

@@ -36,7 +36,7 @@ Description <- c(
 
 library(htmlTable)
 htmlTable(data.frame(Item = Item, Description = Description), 
-          caption="Table 1. ScienceBase item examples.",
+          caption="<caption>Table 1. ScienceBase item examples.</caption>",
           rnames=FALSE, align=c("l","l"), 
           col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
@@ -46,7 +46,7 @@ htmlTable(data.frame(Item = Item, Description = Description),
 
 An `sbitem` is the `sbtools` equivalent of ScienceBase items. In R, ScienceBase items are represented with the class `sbitem`, which is a lightweight representation containing the item's essential metadata. `sbitems` also contain links that allow you to query ScienceBase for even more information on the item.
 
-Below is an example of what an `sbitem` looks like in R. [This item](https://www.sciencebase.gov/catalog/item/4f4e4b24e4b07f02db6aea14) was downloaded to the R object `itemexample`. The code to download this ScienceBase item will be explained in the lesson on [getting data from ScienceBase](#sbtools-download).
+Below is an example of what an `sbitem` looks like in R. [This item](https://www.sciencebase.gov/catalog/item/4f4e4b24e4b07f02db6aea14) was downloaded to the R object `itemexample`. The code to download this ScienceBase item will be explained in the lesson on [getting data from ScienceBase](/usgs-packages/sbtools-get).
 
 ```{r sbitem-example, echo=FALSE, eval=TRUE}
 library(sbtools)
