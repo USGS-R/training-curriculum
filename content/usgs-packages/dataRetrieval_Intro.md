@@ -4,7 +4,6 @@ date: 9999-12-01
 slug: dataRetrieval-intro
 title: dataRetrieval - Introduction
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -20,7 +19,7 @@ This lesson will focus on finding and retrieving hydrologic time series data usi
 
 `dataRetrieval` functions take user-defined arguments and construct web service calls. The web service returns the data as XML (a standard data structure), and `dataRetrieval` takes care of parsing that into a useable R data.frame, complete with metadata. When web services change, `dataRetrieval` users aren't affected because the package maintainers will update the functions to handle these modifications. This is what makes `dataRetrieval` so user-friendly.
 
-Neither NWIS nor WQP are static databases. Users should be aware that data is constantly being added, so a query one week might return differing amounts of data from the next. For more information about NWIS, please visit [waterdata.usgs.gov/nwis](waterdata.usgs.gov/nwis). For more information about WQP, visit their site www.waterqualitydata.us or read about WQP for aquatic research applications in the publication, **[LINK TO geolakes PAPER ONCE RELEASED]()**.
+Neither NWIS nor WQP are static databases. Users should be aware that data is constantly being added, so a query one week might return differing amounts of data from the next. For more information about NWIS, please visit [waterdata.usgs.gov/nwis](waterdata.usgs.gov/nwis). For more information about WQP, visit their site www.waterqualitydata.us or read about WQP for aquatic research applications in the publication, *[Water quality data for national-scale aquatic research: The Water Quality Portal](http://onlinelibrary.wiley.com/doi/10.1002/2016WR019993/abstract)*.
 
 Lesson Objectives
 -----------------
