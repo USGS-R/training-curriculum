@@ -61,7 +61,8 @@ Duration <- c("Unknown", "Unknown", "Unknown", "Unknown")
 library(htmlTable)
 htmlTable(data.frame(Module, Description, Duration),
           rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;",
+          caption = "<caption>Summary of Modules</caption>")
 ```
 
 ## Software requirements
