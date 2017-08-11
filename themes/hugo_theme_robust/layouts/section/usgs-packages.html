@@ -8,7 +8,7 @@
       <h1 class="p-page-title">USGS R Packages</h1>
 
       <div class="row">
-        {{ range $key, $value := first 10 (.Data.Pages.ByWeight) }}
+        {{ range $key, $value := .Data.Pages.ByWeight }}
         
         <div class="col-sm-6">
           {{ .Render "grid" }}
