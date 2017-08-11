@@ -21,4 +21,4 @@ If you have any questions, feature requests, or bugs to report for any USGS pack
 
 If you think you would like to create your own package or are curious about package development, step through our [R Package Development curriculum](/r-package-dev) to learn about the process, technical skill, and time commitment involved.
 
-You can also keep up-to-date through our [USGS-R Twitter account, @USGS_R](https://twitter.com/USGS_R)!
+You can also keep up-to-date through our USGS-R Twitter account, [\@USGS_R](https://twitter.com/USGS_R)!
