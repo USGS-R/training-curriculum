@@ -8,6 +8,10 @@
 	 font-family:"Open Sans", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	 }
 	 
+a {
+ color: #003366; 
+}
+
 #customBody{
   padding-top:10px;
 }
