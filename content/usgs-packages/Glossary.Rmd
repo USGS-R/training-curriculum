@@ -6,7 +6,7 @@ slug: "glossary-usgs"
 image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
-weight: 50
+weight: 51
 draft: true
 ---
 
@@ -21,7 +21,7 @@ knit_hooks$set(plot=function(x, options) {
 
 opts_chunk$set(
   echo=TRUE,
-  fig.path="static/GettingStarted/",
+  fig.path="static/glossary-usgs/",
   fig.width = 6,
   fig.height = 6,
   fig.cap = "TODO"
