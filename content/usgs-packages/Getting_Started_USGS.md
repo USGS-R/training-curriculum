@@ -58,7 +58,7 @@ Duration
 dataRetrieval
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Accessing timeseries data.
+Accessing time series data.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 Unknown
