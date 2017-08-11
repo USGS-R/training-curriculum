@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "dataRetrieval-discovery")
+setupCourseRmd()
 ```
 
 Before continuing with this lesson, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.

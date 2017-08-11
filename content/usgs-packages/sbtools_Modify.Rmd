@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "sbtools-modify")
+setupCourseRmd()
 ```
 
 This lesson will teach you how to manage your ScienceBase items and folders from R, which can be useful for batch or automated updates and edits. The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values. 

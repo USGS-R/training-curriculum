@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "glossary-usgs")
+setupCourseRmd()
 ```
 
 Below are lists of terms or functions introduced in this curriculum. Each links to the first time it is used, or the section that contains the most description.

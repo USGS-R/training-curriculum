@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "sbtools-discovery")
+setupCourseRmd()
 ```
 
 Although ScienceBase is a great platform for uploading and storing your data, you can also use it to find other available data. You can do that manually by searching using the ScienceBase web interface or through `sbtools` functions.

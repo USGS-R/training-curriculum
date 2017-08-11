@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "dataRetrieval-readWQP")
+setupCourseRmd()
 ```
 
 ## readWQP functions

@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup-part5, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "app-part5")
+setupCourseRmd()
 ```
 
 After going through parts 1 through 4, you now have a complete, modular workflow - from data retrieval to processing to visualizing, and finally to publishing and sharing. You could change the ScienceBase item ID to point to different site numbers to use for other another cooperator's data. See the completed workflow below. 

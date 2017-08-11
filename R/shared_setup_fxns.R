@@ -1,6 +1,6 @@
 # Shared setup functions
 
-setupCourseRmd <- function(slug){
+setupCourseRmd <- function(slug = rmarkdown::metadata[['slug']]){
   library(knitr)
   
   knit_hooks$set(plot=function(x, options) {

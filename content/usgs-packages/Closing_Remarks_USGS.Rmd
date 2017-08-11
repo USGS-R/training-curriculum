@@ -12,7 +12,7 @@ draft: true
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
 source("../../R/shared_setup_fxns.R")
-setupCourseRmd(slug = "closing-remarks-USGS")
+setupCourseRmd()
 ```
 
 This concludes the *Introduction to USGS R Packages* course. If you have any feedback on the course, please [email us](mailto:gs-w_r_admin@usgs.gov) with your comments and suggestions. Note that this course was only able to cover a subset of USGS R packages, and more will likely be added as time and funding allow. To learn more about other available USGS packages, please visit the [USGS-R home page](https://owi.usgs.gov/R/index.html), or view the source code on the [USGS-R GitHub repository](https://github.com/USGS-R/). On the USGS-R home page, you will notice that packages are grouped into categories based on their maintenance, development, and user support activity. Visit [this page](https://owi.usgs.gov/R/packages.html) to learn more about those categories.
