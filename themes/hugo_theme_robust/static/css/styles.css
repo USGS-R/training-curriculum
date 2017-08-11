@@ -12,6 +12,10 @@ a {
  color: #003366; 
 }
 
+caption {
+  color: #595959;
+}
+
 #customBody{
   padding-top:10px;
 }
@@ -730,7 +734,7 @@ article.single .body {
 }
 
 article.single .body a {
-  color: #78909c;
+  color: #0051a2;
   text-decoration: underline;
 }
 
