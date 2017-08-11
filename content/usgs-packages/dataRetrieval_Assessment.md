@@ -20,6 +20,17 @@ library(dataRetrieval)
 library(dplyr)
 ```
 
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
 Exercise 1
 ----------
 
@@ -46,7 +57,7 @@ azlaketemp_wqp <- whatWQPsites(statecode="AZ",
 nrow(azlaketemp_wqp)
 ```
 
-    ## [1] 418
+    ## [1] 419
 
 </div>
 Exercise 2
@@ -73,7 +84,13 @@ dc_aug20_sites <- dc_2013_q[['site_no']]
 
 # Pull down statistics information for mean flow at those sites
 mean_q <- readNWISstat(siteNumbers=dc_aug20_sites, parameterCd="00060", statType = "mean")
+```
 
+    ## Please be aware the NWIS data service feeding this function is in BETA.
+    ## 
+    ##           Data formatting could be changed at any time, and is not guaranteed
+
+``` r
 # Pull out just rows with August 20th historic mean flows
 aug20_mean_q <- filter(mean_q, month_nu == 8, day_nu == 20)
 
@@ -142,5 +159,5 @@ map('state', 'Minnesota', col="lightblue", lwd=2)
 points(mn_site_coords)
 ```
 
-<img src='../static/dataRetrieval-exercises/unnamed-chunk-4-1.png'/ title='Minnesota lake phosphorus site map'/>
+<img src='../static/dataRetrieval-exercises/unnamed-chunk-4-1.png'/ title='Minnesota lake phosphorus site map'/ alt='Map Minnesota showing locations of maximum lake phosphorus'/>
 </div>

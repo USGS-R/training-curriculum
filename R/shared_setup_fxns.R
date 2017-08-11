@@ -19,5 +19,14 @@ setupCourseRmd <- function(slug){
     fig.scap = "TODO"
   )
   
+  knit_hooks$set(addToggle = function(before, options, envir) {
+    if(before) {
+      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
+              <div id="%1$s" style="display:none">', opts_current$get('label'))
+    } else {
+      '</div>'
+    }
+  })
+  
   set.seed(1)
 }

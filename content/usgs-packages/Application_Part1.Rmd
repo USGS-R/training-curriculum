@@ -11,32 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/application/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-knit_hooks$set(addToggle = function(before, options, envir) {
-    if(before) {
-      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
-              <div id="%1$s" style="display:none">', opts_current$get('label'))
-    } else {
-      '</div>'
-    }
-})
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd(slug = "app-part1")
 ```
 
 ```{r sbtools-auth, echo=FALSE}

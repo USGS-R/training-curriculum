@@ -11,23 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/sbtools-get/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd(slug = "sbtools-get")
 ```
 
 This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/sbtools-sbitem). 
@@ -165,7 +150,7 @@ This function allows you to pull down web feature services (WFS) data from Scien
 
 When this function does work, you can use the results to create a map of the data in R. Here's a simple example using the R package `maps`. The item we will use as an example contains low flow estimations for New Jersey. We can map the sites used in the study.
 
-```{r sbtools-wfs}
+```{r sbtools-wfs, fig.cap="Sites from a ScienceBase item's WFS data on a map of New Jersey", fig.scap="Map of sbitem WFS data sites"}
 nj_wfs <- item_get_wfs("58cbe556e4b0849ce97dcd31")
 names(nj_wfs)
 
