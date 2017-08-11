@@ -2,7 +2,7 @@
 author: Lindsay R. Carr
 date: 9998-01-01
 slug: USGS
-title: 
+title: USGS R Packages
 image: 
 menu:
   main:
@@ -108,3 +108,8 @@ names(GRAN_pkg[,1:2])
 -   SampleSplitting
 -   toxEval
 -   USGSHydroOpt
+
+Introduction to USGS R Packages course
+--------------------------------------
+
+Learn more about the USGS packages by taking the online [Introduction to USGS R Packages](/usgs-packages) course (linked or or navigate on the side menu).

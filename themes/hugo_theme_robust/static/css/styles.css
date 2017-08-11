@@ -8,6 +8,14 @@
 	 font-family:"Open Sans", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	 }
 	 
+a {
+ color: #003366; 
+}
+
+caption {
+  color: #595959;
+}
+
 #customBody{
   padding-top:10px;
 }
@@ -726,7 +734,7 @@ article.single .body {
 }
 
 article.single .body a {
-  color: #78909c;
+  color: #0051a2;
   text-decoration: underline;
 }
 
@@ -795,4 +803,15 @@ ol.h-inline {
 .ToggleButton:hover{
   background:#fff;
   color:#003366;
+}
+
+.screenreader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

@@ -11,23 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/sbtools-discovery/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd()
 ```
 
 Although ScienceBase is a great platform for uploading and storing your data, you can also use it to find other available data. You can do that manually by searching using the ScienceBase web interface or through `sbtools` functions.
@@ -103,7 +88,7 @@ query_sb_doi('10.5066/F77W699S')
 
 `query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. To illustrate the methods, we are going to use the spatial extents of the Appalachian Mountains and the Continental US. 
 
-```{r query_sb_spatial}
+```{r query_sb_spatial, fig.cap="Map of US with points used to define Appalachia and the Continental US", fig.scap="Map of Appalchia & CONUS points"}
 appalachia <- data.frame(
   lat = c(34.576900, 36.114974, 37.374456, 35.919619, 39.206481),
   long = c(-84.771119, -83.393990, -81.256731, -81.492395, -78.417345))

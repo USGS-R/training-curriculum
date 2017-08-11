@@ -86,12 +86,12 @@ head(park_results, 2)
     ## 
     ## [[2]]
     ## <ScienceBase Item> 
-    ##   Title: Greater Yellowstone Study Area
+    ##   Title: Conservation and Climate Adaptation Strategies for Yellowstone Cutthroat Trout
     ##   Creator/LastUpdatedBy:      / 
     ##   Provenance (Created / Updated):   / 
     ##   Children: 
-    ##   Item ID: 53594aaae4b0031b2f49ee7e
-    ##   Parent ID: 53594a88e4b0031b2f49ee79
+    ##   Item ID: 520039e8e4b0ad2d97189de0
+    ##   Parent ID: 529e1574e4b0516126f68e8a
 
 ``` r
 # search using a river
@@ -130,25 +130,25 @@ It might be easier to look at the results returned from queries by just looking 
 sapply(river_results, function(item) item$title)
 ```
 
-    ##  [1] "Middle Rio Grande Multitemporal Land Cover Classifications - 1935, 1962, 1987, 1999, and 2014"                                                  
-    ##  [2] "Water and Air Temperature Throughout the Range of Rio Grande Cutthroat Trout in Colorado and New Mexico; 2010-2015 V2"                          
-    ##  [3] "Upper Rio Grande"                                                                                                                               
-    ##  [4] "Acoustic Doppler current profiler velocity data collected during 2015 and 2016 in the Calumet Harbor, Illinois"                                 
-    ##  [5] "Data for a Comprehensive Survey of Fault Zones, Breccias, and Fractures in and Flanking the Eastern Española Basin, Rio Grande Rift, New Mexico"
-    ##  [6] "Magnetotelluric sounding locations, stations 1 to 22, Southern San Luis Valley, Colorado, 2006"                                                 
-    ##  [7] "Pseudemys gorzugi (Rio Grande Cooter)"                                                                                                          
-    ##  [8] "Etheostoma grahami (Rio Grande darter)"                                                                                                         
-    ##  [9] "Notropis jemezanus (Rio Grande shiner)"                                                                                                         
-    ## [10] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
-    ## [11] "View of the Rio Grande near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                   
-    ## [12] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
-    ## [13] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                    
-    ## [14] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874."                                                                             
-    ## [15] "View of the Rio Grande, near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                  
-    ## [16] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874."                                                               
-    ## [17] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                         
-    ## [18] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874. (Stereoscopic view)"                                           
-    ## [19] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                            
+    ##  [1] "Middle Rio Grande Multitemporal Land Cover Classifications - 1935, 1962, 1987, 1999, and 2014"                                                                     
+    ##  [2] "Water and Air Temperature Throughout the Range of Rio Grande Cutthroat Trout in Colorado and New Mexico; 2010-2015 V2"                                             
+    ##  [3] "Data release of Three-Dimensional Hydrogeologic Framework Model of the Rio Grande Transboundary Region of New Mexico and Texas, USA and Northern Chihuahua, Mexico"
+    ##  [4] "Upper Rio Grande"                                                                                                                                                  
+    ##  [5] "Acoustic Doppler current profiler velocity data collected during 2015 and 2016 in the Calumet Harbor, Illinois"                                                    
+    ##  [6] "Data for a Comprehensive Survey of Fault Zones, Breccias, and Fractures in and Flanking the Eastern Española Basin, Rio Grande Rift, New Mexico"                   
+    ##  [7] "Magnetotelluric sounding locations, stations 1 to 22, Southern San Luis Valley, Colorado, 2006"                                                                    
+    ##  [8] "Notropis jemezanus (Rio Grande shiner)"                                                                                                                            
+    ##  [9] "Pseudemys gorzugi (Rio Grande Cooter)"                                                                                                                             
+    ## [10] "Etheostoma grahami (Rio Grande darter)"                                                                                                                            
+    ## [11] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                                       
+    ## [12] "View of the Rio Grande near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                                      
+    ## [13] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                               
+    ## [14] "The Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                                       
+    ## [15] "View of the Rio Grande, near Pole Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                                     
+    ## [16] "View on the Rio Grande, near Lost Trail Creek. Hinsdale County, Colorado. 1874. (Stereoscopic view)"                                                               
+    ## [17] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"                                                                            
+    ## [18] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874."                                                                                                
+    ## [19] "The Rio Grande Del Norte, below Wagon Wheel Gap. Mineral County, Colorado. 1874."                                                                                  
     ## [20] "Wagon Wheel Gap, Rio Grande River. Mineral County, Colorado. 1874. (Stereoscopic view)"
 
 Now you can use `sapply` to look at the titles for your returned searches instead of `head`.
@@ -204,7 +204,7 @@ points(conus$long, conus$lat, col="red", pch=20)
 points(appalachia$long, appalachia$lat, col="green", pch=20)
 ```
 
-<img src='../static/sbtools-discovery/query_sb_spatial-1.png'/ title='TODO'/>
+<img src='../static/sbtools-discovery/query_sb_spatial-1.png'/ title='Map of Appalchia & CONUS points'/ alt='Map of US with points used to define Appalachia and the Continental US'/>
 
 The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object. Visit the [`sp` package documentation](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf) for more information on spatial data objects.
 
@@ -257,26 +257,26 @@ recent_data <- query_sb_date(start = today, end = oneweekago)
 sapply(recent_data, function(item) item$title)
 ```
 
-    ##  [1] "US Topo"                                                                                                                                                                                                                  
-    ##  [2] "Flood Inundation, Flood Depth, and High-Water Marks for Selected Areas in North Carolina from the October 2016 Flood"                                                                                                     
-    ##  [3] "Hawaiian Islands Coastal Vegetation Survey 2013-2015"                                                                                                                                                                     
-    ##  [4] "Long-term video surveillance and automated analyses of hibernating bats in Virginia and Indiana, winters 2011-2014."                                                                                                      
-    ##  [5] "Location and population served by domestic wells in the conterminous U.S.: 1990"                                                                                                                                          
-    ##  [6] "Isotopic and chemical composition (d13C, <U+0394>14C, d15N, C:N, SUVA254nm, % HPOA) of aquatic carbon and field conditions (water temperature, pH, discharge) in the Upper Mississippi River Basin, October 2014  February 2016"
-    ##  [7] "Land and marine seismic profiles used to assess the seismic stratigraphy and structure of the intermediate confining unit and Floridan aquifer system, Broward County, Florida"                                           
-    ##  [8] "TEST ITEM"                                                                                                                                                                                                                
-    ##  [9] "Synthetic Seismogram Data for Correlation Between Seismic-Reflection Profiles and Well Data, Broward County, Florida"                                                                                                     
-    ## [10] "Arsenic and Iron data (2010-2015) for petroleum plume mass balance, Bemidji MN"                                                                                                                                           
-    ## [11] "7Q10 records and basin characteristics for 224 basins in South Carolina, Georgia, and Alabama (2015)"                                                                                                                     
-    ## [12] "GNLCC Projects"                                                                                                                                                                                                           
-    ## [13] "Collection of Tennessee Valley Authority Reports"                                                                                                                                                                         
-    ## [14] "Workshops and Collaborations to Improve Biodiversity and Climate Modeling"                                                                                                                                                
-    ## [15] "Water quality data for urban (centralized versus distributed stormwater management) and forested reference watersheds in Clarksburg, MD (2004-2016)"                                                                      
-    ## [16] "USGS US Topo 7.5-minute map for Comstock Lake, MN 2010"                                                                                                                                                                   
-    ## [17] "USGS US Topo 7.5-minute map for Dexter SW, KS 2012"                                                                                                                                                                       
-    ## [18] "USGS US Topo 7.5-minute map for Frazier Wells, AZ 2011"                                                                                                                                                                   
-    ## [19] "USGS US Topo 7.5-minute map for Growler, AZ 2011"                                                                                                                                                                         
-    ## [20] "USGS US Topo 7.5-minute map for Gu Oidak, AZ 2011"
+    ##  [1] "US Topo"                                                                                                  
+    ##  [2] "National Elevation Dataset (NED) Alaska 2 arc-second"                                                     
+    ##  [3] "Topo Map Data"                                                                                            
+    ##  [4] "USGS 2017 LDurning: Water classification of the Colorado River Corridor, Grand Canyon, Arizona, 2013Data"
+    ##  [5] "Everglades National Park sediment elevation and marker horizon data release"                              
+    ##  [6] "Upper Midwest and Great Lakes Landscape Conservation Cooperative"                                         
+    ##  [7] "Church Buttes on Blacks Fork near Granger. Uinta County, Wyoming. 1870."                                  
+    ##  [8] "Camp scene. Wyoming. 1870."                                                                               
+    ##  [9] "Evanston coal mines, Uinta County, Wyoming, 1871."                                                        
+    ## [10] "National Transportation Dataset (NTD)"                                                                    
+    ## [11] "USGS US Topo 7.5-minute map for Canton, NJ-DE 2011"                                                       
+    ## [12] "USGS US Topo 7.5-minute map for Canton, NJ-DE 2014"                                                       
+    ## [13] "USGS US Topo 7.5-minute map for Chatham, NJ 2011"                                                         
+    ## [14] "USGS US Topo 7.5-minute map for Chatham, NJ 2014"                                                         
+    ## [15] "USGS US Topo 7.5-minute map for Altamaha, GA 2014"                                                        
+    ## [16] "USGS US Topo 7.5-minute map for Alma NW, GA 2011"                                                         
+    ## [17] "USGS US Topo 7.5-minute map for Arabi, GA 2014"                                                           
+    ## [18] "USGS US Topo 7.5-minute map for Bridgeton, NJ 2014"                                                       
+    ## [19] "USGS US Topo 7.5-minute map for Branchville, NJ 2014"                                                     
+    ## [20] "USGS US Topo 7.5-minute map for Bartlettsville, IN 2013"
 
 ``` r
 # find data that's been created over the last year
@@ -285,26 +285,26 @@ recent_data <- query_sb_date(start = today, end = oneyearago, date_type = "dateC
 sapply(recent_data, function(item) item$title)
 ```
 
-    ##  [1] "USGS US Topo 7.5-minute map for Beaver A-4 SW, AK 2017"                
-    ##  [2] "USGS US Topo 7.5-minute map for Kenai A-8 SE, AK 2017"                 
-    ##  [3] "USGS US Topo 7.5-minute map for Mount Fairweather B-4 OE W NE, AK 2017"
-    ##  [4] "USGS US Topo 7.5-minute map for Mount Fairweather C-6 NE, AK 2017"     
-    ##  [5] "USGS US Topo 7.5-minute map for Mount Fairweather C-6 NW, AK 2017"     
-    ##  [6] "USGS US Topo 7.5-minute map for Seward A-7 SE, AK 2017"                
-    ##  [7] "USGS US Topo 7.5-minute map for Seward D-7 NE, AK 2017"                
-    ##  [8] "USGS US Topo 7.5-minute map for Sitka A-3 SW, AK 2017"                 
-    ##  [9] "USGS US Topo 7.5-minute map for Tyonek B-7 NW, AK 2017"                
-    ## [10] "USGS US Topo 7.5-minute map for Umiat B-1 NE, AK 2017"                 
-    ## [11] "USGS US Topo 7.5-minute map for Baird Inlet D-1 SW, AK 2017"           
-    ## [12] "USGS US Topo 7.5-minute map for Chandler Lake B-1 NE, AK 2017"         
-    ## [13] "USGS US Topo 7.5-minute map for Sitka D-1 SW, AK 2017"                 
-    ## [14] "USGS US Topo 7.5-minute map for Sitka B-3 NW, AK 2017"                 
-    ## [15] "USGS US Topo 7.5-minute map for Spooner, GA 2017"                      
-    ## [16] "USGS US Topo 7.5-minute map for Beaver C-4 SW, AK 2017"                
-    ## [17] "USGS US Topo 7.5-minute map for Beechey Point C-5 SW, AK 2017"         
-    ## [18] "USGS US Topo 7.5-minute map for Mount Fairweather D-7 NE, AK 2017"     
-    ## [19] "USGS US Topo 7.5-minute map for Baird Inlet A-1 SW, AK 2017"           
-    ## [20] "USGS US Topo 7.5-minute map for Newell, GA 2017"
+    ##  [1] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99101375 ArcGrid 2017"
+    ##  [2] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99101377 ArcGrid 2017"
+    ##  [3] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 98901621 ArcGrid 2017"
+    ##  [4] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 98901587 ArcGrid 2017"
+    ##  [5] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99101517 ArcGrid 2017"
+    ##  [6] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99101533 ArcGrid 2017"
+    ##  [7] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 98901557 ArcGrid 2017"
+    ##  [8] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 98901601 ArcGrid 2017"
+    ##  [9] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 98901611 ArcGrid 2017"
+    ## [10] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501481 ArcGrid 2017"
+    ## [11] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501489 ArcGrid 2017"
+    ## [12] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501491 ArcGrid 2017"
+    ## [13] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501515 ArcGrid 2017"
+    ## [14] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501591 ArcGrid 2017"
+    ## [15] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501597 ArcGrid 2017"
+    ## [16] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99701385 ArcGrid 2017"
+    ## [17] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501463 ArcGrid 2017"
+    ## [18] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99701413 ArcGrid 2017"
+    ## [19] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501585 ArcGrid 2017"
+    ## [20] "USGS NED Original Product Resolution IL FordIroqouisLivingston 2015 dem 99501609 ArcGrid 2017"
 
 ### Using `query_sb_datatype`
 
@@ -433,8 +433,8 @@ sapply(precip_data, function(item) item$title)
     ## [11] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
     ## [12] "Precipitation - 30-year Normal (cm)"                                                                                                                
     ## [13] "Winter (Dec to Feb) Precipitation (PPTWT)"                                                                                                          
-    ## [14] "Average, Standard and Projected Precipitation for Emissions Scenarios A2, A1B, and B1 for the Gulf of Mexico"                                       
-    ## [15] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [14] "Isoscapes of d18O and d2H reveal climatic forcings on Alaska and Yukon precipitation"                                                               
+    ## [15] "Average, Standard and Projected Precipitation for Emissions Scenarios A2, A1B, and B1 for the Gulf of Mexico"                                       
     ## [16] "30 Year Mean Annual Precipitation 1960- 1990 PRISM"                                                                                                 
     ## [17] "Precipitation variability and primary productivity in water-limited ecosystems: how plants 'leverage' precipitation to 'finance' growth"            
     ## [18] "Climate change and precipitation - Consequences of more extreme precipitation regimes for terrestrial ecosystems"                                   
@@ -455,26 +455,26 @@ length(precip_data_recent) # 50 entries, but the search criteria is the same, ju
 sapply(precip_data_recent, function(item) item$title)
 ```
 
-    ##  [1] "Attributes for NHDPlus Version 2.1 Reach Catchments and Modified Routed Upstream Watersheds for the Conterminous United States: 30 Year Average (1961-1990) of Maximum Monthly Precipitation in Millimeters"
-    ##  [2] "Climate Change Implications for Tropical Islands: Interpolating and Interpreting Statistically Downscaled GCM Projections for Management and Planning"                                                      
-    ##  [3] "Disturbance automated reference toolset (DART): Assessing patterns in ecological recovery from energy development on the Colorado Plateau"                                                                  
-    ##  [4] "Topographic, edaphic, and vegetative controls on plant-available water"                                                                                                                                     
-    ##  [5] "Ground-water resources of the Yucca Valley-Joshua Tree area, San Bernardino County, California"                                                                                                             
-    ##  [6] "A Stream-Gaging Network Analysis for the 7-Day, 10-Year Annual Low Flow in New Hampshire Streams"                                                                                                           
-    ##  [7] "Hydrology and climate elements on the Rio Grande/Bravo basin"                                                                                                                                               
-    ##  [8] "Enhanced precipitation promotes decomposition and soil C stabilization in semiarid ecosystems, but seasonal timing of wetting matters"                                                                      
-    ##  [9] "The role of snow cover affecting boreal-arctic soil freeze-thaw and carbon dynamics"                                                                                                                        
-    ## [10] "Avian malaria in a boreal resident species: long-term temporal variability, and increased prevalence in birds with avian keratin disorder"                                                                  
-    ## [11] "Evapotranspiration, Groundwater, and Unsaturated-Zone Data, Amargosa Desert, Nye County, Nevada, 2011-13"                                                                                                   
-    ## [12] "River and Reservoir Operations Model, Truckee River basin, California and Nevada, 1998"                                                                                                                     
-    ## [13] "Annual average recharge rates across the CONUS, 2000-2013"                                                                                                                                                  
-    ## [14] "Avian abundance and oak mistletoe survey data from the Willamette Valley, Oregon, 2013-2015"                                                                                                                
-    ## [15] "Assessing Evapotranspiration Rate Changes for Proposed Restoration of the Forested Uplands of the DLCC"                                                                                                     
-    ## [16] "Avian abundance and oak mistletoe survey data from the Willamette Valley, Oregon, 2013-2015"                                                                                                                
-    ## [17] "Evaluation of Alaskan wetlands for waterfowl"                                                                                                                                                               
-    ## [18] "Long term productivity of canvasbacks (<i>Aythya valisineria</i>) in a snowpack-driven desert marsh"                                                                                                        
-    ## [19] "Hydrological, geological, and biological site characterization of breccia pipe uranium deposits in Northern Arizona"                                                                                        
-    ## [20] "Reassessing rainfall in the Luquillo Mountains, Puerto Rico: Local and global ecohydrological implications"
+    ##  [1] "Attributes for NHDPlus Version 2.1 Reach Catchments and Modified Routed Upstream Watersheds for the Conterminous United States: PRISM 30 Year (1961-1990) Monthly Mean of Number of Days of Measurable Precipitation"
+    ##  [2] "Attributes for NHDPlus Version 2.1 Reach Catchments and Modified Routed Upstream Watersheds for the Conterminous United States: PRISM 30 Year (1961-1990) Annual Average Number of Days of Measurable Precipitation" 
+    ##  [3] "Southwest CSC"                                                                                                                                                                                                       
+    ##  [4] "Northwest CSC"                                                                                                                                                                                                       
+    ##  [5] "Northeast CSC"                                                                                                                                                                                                       
+    ##  [6] "North Central CSC"                                                                                                                                                                                                   
+    ##  [7] "Alaska CSC"                                                                                                                                                                                                          
+    ##  [8] "Greater sage-grouse (<em>Centrocercus urophasianus</em>) nesting and brood-rearing microhabitat in Nevada and CaliforniaSpatial variation in selection and survival patterns"                                       
+    ##  [9] "Model-Based Scenario Planning to Inform Climate Change Adaptation in the Northern Great Plains"                                                                                                                      
+    ## [10] "Geospatial data for Luquillo Mountains, Puerto Rico: Mean annual precipitation, elevation, watershed outlines, and rain gage locations"                                                                              
+    ## [11] "Wetland hydroperiod and climate change; implications for biodiversity and water availability"                                                                                                                        
+    ## [12] "Geospatial data supporting assessments of streamflow alteration to support bay and estuary restoration in the Gulf States"                                                                                           
+    ## [13] "The effects of climate-change-induced drought and freshwater wetlands"                                                                                                                                               
+    ## [14] "The role of snow cover affecting boreal-arctic soil freeze-thaw and carbon dynamics"                                                                                                                                 
+    ## [15] "Assessing coastal wetland vulnerability to sea-level rise along the northern Gulf of Mexico coast: gaps and opportunities for developing a coordinated regional sampling network"                                    
+    ## [16] "Hierarchical, quantitative biogeographic provinces for all North American turtles and their contribution to the biogeography of turtles and the continent"                                                           
+    ## [17] "Main chamber of Devils Hole, Death Valley National Park, Nevada. 1986."                                                                                                                                              
+    ## [18] "Linking Mule Deer Migration to Spring Green-Up in Wyoming"                                                                                                                                                           
+    ## [19] "Selected Basin Characterization Model Parameters for the Great Basin Carbonate and Alluvial Aquifer System of Nevada, Utah, and Parts of Adjacent States"                                                            
+    ## [20] "Effects of extreme floods on macroinvertebrate assemblages in tributaries to the Mohawk River, New York, USA"
 
 ``` r
 # search by keyword + type
@@ -494,7 +494,7 @@ hazard2and_data <- query_sb(query_list = list(q = '', lq = 'flood AND earthquake
 length(hazard2and_data)
 ```
 
-    ## [1] 62
+    ## [1] 63
 
 ``` r
 # search by 2 keywords (OR)
@@ -513,7 +513,7 @@ hazard3_data <- query_sb(query_list =
 length(hazard3_data)
 ```
 
-    ## [1] 159
+    ## [1] 161
 
 No results
 ----------

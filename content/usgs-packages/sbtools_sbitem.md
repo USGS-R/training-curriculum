@@ -9,7 +9,6 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 32
-aliases: 
 ---
 "Items" are the objects in which ScienceBase stores and organizes data, and are necessary to understand for using `sbtools`. This lesson will introduce ScienceBase items and the R equivalent, `sbitem`.
 
@@ -23,7 +22,9 @@ A ScienceBase "item" is the fundamental digital object available through Science
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 1. ScienceBase item examples.
+</caption>
 </td>
 </tr>
 <tr>
@@ -68,7 +69,7 @@ What is an "sbitem"?
 
 An `sbitem` is the `sbtools` equivalent of ScienceBase items. In R, ScienceBase items are represented with the class `sbitem`, which is a lightweight representation containing the item's essential metadata. `sbitems` also contain links that allow you to query ScienceBase for even more information on the item.
 
-Below is an example of what an `sbitem` looks like in R. [This item](https://www.sciencebase.gov/catalog/item/4f4e4b24e4b07f02db6aea14) was downloaded to the R object `itemexample`. The code to download this ScienceBase item will be explained in the lesson on [getting data from ScienceBase](#sbtools-download).
+Below is an example of what an `sbitem` looks like in R. [This item](https://www.sciencebase.gov/catalog/item/4f4e4b24e4b07f02db6aea14) was downloaded to the R object `itemexample`. The code to download this ScienceBase item will be explained in the lesson on [getting data from ScienceBase](/usgs-packages/sbtools-get).
 
 ``` r
 # check class - it should be "sbitem"

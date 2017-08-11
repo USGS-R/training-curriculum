@@ -4,7 +4,6 @@ date: 9999-11-30
 slug: dataRetrieval-discovery
 title: dataRetrieval - Data discovery
 image: img/main/intro-icons-300px/r-logo.png
-identifier: 
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -79,7 +78,7 @@ sites_sc <- whatNWISsites(stateCd="SC")
 nrow(sites_sc)
 ```
 
-    ## [1] 20063
+    ## [1] 20070
 
 This query returns all of the NWIS sites that are in South Carolina To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
 
@@ -88,9 +87,9 @@ sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
 nrow(sites_sc_stream)
 ```
 
-    ## [1] 627
+    ## [1] 633
 
-We can now see that out of the 20,063 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
+We can now see that out of the 20,070 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
 
 ``` r
 sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
@@ -98,9 +97,9 @@ sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
 nrow(sites_sc_stream_temp)
 ```
 
-    ## [1] 291
+    ## [1] 300
 
-We are now down to just 291 sites, much less than our original 20,063. To actually download this data, you can query using our three arguments, `stateCd` + `siteType` + `parameterCd`, or by the site numbers from the `sites_sc_stream_temp` data.frame using `unique(sites_sc_stream_temp[['site_no']])`. Downloading NWIS data will be covered in the next section, [readNWISdata](/usgs-packages/dataRetrieval-readNWIS).
+We are now down to just 300 sites, much less than our original 20,070. To actually download this data, you can query using our three arguments, `stateCd` + `siteType` + `parameterCd`, or by the site numbers from the `sites_sc_stream_temp` data.frame using `unique(sites_sc_stream_temp[['site_no']])`. Downloading NWIS data will be covered in the next section, [readNWISdata](/usgs-packages/dataRetrieval-readNWIS).
 
 The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
@@ -113,7 +112,7 @@ points(x=sites_sc_stream_temp$dec_long_va,
        y=sites_sc_stream_temp$dec_lat_va)
 ```
 
-<img src='../static/dataRetrieval-discovery/sc_streamtemp_sites_map-1.png'/ title='Geographic locations of NWIS South Carolina stream sites with temperature data'/>
+<img src='../static/dataRetrieval-discovery/sc_streamtemp_sites_map-1.png'/ title='Map of South Carolina stream temp sites'/ alt='Geographic locations of NWIS South Carolina stream sites with temperature data'/>
 
 You can also quickly compare the amount of data between states:
 
@@ -124,13 +123,13 @@ sites_wv_stream_temp <- whatNWISsites(stateCd="WV", siteType="ST",
 nrow(sites_sc_stream_temp)
 ```
 
-    ## [1] 291
+    ## [1] 300
 
 ``` r
 nrow(sites_wv_stream_temp)
 ```
 
-    ## [1] 1602
+    ## [1] 1598
 
 Or compare the amount of data between site types:
 
@@ -141,13 +140,13 @@ sites_sc_lake_temp <- whatNWISsites(stateCd="SC", siteType="LK",
 nrow(sites_sc_stream_temp)
 ```
 
-    ## [1] 291
+    ## [1] 300
 
 ``` r
 nrow(sites_sc_lake_temp)
 ```
 
-    ## [1] 32
+    ## [1] 33
 
 What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses a `for` loop and the `dplyr` function, `bind_rows`. We will assume you know how to use these functions.
 
@@ -165,7 +164,7 @@ for(i in c("CA", "AZ", "NM", "NV")){
 nrow(sites_sw_stream_temp)
 ```
 
-    ## [1] 4802
+    ## [1] 4860
 
 ### whatNWISdata
 
@@ -181,7 +180,7 @@ data_sc_stream_temp_avg <- whatNWISdata(
 nrow(data_sc_stream_temp_avg)
 ```
 
-    ## [1] 86
+    ## [1] 90
 
 In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
 
@@ -197,9 +196,9 @@ data_sc_stream_temp_avg_applicable <- data_sc_stream_temp_avg %>%
 nrow(data_sc_stream_temp_avg_applicable)
 ```
 
-    ## [1] 83
+    ## [1] 87
 
-This means you would have 83 of sites to work with for your study.
+This means you would have 87 of sites to work with for your study.
 
 Common WQP function arguments
 -----------------------------
@@ -245,15 +244,15 @@ This returns a list with 16 different items, including total number of sites, br
 wqpcounts_sc[['total-site-count']]
 ```
 
-    ## [1] 6805
+    ## [1] 6831
 
 ``` r
 wqpcounts_sc[['total-result-count']]
 ```
 
-    ## [1] 3377814
+    ## [1] 3427562
 
-This doesn't provide any information about the sites, just the total number. I know that with 3,377,814 results, I will want to add more criteria before trying to download. Let's continue to add query parameters before moving to `whatWQPsites`.
+This doesn't provide any information about the sites, just the total number. I know that with 3,427,562 results, I will want to add more criteria before trying to download. Let's continue to add query parameters before moving to `whatWQPsites`.
 
 ``` r
 # specify that you only want data from streams
@@ -262,15 +261,15 @@ wqpcounts_sc_stream <- readWQPdata(statecode="US:45", siteType="Stream",
 wqpcounts_sc_stream[['total-site-count']]
 ```
 
-    ## [1] 1947
+    ## [1] 1944
 
 ``` r
 wqpcounts_sc_stream[['total-result-count']]
 ```
 
-    ## [1] 1760756
+    ## [1] 1795130
 
-1,760,756 results are still a lot to download. Let's add more levels of criteria:
+1,795,130 results are still a lot to download. Let's add more levels of criteria:
 
 ``` r
 # specify that you want water temperature data and it should be from 1975 or later
@@ -281,15 +280,15 @@ wqpcounts_sc_stream_temp <- readWQPdata(statecode="US:45", siteType="Stream",
 wqpcounts_sc_stream_temp[['total-site-count']]
 ```
 
-    ## [1] 1451
+    ## [1] 1413
 
 ``` r
 wqpcounts_sc_stream_temp[['total-result-count']]
 ```
 
-    ## [1] 150712
+    ## [1] 152023
 
-150,712 is little more manageble. We can also easily compare avilable stream temperature and lake temperature data.
+152,023 is little more manageble. We can also easily compare avilable stream temperature and lake temperature data.
 
 ``` r
 wqpcounts_sc_lake_temp <- readWQPdata(statecode="US:45", 
@@ -301,26 +300,26 @@ wqpcounts_sc_lake_temp <- readWQPdata(statecode="US:45",
 wqpcounts_sc_stream_temp[['total-site-count']]
 ```
 
-    ## [1] 1451
+    ## [1] 1413
 
 ``` r
 wqpcounts_sc_lake_temp[['total-site-count']]
 ```
 
-    ## [1] 576
+    ## [1] 577
 
 ``` r
 # comparing result counts
 wqpcounts_sc_stream_temp[['total-result-count']]
 ```
 
-    ## [1] 150712
+    ## [1] 152023
 
 ``` r
 wqpcounts_sc_lake_temp[['total-result-count']]
 ```
 
-    ## [1] 44799
+    ## [1] 45299
 
 From these query results, it looks like South Carolina has much more stream data than it does lake data.
 
@@ -328,7 +327,7 @@ Now, let's try our South Carolina stream temperature query with `whatWQPsites` a
 
 ### whatWQPsites
 
-`whatWQPsites` works similarly to `whatNWISsites` in that it gives back site information that matches your search criteria. Unlike `whatNWISsites`, you can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, 1,451.
+`whatWQPsites` works similarly to `whatNWISsites` in that it gives back site information that matches your search criteria. Unlike `whatNWISsites`, you can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, 1,413.
 
 ``` r
 # Getting the number of sites and results for stream 
@@ -340,7 +339,7 @@ wqpsites_sc_stream_temp <- whatWQPsites(statecode="US:45", siteType="Stream",
 nrow(wqpsites_sc_stream_temp)
 ```
 
-    ## [1] 1451
+    ## [1] 1413
 
 ``` r
 # names of available columns

@@ -11,30 +11,15 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/geoknife-intro/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd()
 ```
 
 ## Lesson Summary
 
 This lesson will explore how to find and download large gridded datasets via the R package `geoknife`. The package was created to allow easy access to data stored in the [Geo Data Portal (GDP)](https://cida.usgs.gov/gdp/), or any gridded dataset available through the [OPeNDAP](https://www.opendap.org/) protocol DAP2. `geoknife` refers to the gridded dataset as the `fabric`, the spatial feature of interest as the `stencil`, and the subset algorithm parameters as the `knife` (see below).
 
-![geoknife terminology figure](../static/img/geoknife_summary.png#inline-img "figure illustrating definitions of fabric, stencil, and knife")
+![figure illustrating definitions of fabric, stencil, and knife](../static/img/geoknife_summary.png#inline-img "geoknife terminology figure")
 
 ## Lesson Objectives
 

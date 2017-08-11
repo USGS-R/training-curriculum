@@ -11,28 +11,13 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/sbtools-modify/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd()
 ```
 
 This lesson will teach you how to manage your ScienceBase items and folders from R, which can be useful for batch or automated updates and edits. The following sections contain functions you would use to modify ScienceBase items from R. Keep in mind that most functions start with `item_*` (singular). These limit the input for only one item at a time. If you have more than one, you can use the equivalent `items_*` (plural) functions, which can accept single or multiple item values. 
 
-In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in (see `?authenticate_sb`). Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](#sbtools-download) for detailed information on authentication.
+In these examples, you will be modifying ScienceBase items. These assume you have an account and are logged in (see `?authenticate_sb`). Make sure to load `sbtools` and sign in to ScienceBase. Refer to the [previous lesson](/usgs-packages/sbtools-get) for detailed information on authentication.
 
 ```{r sbtools-library, message=FALSE, warning=FALSE}
 library(sbtools)

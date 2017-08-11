@@ -48,7 +48,7 @@ makeArgDefTable <- function(function.name, table.num){
   Description[statcodes] <- paste(Description[statcodes], 'See [NWIS help for statistic codes](https://help.waterdata.usgs.gov/code/stat_cd_nm_query?stat_nm_cd=%25&fmt=html).')
   
   htmlTable(data.frame(Argument, Description), 
-            caption=paste0("Table ", table.num, ". ", function.name, " argument definitions"),
+            caption=paste0("<caption>Table ", table.num, ". ", function.name, " argument definitions</caption>"),
             rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
             css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 }
