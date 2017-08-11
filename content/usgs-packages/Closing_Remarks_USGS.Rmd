@@ -11,23 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/closing-remarks-USGS/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd(slug = "closing-remarks-USGS")
 ```
 
 This concludes the *Introduction to USGS R Packages* course. If you have any feedback on the course, please [email us](mailto:gs-w_r_admin@usgs.gov) with your comments and suggestions. Note that this course was only able to cover a subset of USGS R packages, and more will likely be added as time and funding allow. To learn more about other available USGS packages, please visit the [USGS-R home page](https://owi.usgs.gov/R/index.html), or view the source code on the [USGS-R GitHub repository](https://github.com/USGS-R/). On the USGS-R home page, you will notice that packages are grouped into categories based on their maintenance, development, and user support activity. Visit [this page](https://owi.usgs.gov/R/packages.html) to learn more about those categories.
