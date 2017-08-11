@@ -11,23 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/dataRetrieval-discovery/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd(slug = "dataRetrieval-discovery")
 ```
 
 Before continuing with this lesson, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
@@ -113,7 +98,7 @@ We are now down to just `r prettyNum(nrow(sites_sc_stream_temp), big.mark=",")` 
 
 The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
-```{r sc_streamtemp_sites_map, message=FALSE, warning=FALSE, fig.cap="Geographic locations of NWIS South Carolina stream sites with temperature data"}
+```{r sc_streamtemp_sites_map, message=FALSE, warning=FALSE, fig.cap="Geographic locations of NWIS South Carolina stream sites with temperature data", fig.scap="Map of South Carolina stream temp sites"}
 # SC stream temperature sites
 library(maps)
 map('state', regions='south carolina')
