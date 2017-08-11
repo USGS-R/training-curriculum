@@ -17,7 +17,7 @@ setupCourseRmd()
 
 Before starting the exercises, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
 
-```{r load-dataRetrieval}
+```{r load-dataRetrieval, message=FALSE, warning=FALSE}
 # load the dataRetrieval package
 library(dataRetrieval)
 
@@ -45,7 +45,7 @@ nrow(azlaketemp_wqp)
 
 *Determine which sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use three different functions to figure this out (find site numbers, then statistics data, and then daily value data).*
 
-```{r addToggle="ON"}
+```{r addToggle="ON", warning=FALSE, message=FALSE}
 # Find DC site numbers that have streamflow
 dc_stream_sites <- whatNWISsites(stateCd = "DC", siteType="ST", parameterCd="00060")
 

@@ -20,17 +20,6 @@ library(dataRetrieval)
 library(dplyr)
 ```
 
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
 Exercise 1
 ----------
 
@@ -84,13 +73,7 @@ dc_aug20_sites <- dc_2013_q[['site_no']]
 
 # Pull down statistics information for mean flow at those sites
 mean_q <- readNWISstat(siteNumbers=dc_aug20_sites, parameterCd="00060", statType = "mean")
-```
 
-    ## Please be aware the NWIS data service feeding this function is in BETA.
-    ## 
-    ##           Data formatting could be changed at any time, and is not guaranteed
-
-``` r
 # Pull out just rows with August 20th historic mean flows
 aug20_mean_q <- filter(mean_q, month_nu == 8, day_nu == 20)
 
