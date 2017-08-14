@@ -33,7 +33,6 @@ By the end of this lesson, the learner will be able to:
 
 1. Automate retrieval of data via NWIS Web, ScienceBase, and the GDP through scripted, reproducible code.
 2. Use USGS packages within an overall data analysis workflow (apply modularity).
-3. Contribute to and seek help within the USGS-R community.
 
 ## The Challenge
 
