@@ -40,17 +40,24 @@ caption {
   line-height:1.5em;
 }
 
+.hljs-number{
+  color:#aa5146  !important;
+}
+
+.hljs-value,
 .hljs-string{
-  color:#183691;
+  color:#183691  !important;
 }
 
-.hljs-variable{
-  color:#a71d61;
-}
-
+.hljs-title,
+.hljs-tag,
+.hljs-keyword,
+.hljs-variable,
+.hljs-attribute,
+.hljs-attr_selector,
 .hljs-built_in,
 .hljs-preprocessor{
-  color:#000;
+  color:#000  !important;;
 }
  
  
