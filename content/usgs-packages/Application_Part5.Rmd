@@ -3,7 +3,7 @@ title: "Application - Part 5, complete workflow"
 date: "9999-03-25"
 author: "Lindsay R. Carr"
 slug: "app-part5"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/workflow.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 45

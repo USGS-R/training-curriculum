@@ -3,7 +3,7 @@ title: "dataRetrieval - Introduction"
 date: "9999-12-01"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-intro"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/dataRetrieval.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 10

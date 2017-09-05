@@ -4,7 +4,7 @@ date: 9999-10-15
 slug: dataRetrieval-exercises
 title: dataRetrieval - Exercises
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

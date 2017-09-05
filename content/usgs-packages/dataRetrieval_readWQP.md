@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: dataRetrieval-readWQP
 title: dataRetrieval - readWQP
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

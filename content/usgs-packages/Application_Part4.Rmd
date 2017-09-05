@@ -3,7 +3,7 @@ title: "Application - Part 4, publish results"
 date: "9999-04-01"
 author: "Lindsay R. Carr"
 slug: "app-part4"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/workflow.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 44

@@ -4,7 +4,7 @@ date: 9999-12-31
 slug: GettingStartedUSGS
 title: Getting Started with USGS R Packages
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/getting_started.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

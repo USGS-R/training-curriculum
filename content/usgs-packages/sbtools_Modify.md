@@ -4,7 +4,7 @@ date: 9999-06-25
 slug: sbtools-modify
 title: sbtools - Modify sbitems
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/sbtools.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
