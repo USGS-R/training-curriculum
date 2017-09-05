@@ -4,7 +4,7 @@ date: 9999-10-01
 slug: geoknife-intro
 title: geoknife - Introduction
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

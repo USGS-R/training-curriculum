@@ -3,7 +3,7 @@ title: "Application - Introduction"
 date: "9999-06-01"
 author: "Lindsay R. Carr"
 slug: "app-intro"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/workflow.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 40

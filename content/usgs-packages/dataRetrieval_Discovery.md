@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-11-30
 slug: dataRetrieval-discovery
 title: dataRetrieval - Data discovery
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

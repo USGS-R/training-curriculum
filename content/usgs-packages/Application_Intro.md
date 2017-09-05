@@ -4,7 +4,7 @@ date: 9999-06-01
 slug: app-intro
 title: Application - Introduction
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/workflow.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

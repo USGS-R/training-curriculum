@@ -3,7 +3,7 @@ title: "sbtools - Download Data"
 date: "9999-07-01"
 author: "Lindsay R. Carr"
 slug: "sbtools-get"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/sbtools.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 33
