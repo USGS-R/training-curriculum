@@ -176,7 +176,7 @@ query(DelBay_fabric, "times")
 
     ## [1] "2017-06-08 UTC" "2017-06-16 UTC"
 
-Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature.
+Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated satellite data from the UNIWISC (Unidata-Wisconsin) datastream for Earth's "surface skin" temperature.
 
 ``` r
 skinT_fabric <- webdata(url="http://thredds.ucar.edu/thredds/dodsC/satellite/SFC-T/SUPER-NATIONAL_1km")
