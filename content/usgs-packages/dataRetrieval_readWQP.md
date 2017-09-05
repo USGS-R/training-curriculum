@@ -3,6 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: dataRetrieval-readWQP
 title: dataRetrieval - readWQP
+draft: true
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
@@ -12,10 +13,9 @@ menu:
 readWQP functions
 -----------------
 
-**The following material is IN DEVELOPMENT**
-
 After discovering Water Quality Portal (WQP) data in the [data discovery section](/dataRetrieval-discovery), we can now read it in using the desired parameters. There are two functions to do this in `dataRetrieval`. Table 1 describes them below.
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -60,18 +60,20 @@ siteNumbers, parameterCd, startDate, endDate, tz, querySummary
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 
 The main difference between these two functions is that `readWQPdata` is general and accepts any of the paremeters described in the [WQP Web Services Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). In contrast, `readWQPqw` has five arguments and users can only use this if they know the site number(s) and parameter code(s) for which they want data.
 
 The following are examples of how to use each of the readWQP family of functions. Don't forget to load the `dataRetrieval` library if you are in a new session.
 
 1.  [readWQPdata, state, site type, and characteristic name](#readwqpdata-state)
-2.  [readWQPdata, county and characteristic group](##readwqpdata-county)
-3.  [readWQPdata, bbox, characteristic name, and start date](##readwqpdata-bbox)
+2.  [readWQPdata, county and characteristic group](#readwqpdata-county)
+3.  [readWQPdata, bbox, characteristic name, and start date](#readwqpdata-bbox)
 4.  [readWQPqw](#readwqpqw)
 
 ### readWQPdata
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -115,6 +117,7 @@ character to set timezone attribute of dateTime. Default is "UTC", and converts 
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain).
 
 <a name="readwqpdata-state"></a>
@@ -241,6 +244,7 @@ nrow(Everglades_temp_2016_present)
 
 ### readWQPqw
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -308,6 +312,7 @@ logical to look at number of records and unique sites that will be returned from
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below.
 
 <a name="readwqpqw"></a>
@@ -370,6 +375,6 @@ points(x=siteInfo$dec_lon_va,
        y=siteInfo$dec_lat_va)
 ```
 
-<img src='../static/dataRetrieval-readWQP/unnamed-chunk-4-1.png'/ title='TODO'/>
+<img src='../static/dataRetrieval-readWQP/unnamed-chunk-4-1.png'/ title='Map of NWIS Everglade sites'/ alt='A map of NWIS site locations in the Everglades'/>
 
 You can now find and download Water Quality Portal data from R!

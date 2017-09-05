@@ -51,7 +51,7 @@ This course assumes a moderate to advanced knowledge of the statistical programm
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 Module <- c("dataRetrieval", "geoknife", "sbtools", "Application")
 Description <- c(
-  "Accessing timeseries data.",
+  "Accessing time series data.",
   "Accessing gridded data.",
   "Interacting with ScienceBase to access data, add data to ScienceBase, or release data from R output for a data release.",
   "Use the packages introduced in previous modules to create and use a robust modular workflow."
@@ -61,7 +61,8 @@ Duration <- c("Unknown", "Unknown", "Unknown", "Unknown")
 library(htmlTable)
 htmlTable(data.frame(Module, Description, Duration),
           rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
-          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
+          css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;",
+          caption = "<caption>Summary of Modules</caption>")
 ```
 
 ## Software requirements

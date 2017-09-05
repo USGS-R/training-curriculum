@@ -9,7 +9,6 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 1
-aliases: 
 ---
 **USGS R Packages: Collaborative and reproducible data analysis using R**
 
@@ -35,6 +34,13 @@ Course outline
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
+<td colspan="3" style="text-align: left;">
+<caption>
+Summary of Modules
+</caption>
+</td>
+</tr>
+<tr>
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 Module
 </th>
@@ -52,7 +58,7 @@ Duration
 dataRetrieval
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Accessing timeseries data.
+Accessing time series data.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 Unknown

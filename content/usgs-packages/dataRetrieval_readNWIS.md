@@ -3,6 +3,7 @@ author: Lindsay R. Carr
 date: 9999-11-01
 slug: dataRetrieval-readNWIS
 title: dataRetrieval - readNWIS
+draft: true
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
@@ -12,15 +13,16 @@ menu:
 readNWIS functions
 ------------------
 
-**The following material is IN DEVELOPMENT**
-
 We have learned how to discover data available in NWIS, but now we will look at how to retrieve data. There are many functions to do this, see the table below for a description of each. Each variation of `readNWIS` is accessing a different web service. For a definition and more information on each of these services, please see <https://waterservices.usgs.gov/rest/>. Also, refer to the previous lesson for a description of the major arguments to `readNWIS` functions.
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="3" style="text-align: left;">
+<caption>
 Table 1. readNWIS function definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -55,7 +57,7 @@ Most general NWIS data import function. User must explicitly define the service 
 Returns time-series data summarized to a day. Default is mean daily.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-siteNumber, parameterCd, startDate, endDate, statCd
+siteNumbers, parameterCd, startDate, endDate, statCd
 </td>
 </tr>
 <tr>
@@ -170,6 +172,7 @@ siteNumbers, parameterCd, startDate, endDate, tz
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 
 Each service-specific function is a wrapper for the more flexible `readNWISdata`. They set a default for the service argument and have limited user defined arguments. All `readNWIS` functions require a "major filter" as an argument, but `readNWISdata` can accept any major filter while others are limited to site numbers or state/county codes (see Table 1 for more info).
 
@@ -187,9 +190,9 @@ The following are examples of how to use each of the readNWIS family of function
 8.  [readNWISpeak](#readnwispeak)
 9.  [readNWISqw, multiple sites](#readnwisqw-multsite)
 10. [readNWISqw, multiple parameters](#readnwisqw-multparm)
-11. [readNWISrating, using base table](#readnwisrating-base)
-12. [readNWISrating, corrected table](#readnwisrating-corr)
-13. [readNWISrating, exsa?](#readnwisrating-exsa)
+11. [readNWISrating, using base table](#readnwisrating)
+12. [readNWISrating, corrected table](#readnwisrating)
+13. [readNWISrating, exsa](#readnwisrating)
 14. [readNWISsite](#readnwissite)
 15. [readNWISstat](#readnwisstat)
 16. [readNWISuse](#readnwisuse)
@@ -197,11 +200,14 @@ The following are examples of how to use each of the readNWIS family of function
 
 ### readNWISdata
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 2. readNWISdata argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -219,7 +225,7 @@ Description
 ...
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-see for a complete list of options. A list of arguments can also be supplied. One important argument to include is 'service'. Possible values are "iv" (for instantaneous), "dv" (for daily values), "gwlevels" (for groundwater levels), "site" (for site service), "qw" (water-quality),"measurement", and "stat" (for statistics service). Note: "qw" and "measurement" calls go to: for data requests, and use different call requests schemes. The statistics service has a limited selection of arguments (see ).
+see <https://waterservices.usgs.gov/rest/Site-Service.html> for a complete list of options. A list of arguments can also be supplied. One important argument to include is 'service'. Possible values are "iv" (for instantaneous), "dv" (for daily values), "gwlevels" (for groundwater levels), "site" (for site service), "qw" (water-quality),"measurement", and "stat" (for statistics service). Note: "qw" and "measurement" calls go to: <https://nwis.waterdata.usgs.gov/usa/nwis> for data requests, and use different call requests schemes. The statistics service has a limited selection of arguments (see <https://waterservices.usgs.gov/rest/Statistics-Service-Test-Tool.html>).
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -227,7 +233,7 @@ see for a complete list of options. A list of arguments can also be supplied. On
 asDateTime
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-logical, if returns date and time as POSIXct, if , Date
+logical, if `TRUE` returns date and time as POSIXct, if `FALSE`, Date
 </td>
 </tr>
 <tr>
@@ -235,7 +241,7 @@ logical, if returns date and time as POSIXct, if , Date
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-logical, defaults to . If , the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -243,11 +249,12 @@ logical, defaults to . If , the function will convert the data to dates, datetim
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-timezone as a character string. See for a list of possibilities.
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisdata-county"></a>
 
 **Historic mean daily streamflow for sites in Maui County, Hawaii.**
@@ -263,11 +270,11 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-04-17         184.0                P   UTC
+    ## 1      USGS 16400000 2017-08-10           4.3                P   UTC
     ## 2      USGS 16401000 1929-08-31          18.0                A   UTC
     ## 3      USGS 16402000 1957-07-31          51.0                A   UTC
     ## 4      USGS 16403000 1957-06-30           5.5                A   UTC
-    ## 5      USGS 16403600 1970-09-30           2.4                A   UTC
+    ## 5      USGS 16403600 1970-09-29           2.4                A   UTC
     ## 6      USGS 16403900 1996-09-30           1.3                A   UTC
 
 ``` r
@@ -299,7 +306,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-04-17          18.1                P   UTC
+    ## 6      USGS 16618000 2017-08-10          21.0                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -339,53 +346,69 @@ names(SaltLake_totalN)
     ## [10] "medium_cd"                          
     ## [11] "tu_id"                              
     ## [12] "body_part_id"                       
-    ## [13] "p00003"                             
-    ## [14] "p00004"                             
-    ## [15] "p00009"                             
-    ## [16] "p00010"                             
-    ## [17] "p00020"                             
-    ## [18] "p00025"                             
-    ## [19] "p00061"                             
-    ## [20] "p00063"                             
-    ## [21] "p00065"                             
-    ## [22] "p00095"                             
-    ## [23] "p00098"                             
-    ## [24] "p00191"                             
-    ## [25] "p00300"                             
-    ## [26] "p00301"                             
-    ## [27] "p00400"                             
-    ## [28] "p30207"                             
-    ## [29] "p30209"                             
-    ## [30] "p50015"                             
-    ## [31] "p50280"                             
-    ## [32] "p70305"                             
-    ## [33] "p71999"                             
-    ## [34] "p72104"                             
-    ## [35] "p72263"                             
-    ## [36] "p81904"                             
-    ## [37] "p82398"                             
-    ## [38] "p84164"                             
-    ## [39] "p84171"                             
-    ## [40] "p99111"                             
-    ## [41] "p99156"                             
-    ## [42] "p99206"                             
-    ## [43] "startDateTime"                      
-    ## [44] "sample_start_time_datum_cd"
+    ## [13] "p00004"                             
+    ## [14] "p00010"                             
+    ## [15] "p00020"                             
+    ## [16] "p00025"                             
+    ## [17] "p00041"                             
+    ## [18] "p00061"                             
+    ## [19] "p00063"                             
+    ## [20] "p00065"                             
+    ## [21] "p00095"                             
+    ## [22] "p00098"                             
+    ## [23] "p00191"                             
+    ## [24] "p00300"                             
+    ## [25] "p00301"                             
+    ## [26] "p00400"                             
+    ## [27] "p00405"                             
+    ## [28] "p00480"                             
+    ## [29] "p01350"                             
+    ## [30] "p30207"                             
+    ## [31] "p30209"                             
+    ## [32] "p39086"                             
+    ## [33] "p50280"                             
+    ## [34] "p70305"                             
+    ## [35] "p71820"                             
+    ## [36] "p71999"                             
+    ## [37] "p72005"                             
+    ## [38] "p72006"                             
+    ## [39] "p72012"                             
+    ## [40] "p72013"                             
+    ## [41] "p72104"                             
+    ## [42] "p72105"                             
+    ## [43] "p72263"                             
+    ## [44] "p81904"                             
+    ## [45] "p82398"                             
+    ## [46] "p84164"                             
+    ## [47] "p84171"                             
+    ## [48] "p84182"                             
+    ## [49] "p99105"                             
+    ## [50] "p99111"                             
+    ## [51] "p99112"                             
+    ## [52] "p99156"                             
+    ## [53] "p99159"                             
+    ## [54] "p99200"                             
+    ## [55] "p99206"                             
+    ## [56] "startDateTime"                      
+    ## [57] "sample_start_time_datum_cd"
 
 ``` r
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
 ```
 
-    ## [1] 6
+    ## [1] 19
 
 ### readNWISdv
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 3. readNWISdv argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -400,7 +423,7 @@ Description
 <tbody>
 <tr>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-siteNumber
+siteNumbers
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
 character USGS site number. This is usually an 8 digit number. Multiple sites can be requested with a character vector.
@@ -440,6 +463,7 @@ character USGS statistic code. This is usually 5 digits. Daily mean (00003) is t
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisdv"></a>
 
 **Minimum and maximum pH daily data for a site on the Missouri River near Townsend, MT.**
@@ -450,38 +474,26 @@ mt_available <- whatNWISdata(siteNumber="462107111312301", service="dv", paramet
 head(mt_available)
 ```
 
-    ##    parm_cd agency_cd         site_no
-    ## 13   00400      USGS 462107111312301
-    ## 14   00400      USGS 462107111312301
-    ## 16   00400      USGS 462107111312301
-    ##                                    station_nm site_tp_cd dec_lat_va
-    ## 13 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
-    ## 14 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
-    ## 16 Missouri River ab Canyon Ferry nr Townsend         ST   46.35188
-    ##    dec_long_va coord_acy_cd dec_coord_datum_cd alt_va alt_acy_va
-    ## 13   -111.5239            S              NAD83   3790         20
-    ## 14   -111.5239            S              NAD83   3790         20
-    ## 16   -111.5239            S              NAD83   3790         20
-    ##    alt_datum_cd   huc_cd data_type_cd stat_cd ts_id loc_web_ds
-    ## 13       NGVD29 10030101           dv   00008 82220       <NA>
-    ## 14       NGVD29 10030101           dv   00001 82218       <NA>
-    ## 16       NGVD29 10030101           dv   00002 82219       <NA>
-    ##    medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date
-    ## 13           wat        <NA> 17028275         0 2010-08-18 2011-09-21
-    ## 14           wat        <NA> 17028275         0 2010-08-18 2011-09-21
-    ## 16           wat        <NA> 17028275         0 2010-08-18 2011-09-21
-    ##    count_nu parameter_group_nm
-    ## 13       72           Physical
-    ## 14       72           Physical
-    ## 16       72           Physical
-    ##                                    parameter_nm casrn srsname
-    ## 13 pH, water, unfiltered, field, standard units  <NA>      pH
-    ## 14 pH, water, unfiltered, field, standard units  <NA>      pH
-    ## 16 pH, water, unfiltered, field, standard units  <NA>      pH
-    ##    parameter_units
-    ## 13       std units
-    ## 14       std units
-    ## 16       std units
+    ##   agency_cd         site_no                                 station_nm
+    ## 4      USGS 462107111312301 Missouri River ab Canyon Ferry nr Townsend
+    ## 5      USGS 462107111312301 Missouri River ab Canyon Ferry nr Townsend
+    ## 6      USGS 462107111312301 Missouri River ab Canyon Ferry nr Townsend
+    ##   site_tp_cd dec_lat_va dec_long_va coord_acy_cd dec_coord_datum_cd alt_va
+    ## 4         ST   46.35188   -111.5239            S              NAD83   3790
+    ## 5         ST   46.35188   -111.5239            S              NAD83   3790
+    ## 6         ST   46.35188   -111.5239            S              NAD83   3790
+    ##   alt_acy_va alt_datum_cd   huc_cd data_type_cd parm_cd stat_cd ts_id
+    ## 4         20       NGVD29 10030101           dv   00400   00001 82218
+    ## 5         20       NGVD29 10030101           dv   00400   00002 82219
+    ## 6         20       NGVD29 10030101           dv   00400   00008 82220
+    ##   loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
+    ## 4       <NA>           wat        <NA> 17028275         0 2010-08-18
+    ## 5       <NA>           wat        <NA> 17028275         0 2010-08-18
+    ## 6       <NA>           wat        <NA> 17028275         0 2010-08-18
+    ##     end_date count_nu
+    ## 4 2011-09-21       72
+    ## 5 2011-09-21       72
+    ## 6 2011-09-21       72
 
 ``` r
 # Major filter: site number, 462107111312301
@@ -509,11 +521,14 @@ head(mt_site_pH)
 
 ### readNWISgwl
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 4. readNWISgwl argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -555,7 +570,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-logical, defaults to . If , the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
 </td>
 </tr>
 <tr>
@@ -563,11 +578,12 @@ logical, defaults to . If , the function will convert the data to dates, datetim
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character to set timezone attribute of dateTime. Default is an empty quote, which converts the dateTimes to UTC (properly accounting for daylight savings times based on the data's provided tz\_cd column). Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage","America/Honolulu","America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla"
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisgwl"></a>
 
 **Historic groundwater levels for a site near Portland, Oregon.**
@@ -602,11 +618,14 @@ head(or_site_gwl)
 
 ### readNWISmeas
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 5. readNWISmeas argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -648,7 +667,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character to set timezone attribute of dateTime. Default is an empty quote, which converts the dateTimes to UTC (properly accounting for daylight savings times based on the data's provided tz\_cd column). Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage","America/Honolulu","America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla"
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 <tr>
@@ -664,11 +683,12 @@ logical. Whether or not (TRUE or FALSE) to call the expanded data.
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-logical, defaults to . If , the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwismeas"></a>
 
 **Historic surface water measurements for a site near Dade City, Florida.**
@@ -694,11 +714,14 @@ names(fl_site_meas)
 
 ### readNWISpCode
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 6. readNWISpCode argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -716,11 +739,12 @@ Description
 parameterCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character of USGS parameter codes (or multiple parameter codes). These are 5 digit number codes, more information can be found here: . To get a complete list of all current parameter codes in the USGS, use "all" as the input. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
+character of USGS parameter codes (or multiple parameter codes). These are 5 digit number codes, more information can be found here: <https://help.waterdata.usgs.gov/>. To get a complete list of all current parameter codes in the USGS, use "all" as the input. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwispcode"></a>
 
 **Get information about the parameters gage height, specific conductance, and total phosphorus.**
@@ -733,9 +757,9 @@ readNWISpCode("00065")
 ```
 
     ##      parameter_cd parameter_group_nm      parameter_nm casrn      srsname
-    ## 1405        00065           Physical Gage height, feet  <NA> Height, gage
+    ## 1521        00065           Physical Gage height, feet  <NA> Height, gage
     ##      parameter_units
-    ## 1405              ft
+    ## 1521              ft
 
 ``` r
 # specific conductance and total phosphorus, 00095 and 00665
@@ -743,22 +767,25 @@ readNWISpCode(c("00095", "00665"))
 ```
 
     ##      parameter_cd parameter_group_nm
-    ## 1420        00095           Physical
-    ## 2553        00665           Nutrient
+    ## 1536        00095           Physical
+    ## 2740        00665           Nutrient
     ##                                                                                    parameter_nm
-    ## 1420 Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius
-    ## 2553                          Phosphorus, water, unfiltered, milligrams per liter as phosphorus
+    ## 1536 Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius
+    ## 2740                          Phosphorus, water, unfiltered, milligrams per liter as phosphorus
     ##          casrn              srsname parameter_units
-    ## 1420      <NA> Specific conductance      uS/cm @25C
-    ## 2553 7723-14-0           Phosphorus       mg/l as P
+    ## 1536      <NA> Specific conductance      uS/cm @25C
+    ## 2740 7723-14-0           Phosphorus       mg/l as P
 
 ### readNWISpeak
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 7. readNWISpeak argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -800,7 +827,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 asDateTime
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-logical default to . When , the peak\_dt column is converted to a Date object, and incomplete dates are removed. When , no columns are removed, but no dates are converted.
+logical default to `TRUE`. When `TRUE`, the peak\_dt column is converted to a Date object, and incomplete dates are removed. When `FALSE`, no columns are removed, but no dates are converted.
 </td>
 </tr>
 <tr>
@@ -808,11 +835,12 @@ logical default to . When , the peak\_dt column is converted to a Date object, a
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-logical, defaults to . If , the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwispeak"></a>
 
 **Peak flow values for a site near Cassia, Florida.**
@@ -847,11 +875,14 @@ fl_site_peak_incomp$peak_dt[is.na(fl_site_peak$peak_dt)]
 
 ### readNWISqw
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 8. readNWISqw argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -901,7 +932,7 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 expanded
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-logical defaults to . If , retrieves additional information. Expanded data includes remark\_cd (remark code), result\_va (result value), val\_qual\_tx (result value qualifier code), meth\_cd (method code), dqi\_cd (data-quality indicator code), rpt\_lev\_va (reporting level), and rpt\_lev\_cd (reporting level type). If , only returns remark\_cd (remark code) and result\_va (result value). Expanded = will not give sufficient information for unbiased statistical analysis.
+logical defaults to `TRUE`. If `TRUE`, retrieves additional information. Expanded data includes remark\_cd (remark code), result\_va (result value), val\_qual\_tx (result value qualifier code), meth\_cd (method code), dqi\_cd (data-quality indicator code), rpt\_lev\_va (reporting level), and rpt\_lev\_cd (reporting level type). If `FALSE`, only returns remark\_cd (remark code) and result\_va (result value). Expanded = `FALSE` will not give sufficient information for unbiased statistical analysis.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -909,7 +940,7 @@ logical defaults to . If , retrieves additional information. Expanded data inclu
 reshape
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-logical, reshape the expanded data. If , then return a wide data frame with all water-quality in a single row for each sample. If (default), then return a long data frame with each water-quality result in a single row. This argument is only applicable to expanded data. Data requested using is always returned in the wide format.
+logical, reshape the expanded data. If `TRUE`, then return a wide data frame with all water-quality in a single row for each sample. If `FALSE` (default), then return a long data frame with each water-quality result in a single row. This argument is only applicable to expanded data. Data requested using `expanded=FALSE` is always returned in the wide format.
 </td>
 </tr>
 <tr>
@@ -917,11 +948,12 @@ logical, reshape the expanded data. If , then return a wide data frame with all 
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character to set timezone attribute of output columns: startDateTime and endDateTime. Default is an empty quote, which converts the datetimes to UTC (properly accounting for daylight savings times). Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage","America/Honolulu","America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla"
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisqw-multsite"></a>
 
 **Dissolved oxygen for two sites near the Columbia River in Oregon for water year 2016**
@@ -946,10 +978,10 @@ head(or_site_do[,c("site_no","sample_dt","result_va")])
     ##           site_no  sample_dt result_va
     ## 1 455415119314601 2015-10-14       2.2
     ## 2 455415119314601 2015-10-28       0.7
-    ## 3 455415119314601 2016-03-18       0.1
-    ## 4 455415119314601 2016-04-21       0.4
-    ## 5 455415119314601 2016-06-22       0.5
-    ## 6 455415119314601 2016-07-28       0.0
+    ## 3 455415119314601 2016-01-20       0.1
+    ## 4 455415119314601 2016-03-18       0.1
+    ## 5 455415119314601 2016-04-21       0.4
+    ## 6 455415119314601 2016-06-22       0.5
 
 <a name="readnwisqw-multparm"></a>
 
@@ -988,11 +1020,14 @@ head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
 
 ### readNWISrating
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 9. readNWISrating argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -1026,11 +1061,12 @@ character can be "base", "corr", or "exsa"
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-logical, defaults to . If , the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to dates, datetimes, numerics based on a standard algorithm. If false, everything is returned as a character
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisrating"></a>
 
 **Rating table for Mississippi River at St. Louis, MO**
@@ -1096,11 +1132,14 @@ head(miss_rating_exsa)
 
 ### readNWISsite
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 10. readNWISsite argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -1123,6 +1162,7 @@ character USGS site number (or multiple sites). This is usually an 8 digit numbe
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwissite"></a>
 
 **Get metadata information for a site in Bronx, NY**
@@ -1140,9 +1180,9 @@ readNWISsite(siteNumbers="01302020")
     ##   coord_acy_cd coord_datum_cd dec_coord_datum_cd district_cd state_cd
     ## 1            1          NAD83              NAD83          36       36
     ##   county_cd country_cd land_net_ds       map_nm map_scale_fc alt_va
-    ## 1       005         US        <NA> FLUSHING, NY        24000     50
+    ## 1       005         US        <NA> FLUSHING, NY        24000     NA
     ##   alt_meth_cd alt_acy_va alt_datum_cd   huc_cd basin_cd topo_cd
-    ## 1           N        1.6       NAVD88 02030102     <NA>    <NA>
+    ## 1        <NA>         NA         <NA> 02030102     <NA>    <NA>
     ##                   instruments_cd construction_dt inventory_dt
     ## 1 YNNNYNNNNYNNNNNNNNNNNNNNNNNNNN            <NA>         <NA>
     ##   drain_area_va contrib_drain_area_va tz_cd local_time_fg reliability_cd
@@ -1154,11 +1194,14 @@ readNWISsite(siteNumbers="01302020")
 
 ### readNWISstat
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 11. readNWISstat argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -1208,7 +1251,7 @@ character ending date for data retrieval in the form YYYY, YYYY-MM, or YYYY-MM-D
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-logical, defaults to . If , the function will convert the data to numerics based on a standard algorithm. Years, months, and days (if appliccable) are also returned as numerics in separate columns. If convertType is false, everything is returned as a character.
+logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to numerics based on a standard algorithm. Years, months, and days (if appliccable) are also returned as numerics in separate columns. If convertType is false, everything is returned as a character.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -1224,11 +1267,12 @@ character time division for statistics: daily, monthly, or annual. Default is da
 statType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character type(s) of statistics to output for daily values. Default is mean, which is the only option for monthly and yearly report types. See the statistics service documentation at for a full list of codes.
+character type(s) of statistics to output for daily values. Default is mean, which is the only option for monthly and yearly report types. See the statistics service documentation at <https://waterservices.usgs.gov/rest/Statistics-Service.html> for a full list of codes.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisstat"></a>
 
 **Historic annual average discharge near Mississippi River outlet**
@@ -1255,11 +1299,14 @@ head(mississippi_avgQ)
 
 ### readNWISuse
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 12. readNWISuse argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -1285,7 +1332,7 @@ could be character (full name, abbreviation, id), or numeric (id). Only one is a
 countyCd
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-could be character (name, with or without "County", or "ALL"), numeric (id), or codeNULL, which will return state or national data depending on the stateCd argument. may also be supplied, which will return data for every county in a state. Can be a vector of counties in the same state.
+could be character (name, with or without "County", or "ALL"), numeric (id), or codeNULL, which will return state or national data depending on the stateCd argument. `ALL` may also be supplied, which will return data for every county in a state. Can be a vector of counties in the same state.
 </td>
 </tr>
 <tr>
@@ -1301,7 +1348,7 @@ integer Years for data retrieval. Must be years ending in 0 or 5. Default is all
 categories
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character categories of water use. Defaults to . Specific categories must be supplied as two- letter abbreviations as seen in the URL when using the NWIS water use web interface.
+character categories of water use. Defaults to `ALL`. Specific categories must be supplied as two- letter abbreviations as seen in the URL when using the NWIS water use web interface. Note that there are different codes for national and state level data.
 </td>
 </tr>
 <tr>
@@ -1309,7 +1356,7 @@ character categories of water use. Defaults to . Specific categories must be sup
 convertType
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-logical defaults to . If , the function will convert the data to numerics based on a standard algorithm. Years, months, and days (if appliccable) are also returned as numerics in separate columns. If convertType is false, everything is returned as a character.
+logical defaults to `TRUE`. If `TRUE`, the function will convert the data to numerics based on a standard algorithm. Years, months, and days (if appliccable) are also returned as numerics in separate columns. If convertType is false, everything is returned as a character.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -1317,18 +1364,22 @@ logical defaults to . If , the function will convert the data to numerics based 
 transform
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-logical only intended for use with national data. Defaults to , with data being returned as presented by the web service. If , data will be transformed and returned with column names, which will reformat national data to be similar to state data.
+logical only intended for use with national data. Defaults to `FALSE`, with data being returned as presented by the web service. If `TRUE`, data will be transformed and returned with column names, which will reformat national data to be similar to state data.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
-Table 3. Water-use category names and abbreviations.
+<caption>
+Table 13. Water-use category names and abbreviations.
+</caption>
 </td>
 </tr>
 <tr>
@@ -1535,6 +1586,7 @@ WW
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisuse"></a>
 
 **Las Vegas historic water use**
@@ -1607,11 +1659,14 @@ head(vegas_wu[,1:7])
 
 ### readNWISuv
 
+<!--html_preserve-->
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
-Table 13. readNWISuv argument definitions
+<caption>
+Table 14. readNWISuv argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -1645,7 +1700,7 @@ character USGS parameter code. This is usually an 5 digit number. See [NWIS help
 startDate
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-character starting date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the earliest possible record. Simple date arguments are specified in local time. See more information here: .
+character starting date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the earliest possible record. Simple date arguments are specified in local time. See more information here: <https://waterservices.usgs.gov/rest/IV-Service.html>.
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -1653,7 +1708,7 @@ character starting date for data retrieval in the form YYYY-MM-DD. Default is ""
 endDate
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character ending date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the latest possible record. Simple date arguments are specified in local time. See more information here: .
+character ending date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the latest possible record. Simple date arguments are specified in local time. See more information here: <https://waterservices.usgs.gov/rest/IV-Service.html>.
 </td>
 </tr>
 <tr>
@@ -1661,11 +1716,12 @@ character ending date for data retrieval in the form YYYY-MM-DD. Default is "" w
 tz
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character to set timezone attribute of dateTime. Default is an empty quote, which converts the dateTimes to UTC (properly accounting for daylight savings times based on the data's provided tz\_cd column). Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage","America/Honolulu","America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla"
+character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York","America/Chicago", "America/Denver","America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica","America/Managua","America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
 </td>
 </tr>
 </tbody>
 </table>
+<!--/html_preserve-->
 <a name="readnwisuv"></a>
 
 **Turbidity and discharge for April 2016 near Lake Tahoe in California.**
@@ -1688,12 +1744,12 @@ head(ca_site_do)
 ```
 
     ##   agency_cd  site_no            dateTime X_00060_00000 X_00060_00000_cd
-    ## 1      USGS 10336676 2016-04-01 07:00:00            29                A
-    ## 2      USGS 10336676 2016-04-01 07:15:00            28                A
-    ## 3      USGS 10336676 2016-04-01 07:30:00            28                A
-    ## 4      USGS 10336676 2016-04-01 07:45:00            29                A
-    ## 5      USGS 10336676 2016-04-01 08:00:00            29                A
-    ## 6      USGS 10336676 2016-04-01 08:15:00            28                A
+    ## 1      USGS 10336676 2016-04-01 07:00:00          28.9                A
+    ## 2      USGS 10336676 2016-04-01 07:15:00          28.2                A
+    ## 3      USGS 10336676 2016-04-01 07:30:00          28.2                A
+    ## 4      USGS 10336676 2016-04-01 07:45:00          28.9                A
+    ## 5      USGS 10336676 2016-04-01 08:00:00          28.9                A
+    ## 6      USGS 10336676 2016-04-01 08:15:00          28.2                A
     ##   X_63680_00000 X_63680_00000_cd tz_cd
     ## 1           1.2                A   UTC
     ## 2           1.3                A   UTC
@@ -1724,7 +1780,7 @@ length(attributes(miss_rating_base))
 names(attributes(miss_rating_base))
 ```
 
-    ## [1] "class"     "row.names" "names"     "comment"   "queryTime" "url"      
+    ## [1] "class"     "names"     "row.names" "comment"   "queryTime" "url"      
     ## [7] "header"    "RATING"    "siteInfo"
 
 ``` r
@@ -1864,12 +1920,12 @@ head(co_river_q_fall)
 ```
 
     ##   agency_cd  site_no       Date X_00060_00003 X_00060_00003_cd
-    ## 1      USGS 09403850 2014-09-28         195.0                A
-    ## 2      USGS 09403850 2014-09-29         241.0                A
-    ## 3      USGS 09403850 2014-09-30         224.0                A
-    ## 4      USGS 09403850 2014-10-01          37.0                A
-    ## 5      USGS 09403850 2014-10-02          22.0                A
-    ## 6      USGS 09403850 2014-10-03           9.2                A
+    ## 1      USGS 09403850 2014-09-28        195.00                A
+    ## 2      USGS 09403850 2014-09-29        241.00                A
+    ## 3      USGS 09403850 2014-09-30        224.00                A
+    ## 4      USGS 09403850 2014-10-01         36.60                A
+    ## 5      USGS 09403850 2014-10-02         22.20                A
+    ## 6      USGS 09403850 2014-10-03          9.21                A
 
 ``` r
 # now add the water year column
@@ -1878,12 +1934,12 @@ head(co_river_q_fall_wy)
 ```
 
     ##   agency_cd  site_no       Date waterYear X_00060_00003 X_00060_00003_cd
-    ## 1      USGS 09403850 2014-09-28      2014         195.0                A
-    ## 2      USGS 09403850 2014-09-29      2014         241.0                A
-    ## 3      USGS 09403850 2014-09-30      2014         224.0                A
-    ## 4      USGS 09403850 2014-10-01      2015          37.0                A
-    ## 5      USGS 09403850 2014-10-02      2015          22.0                A
-    ## 6      USGS 09403850 2014-10-03      2015           9.2                A
+    ## 1      USGS 09403850 2014-09-28      2014        195.00                A
+    ## 2      USGS 09403850 2014-09-29      2014        241.00                A
+    ## 3      USGS 09403850 2014-09-30      2014        224.00                A
+    ## 4      USGS 09403850 2014-10-01      2015         36.60                A
+    ## 5      USGS 09403850 2014-10-02      2015         22.20                A
+    ## 6      USGS 09403850 2014-10-03      2015          9.21                A
 
 ``` r
 unique(co_river_q_fall_wy$waterYear)

@@ -65,6 +65,4 @@ Samantha Oliver (soliver@usgs.gov)
 
 ### Lesson scripts
 
-During the course, we will post a link to all scripts that the instructors created in the class.
-
-
+[This zip file](https://drive.google.com/drive/u/1/folders/0B54YFPSk4XN8NnFjUWE3MjVVRHc) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.

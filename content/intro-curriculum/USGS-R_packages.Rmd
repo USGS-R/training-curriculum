@@ -1,4 +1,5 @@
 ---
+title: "USGS R Packages"
 date: "9998-01-01"
 author: "Lindsay R. Carr"
 slug: "USGS"
@@ -126,3 +127,6 @@ names(GRAN_pkg[,1:2])
 * toxEval
 * USGSHydroOpt
 
+## Introduction to USGS R Packages course
+
+Learn more about the USGS packages by taking the online [Introduction to USGS R Packages](/usgs-packages) course (linked or or navigate on the side menu).

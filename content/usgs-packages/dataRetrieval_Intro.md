@@ -3,15 +3,13 @@ author: Lindsay R. Carr
 date: 9999-12-01
 slug: dataRetrieval-intro
 title: dataRetrieval - Introduction
+draft: true 
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 10
 ---
-
-**The following material is IN DEVELOPMENT**
-
 Lesson Summary
 --------------
 

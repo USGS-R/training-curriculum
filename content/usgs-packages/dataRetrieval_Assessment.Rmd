@@ -11,38 +11,13 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/dataRetrieval-exercises/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO",
-  message=FALSE
-)
-
-knit_hooks$set(addToggle = function(before, options, envir) {
-    if(before) {
-      sprintf('<button class="ToggleButton" onclick="toggle_visibility(\'%1$s\')">Show Answer</button>
-              <div id="%1$s" style="display:none">', opts_current$get('label'))
-    } else {
-      '</div>'
-    }
-})
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd()
 ```
 
 Before starting the exercises, you should make sure that the `dataRetrieval` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('dataRetrieval')` or go to the "Update" button in the "Packages" tab in RStudio.
 
-```{r load-dataRetrieval}
+```{r load-dataRetrieval, message=FALSE, warning=FALSE}
 # load the dataRetrieval package
 library(dataRetrieval)
 
@@ -70,7 +45,7 @@ nrow(azlaketemp_wqp)
 
 *Determine which sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use three different functions to figure this out (find site numbers, then statistics data, and then daily value data).*
 
-```{r addToggle="ON"}
+```{r addToggle="ON", warning=FALSE, message=FALSE}
 # Find DC site numbers that have streamflow
 dc_stream_sites <- whatNWISsites(stateCd = "DC", siteType="ST", parameterCd="00060")
 
@@ -113,7 +88,7 @@ mn_lake_phos[['MonitoringLocationIdentifier']][max_p_row]
 
 *Map the Minnesota lake phosphorus sites using your data from Exercise 3. Hint: look at metadata and consider using the `maps` package.*
 
-```{r addToggle="ON", fig.cap="Minnesota lake phosphorus site map"}
+```{r addToggle="ON", fig.scap="Minnesota lake phosphorus site map", fig.cap="Map Minnesota showing locations of maximum lake phosphorus"}
 # Get longitudes and latitudes of the lake phosphorus data from Jan 1992
 mn_site_info <- attr(mn_lake_phos, 'siteInfo')
 mn_site_coords <- select(mn_site_info, dec_lon_va, dec_lat_va)

@@ -9,9 +9,8 @@ menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 33
-aliases: 
 ---
-This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/sbtools-sbitem).
+This lesson will describe the basic functions to manage ScienceBase authenticated sessions and view or download ScienceBase items. If you aren't sure what a ScienceBase item is, head back to the [previous lesson on `sbitems`](/usgs-packages/sbtools-sbitem).
 
 Don't forget to load the library if you're in a new R session!
 
@@ -113,26 +112,26 @@ length(ex_id_children)
 sapply(ex_id_children, function(item) item$title)
 ```
 
-    ##  [1] "Cuttings for F.I.C.O."                                           
-    ##  [2] "Cuttings for 0533. EL PASO NATURAL GAS - #1 FEDERAL-BULLARD WASH"
-    ##  [3] "Cuttings for UNITED STATES BUREAU OF INDIAN AFFAIRS #63"         
-    ##  [4] "Cuttings for BASILE"                                             
-    ##  [5] "Cuttings for A.M. LANE"                                          
-    ##  [6] "Samples for 01-52. Duval 32 State (strat)"                       
-    ##  [7] "Cuttings for SHELL OIL - #1 NAVAJO (EAST BOUNDARY BUTTE)"        
-    ##  [8] "Cuttings for 0210. MARLETTE MARTIN - #1 FITZGERALD"              
-    ##  [9] "Cuttings for 0332. O'DONNELL & EWING - #1 FEDERAL"               
-    ## [10] "Cuttings for 0430. TEXACO INCORPORATED - #1 NAVAJO-BC"           
-    ## [11] "Cuttings for 0437. GULF OIL - #1 NAVAJO-AGUA SAL"                
-    ## [12] "Cuttings for 0637. NORTHWEST PIPELINE - #1 JUDY LEE - NAVAJO"    
-    ## [13] "Cuttings for 0796. PHILLIPS PETROLEUM - #A-1 MOUNTAIN VIEW STATE"
-    ## [14] "Cuttings for 0801. MOUNTAIN STATES RESOURCES - #12 NAVAJO-O"     
-    ## [15] "Cuttings for 0859. SHIELDS EXPLORATION CO. - #12-24 FEDERAL"     
-    ## [16] "Cuttings for 09-28. GENERAL PETROLEUM - #14-6 CREAGER STATE"     
-    ## [17] "Cuttings for BEAVER CREEK"                                       
-    ## [18] "Cuttings for 10K-244"                                            
-    ## [19] "Cuttings for PETRIFIED FOREST #1"                                
-    ## [20] "Cuttings for CLAY HANNA"
+    ##  [1] "Cuttings for UNITED STATES BUREAU OF INDIAN AFFAIRS - MANY FARMS #1 BOYD AND MORRISON"
+    ##  [2] "Cuttings for SUNSET CRATER TEST HOLE"                                                 
+    ##  [3] "Cuttings for MCGUIRE"                                                                 
+    ##  [4] "Cuttings for BUILDING & DESIGN INCORPORATED"                                          
+    ##  [5] "Cuttings for UNITED STATES BUREAU OF RECLAMATION - TA-9"                              
+    ##  [6] "Cuttings for 3T-333"                                                                  
+    ##  [7] "Cuttings for ARIZONA GAME & FISH - EAGER #1"                                          
+    ##  [8] "Cuttings for RR-5"                                                                    
+    ##  [9] "Cuttings for 1K-217 - KABITO DAY SCHOOL"                                              
+    ## [10] "Cuttings for FORNES"                                                                  
+    ## [11] "Cuttings for FICO S-53"                                                               
+    ## [12] "Cuttings for WILSON TRAILER COMPANY #3"                                               
+    ## [13] "Cuttings for 14T-320"                                                                 
+    ## [14] "Cuttings for FICO S-22"                                                               
+    ## [15] "Cuttings for 16T-507"                                                                 
+    ## [16] "Cuttings for WRIGHT"                                                                  
+    ## [17] "Cuttings for HACKBERRY #4"                                                            
+    ## [18] "Cuttings for SOUTHERN PACIFIC RAILROAD - DRAGOON WELL"                                
+    ## [19] "Cuttings for SHAG'S"                                                                  
+    ## [20] "Cuttings for DOBELL #1"
 
 Let's check to see if this item has any files attached to it using `item_list_files`. This will return a dataframe with the three columns: `fname` (filename), `size` (file size in bytes), and `url` (the URL to the file on ScienceBase).
 
@@ -252,7 +251,7 @@ nj_wfs <- item_get_wfs("58cbe556e4b0849ce97dcd31")
     ## Loading required namespace: rgdal
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\lcarr\AppData\Local\Temp\1\RtmpyU8xS4/filee74113572e9", layer: "NJ_low_flow_estimates_2016"
+    ## Source: "C:\Users\lcarr\AppData\Local\Temp\1\RtmpkDU3Rn/file27603ff95b43", layer: "NJ_low_flow_estimates_2016"
     ## with 62 features
     ## It has 18 fields
 
@@ -270,4 +269,4 @@ maps::map("county", "new jersey")
 points(nj_wfs$longitude, nj_wfs$latitude, col="red")
 ```
 
-<img src='../static/sbtools-get/sbtools-wfs-1.png'/ title='TODO'/>
+<img src='../static/sbtools-get/sbtools-wfs-1.png'/ title='Map of sbitem WFS data sites'/ alt='Sites from a ScienceBase item's WFS data on a map of New Jersey'/>

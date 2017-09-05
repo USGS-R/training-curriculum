@@ -11,23 +11,8 @@ draft: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}
-library(knitr)
-
-knit_hooks$set(plot=function(x, options) {
-  sprintf("<img src='../%s%s-%d.%s'/ title='%s'/>", 
-          options$fig.path, options$label, options$fig.cur, options$fig.ext, options$fig.cap)
-
-})
-
-opts_chunk$set(
-  echo=TRUE,
-  fig.path="static/dataRetrieval-readNWIS/",
-  fig.width = 6,
-  fig.height = 6,
-  fig.cap = "TODO"
-)
-
-set.seed(1)
+source("../../R/shared_setup_fxns.R")
+setupCourseRmd()
 ```
 
 ## readNWIS functions
@@ -70,7 +55,7 @@ Function_fancy <- c('<a href="#readnwisdata">readNWISdata</a>',
 library(htmlTable)
 htmlTable(data.frame(Function = Function_fancy, 
                      Description = Description, 
-                     Arguments = Arguments), caption="Table 1. readNWIS function definitions",
+                     Arguments = Arguments), caption="<caption>Table 1. readNWIS function definitions</caption>",
           rnames=FALSE, align=c("l","l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 
@@ -95,9 +80,9 @@ The following are examples of how to use each of the readNWIS family of function
 8. [readNWISpeak](#readnwispeak)
 9. [readNWISqw, multiple sites](#readnwisqw-multsite)
 10. [readNWISqw, multiple parameters](#readnwisqw-multparm)
-11. [readNWISrating, using base table](#readnwisrating-base)
-12. [readNWISrating, corrected table](#readnwisrating-corr)
-13. [readNWISrating, exsa?](#readnwisrating-exsa)
+11. [readNWISrating, using base table](#readnwisrating)
+12. [readNWISrating, corrected table](#readnwisrating)
+13. [readNWISrating, exsa](#readnwisrating)
 14. [readNWISsite](#readnwissite)
 15. [readNWISstat](#readnwisstat)
 16. [readNWISuse](#readnwisuse)
@@ -414,7 +399,7 @@ Abbreviation <- c('AQ', 'CO', 'DO', 'HY', 'IC', 'IG', 'IN', 'IT', 'LA', 'LI', 'L
                   'OI', 'PC', 'PF', 'PG', 'PN', 'PO', 'PS', 'PT', 'PT', 'RE', 'TP', 'WW')
 
 library(htmlTable)
-htmlTable(data.frame(Name, Abbreviation), caption="Table 3. Water-use category names and abbreviations.",
+htmlTable(data.frame(Name, Abbreviation), caption="<caption>Table 13. Water-use category names and abbreviations.</caption>",
           rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
@@ -435,7 +420,7 @@ head(vegas_wu[,1:7])
 ### readNWISuv
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISuv", table.num=13)
+makeArgDefTable("readNWISuv", table.num=14)
 ```
 
 <a name="readnwisuv"></a>

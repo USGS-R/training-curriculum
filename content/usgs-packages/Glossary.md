@@ -8,7 +8,7 @@ image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
     parent: Introduction to USGS R Packages
-    weight: 50
+    weight: 51
 ---
 Below are lists of terms or functions introduced in this curriculum. Each links to the first time it is used, or the section that contains the most description.
 

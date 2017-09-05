@@ -46,7 +46,7 @@ azlaketemp_wqp <- whatWQPsites(statecode="AZ",
 nrow(azlaketemp_wqp)
 ```
 
-    ## [1] 418
+    ## [1] 419
 
 </div>
 Exercise 2
@@ -142,5 +142,5 @@ map('state', 'Minnesota', col="lightblue", lwd=2)
 points(mn_site_coords)
 ```
 
-<img src='../static/dataRetrieval-exercises/unnamed-chunk-4-1.png'/ title='Minnesota lake phosphorus site map'/>
+<img src='../static/dataRetrieval-exercises/unnamed-chunk-4-1.png'/ title='Minnesota lake phosphorus site map'/ alt='Map Minnesota showing locations of maximum lake phosphorus'/>
 </div>
