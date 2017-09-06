@@ -82,7 +82,7 @@ The following are examples of how to use each of the readNWIS family of function
 10. [readNWISqw, multiple parameters](#readnwisqw-multparm)
 11. [readNWISrating, using base table](#readnwisrating)
 12. [readNWISrating, corrected table](#readnwisrating)
-13. [readNWISrating, exsa](#readnwisrating)
+13. [readNWISrating, shift table](#readnwisrating)
 14. [readNWISsite](#readnwissite)
 15. [readNWISstat](#readnwisstat)
 16. [readNWISuse](#readnwisuse)
@@ -91,9 +91,7 @@ The following are examples of how to use each of the readNWIS family of function
 
 ### readNWISdata
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISdata", table.num=2)
-```
+This function is the generic, catch-all for pulling down NWIS data. It can accept a number of arguments, but the argument name must be included. To use this function, you need to specify at list one major filter (state, county, site number, huc, or bounding box) and the NWIS service (daily value, instantaneous, groundwater, etc). The rest are optional query parameters. Follow along with the three examples below or see `?readNWISdata` for more information.
 
 <a name="readnwisdata-county"></a>
 
@@ -155,9 +153,7 @@ length(unique(SaltLake_totalN$site_no))
 
 ### readNWISdv
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISdv", table.num=3)
-```
+This function is the daily value service function. It has a limited number of arguments and requires a site number and parameter code. Follow along with the example below or see `?readNWISdv` for more information.
 
 <a name="readnwisdv"></a>
 
@@ -178,9 +174,7 @@ head(mt_site_pH)
 
 ### readNWISgwl
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISgwl", table.num=4)
-```
+This function is the groundwater level service function. It has a limited number of arguments and requires a site number. Follow along with the example below or see `?readNWISgwl` for more information.
 
 <a name="readnwisgwl"></a>
 
@@ -194,9 +188,7 @@ head(or_site_gwl)
 
 ### readNWISmeas
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISmeas", table.num=5)
-```
+This function is the field measurement service function which pulls manual measurements for streamflow and gage height. It has a limited number of arguments and requires a site number. Follow along with the example below or see `?readNWISmeas` for more information.
 
 <a name="readnwismeas"></a>
 
@@ -211,9 +203,7 @@ names(fl_site_meas)
 
 ### readNWISpCode
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISpCode", table.num=6)
-```
+This function returns the parameter information associated with a parameter code. It only has one argument - the parameter code. See the example below or `?readNWISpCode` for more information.
 
 <a name="readnwispcode"></a>
 
@@ -231,31 +221,27 @@ readNWISpCode(c("00095", "00665"))
 
 ### readNWISpeak
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISpeak", table.num=7)
-```
+This function is the peak flow service function. It has a limited number of arguments and requires a site number. Follow along with the example below or see `?readNWISpeak` for more information.
+
+The default settings will return data where the date of the peak flow is known. To see peak flows with incomplete dates, change `convertType` to `FALSE`. This allows the date column to come through as character, keeping any incomplete or incorrect dates.
 
 <a name="readnwispeak"></a>
 
 **Peak flow values for a site near Cassia, Florida.**
-
-The default settings will return data where the date of the peak flow is known. To see peak flows with incomplete dates, change `convertType` to `FALSE`. 
 
 ```{r readnwispeak, message=FALSE, warning=FALSE}
 # Major filter: site number, 02235200
 fl_site_peak <- readNWISpeak(siteNumbers="02235200")
 fl_site_peak$peak_dt
 
-# Compare complete with incomplete days
-fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200",convertType = FALSE)
+# Compare complete with incomplete/incorrect dates
+fl_site_peak_incomp <- readNWISpeak(siteNumbers="02235200", convertType = FALSE)
 fl_site_peak_incomp$peak_dt[is.na(fl_site_peak$peak_dt)]
 ```
 
 ### readNWISqw
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISqw", table.num=8)
-```
+This function is the water quality service function. It has a limited number of arguments and requires a site number and a parameter code. Follow along with the two examples below or see `?readNWISqw` for more information.
 
 <a name="readnwisqw-multsite"></a>
 
@@ -292,13 +278,7 @@ head(oh_site_cwa[,c("parm_cd","sample_dt","result_va")])
 
 ### readNWISrating
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISrating", table.num=9)
-```
-
-<a name="readnwisrating"></a>
-
-**Rating table for Mississippi River at St. Louis, MO**
+This function is the rating curve service function. It has a limited number of arguments and requires a site number. Follow along with the three examples below or see `?readNWISrating` for more information.
 
 There are three different types of rating tables that can be accessed using the argument `type`. They are `base`, `corr` (corrected), and `exsa` (shifts). For `type=="base"` (the default), the result is a data frame with 3 columns: `INDEP`, `DEP`, and `STOR`. For `type=="corr"`, the resulting data frame will have 3 columns: `INDEP`, `CORR`, and `CORRINDEP`. For `type=="exsa"`, the data frame will have 4 columns: `INDEP`, `DEP`, `STOR`, and `SHIFT`. See below for definitions of each column.
 
@@ -310,6 +290,10 @@ There are three different types of rating tables that can be accessed using the 
 - `CORRINDEP` are the corrected values of `CORR`
 
 There are also a number of attributes associated with the data.frame returned - `url`, `queryTime`, `comment`, `siteInfo`, and `RATING`. `RATING` will only be included when `type` is `base`. See [this section](#accessing-attributes) for how to access attributes of `dataRetrieval` data frames.
+
+<a name="readnwisrating"></a>
+
+**Rating tables for Mississippi River at St. Louis, MO**
 
 ```{r readnwisrating-base, message=FALSE, warning=FALSE}
 # Major filter: site number, 07010000
@@ -339,9 +323,7 @@ head(miss_rating_exsa)
 
 ### readNWISsite
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISsite", table.num=10)
-```
+This function is pulls data from a USGS site file. It only has one argument - the site number. Follow along with the example below or see `?readNWISsite` for more information.
 
 <a name="readnwissite"></a>
 
@@ -355,15 +337,13 @@ readNWISsite(siteNumbers="01302020")
 
 ### readNWISstat
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISstat", table.num=11)
-```
+This function is the statistics service function. It has a limited number of arguments and requires a site number and parameter code. Follow along with the example below or see `?readNWISstat` for more information.
+
+The [NWIS Statistics web service](https://waterservices.usgs.gov/rest/Statistics-Service.html) is currently in Beta mode, so use at your own discretion. Additionally, "mean" is the only `statType` that can be used for annual or monthly report types at this time.
 
 <a name="readnwisstat"></a>
 
 **Historic annual average discharge near Mississippi River outlet**
-
-The [NWIS Statistics web service](https://waterservices.usgs.gov/rest/Statistics-Service.html) is currently in Beta mode, so use at your own discretion. Additionally, "mean" is the only `statType` that can be used for annual or monthly report types at this time.
 
 ```{r readnwisstat, message=FALSE, warning=FALSE}
 # Major filter: site number, 07374525
@@ -378,11 +358,7 @@ head(mississippi_avgQ)
 
 ### readNWISuse
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISuse", table.num=12)
-```
-
-The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
+This function is the water use service function. The water use data web service requires a state and/or county as the major filter. The default will return all years and all categories available. The following table shows the water-use categories and their corresponding abbreviation for county and state data. Note that categories have changed over time, and vary by data sets requested. National and site-specific data sets exist, but only county/state data are available through this service. Please visit the [USGS National Water Use Information Program website](https://water.usgs.gov/watuse/) for more information.
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 Name <- c('Aquaculture', 'Commercial', 'Domestic', 'Hydroelectric Power', 
@@ -399,10 +375,12 @@ Abbreviation <- c('AQ', 'CO', 'DO', 'HY', 'IC', 'IG', 'IN', 'IT', 'LA', 'LI', 'L
                   'OI', 'PC', 'PF', 'PG', 'PN', 'PO', 'PS', 'PT', 'PT', 'RE', 'TP', 'WW')
 
 library(htmlTable)
-htmlTable(data.frame(Name, Abbreviation), caption="<caption>Table 13. Water-use category names and abbreviations.</caption>",
+htmlTable(data.frame(Name, Abbreviation), caption="<caption>Table 2. Water-use category names and abbreviations.</caption>",
           rnames=FALSE, align=c("l","l"), col.rgroup = c("none", "#F7F7F7"), 
           css.cell="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em;")
 ```
+
+Follow along with the example below or see `?readNWISuse` for more information.
 
 <a name="readnwisuse"></a>
 
@@ -419,9 +397,7 @@ head(vegas_wu[,1:7])
 
 ### readNWISuv
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readNWISuv", table.num=14)
-```
+This function is the unit value (or instantaneous) service function. It has a limited number of arguments and requires a site number and parameter code. Follow along with the example below or see `?readNWISuv` for more information.
 
 <a name="readnwisuv"></a>
 
