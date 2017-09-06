@@ -137,13 +137,12 @@ head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
 Similar to the data frames returned from `readNWIS` functions, there are attributes (aka metadata) attached to the data. Use `attributes` to see all of them and `attr` to extract a particular attribute.
 
 ```{r readwqp-attributes, message=FALSE, warning=FALSE}
-# This query takes about 30 seconds
-data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
-
 # What are the attributes available?
-wqp_attributes <- attributes(data)
+wqp_attributes <- attributes(Everglades_temp_2016_present)
 names(wqp_attributes)
 
+# Look at the variableInfo attribute
+head(attr(Everglades_temp_2016_present, "variableInfo"))
 ```
 
 Let's make a quick map to look at the stations that collected the Everglades data:

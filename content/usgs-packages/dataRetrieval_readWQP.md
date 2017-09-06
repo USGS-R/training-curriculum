@@ -358,16 +358,26 @@ Attributes and metadata
 Similar to the data frames returned from `readNWIS` functions, there are attributes (aka metadata) attached to the data. Use `attributes` to see all of them and `attr` to extract a particular attribute.
 
 ``` r
-# This query takes about 30 seconds
-data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
-
 # What are the attributes available?
-wqp_attributes <- attributes(data)
+wqp_attributes <- attributes(Everglades_temp_2016_present)
 names(wqp_attributes)
 ```
 
     ## [1] "class"        "row.names"    "names"        "siteInfo"    
     ## [5] "variableInfo" "url"          "queryTime"
+
+``` r
+# Look at the variableInfo attribute
+head(attr(Everglades_temp_2016_present, "variableInfo"))
+```
+
+    ##   characteristicName parameterCd param_units valueType
+    ## 1 Temperature, water       00010       deg C      <NA>
+    ## 2 Temperature, water       00010       deg C      <NA>
+    ## 3 Temperature, water       00010       deg C      <NA>
+    ## 4 Temperature, water       00010       deg C      <NA>
+    ## 5 Temperature, water       00010       deg C      <NA>
+    ## 6 Temperature, water       00010       deg C      <NA>
 
 Let's make a quick map to look at the stations that collected the Everglades data:
 
