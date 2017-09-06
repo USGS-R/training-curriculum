@@ -20,7 +20,7 @@ library(sbtools)
 Exercise 1
 ----------
 
-Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use `query_sb` to search using more than one criteria, and use a Lucene query string if you want an exact match. Note: if you are not logged in, you might get a different number of results returned due to some sbitems being private.
+Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use [`query_sb`](usgs-packages/sbtools-discovery/#using-query-sb) to search using more than one criteria, and use a Lucene query string if you want an exact match. Note: if you are not logged in, you might get a different number of results returned due to some sbitems being private.
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
@@ -43,6 +43,8 @@ Exercise 2
 
 Using [this item](https://www.sciencebase.gov/catalog/item/5979248ee4b0ec1a488a49c6), create a new child item. Then, add a subtitle and explanation about this new child item (e.g. "this is a practice item for using sbtools"). Hint: have you authenticated?
 
+Helpful links: [`item_create`](usgs-packages/sbtools-modify/#creating-sciencebase-items) and [`item_update`](usgs-packages/sbtools-modify/#editing-your-items)
+
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-2')">
 Show Answer
 </button>
@@ -61,6 +63,8 @@ Exercise 3
 ----------
 
 Using the folder "Example NWIS Data" under [this item](https://www.sciencebase.gov/catalog/item/5979248ee4b0ec1a488a49c6), read each file in as a data frame. Hint: JSON files can be read using `fromJSON` from the `jsonlite` package.
+
+Helpful links: [`item_list_children`, `item_get`, and `item_list_files`](usgs-packages/sbtools-get/#inspect-and-download-items)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer

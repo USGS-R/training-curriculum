@@ -25,6 +25,8 @@ Exercise 1
 
 *Determine the number of sites in Arizona that have lake temperature data available in NWIS. Then find how many Arizona sites have lake temperature data available in WQP.*
 
+Helpful links: [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`whatWQPsites`](usgs-packages/dataRetrieval-discovery/#whatwqpsites), [`readWQPdata`](usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
+
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
 </button>
@@ -66,6 +68,8 @@ Exercise 2
 ----------
 
 *Determine which NWIS sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use four different functions to figure this out (find appropriate parameter code, then find site numbers, then statistics data, and then daily value data).*
+
+Helpful links: [`parameterCdFile`](usgs-packages/dataRetrieval-discovery/#common-nwis-function-arguments), [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`readNWISdv`](usgs-packages/dataRetrieval-readNWIS/#readnwisdv), [`renameNWISColumns`](usgs-packages/dataRetrieval-readNWIS/#helper-functions), [`readNWISstat`](usgs-packages/dataRetrieval-readNWIS/#readnwisstat)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-2')">
 Show Answer
@@ -131,6 +135,8 @@ Exercise 3
 
 *Find which WQP Minnesota lake sites had the maximum phosphorus level across all MN lakes measured in January 1992. Hint: use "Phosphorus" as the characteristic name.*
 
+Helpful links: [`readWQPdata`](usgs-packages/dataRetrieval-readWQP/#readwqpdata)
+
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
 </button>
@@ -156,6 +162,8 @@ Exercise 4
 ----------
 
 *Map the Minnesota lake phosphorus sites using your data from Exercise 3. Hint: look at metadata and consider using the `maps` package.*
+
+Helpful links: [attributes](usgs-packages/dataRetrieval-readWQP/#attributes-and-metadata)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-4')">
 Show Answer
