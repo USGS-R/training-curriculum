@@ -56,7 +56,7 @@ Description <- c(
   "Interacting with ScienceBase to access data, add data to ScienceBase, or release data from R output for a data release.",
   "Use the packages introduced in previous modules to create and use a robust modular workflow."
 )
-Duration <- c("Unknown", "Unknown", "Unknown", "Unknown")
+Duration <- c("2 hours", "1 hour", "1.5 hour", "1.5 hour")
 
 library(htmlTable)
 htmlTable(data.frame(Module, Description, Duration),
