@@ -270,12 +270,12 @@ head(MauiCo_avgdailyQ)
 ```
 
     ##   agency_cd  site_no   dateTime X_00060_00003 X_00060_00003_cd tz_cd
-    ## 1      USGS 16400000 2017-08-10           4.3                P   UTC
-    ## 2      USGS 16401000 1929-08-31          18.0                A   UTC
-    ## 3      USGS 16402000 1957-07-31          51.0                A   UTC
-    ## 4      USGS 16403000 1957-06-30           5.5                A   UTC
-    ## 5      USGS 16403600 1970-09-29           2.4                A   UTC
-    ## 6      USGS 16403900 1996-09-30           1.3                A   UTC
+    ## 1      USGS 16400000 2017-09-05          4.64                P   UTC
+    ## 2      USGS 16401000 1929-08-31         18.00                A   UTC
+    ## 3      USGS 16402000 1957-07-31         51.00                A   UTC
+    ## 4      USGS 16403000 1957-06-30          5.50                A   UTC
+    ## 5      USGS 16403600 1970-09-29          2.40                A   UTC
+    ## 6      USGS 16403900 1996-09-30          1.30                A   UTC
 
 ``` r
 # How many sites are returned?
@@ -306,7 +306,7 @@ head(MauiHUC8_mindailyT)
     ## 3      USGS 16520000 2004-04-14          17.5                A   UTC
     ## 4      USGS 16527000 2004-01-13          15.4                A   UTC
     ## 5      USGS 16555000 2004-01-13          16.4                A   UTC
-    ## 6      USGS 16618000 2017-08-10          21.0                P   UTC
+    ## 6      USGS 16618000 2017-09-03          20.5                P   UTC
 
 ``` r
 # How many sites are returned?
@@ -319,6 +319,7 @@ length(unique(MauiHUC8_mindailyT$site_no))
 
 **Total nitrogen in mg/L for last 30 days around Great Salt Lake in Utah.**
 
+This example uses `Sys.Date` to get the most recent date, so your dates will differ. To get any data around Great Salt Lake, we will use a bounding box as the major filter. The bounding box must be a vector of decimal numbers indicating the western longitude, southern latitude, eastern longitude, and northern latitude. The vector must be in that order.
 
 ``` r
 # Major filter: bounding box around Great Salt Lake 
@@ -349,54 +350,45 @@ names(SaltLake_totalN)
     ## [14] "p00010"                             
     ## [15] "p00020"                             
     ## [16] "p00025"                             
-    ## [17] "p00041"                             
-    ## [18] "p00061"                             
-    ## [19] "p00063"                             
-    ## [20] "p00065"                             
-    ## [21] "p00095"                             
-    ## [22] "p00098"                             
-    ## [23] "p00191"                             
-    ## [24] "p00300"                             
-    ## [25] "p00301"                             
-    ## [26] "p00400"                             
-    ## [27] "p00405"                             
-    ## [28] "p00480"                             
-    ## [29] "p01350"                             
-    ## [30] "p30207"                             
-    ## [31] "p30209"                             
-    ## [32] "p39086"                             
-    ## [33] "p50280"                             
-    ## [34] "p70305"                             
-    ## [35] "p71820"                             
-    ## [36] "p71999"                             
-    ## [37] "p72005"                             
-    ## [38] "p72006"                             
-    ## [39] "p72012"                             
-    ## [40] "p72013"                             
-    ## [41] "p72104"                             
-    ## [42] "p72105"                             
-    ## [43] "p72263"                             
-    ## [44] "p81904"                             
-    ## [45] "p82398"                             
-    ## [46] "p84164"                             
-    ## [47] "p84171"                             
-    ## [48] "p84182"                             
-    ## [49] "p99105"                             
-    ## [50] "p99111"                             
-    ## [51] "p99112"                             
-    ## [52] "p99156"                             
-    ## [53] "p99159"                             
-    ## [54] "p99200"                             
-    ## [55] "p99206"                             
-    ## [56] "startDateTime"                      
-    ## [57] "sample_start_time_datum_cd"
+    ## [17] "p00061"                             
+    ## [18] "p00063"                             
+    ## [19] "p00065"                             
+    ## [20] "p00095"                             
+    ## [21] "p00098"                             
+    ## [22] "p00191"                             
+    ## [23] "p00300"                             
+    ## [24] "p00301"                             
+    ## [25] "p00400"                             
+    ## [26] "p00480"                             
+    ## [27] "p01350"                             
+    ## [28] "p30207"                             
+    ## [29] "p30209"                             
+    ## [30] "p50280"                             
+    ## [31] "p70305"                             
+    ## [32] "p71820"                             
+    ## [33] "p71999"                             
+    ## [34] "p72012"                             
+    ## [35] "p72013"                             
+    ## [36] "p72105"                             
+    ## [37] "p72263"                             
+    ## [38] "p82398"                             
+    ## [39] "p84164"                             
+    ## [40] "p84171"                             
+    ## [41] "p84182"                             
+    ## [42] "p99111"                             
+    ## [43] "p99112"                             
+    ## [44] "p99156"                             
+    ## [45] "p99159"                             
+    ## [46] "p99206"                             
+    ## [47] "startDateTime"                      
+    ## [48] "sample_start_time_datum_cd"
 
 ``` r
 # How many sites are returned?
 length(unique(SaltLake_totalN$site_no))
 ```
 
-    ## [1] 19
+    ## [1] 9
 
 ### readNWISdv
 
@@ -1070,11 +1062,11 @@ logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to da
 
 **Rating table for Mississippi River at St. Louis, MO**
 
-There are three different types of rating table results that can be accessed using the argument `type`. They are `base`, `corr`, and `exsa`. For `type=="base"` (the default), the result is a data frame with 3 columns: `INDEP`, `DEP`, and `STOR`. For `type=="corr"`, the resulting data frame will have 3 columns: `INDEP`, `CORR`, and `CORRINDEP`. For `type=="exsa"`, the data frame will have 4 columns: `INDEP`, `DEP`, `STOR`, and `SHIFT`. See below for definitions of each column.
+There are three different types of rating tables that can be accessed using the argument `type`. They are `base`, `corr` (corrected), and `exsa` (shifts). For `type=="base"` (the default), the result is a data frame with 3 columns: `INDEP`, `DEP`, and `STOR`. For `type=="corr"`, the resulting data frame will have 3 columns: `INDEP`, `CORR`, and `CORRINDEP`. For `type=="exsa"`, the data frame will have 4 columns: `INDEP`, `DEP`, `STOR`, and `SHIFT`. See below for definitions of each column.
 
 -   `INDEP` is the gage height in feet
 -   `DEP` is the streamflow in cubic feet per second
--   `STOR` "*" indicates a fixed point of the rating curve, `NA` for non-fixed points
+-   `STOR` "\*" indicates a fixed point of the rating curve, `NA` for non-fixed points
 -   `SHIFT` indicates shifting in rating for the corresponding `INDEP` value
 -   `CORR` are the corrected values of `INDEP`
 -   `CORRINDEP` are the corrected values of `CORR`
