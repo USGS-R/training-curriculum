@@ -20,7 +20,7 @@ library(sbtools)
 Exercise 1
 ----------
 
-Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use `query_sb` to search using more than one criteria, and use a Lucene query string if you want an exact match.
+Using querying functions, find out how many ScienceBase items were collected during 2010 related to lake temperature. Hint: use `query_sb` to search using more than one criteria, and use a Lucene query string if you want an exact match. Note: if you are not logged in, you might get a different number of results returned due to some sbitems being private.
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
