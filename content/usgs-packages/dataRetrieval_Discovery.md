@@ -26,7 +26,7 @@ Data available
 
 **Data types:** NWIS and WQP store a lot of water information. NWIS contains streamflow, peak flow, rating curves, groundwater, and water quality data. As can be assumed from the name, WQP only contains water quality data.
 
-**Time series types:** the databases store water data at various reporting frequencies, and have different terms for these. There are 3 main types: unit value, daily value, and discrete. WQP only contains discrete data.
+**Time series types:** the databases store water data at various reporting frequencies, and have different language to describe these. There are 3 main types: unit value, daily value, and discrete. WQP only contains discrete data.
 
 1.  *instantaneous value* (sometimes called *unit value*) data is reported at the frequency in which it was collected, and includes real-time data. It is generally available from 2007-present.
 2.  *daily value* data aggregated to a daily statistic (e.g. mean daily, minimum daily, or maximum daily). This is available for streamflow, groundwater levels, and water quality sensors.
@@ -50,7 +50,7 @@ Common NWIS function arguments
 -   statistics = "stat"
 -   site = "site"
 
-**`startDate`** and **`endDate`** Strings in the format "YYYY-MM-DDTHH:SS:MM", either date or character class. The start and end date-times are inclusive.
+**`startDate`** and **`endDate`** Strings in the format "YYYY-MM-DDTHH:SS:MM", either as a date or character class. The start and end date-times are inclusive.
 
 **`stateCd`** Two character abbreviation for a US state or territory. Execute `state.abb` in the console to get a vector of US state abbreviations. Territories include:
 
@@ -65,7 +65,7 @@ For more query parameters, visit [NWIS service documentation](https://waterservi
 Discovering NWIS data
 ---------------------
 
-In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
 ### whatNWISsites
 
@@ -80,7 +80,7 @@ nrow(sites_sc)
 
     ## [1] 20070
 
-This query returns all of the NWIS sites that are in South Carolina To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
+This query returns all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
 
 ``` r
 sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
@@ -89,7 +89,7 @@ nrow(sites_sc_stream)
 
     ## [1] 633
 
-We can now see that out of the 20,070 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
+We can now see that out of the 20,070 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - our parameter of interest. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing parameterCdFile in your console.
 
 ``` r
 sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
@@ -198,12 +198,12 @@ nrow(data_sc_stream_temp_avg_applicable)
 
     ## [1] 87
 
-This means you would have 87 of sites to work with for your study.
+This means you would have 87 sites to work with for your study.
 
 Common WQP function arguments
 -----------------------------
 
-**`countrycode`**, **`statecode`**, and **`countycode`** These geopolitical filters can be specified by a two letter abbreviation, state name, or Federal Information Processing Standard (FIPS) code. If you are using the FIPS code for a state or county, it must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, I would enter `statecode="US:45"`. The same rule extends to county FIPS. You can reference the `dataRetrieval` datasets `stateCd` and `countyCd`for the abbreviation, name, or FIPS code of states and counties. Countries need to be specified with their two-letter FIPS code.
+**`countrycode`**, **`statecode`**, and **`countycode`** These geopolitical filters can be specified by a two letter abbreviation, state name, or Federal Information Processing Standard (FIPS) code. If you are using the FIPS code for a state or county, it must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, you can enter `statecode="US:45"`. The same rule extends to county FIPS; for example, you can use `countycode="45:001"` to query Abbeville County, South Carolina. You can find all state and county codes and abbreviations by executing `stateCd` or `countyCd` in your console.
 
 **`siteType`** Specify the hydrologic location the sample was taken, e.g. streams, lakes, groundwater sources. These should be listed as a string. Available types can be found [here](https://www.waterqualitydata.us/Codes/Sitetype?mimeType=xml).
 

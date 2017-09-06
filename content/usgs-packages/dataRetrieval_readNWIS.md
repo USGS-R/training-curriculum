@@ -319,7 +319,6 @@ length(unique(MauiHUC8_mindailyT$site_no))
 
 **Total nitrogen in mg/L for last 30 days around Great Salt Lake in Utah.**
 
-This example uses `Sys.Date` to get the most recent date, so your dates will differ. To get any data around Great Salt Lake, we will use a bounding box as the major filter. The bounding box must be a vector of decimal numbers indicating the western longitude, southern latitude, eastern longitude, and then northern latitude. The vector must be in that order.
 
 ``` r
 # Major filter: bounding box around Great Salt Lake 
@@ -1071,11 +1070,11 @@ logical, defaults to `TRUE`. If `TRUE`, the function will convert the data to da
 
 **Rating table for Mississippi River at St. Louis, MO**
 
-There are three different types of rating table results that can be accessed using the argument `type`. They are `base`, `corr`, and `exsa`. For `type=="base"` (the default), the result is a data frame with 3 columns: `INDEP`, `DEP`, and `STOR`. For `type=="corr"`, the resulting data frame will have 3 columns: `INDEP`, `CORR`, and `CORRINDEP`. For `type=="exsa"`, the data frame will have 4 columns: `INDEP`, `DEP`, `STOR`, and `SHIFT`. See below for defintions of each column.
+There are three different types of rating table results that can be accessed using the argument `type`. They are `base`, `corr`, and `exsa`. For `type=="base"` (the default), the result is a data frame with 3 columns: `INDEP`, `DEP`, and `STOR`. For `type=="corr"`, the resulting data frame will have 3 columns: `INDEP`, `CORR`, and `CORRINDEP`. For `type=="exsa"`, the data frame will have 4 columns: `INDEP`, `DEP`, `STOR`, and `SHIFT`. See below for definitions of each column.
 
 -   `INDEP` is the gage height in feet
 -   `DEP` is the streamflow in cubic feet per second
--   `STOR` ?
+-   `STOR` "*" indicates a fixed point of the rating curve, `NA` for non-fixed points
 -   `SHIFT` indicates shifting in rating for the corresponding `INDEP` value
 -   `CORR` are the corrected values of `INDEP`
 -   `CORRINDEP` are the corrected values of `CORR`
@@ -2004,4 +2003,4 @@ siteNum_fix
 
     ## [1] "02121500"
 
-The next lesson look at how to use `dataRetrieval` functions for Water Quality Portal retrievals.
+The next lesson looks at how to use `dataRetrieval` functions for Water Quality Portal retrievals.
