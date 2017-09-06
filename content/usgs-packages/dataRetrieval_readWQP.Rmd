@@ -156,7 +156,8 @@ map('state', regions='florida')
 title(main="Everglade Sites")
 points(x=siteInfo$dec_lon_va, 
        y=siteInfo$dec_lat_va)
-
+# Add a rectangle to see where your original query bounding box in relation to sites
+rect(-81.70, 25.08, -80.30, 26.51, col = NA, border = 'red')
 ```
 
 You can now find and download Water Quality Portal data from R! 

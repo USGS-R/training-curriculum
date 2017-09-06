@@ -20,7 +20,9 @@ After discovering Water Quality Portal (WQP) data in the [data discovery section
 <thead>
 <tr>
 <td colspan="3" style="text-align: left;">
+<caption>
 Table 1. readWQP function definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -78,7 +80,9 @@ The following are examples of how to use each of the readWQP family of functions
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 2. readWQPdata argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -240,7 +244,7 @@ Everglades_temp_2016_present <- readWQPdata(bBox=c(-81.70, 25.08, -80.30, 26.51)
 nrow(Everglades_temp_2016_present)
 ```
 
-    ## [1] 1066
+    ## [1] 1074
 
 ### readWQPqw
 
@@ -249,7 +253,9 @@ nrow(Everglades_temp_2016_present)
 <thead>
 <tr>
 <td colspan="2" style="text-align: left;">
+<caption>
 Table 3. readWQPqw argument definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -339,12 +345,12 @@ head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
     ## # A tibble: 6 x 2
     ##   ResultMeasureValue ActivityStartDate
     ##                <dbl>            <date>
-    ## 1                6.5        2011-11-28
-    ## 2                4.8        2011-09-06
-    ## 3                5.0        2011-09-06
-    ## 4                6.4        2011-10-18
-    ## 5                7.2        2011-03-09
-    ## 6                9.2        2011-01-05
+    ## 1                5.9        2010-04-08
+    ## 2                5.8        2010-09-26
+    ## 3                6.5        2011-11-28
+    ## 4                6.3        2011-06-15
+    ## 5                4.8        2011-09-06
+    ## 6                5.0        2011-09-06
 
 Attributes and metadata
 -----------------------
@@ -373,6 +379,8 @@ map('state', regions='florida')
 title(main="Everglade Sites")
 points(x=siteInfo$dec_lon_va, 
        y=siteInfo$dec_lat_va)
+# Add a rectangle to see where your original query bounding box in relation to sites
+rect(-81.70, 25.08, -80.30, 26.51, col = NA, border = 'red')
 ```
 
 <img src='../static/dataRetrieval-readWQP/unnamed-chunk-4-1.png'/ title='Map of NWIS Everglade sites'/ alt='A map of NWIS site locations in the Everglades'/>
