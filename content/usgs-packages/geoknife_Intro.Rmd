@@ -3,7 +3,7 @@ title: "geoknife - Introduction"
 date: "9999-10-01"
 author: "Lindsay R. Carr"
 slug: "geoknife-intro"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/geoknife.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 20

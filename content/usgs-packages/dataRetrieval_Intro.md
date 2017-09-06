@@ -4,7 +4,7 @@ date: 9999-12-01
 slug: dataRetrieval-intro
 title: dataRetrieval - Introduction
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -13,7 +13,7 @@ menu:
 Lesson Summary
 --------------
 
-This lesson will focus on finding and retrieving hydrologic time series data using the USGS R package, `dataRetrieval`. The package was created to make querying and downloading hydrologic data from the web easier and less error-prone. The package allows users to easily access data stored in the USGS National Water Information System (NWIS) and the multi-agency database, Water Quality Portal (WQP). NWIS only contains data collected by or for the USGS. Conversely, WQP is a database that aggregates water quality data from multiple agencies, including USGS, Environmental Protection Agency (EPA), US Department of Agriculture (USDA), and many state, tribal, and local agencies.
+This lesson will focus on finding and retrieving hydrologic time series data using the USGS R package, `dataRetrieval`. The package was created to make querying and downloading hydrologic data from the web easier, less error-prone, and reproducible. The package allows users to easily access data stored in the USGS National Water Information System (NWIS) and the multi-agency database, Water Quality Portal (WQP). NWIS only contains data collected by or for the USGS. Conversely, WQP is a database that aggregates water quality data from multiple agencies, including USGS, Environmental Protection Agency (EPA), US Department of Agriculture (USDA), and many state, tribal, and local agencies.
 
 `dataRetrieval` functions take user-defined arguments and construct web service calls. The web service returns the data as XML (a standard data structure), and `dataRetrieval` takes care of parsing that into a useable R data.frame, complete with metadata. When web services change, `dataRetrieval` users aren't affected because the package maintainers will update the functions to handle these modifications. This is what makes `dataRetrieval` so user-friendly.
 
@@ -26,7 +26,7 @@ Learn about data available in the National Water Information System (NWIS) and W
 
 By the end of this lesson, the learner will be able to:
 
-1.  Investigate what data is available in National Water Information System (NWIS) and Water Quality Portal (WQP) through package functions.
+1.  Investigate what data are available in National Water Information System (NWIS) and Water Quality Portal (WQP) through package functions.
 2.  Construct function calls to pull a variety of NWIS and WQP data.
 3.  Access metadata information from retrieval call output.
 

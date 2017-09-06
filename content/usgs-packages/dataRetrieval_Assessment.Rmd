@@ -3,7 +3,7 @@ title: "dataRetrieval - Exercises"
 date: "9999-10-15"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-exercises"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "content/usgs-packages/static/img/dataRetrieval.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 14
@@ -29,23 +29,41 @@ library(dplyr)
 
 *Determine the number of sites in Arizona that have lake temperature data available in NWIS. Then find how many Arizona sites have lake temperature data available in WQP.*
 
+Helpful links: [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`whatWQPsites`](usgs-packages/dataRetrieval-discovery/#whatwqpsites), [`readWQPdata`](usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
+
 ```{r addToggle="ON"}
 # NWIS Arizona lake temperature sites
 azlaketemp_nwis <- whatNWISsites(stateCd="AZ", siteType="LK", parameterCd="00010")
 nrow(azlaketemp_nwis)
 
 # WQP Arizona lake temperature sites
-azlaketemp_wqp <- whatWQPsites(statecode="AZ", 
+
+## Option 1:
+azlaketemp_wqp <- whatWQPsites(statecode="AZ", # could use "US:04"
                                siteType="Lake, Reservoir, Impoundment", 
                                characteristicName="Temperature, water")
 nrow(azlaketemp_wqp)
+
+## Option 2:
+azlaketemp_wqp2 <- readWQPdata(statecode="AZ", # could use "US:04"
+                               siteType="Lake, Reservoir, Impoundment", 
+                               characteristicName="Temperature, water",
+                               querySummary = TRUE)
+azlaketemp_wqp2$`total-site-count`
 ```
 
 ## Exercise 2
 
-*Determine which sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use three different functions to figure this out (find site numbers, then statistics data, and then daily value data).*
+*Determine which NWIS sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use four different functions to figure this out (find appropriate parameter code, then find site numbers, then statistics data, and then daily value data).*
+
+Helpful links: [`parameterCdFile`](usgs-packages/dataRetrieval-discovery/#common-nwis-function-arguments), [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`readNWISdv`](usgs-packages/dataRetrieval-readNWIS/#readnwisdv), [`renameNWISColumns`](usgs-packages/dataRetrieval-readNWIS/#helper-functions), [`readNWISstat`](usgs-packages/dataRetrieval-readNWIS/#readnwisstat)
 
 ```{r addToggle="ON", warning=FALSE, message=FALSE}
+# Determine parameter code for streamflow (aka discharge)
+params <- parameterCdFile
+params_discharge <- params[grep('discharge', params$parameter_nm, ignore.case = TRUE), ]
+head(params_discharge)
+
 # Find DC site numbers that have streamflow
 dc_stream_sites <- whatNWISsites(stateCd = "DC", siteType="ST", parameterCd="00060")
 
@@ -69,7 +87,9 @@ dc_2013_q[['Flow']] < aug20_mean_q[['mean_va']]
 
 ## Exercise 3
 
-*Find which Minnesota lake sites have the maximum phosphorus level in January 1992.*
+*Find which WQP Minnesota lake sites had the maximum phosphorus level across all MN lakes measured in January 1992. Hint: use "Phosphorus" as the characteristic name.*
+
+Helpful links: [`readWQPdata`](usgs-packages/dataRetrieval-readWQP/#readwqpdata)
 
 ```{r addToggle="ON"}
 # Get all Jan 1992 phosphorus data from Minnesota lakes
@@ -88,6 +108,8 @@ mn_lake_phos[['MonitoringLocationIdentifier']][max_p_row]
 
 *Map the Minnesota lake phosphorus sites using your data from Exercise 3. Hint: look at metadata and consider using the `maps` package.*
 
+Helpful links: [attributes](usgs-packages/dataRetrieval-readWQP/#attributes-and-metadata)
+
 ```{r addToggle="ON", fig.scap="Minnesota lake phosphorus site map", fig.cap="Map Minnesota showing locations of maximum lake phosphorus"}
 # Get longitudes and latitudes of the lake phosphorus data from Jan 1992
 mn_site_info <- attr(mn_lake_phos, 'siteInfo')
@@ -99,4 +121,3 @@ library(maps)
 map('state', 'Minnesota', col="lightblue", lwd=2)
 points(mn_site_coords)
 ```
-

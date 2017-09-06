@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - Construct calls
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -148,7 +148,7 @@ wait(evap_geojob, sleep.time = 10)
 evap_data <- result(evap_geojob)
 ```
 
-If you know ahead of time that your process will be long, you can tell the job to wait to continue when defining your knife (the default is to not wait). `sleep.time` can be specified as an argument to `webprocess`. The following is functionally the same as the use of `wait()` from above.
+If you know ahead of time that your process will be long, you can tell the job to wait when defining your knife (the default is to not wait). `sleep.time` can be specified as an argument to `webprocess`. The following is functionally the same as the use of `wait()` from above.
 
 ``` r
 # create knife with the args wait and sleep.time

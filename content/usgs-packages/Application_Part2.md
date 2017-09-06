@@ -4,7 +4,7 @@ date: 9999-05-01
 slug: app-part2
 title: Application - Part 2, download data
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/workflow.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -31,7 +31,7 @@ pcodes_nitrogen <- c("00613", "00618", "00631")
 pcodes_phosphorus <- c("00665")
 ```
 
-Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Revisit the [lesson on downloading NWIS data](/usgs-packages/dataretrieval-readnwis/) to see what functions are available.
+Using your choice of `readNWIS` function, get a data frame with nitrogen data for all sites and a second data frame with phosphorus data for all sites. Revisit the [lesson on downloading NWIS data](/usgs-packages/dataRetrieval-readNWIS/) to see what functions are available.
 
 <button class="ToggleButton" onclick="toggle_visibility('nutrient-data')">
 Show Answer
@@ -72,7 +72,7 @@ Get precip data
 
 Now we need to download the precipitation data from GDP using `geoknife`. To do so, you will need a dataset and appropriate HUCs. Use the dataset titled "United States Stage IV Quantitative Precipitation Archive". See `?webgeom` for an example of how to format the geom for 8-digit HUCs.
 
-Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`. See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
+Complete the steps to create and execute a geojob. Download the results of the process as a `data.frame`; this might take a few minutes (~ 10). See [geoknife discovery](/usgs-packages/geoknife-data) and [geoknife execute](/usgs-packages/geoknife-job) lessons for assistance.
 
 <button class="ToggleButton" onclick="toggle_visibility('precip-data')">
 Show Answer

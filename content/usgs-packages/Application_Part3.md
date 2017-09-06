@@ -4,7 +4,7 @@ date: 9999-04-25
 slug: app-part3
 title: Application - Part 3, plots and maps
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/workflow.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

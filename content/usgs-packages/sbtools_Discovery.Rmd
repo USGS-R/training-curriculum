@@ -3,7 +3,7 @@ title: "sbtools - Data discovery"
 date: "9999-07-25"
 author: "Lindsay R. Carr"
 slug: "sbtools-discovery"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/sbtools.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 31
@@ -49,7 +49,7 @@ library(sbtools)
 `query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
 
 ```{r query_sb_text}
-# search using a contributors name
+# search using a contributor's name
 contrib_results <- query_sb_text("Robert Hirsch")
 head(contrib_results, 2)
 

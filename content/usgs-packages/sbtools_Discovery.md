@@ -4,7 +4,7 @@ date: 9999-07-25
 slug: sbtools-discovery
 title: sbtools - Data discovery
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/sbtools.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -46,7 +46,7 @@ library(sbtools)
 `query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
 
 ``` r
-# search using a contributors name
+# search using a contributor's name
 contrib_results <- query_sb_text("Robert Hirsch")
 head(contrib_results, 2)
 ```

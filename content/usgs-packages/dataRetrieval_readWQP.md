@@ -3,8 +3,8 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: dataRetrieval-readWQP
 title: dataRetrieval - readWQP
-draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+draft: true
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -20,7 +20,9 @@ After discovering Water Quality Portal (WQP) data in the [data discovery section
 <thead>
 <tr>
 <td colspan="3" style="text-align: left;">
+<caption>
 Table 1. readWQP function definitions
+</caption>
 </td>
 </tr>
 <tr>
@@ -73,52 +75,7 @@ The following are examples of how to use each of the readWQP family of functions
 
 ### readWQPdata
 
-<!--html_preserve-->
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<td colspan="2" style="text-align: left;">
-Table 2. readWQPdata argument definitions
-</td>
-</tr>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Argument
-</th>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-...
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-see <https://www.waterqualitydata.us/webservices_documentation> for a complete list of options. A list of arguments can also be supplied.
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-querySummary
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-logical to ONLY return the number of records and unique sites that will be returned from this query. This argument is not supported via the combined list from the argument
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-tz
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; border-bottom: 2px solid grey; text-align: left;">
-character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York", "America/Chicago", "America/Denver", "America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica", "America/Managua", "America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
-</td>
-</tr>
-</tbody>
-</table>
-<!--/html_preserve-->
-This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain).
+The generic function used to pull Water Quality Portal data. This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain). Follow along with the three examples below or see `?readWQPdata` for more information.
 
 <a name="readwqpdata-state"></a>
 
@@ -240,80 +197,11 @@ Everglades_temp_2016_present <- readWQPdata(bBox=c(-81.70, 25.08, -80.30, 26.51)
 nrow(Everglades_temp_2016_present)
 ```
 
-    ## [1] 1066
+    ## [1] 1074
 
 ### readWQPqw
 
-<!--html_preserve-->
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<td colspan="2" style="text-align: left;">
-Table 3. readWQPqw argument definitions
-</td>
-</tr>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Argument
-</th>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-siteNumbers
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-character site number. This needs to include the full agency code prefix.
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-parameterCd
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-vector of USGS 5-digit parameter code or characteristicNames. Leaving this blank will return all of the measured values during the specified time period. See [NWIS help for parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters).
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-startDate
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-character starting date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the earliest possible record. Date arguments are always specified in local time.
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-endDate
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-character ending date for data retrieval in the form YYYY-MM-DD. Default is "" which indicates retrieval for the latest possible record. Date arguments are always specified in local time.
-</td>
-</tr>
-<tr>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-tz
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-character to set timezone attribute of dateTime. Default is "UTC", and converts the date times to UTC, properly accounting for daylight savings times based on the data's provided tz\_cd column. Possible values to provide are "America/New\_York", "America/Chicago", "America/Denver", "America/Los\_Angeles", "America/Anchorage", as well as the following which do not use daylight savings time: "America/Honolulu", "America/Jamaica", "America/Managua", "America/Phoenix", and "America/Metlakatla". See also `OlsonNames()` for more information on time zones.
-</td>
-</tr>
-<tr style="background-color: #f7f7f7;">
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-querySummary
-</td>
-<td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-logical to look at number of records and unique sites that will be returned from this query.
-</td>
-</tr>
-</tbody>
-</table>
-<!--/html_preserve-->
-This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below.
+This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below or `?readWQPqw` for more information.
 
 <a name="readwqpqw"></a>
 
@@ -339,12 +227,12 @@ head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
     ## # A tibble: 6 x 2
     ##   ResultMeasureValue ActivityStartDate
     ##                <dbl>            <date>
-    ## 1                6.5        2011-11-28
-    ## 2                4.8        2011-09-06
-    ## 3                5.0        2011-09-06
-    ## 4                6.4        2011-10-18
-    ## 5                7.2        2011-03-09
-    ## 6                9.2        2011-01-05
+    ## 1                5.9        2010-04-08
+    ## 2                5.8        2010-09-26
+    ## 3                6.5        2011-11-28
+    ## 4                6.3        2011-06-15
+    ## 5                4.8        2011-09-06
+    ## 6                5.0        2011-09-06
 
 Attributes and metadata
 -----------------------
@@ -352,16 +240,26 @@ Attributes and metadata
 Similar to the data frames returned from `readNWIS` functions, there are attributes (aka metadata) attached to the data. Use `attributes` to see all of them and `attr` to extract a particular attribute.
 
 ``` r
-# This query takes about 30 seconds
-data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
-
 # What are the attributes available?
-wqp_attributes <- attributes(data)
+wqp_attributes <- attributes(Everglades_temp_2016_present)
 names(wqp_attributes)
 ```
 
     ## [1] "class"        "row.names"    "names"        "siteInfo"    
     ## [5] "variableInfo" "url"          "queryTime"
+
+``` r
+# Look at the variableInfo attribute
+head(attr(Everglades_temp_2016_present, "variableInfo"))
+```
+
+    ##   characteristicName parameterCd param_units valueType
+    ## 1 Temperature, water       00010       deg C      <NA>
+    ## 2 Temperature, water       00010       deg C      <NA>
+    ## 3 Temperature, water       00010       deg C      <NA>
+    ## 4 Temperature, water       00010       deg C      <NA>
+    ## 5 Temperature, water       00010       deg C      <NA>
+    ## 6 Temperature, water       00010       deg C      <NA>
 
 Let's make a quick map to look at the stations that collected the Everglades data:
 
@@ -373,8 +271,10 @@ map('state', regions='florida')
 title(main="Everglade Sites")
 points(x=siteInfo$dec_lon_va, 
        y=siteInfo$dec_lat_va)
+# Add a rectangle to see where your original query bounding box in relation to sites
+rect(-81.70, 25.08, -80.30, 26.51, col = NA, border = 'red')
 ```
 
-<img src='../static/dataRetrieval-readWQP/unnamed-chunk-4-1.png'/ title='Map of NWIS Everglade sites'/ alt='A map of NWIS site locations in the Everglades'/>
+<img src='../static/dataRetrieval-readWQP/unnamed-chunk-2-1.png'/ title='Map of NWIS Everglade sites'/ alt='A map of NWIS site locations in the Everglades'/>
 
 You can now find and download Water Quality Portal data from R!

@@ -4,7 +4,7 @@ date: 9999-10-15
 slug: dataRetrieval-exercises
 title: dataRetrieval - Exercises
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -25,6 +25,8 @@ Exercise 1
 
 *Determine the number of sites in Arizona that have lake temperature data available in NWIS. Then find how many Arizona sites have lake temperature data available in WQP.*
 
+Helpful links: [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`whatWQPsites`](usgs-packages/dataRetrieval-discovery/#whatwqpsites), [`readWQPdata`](usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
+
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
 </button>
@@ -40,24 +42,68 @@ nrow(azlaketemp_nwis)
 
 ``` r
 # WQP Arizona lake temperature sites
-azlaketemp_wqp <- whatWQPsites(statecode="AZ", 
+
+## Option 1:
+azlaketemp_wqp <- whatWQPsites(statecode="AZ", # could use "US:04"
                                siteType="Lake, Reservoir, Impoundment", 
                                characteristicName="Temperature, water")
 nrow(azlaketemp_wqp)
 ```
 
-    ## [1] 419
+    ## [1] 436
+
+``` r
+## Option 2:
+azlaketemp_wqp2 <- readWQPdata(statecode="AZ", # could use "US:04"
+                               siteType="Lake, Reservoir, Impoundment", 
+                               characteristicName="Temperature, water",
+                               querySummary = TRUE)
+azlaketemp_wqp2$`total-site-count`
+```
+
+    ## [1] 436
 
 </div>
 Exercise 2
 ----------
 
-*Determine which sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use three different functions to figure this out (find site numbers, then statistics data, and then daily value data).*
+*Determine which NWIS sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use four different functions to figure this out (find appropriate parameter code, then find site numbers, then statistics data, and then daily value data).*
+
+Helpful links: [`parameterCdFile`](usgs-packages/dataRetrieval-discovery/#common-nwis-function-arguments), [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`readNWISdv`](usgs-packages/dataRetrieval-readNWIS/#readnwisdv), [`renameNWISColumns`](usgs-packages/dataRetrieval-readNWIS/#helper-functions), [`readNWISstat`](usgs-packages/dataRetrieval-readNWIS/#readnwisstat)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-2')">
 Show Answer
 </button>
               <div id="unnamed-chunk-2" style="display:none">
+
+``` r
+# Determine parameter code for streamflow (aka discharge)
+params <- parameterCdFile
+params_discharge <- params[grep('discharge', params$parameter_nm, ignore.case = TRUE), ]
+head(params_discharge)
+```
+
+    ##      parameter_cd parameter_group_nm
+    ## 298         72255        Information
+    ## 301         72258        Information
+    ## 1517        00060           Physical
+    ## 1518        00061           Physical
+    ## 1622        30208           Physical
+    ## 1623        30209           Physical
+    ##                                                        parameter_nm casrn
+    ## 298  Mean water velocity for discharge computation, feet per second  <NA>
+    ## 301       Coefficient used to adjust discharge, Slope-Q computation  <NA>
+    ## 1517                               Discharge, cubic feet per second  <NA>
+    ## 1518                Discharge, instantaneous, cubic feet per second  <NA>
+    ## 1622                             Discharge, cubic meters per second  <NA>
+    ## 1623              Discharge, instantaneous, cubic meters per second  <NA>
+    ##                         srsname parameter_units
+    ## 298                        <NA>          ft/sec
+    ## 301                        <NA>            None
+    ## 1517   Stream flow, mean. daily           ft3/s
+    ## 1518 Stream flow, instantaneous           ft3/s
+    ## 1622                       <NA>          m3/sec
+    ## 1623 Stream flow, instantaneous          m3/sec
 
 ``` r
 # Find DC site numbers that have streamflow
@@ -87,7 +133,9 @@ dc_2013_q[['Flow']] < aug20_mean_q[['mean_va']]
 Exercise 3
 ----------
 
-*Find which Minnesota lake sites have the maximum phosphorus level in January 1992.*
+*Find which WQP Minnesota lake sites had the maximum phosphorus level across all MN lakes measured in January 1992. Hint: use "Phosphorus" as the characteristic name.*
+
+Helpful links: [`readWQPdata`](usgs-packages/dataRetrieval-readWQP/#readwqpdata)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
@@ -114,6 +162,8 @@ Exercise 4
 ----------
 
 *Map the Minnesota lake phosphorus sites using your data from Exercise 3. Hint: look at metadata and consider using the `maps` package.*
+
+Helpful links: [attributes](usgs-packages/dataRetrieval-readWQP/#attributes-and-metadata)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-4')">
 Show Answer

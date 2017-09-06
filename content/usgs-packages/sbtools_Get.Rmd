@@ -3,7 +3,7 @@ title: "sbtools - Download Data"
 date: "9999-07-01"
 author: "Lindsay R. Carr"
 slug: "sbtools-get"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/sbtools.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 33
@@ -66,13 +66,13 @@ identifier_exists("4f4e4acae4b07f02db67d22b")
 identifier_exists("thisisnotagoodid")
 ```
 
-You can use the function `item_exists` to check whether or not alternative identifiers (a scheme-type-key tuple) exist (visit the [sbitem lesson](/usgs-packages/sbtools-sbitem) if you don't know about alternative identifiers). The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts: `type, scheme, key` on ScienceBase but `scheme, type, key` for `item_exists`.
+You can use the function `item_exists` to check whether or not alternative identifiers (a scheme-type-key ordered set of values) exist (visit the [sbitem lesson](/usgs-packages/sbtools-sbitem) if you don't know about alternative identifiers). The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts: `type, scheme, key` on ScienceBase but `scheme, type, key` for `item_exists`.
 
 ```{r sbtools-itemexists}
-# test a made up tuple
+# test a made up alternative identifier
 item_exists(scheme = "made", type = "this", key = "up")
 
-# test a tuple from the SB item "4f4e4acae4b07f02db67d22b"
+# test an alternative identifier from the SB item "4f4e4acae4b07f02db67d22b"
 item_exists(scheme = "State Inventory", type = "UniqueKey", key = "P1281")
 
 # test the same scheme & type with a made up key

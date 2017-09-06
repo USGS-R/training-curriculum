@@ -4,12 +4,11 @@ date: 9999-08-30
 slug: geoknife-exercises
 title: geoknife - Exercises
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
     weight: 23
-aliases: 
 ---
 Before starting the exercises, you should make sure that the `geoknife` package is installed and loaded. If you haven't recently updated, you could reinstall the package by running `install.packages('geoknife')` or go to the "Update" button in the "Packages" tab in RStudio.
 
@@ -22,6 +21,8 @@ Exercise 1
 ----------
 
 *How many GDP data sets are related to sea level rise? Hint: `grep`.*
+
+Helpful links: [`search available GDP data`](usgs-packages/geoknife-data/#available-webdata)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
@@ -66,6 +67,8 @@ Exercise 2
 
 *What variables are in the "University of Idaho Daily Meteorological data for continental US" dataset? Also, choose one variable and determine the range of dates. Hint: create a geoknife fabric first.*
 
+Helpful links: [`search available GDP data`](usgs-packages/geoknife-data/#available-webdata)
+
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-2')">
 Show Answer
 </button>
@@ -99,13 +102,15 @@ variables(us_meterology) <- metero_vars[4]
 query(us_meterology, "times")
 ```
 
-    ## [1] "1979-01-01 UTC" "2017-07-10 UTC"
+    ## [1] "1979-01-01 UTC" "2017-09-04 UTC"
 
 </div>
 Exercise 3
 ----------
 
 *What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this data has daily values set at 12:00, and you will need to include times in your start and end dates to retrieve the correct day's value.*
+
+Helpful links: [`executing a geojob`](usgs-packages/geoknife-job)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-3')">
 Show Answer
@@ -140,6 +145,6 @@ air_max_data
 ```
 
     ##              DateTime    Texas variable statistic
-    ## 1 2007-07-04 12:00:00 29.82607     tmax      MEAN
+    ## 1 2007-07-04 12:00:00 29.66275     tmax      MEAN
 
 </div>

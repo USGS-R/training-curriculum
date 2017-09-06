@@ -3,7 +3,7 @@ title: "geoknife - Exercises"
 date: "9999-08-30"
 author: "Lindsay R. Carr"
 slug: "geoknife-exercises"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/geoknife.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 23
@@ -25,6 +25,8 @@ library(geoknife)
 ## Exercise 1
 
 *How many GDP data sets are related to sea level rise? Hint: `grep`.*
+
+Helpful links: [`search available GDP data`](usgs-packages/geoknife-data/#available-webdata)
 
 ```{r addToggle='ON'}
 # First, you need to query for all web data
@@ -48,6 +50,8 @@ all_abstracts[index_both]
 
 *What variables are in the "University of Idaho Daily Meteorological data for continental US" dataset? Also, choose one variable and determine the range of dates. Hint: create a geoknife fabric first.*
 
+Helpful links: [`search available GDP data`](usgs-packages/geoknife-data/#available-webdata)
+
 ```{r addToggle='ON'}
 # First, you need to query for all web data
 all_webdata <- query("webdata")
@@ -68,6 +72,8 @@ query(us_meterology, "times")
 ## Exercise 3
 
 *What was the average maximum air temperature in Texas on July 4, 2007? Use the dataset titled "TopoWx: Topoclimatic Daily Air Temperature Dataset for the Conterminous United States", which has a maximum temperature variable, tmax. Hint: you will need all three pieces - stencil, fabric, and knife. Also, this data has daily values set at 12:00, and you will need to include times in your start and end dates to retrieve the correct day's value.*
+
+Helpful links: [`executing a geojob`](usgs-packages/geoknife-job)
 
 ```{r addToggle='ON'}
 # First, you need to query for all web data
