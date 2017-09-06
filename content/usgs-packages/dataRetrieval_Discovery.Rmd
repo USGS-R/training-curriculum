@@ -79,7 +79,15 @@ sites_sc <- whatNWISsites(stateCd="SC")
 nrow(sites_sc)
 ```
 
-This query returns all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
+Let's explore the dataframe that `whatNWISsites` returned.
+
+```{r sites_sc_explore, message=FALSE, warning=FALSE}
+head(sites_sc)
+```
+
+The first 3 columns are fairly obvious - agency, site number, and station name. The next column `site_tp_cd` is the code indicating the site type (e.g. stream "ST", ground water "GW", etc). `dec_lat_va` and `dec_long_va` are the decimal latitude and longitude values for the site location. `colocated` is a logical column indicating if this site is located with another site (`TRUE`) or not (`FALSE`).
+
+The previous query returned all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
 
 ```{r sites_sc_stream, message=FALSE, warning=FALSE}
 sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
@@ -158,6 +166,12 @@ nrow(data_sc_stream_temp_avg)
 ```
 
 In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
+
+Let's look at the dataframe returned from `whatNWISdata`:
+
+```{r data_sc_stream_temp_avg_explore, message=FALSE, warning=FALSE}
+head(data_sc_stream_temp_avg)
+```
 
 The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. 
 
