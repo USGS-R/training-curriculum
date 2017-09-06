@@ -4,7 +4,7 @@ date: 9999-08-30
 slug: geoknife-exercises
 title: geoknife - Exercises
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

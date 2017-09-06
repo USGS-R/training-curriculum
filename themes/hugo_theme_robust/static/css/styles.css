@@ -48,8 +48,9 @@ caption {
   color:#a71d61;
 }
 
-.hljs-built_in{
-  color:#ed6a43;
+.hljs-built_in,
+.hljs-preprocessor{
+  color:#000;
 }
  
  
@@ -769,7 +770,7 @@ article.single .body p>code {
   font-size: .8rem;
   line-height: 1rem;
   background-color: #eceff1;
-  color: #78909c;
+  color: #3c484e;
 }
 
 article.single .body h1 { margin: 2rem 0; font-weight: 700; clear: both;}

@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - Construct calls
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
     parent: Introduction to USGS R Packages

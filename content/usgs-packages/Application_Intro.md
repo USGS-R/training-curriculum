@@ -4,7 +4,7 @@ date: 9999-06-01
 slug: app-intro
 title: Application - Introduction
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/workflow.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -30,7 +30,6 @@ By the end of this lesson, the learner will be able to:
 
 1.  Automate retrieval of data via NWIS Web, ScienceBase, and the GDP through scripted, reproducible code.
 2.  Use USGS packages within an overall data analysis workflow (apply modularity).
-3.  Contribute to and seek help within the USGS-R community.
 
 The Challenge
 -------------

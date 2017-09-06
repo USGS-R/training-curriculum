@@ -3,7 +3,7 @@ title: "dataRetrieval - readNWIS"
 date: "9999-11-01"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-readNWIS"
-image: "img/main/intro-icons-300px/r-logo.png"
+image: "usgs-packages/static/img/dataRetrieval.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 12

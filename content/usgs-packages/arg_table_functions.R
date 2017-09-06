@@ -30,6 +30,9 @@ extract_arg_def <- function(pkg, fn, arg){
   codepattern <- "(\\\\code)[{](.*?)[}]"
   argdef <- gsub(codepattern, "`\\2`", argdef)
   
+  tzpattern <- '\",\"'
+  argdef <- gsub(tzpattern, '\", \"', argdef)
+  
   return(argdef)
 }
 

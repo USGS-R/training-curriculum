@@ -4,7 +4,7 @@ date: 9999-07-01
 slug: sbtools-get
 title: sbtools - Download Data
 draft: true 
-image: img/main/intro-icons-300px/r-logo.png
+image: usgs-packages/static/img/sbtools.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
