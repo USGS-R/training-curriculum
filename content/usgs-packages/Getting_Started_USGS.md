@@ -4,7 +4,7 @@ date: 9999-12-31
 slug: GettingStartedUSGS
 title: Getting Started with USGS R Packages
 draft: true 
-image: usgs-packages/static/img/getting_started.svg
+image: usgs-packages/static/img/getting\_started.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -61,7 +61,7 @@ dataRetrieval
 Accessing time series data.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Unknown
+2 hours
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -72,7 +72,7 @@ geoknife
 Accessing gridded data.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; text-align: left;">
-Unknown
+1 hour
 </td>
 </tr>
 <tr>
@@ -83,7 +83,7 @@ sbtools
 Interacting with ScienceBase to access data, add data to ScienceBase, or release data from R output for a data release.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; text-align: left;">
-Unknown
+1.5 hour
 </td>
 </tr>
 <tr style="background-color: #f7f7f7;">
@@ -94,7 +94,7 @@ Application
 Use the packages introduced in previous modules to create and use a robust modular workflow.
 </td>
 <td style="padding-bottom: 0.5em; padding-right: 0.5em; padding-top: 0.5em; background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
-Unknown
+1.5 hour
 </td>
 </tr>
 </tbody>
