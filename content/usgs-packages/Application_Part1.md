@@ -15,7 +15,7 @@ As stated in the Challenge description, site information has been provided via S
 Get sites
 ---------
 
-First, authenticate your ScienceBase session using `authenticate_sb()`. Now, use `sbtools` functions to read the appropriate file from the [SB item created by your cooperator](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) into R as a data frame. Try it on your own before looking at the answer below. Don't hesitate to go back to the [sbtools download data lesson](/usgs-packages/sbtools-get) for a refresher.
+First, authenticate your ScienceBase session using `authenticate_sb()`. Now, use `sbtools` functions to read the appropriate file from the [SB item created by your cooperator](https://www.sciencebase.gov/catalog/item/59848b35e4b0e2f5d46717d1) into R as a data frame. Try it on your own before looking at the answer below. Don't hesitate to go back to the [sbtools download data lesson](/usgs-packages/sbtools-get) for a refresher. Hint: the item id is the last element of the URL.
 
 <button class="ToggleButton" onclick="toggle_visibility('get-sb-sites')">
 Show Answer

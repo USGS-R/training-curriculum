@@ -53,11 +53,7 @@ The following are examples of how to use each of the readWQP family of functions
 
 ### readWQPdata
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readWQPdata", table.num=2)
-```
-
-This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain).
+The generic function used to pull Water Quality Portal data. This function is very flexible. You can specify any of the parameters from the [WQP Web Service Guide](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Submitting). To learn what the possible values for each, see the [table of domain values](https://www.waterqualitydata.us/webservices_documentation/#WQPWebServicesGuide-Domain). Follow along with the three examples below or see `?readWQPdata` for more information.
 
 <a name="readwqpdata-state"></a>
 
@@ -109,11 +105,7 @@ nrow(Everglades_temp_2016_present)
 
 ### readWQPqw
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, results='asis'}
-makeArgDefTable("readWQPqw", table.num=3)
-```
-
-This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below.
+This function has a limited number of arguments - it can only be used for pulling WQP data by site number and parameter code. By default, dates are set to pull the entire record available. When specifying USGS sites as `siteNumbers` to `readWQP` functions, precede the number with "USGS-". See the example below or `?readWQPqw` for more information.
 
 <a name="readwqpqw"></a>
 
@@ -137,13 +129,12 @@ head(SC_do_data_since2010[, c("ResultMeasureValue", "ActivityStartDate")])
 Similar to the data frames returned from `readNWIS` functions, there are attributes (aka metadata) attached to the data. Use `attributes` to see all of them and `attr` to extract a particular attribute.
 
 ```{r readwqp-attributes, message=FALSE, warning=FALSE}
-# This query takes about 30 seconds
-data <- Everglades_temp_2016_present # fill in w/ example readWQPqw
-
 # What are the attributes available?
-wqp_attributes <- attributes(data)
+wqp_attributes <- attributes(Everglades_temp_2016_present)
 names(wqp_attributes)
 
+# Look at the variableInfo attribute
+head(attr(Everglades_temp_2016_present, "variableInfo"))
 ```
 
 Let's make a quick map to look at the stations that collected the Everglades data:
@@ -156,7 +147,8 @@ map('state', regions='florida')
 title(main="Everglade Sites")
 points(x=siteInfo$dec_lon_va, 
        y=siteInfo$dec_lat_va)
-
+# Add a rectangle to see where your original query bounding box in relation to sites
+rect(-81.70, 25.08, -80.30, 26.51, col = NA, border = 'red')
 ```
 
 You can now find and download Water Quality Portal data from R! 

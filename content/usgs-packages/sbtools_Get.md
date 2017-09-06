@@ -64,17 +64,17 @@ identifier_exists("thisisnotagoodid")
 
     ## [1] FALSE
 
-You can use the function `item_exists` to check whether or not alternative identifiers (a scheme-type-key tuple) exist (visit the [sbitem lesson](/usgs-packages/sbtools-sbitem) if you don't know about alternative identifiers). The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts: `type, scheme, key` on ScienceBase but `scheme, type, key` for `item_exists`.
+You can use the function `item_exists` to check whether or not alternative identifiers (a scheme-type-key ordered set of values) exist (visit the [sbitem lesson](/usgs-packages/sbtools-sbitem) if you don't know about alternative identifiers). The function has three required arguments - `scheme`, `type`, and `key`. Note that the table of alternative identifiers on ScienceBase is in a different order than this function accepts: `type, scheme, key` on ScienceBase but `scheme, type, key` for `item_exists`.
 
 ``` r
-# test a made up tuple
+# test a made up alternative identifier
 item_exists(scheme = "made", type = "this", key = "up")
 ```
 
     ## [1] FALSE
 
 ``` r
-# test a tuple from the SB item "4f4e4acae4b07f02db67d22b"
+# test an alternative identifier from the SB item "4f4e4acae4b07f02db67d22b"
 item_exists(scheme = "State Inventory", type = "UniqueKey", key = "P1281")
 ```
 

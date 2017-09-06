@@ -110,7 +110,7 @@ variables(DelBay_fabric) <- c("Vwind", "temp")
 query(DelBay_fabric, "times")
 ```
 
-Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated UNIWISC satellite data for Earth's "surface skin" temperature. 
+Here is a second example of using a non-GDP dataset. This data was found under the [data section on Unidata's website](http://www.unidata.ucar.edu/data/#home). This is aggregated satellite data from the UNIWISC (Unidata-Wisconsin) datastream for Earth's "surface skin" temperature. 
 
 ```{r create-fabric-UNIWISC, message=FALSE, warning=FALSE}
 skinT_fabric <- webdata(url="http://thredds.ucar.edu/thredds/dodsC/satellite/SFC-T/SUPER-NATIONAL_1km")
@@ -139,7 +139,7 @@ length(default_geoms)
 head(default_geoms)
 ```
 
-You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. Additionally, `webgeom` can accept a URL that points directly to a WFS. The categories you should be familiar with are `sample` and `upload`. `sample` geoms are any that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**. 
+You will notice a pattern with the names of the geoms: a category followed by `:`, and then a specific name. These category-name combinations are the strings you would use to define your geom. Additionally, `webgeom` can accept a URL that points directly to a WFS. The categories you should be familiar with are `sample` and `upload`. `sample` geoms are any that are available through `geoknife` by default. `upload` geoms are custom shapefiles that someone uploaded through GDP. If you would like to upload a specific shapefile to GDP, follow [these instructions](https://my.usgs.gov/confluence/display/GeoDataPortal/Detailed+GDP+Use+Instructions#DetailedGDPUseInstructions-UsinganUploadedShapefile). **Be aware that uploaded shapefiles are wiped from the server at regular intervals (could be as often as weekly)**. To use your own shapefile: upload it, execute your job and then save the output; re-upload your shapefile the next time you need it on GDP.
 
 Similar to fabrics where you could not query times without setting the variables, you cannot query attributes of stencils before defining the geoms. Likewise, you cannot query for values of a stencil until you have set the attributes. Attributes give the metadata associated with the stencil and it's geom. Values tell you the individual spatial features available in that attribute of the geom. 
 

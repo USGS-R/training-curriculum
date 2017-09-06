@@ -46,7 +46,7 @@ library(sbtools)
 `query_sb_text` returns a list of `sbitems` that match the title or description fields. Use it to search authors, station names, rivers, states, etc.
 
 ``` r
-# search using a contributors name
+# search using a contributor's name
 contrib_results <- query_sb_text("Robert Hirsch")
 head(contrib_results, 2)
 ```

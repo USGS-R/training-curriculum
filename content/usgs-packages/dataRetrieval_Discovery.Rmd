@@ -28,7 +28,7 @@ There is an overwhelming amount of data and information stored in the National W
 
 **Data types:** NWIS and WQP store a lot of water information. NWIS contains streamflow, peak flow, rating curves, groundwater, and water quality data. As can be assumed from the name, WQP only contains water quality data. 
 
-**Time series types:** the databases store water data at various reporting frequencies, and have different terms for these. There are 3 main types: unit value, daily value, and discrete. WQP only contains discrete data.
+**Time series types:** the databases store water data at various reporting frequencies, and have different language to describe these. There are 3 main types: unit value, daily value, and discrete. WQP only contains discrete data.
 
 1. _instantaneous value_ (sometimes called _unit value_) data is reported at the frequency in which it was collected, and includes real-time data. It is generally available from 2007-present. 
 2. _daily value_ data aggregated to a daily statistic (e.g. mean daily, minimum daily, or maximum daily).
@@ -52,7 +52,7 @@ This is available for streamflow, groundwater levels, and water quality sensors.
   - statistics = "stat"
   - site = "site"
 
-*_`startDate`_* and *_`endDate`_* Strings in the format "YYYY-MM-DDTHH:SS:MM", either date or character class. The start and end date-times are inclusive.
+*_`startDate`_* and *_`endDate`_* Strings in the format "YYYY-MM-DDTHH:SS:MM", either as a date or character class. The start and end date-times are inclusive.
 
 *_`stateCd`_* Two character abbreviation for a US state or territory. Execute `state.abb` in the console to get a vector of US state abbreviations. Territories include: 
 
@@ -66,7 +66,7 @@ For more query parameters, visit [NWIS service documentation](https://waterservi
 
 ## Discovering NWIS data
 
-In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`.
+In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
 ### whatNWISsites
 
@@ -79,14 +79,22 @@ sites_sc <- whatNWISsites(stateCd="SC")
 nrow(sites_sc)
 ```
 
-This query returns all of the NWIS sites that are in South Carolina To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
+Let's explore the dataframe that `whatNWISsites` returned.
+
+```{r sites_sc_explore, message=FALSE, warning=FALSE}
+head(sites_sc)
+```
+
+The first 3 columns are fairly obvious - agency, site number, and station name. The next column `site_tp_cd` is the code indicating the site type (e.g. stream "ST", ground water "GW", etc). `dec_lat_va` and `dec_long_va` are the decimal latitude and longitude values for the site location. `colocated` is a logical column indicating if this site is located with another site (`TRUE`) or not (`FALSE`).
+
+The previous query returned all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
 
 ```{r sites_sc_stream, message=FALSE, warning=FALSE}
 sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
 nrow(sites_sc_stream)
 ```
 
-We can now see that out of the `r prettyNum(nrow(sites_sc), big.mark=",")` NWIS sites in South Carolina only `r (round(nrow(sites_sc_stream)/nrow(sites_sc), digits=2))*100`% are stream sites. Let's add one more query item to this - parameter. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped.
+We can now see that out of the `r prettyNum(nrow(sites_sc), big.mark=",")` NWIS sites in South Carolina only `r (round(nrow(sites_sc_stream)/nrow(sites_sc), digits=2))*100`% are stream sites. Let's add one more query item to this - our parameter of interest. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing parameterCdFile in your console.
 
 ```{r sites_sc_stream_temp, message=FALSE, warning=FALSE}
 sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
@@ -94,7 +102,7 @@ sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
 nrow(sites_sc_stream_temp)
 ```
 
-We are now down to just `r prettyNum(nrow(sites_sc_stream_temp), big.mark=",")` sites, much less than our original `r prettyNum(nrow(sites_sc), big.mark=",")`. To actually download this data, you can query using our three arguments, `stateCd` + `siteType` + `parameterCd`, or by the site numbers from the `sites_sc_stream_temp` data.frame using `unique(sites_sc_stream_temp[['site_no']])`. Downloading NWIS data will be covered in the next section, [readNWISdata](/usgs-packages/dataRetrieval-readNWIS).
+We are now down to just `r prettyNum(nrow(sites_sc_stream_temp), big.mark=",")` sites, much less than our original `r prettyNum(nrow(sites_sc), big.mark=",")`. Downloading NWIS data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
 The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
@@ -159,6 +167,12 @@ nrow(data_sc_stream_temp_avg)
 
 In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
 
+Let's look at the dataframe returned from `whatNWISdata`:
+
+```{r data_sc_stream_temp_avg_explore, message=FALSE, warning=FALSE}
+head(data_sc_stream_temp_avg)
+```
+
 The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. 
 
 To illustrate this, let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
@@ -171,11 +185,11 @@ data_sc_stream_temp_avg_applicable <- data_sc_stream_temp_avg %>%
 nrow(data_sc_stream_temp_avg_applicable)
 ```
 
-This means you would have `r prettyNum(nrow(data_sc_stream_temp_avg_applicable), big.mark=",")` of sites to work with for your study.
+This means you would have `r prettyNum(nrow(data_sc_stream_temp_avg_applicable), big.mark=",")` sites to work with for your study.
 
 ## Common WQP function arguments
 
-*_`countrycode`_*, *_`statecode`_*, and *_`countycode`_* These geopolitical filters can be specified by a two letter abbreviation, state name, or Federal Information Processing Standard (FIPS) code. If you are using the FIPS code for a state or county, it must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, I would enter `statecode="US:45"`. The same rule extends to county FIPS. You can reference the `dataRetrieval` datasets `stateCd` and `countyCd`for the abbreviation, name, or FIPS code of states and counties. Countries need to be specified with their two-letter FIPS code.
+*_`countrycode`_*, *_`statecode`_*, and *_`countycode`_* These geopolitical filters can be specified by a two letter abbreviation, state name, or Federal Information Processing Standard (FIPS) code. If you are using the FIPS code for a state or county, it must be preceded by the FIPS code of the larger geopolitical filter. For example, the FIPS code for the United States is `US`, and the FIPS code for South Carolina is `45`. When querying with the statecode, you can enter `statecode="US:45"`. The same rule extends to county FIPS; for example, you can use `countycode="45:001"` to query Abbeville County, South Carolina. You can find all state and county codes and abbreviations by executing `stateCd` or `countyCd` in your console.
 
 *_`siteType`_* Specify the hydrologic location the sample was taken, e.g. streams, lakes, groundwater sources. These should be listed as a string. Available types can be found [here](https://www.waterqualitydata.us/Codes/Sitetype?mimeType=xml).
 
@@ -188,7 +202,7 @@ This means you would have `r prettyNum(nrow(data_sc_stream_temp_avg_applicable),
 
 ## Discovering WQP data
 
-WQP has millions of records, and if you aren't careful, your query could take hours because of the amount of data that met your criteria. To avoid this, you can query just for the number of records and number of sites that meet your criteria using the argument `querySummary=TRUE` in the function, `readWQPdata`. This argument is also available for `readWQPqw`. See the [lesson on downloading WQP data](/usgs-packages/readWQP) to learn more about getting data. You can also use `whatWQPsites` to get the site information that matches your criteria.
+WQP has millions of records, and if you aren't careful, your query could take hours because of the amount of data that met your criteria. To avoid this, you can query just for the number of records and number of sites that meet your criteria using the argument `querySummary=TRUE` in the function, `readWQPdata`. See the [lesson on downloading WQP data](/usgs-packages/readWQP) to learn more about getting data. You can also use `whatWQPsites` to get the site information that matches your criteria.
 
 Let's follow a similar pattern to NWIS data discovery sections and explore available stream temperature data in South Carolina.
 
