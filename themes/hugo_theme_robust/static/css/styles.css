@@ -55,7 +55,10 @@ caption {
   color:#183691  !important;
 }
 
+.hljs-class > .hljs-title,
+.nginx > .hljs-title,
 .hljs-title,
+.css > .hljs-tag,
 .hljs-tag,
 .hljs-keyword,
 .hljs-variable,
