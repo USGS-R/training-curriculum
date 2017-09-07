@@ -3,7 +3,7 @@ title: "dataRetrieval - Exercises"
 date: "9999-10-15"
 author: "Lindsay R. Carr"
 slug: "dataRetrieval-exercises"
-image: "content/usgs-packages/static/img/dataRetrieval.svg"
+image: "usgs-packages/static/img/dataRetrieval.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 14
