@@ -55,7 +55,6 @@ Below are lists of terms or functions introduced in this curriculum. Each links 
 1. [readWQPqw](/usgs-packages/dataRetrieval-readWQP/#readwqp-functions)
 1. [renameNWIScolumns](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
 1. [whatNWISdata](/usgs-packages/dataRetrieval-discovery/#whatnwisdata)
-1. [whatNWISsites](/usgs-packages/dataRetrieval-discovery/#whatnwissites)
 1. [whatWQPsites](/usgs-packages/dataRetrieval-discovery/#whatwqpsites)
 1. [zeroPad](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
 

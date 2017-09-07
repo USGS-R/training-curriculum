@@ -4,7 +4,7 @@ date: 9999-10-15
 slug: dataRetrieval-exercises
 title: dataRetrieval - Exercises
 draft: true 
-image: usgs-packages/static/img/dataRetrieval.svg
+image: content/usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:
     parent: Introduction to USGS R Packages
@@ -25,7 +25,7 @@ Exercise 1
 
 *Determine the number of sites in Arizona that have lake temperature data available in NWIS. Then find how many Arizona sites have lake temperature data available in WQP.*
 
-Helpful links: [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`whatWQPsites`](usgs-packages/dataRetrieval-discovery/#whatwqpsites), [`readWQPdata`](usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
+Helpful links: [`whatNWISdata`](usgs-packages/dataRetrieval-discovery/#whatnwisdata), [`whatWQPsites`](usgs-packages/dataRetrieval-discovery/#whatwqpsites), [`readWQPdata`](usgs-packages/dataRetrieval-discovery/#readwqpdata-querysummary)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-1')">
 Show Answer
@@ -34,8 +34,8 @@ Show Answer
 
 ``` r
 # NWIS Arizona lake temperature sites
-azlaketemp_nwis <- whatNWISsites(stateCd="AZ", siteType="LK", parameterCd="00010")
-nrow(azlaketemp_nwis)
+azlaketemp_nwis <- whatNWISdata(stateCd="AZ", siteType="LK", parameterCd="00010")
+length(unique(azlaketemp_nwis$site_no))
 ```
 
     ## [1] 34
@@ -69,7 +69,7 @@ Exercise 2
 
 *Determine which NWIS sites in the District of Columbia had daily streamflow below the historic daily average on August 20th, 2013. Hint: use four different functions to figure this out (find appropriate parameter code, then find site numbers, then statistics data, and then daily value data).*
 
-Helpful links: [`parameterCdFile`](usgs-packages/dataRetrieval-discovery/#common-nwis-function-arguments), [`whatNWISsites`](usgs-packages/dataRetrieval-discovery/#whatnwissites), [`readNWISdv`](usgs-packages/dataRetrieval-readNWIS/#readnwisdv), [`renameNWISColumns`](usgs-packages/dataRetrieval-readNWIS/#helper-functions), [`readNWISstat`](usgs-packages/dataRetrieval-readNWIS/#readnwisstat)
+Helpful links: [`parameterCdFile`](usgs-packages/dataRetrieval-discovery/#common-nwis-function-arguments), [`whatNWISdata`](usgs-packages/dataRetrieval-discovery/#whatnwisdata), [`readNWISdv`](usgs-packages/dataRetrieval-readNWIS/#readnwisdv), [`renameNWISColumns`](usgs-packages/dataRetrieval-readNWIS/#helper-functions), [`readNWISstat`](usgs-packages/dataRetrieval-readNWIS/#readnwisstat)
 
 <button class="ToggleButton" onclick="toggle_visibility('unnamed-chunk-2')">
 Show Answer
@@ -107,10 +107,11 @@ head(params_discharge)
 
 ``` r
 # Find DC site numbers that have streamflow
-dc_stream_sites <- whatNWISsites(stateCd = "DC", siteType="ST", parameterCd="00060")
+dc_stream_data <- whatNWISdata(stateCd = "DC", siteType="ST", parameterCd="00060")
+dc_stream_sites <- unique(dc_stream_data$site_no)
 
 # Get streamflow from August 20, 2013
-dc_2013_q <- readNWISdv(siteNumbers=dc_stream_sites[['site_no']], parameterCd="00060",
+dc_2013_q <- readNWISdv(siteNumbers=dc_stream_sites, parameterCd="00060",
                    startDate="2013-08-20", endDate="2013-08-20")
 dc_2013_q <- renameNWISColumns(dc_2013_q)
 

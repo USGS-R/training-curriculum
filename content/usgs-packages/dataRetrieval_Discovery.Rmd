@@ -66,116 +66,84 @@ For more query parameters, visit [NWIS service documentation](https://waterservi
 
 ## Discovering NWIS data
 
-In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the function `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
-### whatNWISsites
+### whatNWISdata
 
-`whatNWISsites` will return a data.frame with site numbers that have available data matching your query parameters. From there, you can determine which sites to use to actually download data. This will only return requests for arguments that pertain to a site - you cannot use this function to query by dates, services, or stats. Those are specific to the data (use `whatNWISdata` instead). Note that you need a "major filter" in order for the query to work. "Major filters" include `siteNumber`, `stateCd`, `huc`, `bBox`, or `countyCd`.
+`whatNWISdata` will return a data.frame specifying the types of data available for a specified major filter that fits your querying criteria. You can add queries by the data service, USGS parameter code, or statistics code. You need at least one "major filter" in order for the query to work. "Major filters" include `siteNumber`, `stateCd`, `huc`, `bBox`, or `countyCd`.
 
-In this example, let's find South Carolina stream sites that have temperature data. We specify the state, South Carolina, using the `stateCd` argument and South Carolina's two letter abbreviation, SC.
+In this example, let's find South Carolina stream temperature data. We specify the state, South Carolina, using the `stateCd` argument and South Carolina's two letter abbreviation, SC.
 
-```{r sites_sc, message=FALSE, warning=FALSE}
-sites_sc <- whatNWISsites(stateCd="SC")
-nrow(sites_sc)
+```{r data_sc, message=FALSE, warning=FALSE}
+data_sc <- whatNWISdata(stateCd="SC")
+nrow(data_sc)
 ```
 
-Let's explore the dataframe that `whatNWISsites` returned.
+Let's look at the dataframe returned from `whatNWISdata`:
 
-```{r sites_sc_explore, message=FALSE, warning=FALSE}
-head(sites_sc)
+```{r data_sc_explore, message=FALSE, warning=FALSE}
+head(data_sc)
 ```
 
-The first 3 columns are fairly obvious - agency, site number, and station name. The next column `site_tp_cd` is the code indicating the site type (e.g. stream "ST", ground water "GW", etc). `dec_lat_va` and `dec_long_va` are the decimal latitude and longitude values for the site location. `colocated` is a logical column indicating if this site is located with another site (`TRUE`) or not (`FALSE`).
+The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. This function returns one row per unique combination of site number, dates, parameter, etc. In order to just get the sites, use `unique`:
 
-The previous query returned all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
-
-```{r sites_sc_stream, message=FALSE, warning=FALSE}
-sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
-nrow(sites_sc_stream)
+```{r data_sc_unique, message=FALSE, warning=FALSE}
+sites_sc <- unique(data_sc$site_no)
+length(sites_sc)
 ```
 
-We can now see that out of the `r prettyNum(nrow(sites_sc), big.mark=",")` NWIS sites in South Carolina only `r (round(nrow(sites_sc_stream)/nrow(sites_sc), digits=2))*100`% are stream sites. Let's add one more query item to this - our parameter of interest. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing parameterCdFile in your console.
+To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html). We also only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing `parameterCdFile` in your console.
 
-```{r sites_sc_stream_temp, message=FALSE, warning=FALSE}
-sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
+```{r data_sc_stream_temp, message=FALSE, warning=FALSE}
+data_sc_stream_temp <- whatNWISdata(stateCd="SC", siteType="ST", parameterCd="00010")
+nrow(data_sc_stream_temp)
 ```
 
-We are now down to just `r prettyNum(nrow(sites_sc_stream_temp), big.mark=",")` sites, much less than our original `r prettyNum(nrow(sites_sc), big.mark=",")`. Downloading NWIS data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+We are now down to just `r prettyNum(nrow(data_sc_stream_temp), big.mark=",")` rows of data, much less than our original `r prettyNum(nrow(data_sc), big.mark=",")` rows. Downloading NWIS data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
-The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
+The `whatNWISdata` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
-```{r sc_streamtemp_sites_map, message=FALSE, warning=FALSE, fig.cap="Geographic locations of NWIS South Carolina stream sites with temperature data", fig.scap="Map of South Carolina stream temp sites"}
+```{r sc_streamtemp_data_map, message=FALSE, warning=FALSE, fig.cap="Geographic locations of NWIS South Carolina stream sites with temperature data", fig.scap="Map of South Carolina stream temp sites"}
 # SC stream temperature sites
 library(maps)
 map('state', regions='south carolina')
 title(main="South Carolina Stream Temp Sites")
-points(x=sites_sc_stream_temp$dec_long_va, 
-       y=sites_sc_stream_temp$dec_lat_va)
-```
-
-You can also quickly compare the amount of data between states:
-
-```{r sites_scVSwv_stream_temp, message=FALSE, warning=FALSE}
-# stream temperature data in SC vs WV
-sites_wv_stream_temp <- whatNWISsites(stateCd="WV", siteType="ST",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
-nrow(sites_wv_stream_temp)
-```
-
-Or compare the amount of data between site types:
-
-```{r sites_sc_streamVSlake_temp, message=FALSE, warning=FALSE}
-# SC temperature data in streams vs lakes
-sites_sc_lake_temp <- whatNWISsites(stateCd="SC", siteType="LK",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
-nrow(sites_sc_lake_temp)
+points(x=data_sc_stream_temp$dec_long_va, 
+       y=data_sc_stream_temp$dec_lat_va)
 ```
 
 What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses a `for` loop and the `dplyr` function, `bind_rows`. We will assume you know how to use these functions. 
 
-```{r sites_mult_states_stream_temp, message=FALSE, warning=FALSE}
+```{r data_mult_states_stream_temp, message=FALSE, warning=FALSE}
 library(dplyr) #bind_rows is a dplyr function
 
 # find South West US sites with stream temperature
 # then add to the data frame
-sites_sw_stream_temp <- data.frame()
+data_sw_stream_temp <- data.frame()
 for(i in c("CA", "AZ", "NM", "NV")){
-  state_sites <- whatNWISsites(stateCd=i, siteType="ST", parameterCd="00010")
-  sites_sw_stream_temp <- bind_rows(sites_sw_stream_temp, state_sites)
+  state_data <- whatNWISdata(stateCd=i, siteType="ST", parameterCd="00010")
+  data_sw_stream_temp <- bind_rows(data_sw_stream_temp, state_data)
 }
 
-nrow(sites_sw_stream_temp)
+nrow(data_sw_stream_temp)
 ```
 
-### whatNWISdata
-
-`whatNWISdata` will return a data.frame specifying the types of data available for a specified site(s) that fits your querying criteria. You can add queries by the data service, USGS parameter code, or statistics code. Continuing with the South Carolina temperature data example from the `whatNWISsites` section,  let's look for the mean daily stream temperature. Since you cannot query `whatNWISdata` using `siteType` or `stateCd`, let's use the site numbers from the previous lesson to specify South Carolina stream sites. You will need to specify the parameter again since the sites likely collect more than one parameter.
+Continuing with the South Carolina temperature data example, let's look for the mean daily stream temperature.  
 
 ```{r data_sc_stream_temp_avg, message=FALSE, warning=FALSE}
 # Average daily SC stream temperature data
 data_sc_stream_temp_avg <- whatNWISdata(
-  siteNumbers = unique(sites_sc_stream_temp[['site_no']]),
+  stateCd="SC", 
+  siteType="ST",
   parameterCd="00010",
   service="dv",
   statCd="00003")
 nrow(data_sc_stream_temp_avg)
 ```
 
-In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
+In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end. You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
 
-Let's look at the dataframe returned from `whatNWISdata`:
-
-```{r data_sc_stream_temp_avg_explore, message=FALSE, warning=FALSE}
-head(data_sc_stream_temp_avg)
-```
-
-The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. 
-
-To illustrate this, let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
+Let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
 
 ```{r data_sc_stream_temp_avg_applicable, message=FALSE, warning=FALSE}
 # Useable average daily SC stream temperature data
@@ -267,7 +235,7 @@ Now, let's try our South Carolina stream temperature query with `whatWQPsites` a
 
 ### whatWQPsites
 
-`whatWQPsites` works similarly to `whatNWISsites` in that it gives back site information that matches your search criteria. Unlike `whatNWISsites`, you can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, `r prettyNum(wqpcounts_sc_stream_temp[['total-site-count']], big.mark=",")`.
+`whatWQPsites` gives back site information that matches your search criteria. You can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, `r prettyNum(wqpcounts_sc_stream_temp[['total-site-count']], big.mark=",")`.
 
 ```{r wqpsites_sc_stream_temp, message=FALSE, warning=FALSE}
 # Getting the number of sites and results for stream 

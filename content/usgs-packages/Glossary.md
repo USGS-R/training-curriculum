@@ -52,9 +52,8 @@ Functions
 17. [readWQPqw](/usgs-packages/dataRetrieval-readWQP/#readwqp-functions)
 18. [renameNWIScolumns](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
 19. [whatNWISdata](/usgs-packages/dataRetrieval-discovery/#whatnwisdata)
-20. [whatNWISsites](/usgs-packages/dataRetrieval-discovery/#whatnwissites)
-21. [whatWQPsites](/usgs-packages/dataRetrieval-discovery/#whatwqpsites)
-22. [zeroPad](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
+20. [whatWQPsites](/usgs-packages/dataRetrieval-discovery/#whatwqpsites)
+21. [zeroPad](/usgs-packages/dataRetrieval-readNWIS/#helper-functions)
 
 ### geoknife
 
