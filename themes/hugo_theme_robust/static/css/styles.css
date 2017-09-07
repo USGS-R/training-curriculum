@@ -47,7 +47,7 @@ caption {
 .hljs-preprocessor > .hljs-title,
 .hljs-preprocessor,
 .hljs-comment{
-  color:#586e75 !important;
+  color:#586e75;
 }
 
 .hljs-value,
@@ -62,7 +62,7 @@ caption {
 .hljs-attribute,
 .hljs-attr_selector,
 .hljs-built_in{
-  color:#000  !important;
+  color:#000;
 }
  
  
