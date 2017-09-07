@@ -122,10 +122,18 @@ evap_geojob <- geoknife(evap_stencil, evap_fabric, evap_knife)
 evap_data <- result(evap_geojob)
 ```
 
-As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion (you will see `gdp_data@usgs.gov` as the sender). The email alert will contain the completed job URL and ID needed to pull down the data later using `result` (needs URL) or `download` (needs ID). Since this process requires you to leave R and get information from an email, it is often only recommended if you don't plan to do further analysis in R. Otherwise, we recommend using the `wait()` function in a script.
+As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion (you will see `gdp_data@usgs.gov` as the sender). 
 
 ```{r email-example, message=FALSE, warning=FALSE}
 # example of how to specify an email address to get a job completion alert
 knife_willemail <- webprocess(email='fake.email@gmail.com')
 knife_willemail
+```
+
+The email alert will contain the completed job URL. Since this process requires you to leave R and get information from an email, it is often only recommended if you don't plan to do further analysis in R. Otherwise, we recommend using the `wait()` function in a script. Use the URL as a string in this workflow to get your results:
+
+```{r email-example-results, message=FALSE, warning=FALSE, eval=FALSE}
+geojob <- geojob("my url as a string")
+check(geojob)
+mydata <- result(geojob)
 ```
