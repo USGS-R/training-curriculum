@@ -3,6 +3,7 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - Construct calls
+draft: true 
 image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
@@ -11,8 +12,6 @@ menu:
 ---
 Setting up a geojob
 -------------------
-
-**The following material is IN DEVELOPMENT**
 
 A `geojob` is the object that contains all of the necessary processing information to execute a data request to GDP. The `geojob` is made up of the `stencil`, `fabric`, and `knife` (if you need to learn what these components are, please visit [the previous lesson](/usgs-packages/geoknife-data)).
 
@@ -75,7 +74,7 @@ check(evap_geojob)
     ## [1] "Process successful"
     ## 
     ## $URL
-    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=25522580-7fca-44bc-aed1-5dc812ba74d9OUTPUT"
+    ## [1] "https://cida.usgs.gov:443/gdp/process/RetrieveResultServlet?id=ae0af523-7779-4d9e-b43e-0178857be03eOUTPUT"
     ## 
     ## $statusType
     ## [1] "ProcessSucceeded"
@@ -166,7 +165,7 @@ evap_geojob <- geoknife(evap_stencil, evap_fabric, evap_knife)
 evap_data <- result(evap_geojob)
 ```
 
-As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion (you will see `gdp_data@usgs.gov` as the sender). The email alert will contain the completed job URL and ID needed to pull down the data later using `result` (needs URL) or `download` (needs ID). Since this process requires you to leave R and get information from an email, it is often only recommended if you don't plan to do further analysis in R. Otherwise, we recommend using the `wait()` function in a script.
+As in the third scenario, if you have a job that will take a long time and plan to close R in the interim, you can specify the argument `email` when creating the knife. Then when you use your new knife in the `geoknife` call, it will send an email with appropriate information upon job completion (you will see `gdp_data@usgs.gov` as the sender).
 
 ``` r
 # example of how to specify an email address to get a job completion alert
@@ -181,9 +180,17 @@ knife_willemail
     ## process inputs: 
     ##    SUMMARIZE_TIMESTEP: false
     ##    SUMMARIZE_FEATURE_ATTRIBUTE: false
-    ##    DELIMITER: COMMA
+    ##    GROUP_BY: 
     ##    REQUIRE_FULL_COVERAGE: true
     ##    STATISTICS: 
-    ##    GROUP_BY: 
+    ##    DELIMITER: COMMA
     ## wait: FALSE 
     ## email: fake.email@gmail.com
+
+The email alert will contain the completed job URL. Since this process requires you to leave R and get information from an email, it is often only recommended if you don't plan to do further analysis in R. Otherwise, we recommend using the `wait()` function in a script. Use the URL as a string in this workflow to get your results:
+
+``` r
+geojob <- geojob("my url as a string")
+check(geojob)
+mydata <- result(geojob)
+```
