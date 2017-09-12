@@ -88,6 +88,8 @@ query_sb_doi('10.5066/F77W699S')
 
 `query_sb_spatial` accepts 3 different methods for specifying a spatial area in which to look for data. To illustrate the methods, we are going to use the spatial extents of the Appalachian Mountains and the Continental US. 
 
+Currently, most spatial queries are returning empty lists. This is a [known issue in `sbtools`](https://github.com/USGS-R/sbtools/issues/237). If you find this feature important for your work, please acknowledge this on the GitHub issue so developers know where to focus their efforts.
+
 ```{r query_sb_spatial, fig.cap="Map of US with points used to define Appalachia and the Continental US", fig.scap="Map of Appalchia & CONUS points"}
 appalachia <- data.frame(
   lat = c(34.576900, 36.114974, 37.374456, 35.919619, 39.206481),
@@ -106,10 +108,13 @@ points(appalachia$long, appalachia$lat, col="green", pch=20)
 The first way to query spatially is by specifying a bounding box `bbox` as an `sp` spatial data object. Visit the [`sp` package documentation](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf) for more information on spatial data objects.  
 
 ```{r query_sb_spatial-bbox}
+# create sp bounding box
+proj4 <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+sp.appalachia <- sp::SpatialPoints(appalachia,  proj4string = proj4)
+sp.appalachia <- sp::spTransform(sp.appalachia, proj4)
+
 # query by bounding box
-query_sb_spatial(bbox=
-                   sp::SpatialPoints(appalachia,  proj4string = 
-                      sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")))
+query_sb_spatial(bbox=sp.appalachia)
 ```
 
 Alternatively, you can supply a vector of latitudes and a vector of longitudes using `lat` and `long` arguments. The function will automatically use the minimum and maximum from those vectors to construct a boundary box. 
