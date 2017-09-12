@@ -66,7 +66,7 @@ For more query parameters, visit [NWIS service documentation](https://waterservi
 
 ## Discovering NWIS data
 
-In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the function `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the function `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the arguments `seriesCatalogOutput=TRUE` and `service="site"`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
 ### whatNWISdata
 
@@ -140,8 +140,6 @@ data_sc_stream_temp_avg <- whatNWISdata(
   statCd="00003")
 nrow(data_sc_stream_temp_avg)
 ```
-
-In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end. You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
 
 Let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
 
