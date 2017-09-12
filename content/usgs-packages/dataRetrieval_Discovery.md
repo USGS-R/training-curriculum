@@ -63,111 +63,95 @@ For more query parameters, visit [NWIS service documentation](https://waterservi
 Discovering NWIS data
 ---------------------
 
-In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the functions `whatNWISsites` and `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the argument `seriesCatalogOutput=TRUE`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+In some cases, users might have specific sites and data that they are pulling with `dataRetrieval` but what if you wanted to know what data exists in the database before trying to download it? You can use the function `whatNWISdata`, described below. Another option is to download the data using `readNWISdata`, and see the first and last available dates of that data with the arguments `seriesCatalogOutput=TRUE` and `service="site"`. Downloading data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
 
-### whatNWISsites
+### whatNWISdata
 
-`whatNWISsites` will return a data.frame with site numbers that have available data matching your query parameters. From there, you can determine which sites to use to actually download data. This will only return requests for arguments that pertain to a site - you cannot use this function to query by dates, services, or stats. Those are specific to the data (use `whatNWISdata` instead). Note that you need a "major filter" in order for the query to work. "Major filters" include `siteNumber`, `stateCd`, `huc`, `bBox`, or `countyCd`.
+`whatNWISdata` will return a data.frame specifying the types of data available for a specified major filter that fits your querying criteria. You can add queries by the data service, USGS parameter code, or statistics code. You need at least one "major filter" in order for the query to work. "Major filters" include `siteNumber`, `stateCd`, `huc`, `bBox`, or `countyCd`.
 
-In this example, let's find South Carolina stream sites that have temperature data. We specify the state, South Carolina, using the `stateCd` argument and South Carolina's two letter abbreviation, SC.
-
-``` r
-sites_sc <- whatNWISsites(stateCd="SC")
-nrow(sites_sc)
-```
-
-    ## [1] 20072
-
-Let's explore the dataframe that `whatNWISsites` returned.
+In this example, let's find South Carolina stream temperature data. We specify the state, South Carolina, using the `stateCd` argument and South Carolina's two letter abbreviation, SC.
 
 ``` r
-head(sites_sc)
+data_sc <- whatNWISdata(stateCd="SC")
+nrow(data_sc)
 ```
 
-    ##   agency_cd         site_no                       station_nm site_tp_cd
-    ## 1      USGS 344406083204909                          OC- 220         GW
-    ## 2      USGS        02177000 CHATTOOGA RIVER NEAR CLAYTON, GA         ST
-    ## 3      USGS 344800083160008                          OC- 216         GW
-    ## 4      USGS 344706083145008                          OC- 201         GW
-    ## 5      USGS 344507083144109                          OC- 218         GW
-    ## 6      USGS 344720083123708                          OC- 225         GW
-    ##   dec_lat_va dec_long_va colocated           queryTime
-    ## 1   34.73509   -83.34683     FALSE 2017-09-06 10:16:43
-    ## 2   34.81398   -83.30599     FALSE 2017-09-06 10:16:43
-    ## 3   34.80009   -83.26655     FALSE 2017-09-06 10:16:43
-    ## 4   34.78509   -83.24710     FALSE 2017-09-06 10:16:43
-    ## 5   34.75204   -83.24460     FALSE 2017-09-06 10:16:43
-    ## 6   34.78898   -83.21016     FALSE 2017-09-06 10:16:43
+    ## [1] 167551
 
-The first 3 columns are fairly obvious - agency, site number, and station name. The next column `site_tp_cd` is the code indicating the site type (e.g. stream "ST", ground water "GW", etc). `dec_lat_va` and `dec_long_va` are the decimal latitude and longitude values for the site location. `colocated` is a logical column indicating if this site is located with another site (`TRUE`) or not (`FALSE`).
-
-The previous query returned all of the NWIS sites that are in South Carolina. To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html).
+Let's look at the dataframe returned from `whatNWISdata`:
 
 ``` r
-sites_sc_stream <- whatNWISsites(stateCd="SC", siteType="ST")
-nrow(sites_sc_stream)
+head(data_sc)
 ```
 
-    ## [1] 635
+    ##   agency_cd  site_no                station_nm site_tp_cd dec_lat_va
+    ## 1      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ## 2      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ## 3      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ## 4      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ## 5      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ## 6      USGS 02110400 BUCK CREEK NEAR LONGS, SC         ST    33.9535
+    ##   dec_long_va coord_acy_cd dec_coord_datum_cd alt_va alt_acy_va
+    ## 1   -78.71974            S              NAD83   <NA>       <NA>
+    ## 2   -78.71974            S              NAD83   <NA>       <NA>
+    ## 3   -78.71974            S              NAD83   <NA>       <NA>
+    ## 4   -78.71974            S              NAD83   <NA>       <NA>
+    ## 5   -78.71974            S              NAD83   <NA>       <NA>
+    ## 6   -78.71974            S              NAD83   <NA>       <NA>
+    ##   alt_datum_cd   huc_cd data_type_cd parm_cd stat_cd  ts_id loc_web_ds
+    ## 1         <NA> 03040206           ad    <NA>    <NA>      0       <NA>
+    ## 2         <NA> 03040206           dv   00010   00001 124327       <NA>
+    ## 3         <NA> 03040206           dv   00010   00002 124328       <NA>
+    ## 4         <NA> 03040206           dv   00010   00003 124329       <NA>
+    ## 5         <NA> 03040206           dv   00045   00006 124351       <NA>
+    ## 6         <NA> 03040206           dv   00060   00001 124348       <NA>
+    ##   medium_grp_cd parm_grp_cd  srs_id access_cd begin_date   end_date
+    ## 1           wat        <NA>       0         0 2006-01-01 2016-01-01
+    ## 2           wat        <NA> 1645597         0 2005-10-01 2017-09-06
+    ## 3           wat        <NA> 1645597         0 2005-10-01 2017-09-06
+    ## 4           wat        <NA> 1645597         0 2005-10-01 2017-09-06
+    ## 5           wat        <NA> 1644459         0 2006-01-06 2017-09-06
+    ## 6           wat        <NA> 1645423         0 2005-11-17 2017-09-06
+    ##   count_nu
+    ## 1       11
+    ## 2     4268
+    ## 3     4268
+    ## 4     4268
+    ## 5     4170
+    ## 6     3746
 
-We can now see that out of the 20,072 NWIS sites in South Carolina only 3% are stream sites. Let's add one more query item to this - our parameter of interest. We only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing parameterCdFile in your console.
+The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data. This function returns one row per unique combination of site number, dates, parameter, etc. In order to just get the sites, use `unique`:
 
 ``` r
-sites_sc_stream_temp <- whatNWISsites(stateCd="SC", siteType="ST",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
+sites_sc <- unique(data_sc$site_no)
+length(sites_sc)
 ```
 
-    ## [1] 301
+    ## [1] 9351
 
-We are now down to just 301 sites, much less than our original 20,072. Downloading NWIS data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+To be more specific, let's say we only want stream sites. This requires the `siteType` argument and the abbreviation "ST" for stream. See other siteTypes [here](https://help.waterdata.usgs.gov/code/site_tp_query?fmt=html). We also only want to use sites that have temperature data (USGS parameter code is 00010). Use the argument `parameterCd` and enter the code as a character string, otherwise leading zeroes will be dropped. Recall that you can see a table of all parameter codes by executing `parameterCdFile` in your console.
 
-The `whatNWISsites` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
+``` r
+data_sc_stream_temp <- whatNWISdata(stateCd="SC", siteType="ST", parameterCd="00010")
+nrow(data_sc_stream_temp)
+```
+
+    ## [1] 624
+
+We are now down to just 624 rows of data, much less than our original 167,551 rows. Downloading NWIS data will be covered in the next section, [readNWIS](/usgs-packages/dataRetrieval-readNWIS).
+
+The `whatNWISdata` function can also be very useful for making quick maps with site locations, see the columns `dec_lat_va` and `dec_long_va` (decimal latitude and longitude value). For instance,
 
 ``` r
 # SC stream temperature sites
 library(maps)
 map('state', regions='south carolina')
 title(main="South Carolina Stream Temp Sites")
-points(x=sites_sc_stream_temp$dec_long_va, 
-       y=sites_sc_stream_temp$dec_lat_va)
+points(x=data_sc_stream_temp$dec_long_va, 
+       y=data_sc_stream_temp$dec_lat_va)
 ```
 
-<img src='../static/dataRetrieval-discovery/sc_streamtemp_sites_map-1.png'/ title='Map of South Carolina stream temp sites'/ alt='Geographic locations of NWIS South Carolina stream sites with temperature data'/>
-
-You can also quickly compare the amount of data between states:
-
-``` r
-# stream temperature data in SC vs WV
-sites_wv_stream_temp <- whatNWISsites(stateCd="WV", siteType="ST",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
-```
-
-    ## [1] 301
-
-``` r
-nrow(sites_wv_stream_temp)
-```
-
-    ## [1] 1598
-
-Or compare the amount of data between site types:
-
-``` r
-# SC temperature data in streams vs lakes
-sites_sc_lake_temp <- whatNWISsites(stateCd="SC", siteType="LK",
-                                      parameterCd="00010")
-nrow(sites_sc_stream_temp)
-```
-
-    ## [1] 301
-
-``` r
-nrow(sites_sc_lake_temp)
-```
-
-    ## [1] 33
+<img src='../static/dataRetrieval-discovery/sc_streamtemp_data_map-1.png'/ title='Map of South Carolina stream temp sites'/ alt='Geographic locations of NWIS South Carolina stream sites with temperature data'/>
 
 What if you wanted sites from multiple states? You need to separately query each state because `stateCd` can only be length 1. You can use for loops or the `apply` family of functions to accomplish this. The example here uses a `for` loop and the `dplyr` function, `bind_rows`. We will assume you know how to use these functions.
 
@@ -176,25 +160,24 @@ library(dplyr) #bind_rows is a dplyr function
 
 # find South West US sites with stream temperature
 # then add to the data frame
-sites_sw_stream_temp <- data.frame()
+data_sw_stream_temp <- data.frame()
 for(i in c("CA", "AZ", "NM", "NV")){
-  state_sites <- whatNWISsites(stateCd=i, siteType="ST", parameterCd="00010")
-  sites_sw_stream_temp <- bind_rows(sites_sw_stream_temp, state_sites)
+  state_data <- whatNWISdata(stateCd=i, siteType="ST", parameterCd="00010")
+  data_sw_stream_temp <- bind_rows(data_sw_stream_temp, state_data)
 }
 
-nrow(sites_sw_stream_temp)
+nrow(data_sw_stream_temp)
 ```
 
-    ## [1] 4863
+    ## [1] 6513
 
-### whatNWISdata
-
-`whatNWISdata` will return a data.frame specifying the types of data available for a specified site(s) that fits your querying criteria. You can add queries by the data service, USGS parameter code, or statistics code. Continuing with the South Carolina temperature data example from the `whatNWISsites` section, let's look for the mean daily stream temperature. Since you cannot query `whatNWISdata` using `siteType` or `stateCd`, let's use the site numbers from the previous lesson to specify South Carolina stream sites. You will need to specify the parameter again since the sites likely collect more than one parameter.
+Continuing with the South Carolina temperature data example, let's look for the mean daily stream temperature.
 
 ``` r
 # Average daily SC stream temperature data
 data_sc_stream_temp_avg <- whatNWISdata(
-  siteNumbers = unique(sites_sc_stream_temp[['site_no']]),
+  stateCd="SC", 
+  siteType="ST",
   parameterCd="00010",
   service="dv",
   statCd="00003")
@@ -203,53 +186,7 @@ nrow(data_sc_stream_temp_avg)
 
     ## [1] 90
 
-In some queries, you might notice an error that says "Too Long". This generally happens when you specify too many site numbers at once, which makes the web service URL too long. If this happens, try shortening the number of sites you are querying at a time and append all results at the end (similar to how we queried each state separately in the `whatNWISsites` example). You could also use a different major filter (bounding box, state, huc) that would give a shorter list to include in your query URL.
-
-Let's look at the dataframe returned from `whatNWISdata`:
-
-``` r
-head(data_sc_stream_temp_avg)
-```
-
-    ##     agency_cd  site_no                                    station_nm
-    ## 4        USGS 02110400                     BUCK CREEK NEAR LONGS, SC
-    ## 42       USGS 02110500                 WACCAMAW RIVER NEAR LONGS, SC
-    ## 161      USGS 02110550               WACCAMAW RIVER ABOVE CONWAY, SC
-    ## 200      USGS 02110701                  CRABTREE SWAMP AT CONWAY, SC
-    ## 240      USGS 02110704 WACCAMAW RIVER AT CONWAY MARINA AT CONWAY, SC
-    ## 333      USGS 02110725            AIW AT HIGHWAY 544 AT SOCASTEE, SC
-    ##     site_tp_cd dec_lat_va dec_long_va coord_acy_cd dec_coord_datum_cd
-    ## 4           ST   33.95350   -78.71974            S              NAD83
-    ## 42          ST   33.91267   -78.71502            R              NAD83
-    ## 161      ST-TS   33.85083   -78.89722            S              NAD83
-    ## 200         ST   33.86100   -79.04115            S              NAD83
-    ## 240         ST   33.83295   -79.04365            R              NAD83
-    ## 333         ST   33.68712   -79.00476            U              NAD83
-    ##     alt_va alt_acy_va alt_datum_cd   huc_cd data_type_cd parm_cd stat_cd
-    ## 4     <NA>       <NA>         <NA> 03040206           dv   00010   00003
-    ## 42    5.28         .1       NGVD29 03040206           dv   00010   00003
-    ## 161   <NA>       <NA>         <NA> 03040206           dv   00010   00003
-    ## 200     10          1       NGVD29 03040206           dv   00010   00003
-    ## 240  -5.06         .1       NGVD29 03040206           dv   00010   00003
-    ## 333   <NA>       <NA>         <NA> 03040206           dv   00010   00003
-    ##      ts_id loc_web_ds medium_grp_cd parm_grp_cd  srs_id access_cd
-    ## 4   124329       <NA>           wat        <NA> 1645597         0
-    ## 42  124363       <NA>           wat        <NA> 1645597         0
-    ## 161 124387       <NA>           wat        <NA> 1645597         0
-    ## 200 124406       <NA>           wat        <NA> 1645597         0
-    ## 240 124447      LOC 1           wat        <NA> 1645597         0
-    ## 333 124469       <NA>           wat        <NA> 1645597         0
-    ##     begin_date   end_date count_nu
-    ## 4   2005-10-01 2017-09-05     4267
-    ## 42  2007-04-27 2017-09-05     3744
-    ## 161 2013-06-22 2017-09-05     1527
-    ## 200 2000-02-11 2017-09-05     4511
-    ## 240 1994-10-02 2017-09-05     8052
-    ## 333 1986-02-27 2005-09-29     3746
-
-The data returned from this query can give you information about the data available for each site including, date of first and last record (`begin_date`, `end_date`), number of records (`count_nu`), site altitude (`alt_va`), corresponding hydrologic unit code (`huc_cd`), and parameter units (`parameter_units`). These columns allow even more specification of data requirements before actually downloading the data.
-
-To illustrate this, let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
+Let's apply an additional filter to these data using the `filter` function from `dplyr`. Imagine that the trend analysis you are conducting requires a minimum of 300 records and the most recent data needs to be no earlier than 1975.
 
 ``` r
 # Useable average daily SC stream temperature data
@@ -390,7 +327,7 @@ Now, let's try our South Carolina stream temperature query with `whatWQPsites` a
 
 ### whatWQPsites
 
-`whatWQPsites` works similarly to `whatNWISsites` in that it gives back site information that matches your search criteria. Unlike `whatNWISsites`, you can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, 1,413.
+`whatWQPsites` gives back site information that matches your search criteria. You can use any of the regular WQP web service arguments here. We are going to use `whatWQPsites` with the final criteria of the last query summary call - state, site type, parameter, and the earliest start date. This should return the same amount of sites as the last `readWQPdata` query did, 1,413.
 
 ``` r
 # Getting the number of sites and results for stream 
