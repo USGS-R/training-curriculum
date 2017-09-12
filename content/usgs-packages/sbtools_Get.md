@@ -240,7 +240,7 @@ names(ex_id_item)
 Web feature services to visualize spatial data
 ----------------------------------------------
 
-This function allows you to pull down web feature services (WFS) data from ScienceBase. Note that this is not the most robust function. The developers thought this could be a cool feature, but didn't want to invest too much time if there wouldn't be demand. If you'd use it a lot, visit the [`sbtools` GitHub page](https://github.com/USGS-R/sbtools/issues) and let the developers know through a new issue or "thumbs-up" an existing, related issue.
+This function allows you to pull down web feature services (WFS) data from ScienceBase. Note that this is not the most robust function. The developers thought this could be a cool feature, but didn't want to invest too much time if there wouldn't be demand. If you'd use it a lot, visit the [`sbtools` GitHub page](https://github.com/USGS-R/sbtools/issues) and let the developers know through a new issue or "thumbs-up" an existing, related issue. A current known issue is that most queries return empty lists, below is one of the few examples that does work.
 
 When this function does work, you can use the results to create a map of the data in R. Here's a simple example using the R package `maps`. The item we will use as an example contains low flow estimations for New Jersey. We can map the sites used in the study.
 
@@ -251,7 +251,7 @@ nj_wfs <- item_get_wfs("58cbe556e4b0849ce97dcd31")
     ## Loading required namespace: rgdal
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\lcarr\AppData\Local\Temp\1\RtmpkDU3Rn/file27603ff95b43", layer: "NJ_low_flow_estimates_2016"
+    ## Source: "C:\Users\lcarr\AppData\Local\Temp\1\RtmpKcjtBQ/filea9c1cd25e8f", layer: "NJ_low_flow_estimates_2016"
     ## with 62 features
     ## It has 18 fields
 
@@ -266,7 +266,7 @@ names(nj_wfs)
 
 ``` r
 maps::map("county", "new jersey")
-points(nj_wfs$longitude, nj_wfs$latitude, col="red")
+sp::plot(nj_wfs, col="blue", pch=20, add=TRUE)
 ```
 
 <img src='../static/sbtools-get/sbtools-wfs-1.png'/ title='Map of sbitem WFS data sites'/ alt='Sites from a ScienceBase item's WFS data on a map of New Jersey'/>
