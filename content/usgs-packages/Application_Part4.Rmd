@@ -7,7 +7,7 @@ image: "usgs-packages/static/img/workflow.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 44
-draft: true
+draft: "FALSE"
 ---
 
 In this section, we will complete the workflow and push the finished plots to ScienceBase from within the script. See the [previous section](/usgs-packages/app-part3) to see how we created the plots (or visit [Part 5](/usgs-packages/app-part5) to see the completed Part 3 code).

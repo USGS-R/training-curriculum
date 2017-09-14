@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-05-01
 slug: app-part2
 title: Application - Part 2, download data
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-08-30
 slug: geoknife-exercises
 title: geoknife - Exercises
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/geoknife.svg
 menu:
   main:

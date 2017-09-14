@@ -7,7 +7,7 @@ image: "img/main/intro-icons-300px/r-logo.png"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 50
-draft: true
+draft: "FALSE"
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}

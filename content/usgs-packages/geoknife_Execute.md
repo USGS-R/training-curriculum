@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-09-30
 slug: geoknife-job
 title: geoknife - Construct calls
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/geoknife.svg
 menu:
   main:

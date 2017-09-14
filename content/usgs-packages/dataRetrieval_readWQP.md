@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-31
 slug: dataRetrieval-readWQP
 title: dataRetrieval - readWQP
-draft: true
+draft: FALSE
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:

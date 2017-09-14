@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-04-01
 slug: app-part4
 title: Application - Part 4, publish results
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

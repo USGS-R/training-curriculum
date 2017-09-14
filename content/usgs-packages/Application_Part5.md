@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-03-25
 slug: app-part5
 title: Application - Part 5, complete workflow
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

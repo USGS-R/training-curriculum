@@ -3,7 +3,7 @@ author:
 date: 9999-03-15
 slug: closing-remarks-USGS
 title: Final Thoughts on USGS R Packages
-draft: true 
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:

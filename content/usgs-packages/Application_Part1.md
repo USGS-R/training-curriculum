@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-05-25
 slug: app-part1
 title: Application - Part 1, find sites
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

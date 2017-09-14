@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-11-01
 slug: dataRetrieval-readNWIS
 title: dataRetrieval - readNWIS
-draft: true
+draft: FALSE
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:

@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-01
 slug: geoknife-intro
 title: geoknife - Introduction
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/geoknife.svg
 menu:
   main:
