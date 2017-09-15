@@ -7,7 +7,7 @@ image: "usgs-packages/static/img/getting_started.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 1
-draft: true
+draft: "FALSE"
 ---
 
 ```{r setup, include=FALSE, warning=FALSE, message=FALSE}

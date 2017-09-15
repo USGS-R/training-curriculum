@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-12-01
 slug: dataRetrieval-intro
 title: dataRetrieval - Introduction
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:

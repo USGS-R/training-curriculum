@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-04-25
 slug: app-part3
 title: Application - Part 3, plots and maps
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

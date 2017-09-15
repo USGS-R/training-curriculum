@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-05-01
 slug: app-part2
 title: Application - Part 2, download data
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:
@@ -12,7 +12,7 @@ menu:
 ---
 In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/usgs-packages/app-part1).
 
-We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. The code that we used to get the site and 8-digit HUC numbers is available in [Part 5](/usgs-packages/app-part5).
+We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. The code that we used to get the site and 8-digit HUC numbers is available in the [previous lesson](/usgs-packages/app-part1) or summarized in [Part 5, the complete workflow](/usgs-packages/app-part5).
 
 Before downloading the data, make sure you identify the time period of interest. For this example, we are going to use water year 2016.
 

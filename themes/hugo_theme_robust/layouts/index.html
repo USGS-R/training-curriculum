@@ -12,12 +12,19 @@
       <h1 class="p-page-title">R Training Curriculum</h1>
       
       <p>
-        This is a collection of the USGS R training curriculum, and materials that correspond to specific workshops. Currently, there is only one course - <a href="intro-curriculum">Introduction to R</a>. The curriculum used throughout this workshop is available here. Navigate using the side menu or the "Next/Prev" buttons on each lesson. 
+        This is a collection of the USGS R training curriculum, and materials that correspond to specific workshops. The current courses are <a href="intro-curriculum">Introduction to R</a>, <a href="usgs-packages">Introduction to USGS R Packages</a>, and <a href="r-package-dev">R Package Development</a>. TNavigate using the side menu or the "Next/Prev" buttons on each lesson. 
       
         </br> </br>  
         
-        Introduction to R: learn how to go through a basic scientific workflow using R. Get and read data, clean it up, explore the data using basic statistics and plotting, analyze using simple regressions or models, visualize the data with publication-ready plots, and then repeat or automate this process. In addition to the lessons that teach the basic skills, there is a section pointing to external material for topics not covered called <a href="intro-curriculum/Additional">Additional Topics in R</a>. Also, there is a <a href="intro-curriculum/Crib">crib sheet</a> Sheet summarizing all of the functions used in the curriculum, and a summary of the <a href="intro-curriculum/USGS">USGS developed R packages</a>.
+        <b>Introduction to R:</b> learn how to go through a basic scientific workflow using R. Get and read data, clean it up, explore the data using basic statistics and plotting, analyze using simple regressions or models, visualize the data with publication-ready plots, and then repeat or automate this process. In addition to the lessons that teach the basic skills, there is a section pointing to external material for topics not covered called <a href="intro-curriculum/Additional">Additional Topics in R</a>. Also, there is a <a href="intro-curriculum/Crib">crib sheet</a> Sheet summarizing all of the functions used in the curriculum, and a summary of the <a href="intro-curriculum/USGS">USGS developed R packages</a>.
         
+        </br> </br> 
+        
+        <b>Introduction to USGS R Packages:</b> This course builds on basic R data analysis skills by introducing USGS-built packages that can be leveraged to create advanced, reproducible workflows, such as for accessing gridded climate data, analyzing high frequency water observations, and for taking full advantage of the USGS ScienceBase repository. The USGS packages covered in this course span a variety of applications: accessing web data, accessing personally stored data, releasing data for publication, and visualizing data within R. Following the course, students will be capable of integrating these packages into their own scientific workflows. This course requires moderate to advanced knowledge of the statistical programming language R. This is an online-only course.
+        
+        </br> </br> 
+        
+        <b>R Package Development:</b> This workshop covers the R package development life cycle, including development best practices, version control, and maintenance. This workshop intends to give advanced R programmers the skills they need to turn their scripted workflows into an R package. R packages allow code to be bundled into functions and easily downloaded and installed by users. 
         </br> </br> 
       
         To learn more about how to schedule a training, visit the <a href="http://owi.usgs.gov/R/training.html">USGS-R training homepage</a>.
@@ -29,8 +36,10 @@
       <ul>
 
         <li><a href="{{ .Site.BaseURL }}intro-curriculum">Introduction to R</a></li>
+        <li><a href="{{ .Site.BaseURL }}usgs-packages">Introduction to USGS R Packages</a></li>
         <li><a href="{{ .Site.BaseURL }}r-package-dev">R Package Developement</a></li>
         <li><a href="{{ .Site.BaseURL }}course-specific-material">Course Specific Materials</a></li>
+        
       </ul>
 
       {{ partial "pagination.html" . }}

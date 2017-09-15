@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-07-25
 slug: sbtools-discovery
 title: sbtools - Data discovery
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/sbtools.svg
 menu:
   main:

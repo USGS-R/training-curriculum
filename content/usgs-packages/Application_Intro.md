@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-06-01
 slug: app-intro
 title: Application - Introduction
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/workflow.svg
 menu:
   main:

@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-06-15
 slug: sbtools-exercises
 title: sbtools - Exercises
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/sbtools.svg
 menu:
   main:

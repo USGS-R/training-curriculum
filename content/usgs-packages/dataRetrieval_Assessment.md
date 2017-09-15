@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-10-15
 slug: dataRetrieval-exercises
 title: dataRetrieval - Exercises
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/dataRetrieval.svg
 menu:
   main:

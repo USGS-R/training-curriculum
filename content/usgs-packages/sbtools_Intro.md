@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-08-01
 slug: sbtools-intro
 title: sbtools - Introduction
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/sbtools.svg
 menu:
   main:

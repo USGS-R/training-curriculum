@@ -1,9 +1,9 @@
 ---
-author: Lindsay R. Carr
+author: 
 date: 9999-03-15
 slug: closing-remarks-USGS
 title: Final Thoughts on USGS R Packages
-draft: true 
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:
@@ -17,3 +17,38 @@ If you have any questions, feature requests, or bugs to report for any USGS pack
 If you think you would like to create your own package or are curious about package development, step through our [R Package Development curriculum](/r-package-dev) to learn about the process, technical skill, and time commitment involved.
 
 You can also keep up-to-date through our USGS-R Twitter account, [@USGS\_R](https://twitter.com/USGS_R)!
+
+### Additional Resources
+
+-   [USGS-R Community website](owi.usgs.gov/R)
+-   [dataRetrieval publication](pubs.usgs.gov/tm/04/a10/pdf/tm4A10_appendix_1.pdf)
+-   [geoknife publication](pubs.er.usgs.gov/publication/70159899)
+-   [sbtools publication](pubs.er.usgs.gov/publication/70176357)
+-   [Package code + issue tracking](www.github.com/USGS-R)
+-   [OWI blog site](owi.usgs.gov/blog)
+
+### Course Authors
+
+Lindsay Carr
+
+Alison Appling
+
+Laura DeCicco
+
+Samantha Oliver
+
+Jordan Walker
+
+### Acknowledgements
+
+David Blodgett, US Geological Survey (geoknife, author)
+
+Scott Chamberlain, rOpenSci (sbtools, author)
+
+Robert Hirsch, US Geological Survey (dataRetrieval, author)
+
+David Lorenz, US Geological Survey (dataRetrieval, author)
+
+Jordan Read, US Geological Survey (geoknife & sbtools, author)
+
+Luke Winslow (sbtools & geoknife, author)

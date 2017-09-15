@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-06-25
 slug: sbtools-modify
 title: sbtools - Modify sbitems
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/sbtools.svg
 menu:
   main:

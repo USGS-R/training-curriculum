@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-03-01
 slug: glossary-usgs
 title: Glossary of terms and functions
-draft: true 
+draft: FALSE 
 image: img/main/intro-icons-300px/r-logo.png
 menu:
   main:

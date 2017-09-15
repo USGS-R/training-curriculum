@@ -3,7 +3,7 @@ author: Lindsay R. Carr
 date: 9999-07-01
 slug: sbtools-get
 title: sbtools - Download Data
-draft: true 
+draft: FALSE 
 image: usgs-packages/static/img/sbtools.svg
 menu:
   main:

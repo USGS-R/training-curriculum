@@ -7,12 +7,12 @@ image: "usgs-packages/static/img/workflow.svg"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to USGS R Packages
 weight: 42
-draft: true
+draft: "FALSE"
 ---
 
 In this section, we are going to use `dataRetrieval` and `geoknife` to get nitrogen, phosphorus, and precipitation data for the sites determined in the [previous section](/usgs-packages/app-part1).
 
-We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. The code that we used to get the site and 8-digit HUC numbers is available in [Part 5](/usgs-packages/app-part5).
+We are walking through the workflow in very distinct chunks, but this will be put together as a single script at the end. The code that we used to get the site and 8-digit HUC numbers is available in the [previous lesson](/usgs-packages/app-part1) or summarized in [Part 5, the complete workflow](/usgs-packages/app-part5).
 
 ```{r include=FALSE}
 library(knitr)
