@@ -18,7 +18,8 @@ See [R Installation Instructions](/installr) for information on what software sh
 **Day 1**
 
 -   08:00 am - 08:30 am -- Instructors available for questions
--   08:30 am - 10:00 am -- [Introduction](/intro-curriculum/Introduction)
+-   08:30 am - 09:30 am -- [Introduction](/intro-curriculum/Introduction)
+-   09:30 am - 10:00 am -- Example workflow (link coming soon...)
 -   10:00 am - 10:15 am -- *Break*
 -   10:15 am - 12:00 pm -- [Get](/intro-curriculum/Get)
 -   12:00 am - 01:00 pm -- *Lunch*
@@ -66,7 +67,11 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact*
 
-*others TBD*
+David Watkins (<wwatkins@usgs.gov>)
+
+Laura DeCicco (<ldecicco@usgs.gov>)
+
+Sam Oliver (<soliver@usgs.gov>)
 
 ### Lesson scripts
 
