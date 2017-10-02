@@ -1,11 +1,11 @@
 ---
-title: "Middleton Intro to R Training"
-date: "2017-10-24"
-slug: "introR-Middleton-Oct17"
+title: "CA WSC Intro to R Training"
+date: "2017-11-07"
+slug: "introR-CAWSC-Nov17"
 output: USGSmarkdowntemplates::hugoTraining_course
 parent: Course Specific Material
 ---
-October 24-26 in Middleton, WI
+November 7-9, 2017 in Sacramento, CA
 
 ### Installation
 
@@ -42,10 +42,7 @@ See [R Installation Instructions](/installr) for information on what software sh
 
 * 08:00 am - 08:30 am -- Instructors available for questions
 * 08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
-* 10:00 am - 10:15 am -- *Break*
-* 10:15 am - 12:00 pm -- [Repeat](/intro-curriculum/Reproduce/) continued
-* 12:00 pm - 01:00 pm -- *Lunch*
-* 01:00 pm - 04:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+* 10:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
@@ -65,11 +62,9 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 Lindsay Carr (lcarr@usgs.gov) -- *primary contact*
 
+Alicia Rhoades (arhoades@usgs.gov)
+
 David Watkins (wwatkins@usgs.gov)
-
-Laura DeCicco (ldecicco@usgs.gov)
-
-Sam Oliver (soliver@usgs.gov)
 
 ### Lesson scripts
 
