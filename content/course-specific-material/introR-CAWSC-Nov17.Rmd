@@ -23,8 +23,8 @@ See [R Installation Instructions](/installr) for information on what software sh
 * 12:00 am - 01:00 pm -- *Lunch*
 * 01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 * 03:00 pm - 03:15 pm -- *Break*
-* 03:15 pm - 04:15 pm -- More [Clean](/intro-curriculum/Clean)
-* 04:15 pm - 04:30 pm -- End of day wrap-up
+* 03:15 pm - 04:00 pm -- More [Clean](/intro-curriculum/Clean)
+* 04:00 pm - 04:30 pm -- Project time!
 
 **Day 2**
 
@@ -35,14 +35,14 @@ See [R Installation Instructions](/installr) for information on what software sh
 * 12:00 pm - 01:00 pm -- *Lunch*
 * 01:00 pm - 02:30 pm -- [Analyze: dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf) 
 * 02:30 pm - 02:45 pm -- *Break*
-* 02:45 pm - 04:15 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
-* 04:15 pm - 04:30 pm -- End of day wrap-up
+* 02:45 pm - 04:00 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
+* 04:00 pm - 04:30 pm -- Project time!
 
 **Day 3**
 
 * 08:00 am - 08:30 am -- Instructors available for questions
 * 08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
-* 10:00 am - 12:30 pm -- Practice: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+* 10:00 am - 12:00 pm -- Project time: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
