@@ -40,7 +40,7 @@ gw_data_sep8 <- gw_data %>%
   filter(dateTime > startDateTime,
          dateTime < endDateTime) 
 
-# use the dataRetrieval fxn to get more user-friendly column names
+# use the dataRetrieval function to get more user-friendly column names
 # WLBLS = water level below surface
 gw_data_sep8 <- renameNWISColumns(gw_data_sep8)
 ```
