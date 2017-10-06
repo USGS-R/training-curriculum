@@ -5,7 +5,7 @@ date: "October 5, 2017"
 output: html_document
 ---
 
-The following is an example of data analysis workflow borrowed from the blog "Groundwater levels across US affected by Mexico earthquake" by Laura DeCicco (visit that blog post [here](https://owi.usgs.gov/blog/earthquake/)).
+The following is an example of data analysis workflow borrowed from the blog "Groundwater levels across US affected by Mexico earthquake" by Laura DeCicco (visit that blog post [here](https://owi.usgs.gov/blog/earthquake/)). Note that your plots might differ slightly from the blog post. The blog was created while the data was still provisional and the data may have been adjusted during review.
 
 ## First, get data.
 
