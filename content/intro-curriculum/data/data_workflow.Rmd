@@ -1,0 +1,84 @@
+---
+title: "Earthquakes and water tables"
+author: "Lindsay R. Carr"
+date: "October 5, 2017"
+output: html_document
+---
+
+The following is an example of data analysis workflow borrowed from the blog "Groundwater levels across US affected by Mexico earthquake" by Laura DeCicco (visit that blog post [here](https://owi.usgs.gov/blog/earthquake/)). Note that your plots might differ slightly from the blog post. The blog was created while the data was still provisional and the data may have been adjusted during review.
+
+## First, get data.
+
+```{r get-data, warning=FALSE, message=FALSE}
+library(dataRetrieval)
+
+sites <- c("402411077374801", "364818094185302", "405215084335400", "370812080261901",
+           "393851077343001", "444302070252401", "324307117063502", "421157075535401",
+           "373904118570701", "343457096404501", "401804074432601", "292618099165901")
+
+gw_data <- readNWISuv(sites, 
+                      parameterCd = "72019", 
+                      startDate = "2017-09-07",
+                      endDate = "2017-09-08")
+
+unique_sites <- attr(gw_data, "siteInfo")
+
+```
+
+## Clean, arrange, and prepare data
+
+```{r clean-data, warning=FALSE, message=FALSE}
+library(dplyr)
+
+# order site info data from Southern-most sites to Northern-most
+south_to_north <- arrange(unique_sites, desc(dec_lat_va))
+
+# subset data so it only includes September 8th, 2017
+startDateTime <- as.POSIXct("2017-09-07 00:00:00", tz="UTC")
+endDateTime <- as.POSIXct("2017-09-09 00:00:00", tz="UTC")
+gw_data_sep8 <- gw_data %>%
+  filter(dateTime > startDateTime,
+         dateTime < endDateTime) 
+
+# use the dataRetrieval function to get more user-friendly column names
+# WLBLS = water level below surface
+gw_data_sep8 <- renameNWISColumns(gw_data_sep8)
+```
+
+## Plot data
+
+```{r plot-data, warning=FALSE, message=FALSE, fig.height=16}
+# gather colors to be used for each site
+col_values <- c("#DCDA4B","#999999","#00FFFF","#CEA226","#CC79A7","#4E26CE",
+                "#0000ff","#78C15A","#79AEAE","#FF0000","#00FF00","#B1611D",
+                "#FFA500","#F4426e", "#800000", "#808000")
+
+# plot multiple plots on one device
+n_sites <- nrow(south_to_north)
+plot_mat <- matrix(1:n_sites, n_sites, 1)
+layout(plot_mat)
+
+# setup plot margins
+par(oma = c(0,0,0,0), mar = c(2,5,2,1))
+
+# loop through and make a plot for each of the 12 sites
+for(i in 1:n_sites){
+  gw_current_site <- filter(gw_data_sep8, site_no == south_to_north[i, "site_no"])
+  plot(gw_current_site$dateTime, -gw_current_site$WLBLS_Inst, 
+       xlim = c(startDateTime, endDateTime), col = col_values[i], 
+       lwd = 1.3, type = 'l',
+       ylab = "Depth to Water\nft below land surface",
+       main = south_to_north[i, "station_nm"])
+}
+
+```
+
+## Spice it up with a map
+
+```{r map-sites, warning=FALSE, message=FALSE, fig.height=6}
+library(maps)
+
+map("state", fill = TRUE, col = "grey90", border = "white")
+points(south_to_north$dec_lon_va, south_to_north$dec_lat_va, pch=20, col = col_values)
+
+```
