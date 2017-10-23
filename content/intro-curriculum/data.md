@@ -3,6 +3,7 @@ author:
 date: 9998-01-01
 slug: data
 title: Data
+draft: TRUE 
 image: 
 menu:
   main:
@@ -20,3 +21,5 @@ menu:
 [siteInfo.csv](../data/siteInfo.csv)
 
 This data was pulled from NWIS and manipulated to create datasets that highlight some of the troublesome characteristics of working with data in R (such as empty or missing values). As such, these datasets do not accurately represent what is stored in NWIS. Take a look at the [script used to create these data files](../data/create_df.R) to see exactly how the NWIS data was changed.
+
+[data\_workflow.Rmd](../data/data_workflow.Rmd)
