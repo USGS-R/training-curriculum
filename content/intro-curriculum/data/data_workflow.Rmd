@@ -47,29 +47,62 @@ gw_data_sep8 <- renameNWISColumns(gw_data_sep8)
 
 ## Plot data
 
-```{r plot-data, warning=FALSE, message=FALSE, fig.height=16}
+```{r plot-data, warning=FALSE, message=FALSE, fig.height=3, fig.width=10}
+library(ggplot2)
+
+# get/set ylabel & xlabel from data
+y_label <- attr(gw_data_sep8, "variableInfo")$variableName
+x_label <- "UTC time"
+
 # gather colors to be used for each site
 col_values <- c("#DCDA4B","#999999","#00FFFF","#CEA226","#CC79A7","#4E26CE",
                 "#0000ff","#78C15A","#79AEAE","#FF0000","#00FF00","#B1611D",
                 "#FFA500","#F4426e", "#800000", "#808000")
 
-# plot multiple plots on one device
 n_sites <- nrow(south_to_north)
-plot_mat <- matrix(1:n_sites, n_sites, 1)
-layout(plot_mat)
-
-# setup plot margins
-par(oma = c(0,0,0,0), mar = c(2,5,2,1))
 
 # loop through and make a plot for each of the 12 sites
 for(i in 1:n_sites){
-  gw_current_site <- filter(gw_data_sep8, site_no == south_to_north[i, "site_no"])
-  plot(gw_current_site$dateTime, -gw_current_site$WLBLS_Inst, 
-       xlim = c(startDateTime, endDateTime), col = col_values[i], 
-       lwd = 1.3, type = 'l',
-       ylab = "Depth to Water\nft below land surface",
-       main = south_to_north[i, "station_nm"])
+  
+  site_i <- south_to_north[i, "site_no"]
+  gw_current_site <- filter(gw_data_sep8, site_no == site_i)
+  
+  plot_current <- ggplot(data = gw_current_site) +
+    geom_line(aes(x = dateTime, y = WLBLS_Inst), color = col_values[i], size=1.5) +
+    theme_bw() +
+    scale_y_continuous(trans = "reverse") +
+    ylab(label = y_label) +
+    xlab(label = x_label) +
+    ggtitle(paste("Site", site_i)) +
+    theme(strip.background = element_blank(),
+          strip.text.y = element_text(angle = 0),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank())
+  
+  print(plot_current)
 }
+```
+
+We show a `for` loop here because that is what we will learn in this class. `ggplot2` has another feature that allows us to get all of these unique site timeseries plots with less code using the `facet` function. 
+
+```{r ggplot-data, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
+# ggplot2 faceting
+
+# create timeseries plot for each site w/ shared x-axis
+ggplot(data = gw_data_sep8) +
+  geom_line(aes(x = dateTime, y = WLBLS_Inst, col = site_no)) +
+  theme_bw() +
+  scale_y_continuous(trans = "reverse") +
+  scale_color_manual(values = col_values) +
+  facet_grid(site_no ~ ., scales = "free") +
+  ylab(label = y_label) +
+  xlab(label = x_label) +
+  theme(strip.background = element_blank(),
+        strip.text.y = element_text(angle = 0),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none",
+        panel.spacing.y=unit(0.05, "lines"))
 
 ```
 
