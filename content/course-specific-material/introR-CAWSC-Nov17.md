@@ -19,7 +19,7 @@ See [R Installation Instructions](/installr) for information on what software sh
 
 -   08:00 am - 08:30 am -- Instructors available for questions
 -   08:30 am - 09:30 am -- [Introduction](/intro-curriculum/Introduction)
--   09:30 am - 10:00 am -- Example workflow (link coming soon...)
+-   09:30 am - 10:00 am -- [Example workflow](/intro-curriculum/data/data_workflow.Rmd)
 -   10:00 am - 10:15 am -- *Break*
 -   10:15 am - 12:00 pm -- [Get](/intro-curriculum/Get)
 -   12:00 am - 01:00 pm -- *Lunch*

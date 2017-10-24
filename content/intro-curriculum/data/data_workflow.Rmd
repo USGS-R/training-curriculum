@@ -1,0 +1,117 @@
+---
+title: "Earthquakes and water tables"
+author: "Lindsay R. Carr"
+date: "October 5, 2017"
+output: html_document
+---
+
+The following is an example of data analysis workflow borrowed from the blog "Groundwater levels across US affected by Mexico earthquake" by Laura DeCicco (visit that blog post [here](https://owi.usgs.gov/blog/earthquake/)). Note that your plots might differ slightly from the blog post. The blog was created while the data was still provisional and the data may have been adjusted during review.
+
+## First, get data.
+
+```{r get-data, warning=FALSE, message=FALSE}
+library(dataRetrieval)
+
+sites <- c("402411077374801", "364818094185302", "405215084335400", "370812080261901",
+           "393851077343001", "444302070252401", "324307117063502", "421157075535401",
+           "373904118570701", "343457096404501", "401804074432601", "292618099165901")
+
+gw_data <- readNWISuv(sites, 
+                      parameterCd = "72019", 
+                      startDate = "2017-09-07",
+                      endDate = "2017-09-08")
+
+unique_sites <- attr(gw_data, "siteInfo")
+
+```
+
+## Clean, arrange, and prepare data
+
+```{r clean-data, warning=FALSE, message=FALSE}
+library(dplyr)
+
+# order site info data from Southern-most sites to Northern-most
+south_to_north <- arrange(unique_sites, desc(dec_lat_va))
+
+# subset data so it only includes September 8th, 2017
+startDateTime <- as.POSIXct("2017-09-07 00:00:00", tz="UTC")
+endDateTime <- as.POSIXct("2017-09-09 00:00:00", tz="UTC")
+gw_data_sep8 <- gw_data %>%
+  filter(dateTime > startDateTime,
+         dateTime < endDateTime) 
+
+# use the dataRetrieval function to get more user-friendly column names
+# WLBLS = water level below surface
+gw_data_sep8 <- renameNWISColumns(gw_data_sep8)
+```
+
+## Plot data
+
+```{r plot-data, warning=FALSE, message=FALSE, fig.height=3, fig.width=10}
+library(ggplot2)
+
+# get/set ylabel & xlabel from data
+y_label <- attr(gw_data_sep8, "variableInfo")$variableName
+x_label <- "UTC time"
+
+# gather colors to be used for each site
+col_values <- c("#DCDA4B","#999999","#00FFFF","#CEA226","#CC79A7","#4E26CE",
+                "#0000ff","#78C15A","#79AEAE","#FF0000","#00FF00","#B1611D",
+                "#FFA500","#F4426e", "#800000", "#808000")
+
+n_sites <- nrow(south_to_north)
+
+# loop through and make a plot for each of the 12 sites
+for(i in 1:n_sites){
+  
+  site_i <- south_to_north[i, "site_no"]
+  gw_current_site <- filter(gw_data_sep8, site_no == site_i)
+  
+  plot_current <- ggplot(data = gw_current_site) +
+    geom_line(aes(x = dateTime, y = WLBLS_Inst), color = col_values[i], size=1.5) +
+    theme_bw() +
+    scale_y_continuous(trans = "reverse") +
+    ylab(label = y_label) +
+    xlab(label = x_label) +
+    ggtitle(paste("Site", site_i)) +
+    theme(strip.background = element_blank(),
+          strip.text.y = element_text(angle = 0),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank())
+  
+  print(plot_current)
+}
+```
+
+We show a `for` loop here because that is what we will learn in this class. `ggplot2` has another feature that allows us to get all of these unique site timeseries plots with less code using the `facet` function. 
+
+```{r ggplot-data, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
+# ggplot2 faceting
+
+# create timeseries plot for each site w/ shared x-axis
+ggplot(data = gw_data_sep8) +
+  geom_line(aes(x = dateTime, y = WLBLS_Inst, col = site_no)) +
+  theme_bw() +
+  scale_y_continuous(trans = "reverse") +
+  scale_color_manual(values = col_values) +
+  facet_grid(site_no ~ ., scales = "free") +
+  ylab(label = y_label) +
+  xlab(label = x_label) +
+  theme(strip.background = element_blank(),
+        strip.text.y = element_text(angle = 0),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none",
+        panel.spacing.y=unit(0.05, "lines"))
+
+```
+
+## Spice it up with a map
+
+```{r map-sites, warning=FALSE, message=FALSE, fig.height=6}
+library(maps)
+
+map("state", fill = TRUE, col = "grey90", border = "white")
+points(south_to_north$dec_lon_va, south_to_north$dec_lat_va, pch=20, col = col_values)
+
+```
