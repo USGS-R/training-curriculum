@@ -75,4 +75,4 @@ Sam Oliver (<soliver@usgs.gov>)
 
 ### Lesson scripts
 
-The project folder and `.Rproj` file with the scripts that the instructors created in the class will be linked here.
+[This zip file](https://drive.google.com/file/d/0B54YFPSk4XN8NHhUeFdvQW1iU3M/view) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
