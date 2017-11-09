@@ -62,10 +62,8 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 Lindsay Carr (lcarr@usgs.gov) -- *primary contact*
 
-Alicia Rhoades (arhoades@usgs.gov)
-
 David Watkins (wwatkins@usgs.gov)
 
 ### Lesson scripts
 
-The project folder and `.Rproj` file with the scripts that the instructors created in the class will be linked here.
+[This zip file](https://drive.google.com/file/d/1AZu5AMXumj9qaO6NcdARN3RUmkdpffRj/view) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
