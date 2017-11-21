@@ -1,6 +1,6 @@
 ---
 title: "ND WSC Intro to R Training"
-date: "2017-11-21"
+date: "2017-12-12"
 slug: "introR-NDWSC-Nov17"
 output: USGSmarkdowntemplates::hugoTraining_course
 parent: Course Specific Material
@@ -20,7 +20,7 @@ See [R Installation Instructions](/installr) for information on what software sh
 * 09:30 am - 10:00 am -- [Example workflow](/intro-curriculum/data/data_workflow.Rmd)
 * 10:00 am - 10:15 am -- *Break*
 * 10:15 am - 12:00 pm -- [Get](/intro-curriculum/Get)
-* 12:00 am - 01:00 pm -- *Lunch*
+* 12:00 pm - 01:00 pm -- *Lunch*
 * 01:00 pm - 03:00 pm -- [Clean](/intro-curriculum/Clean)
 * 03:00 pm - 03:15 pm -- *Break*
 * 03:15 pm - 04:00 pm -- More [Clean](/intro-curriculum/Clean)
@@ -42,7 +42,7 @@ See [R Installation Instructions](/installr) for information on what software sh
 
 * 08:00 am - 08:30 am -- Instructors available for questions
 * 08:30 am - 10:00 am -- [Repeat](/intro-curriculum/Reproduce/)
-* 10:00 am - 12:00 pm -- Project time: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
+* 10:00 am - 12:30 pm -- Project time: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), or [additional topics](/intro-curriculum/Additional/)
 
 ### Data files
 
