@@ -7,7 +7,7 @@ menu:
     parent: Course Specific Material
     weight: 1
 ---
-December 12-14, 2017 in Sacramento, CA
+December 12-14, 2017 in Bismarck, ND
 
 ### Installation
 

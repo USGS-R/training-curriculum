@@ -5,7 +5,7 @@ slug: "introR-NDWSC-Nov17"
 output: USGSmarkdowntemplates::hugoTraining_course
 parent: Course Specific Material
 ---
-December 12-14, 2017 in Sacramento, CA
+December 12-14, 2017 in Bismarck, ND
 
 ### Installation
 
