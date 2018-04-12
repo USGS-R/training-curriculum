@@ -1,6 +1,6 @@
 ---
 date: 2018-05-01
-slug: introR-Denver-Nov17
+slug: introR-Denver-May18
 title: Denver Intro to R Training
 menu:
   main:
@@ -62,7 +62,7 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 ### Instructors
 
-Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact*
+Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact* Samantha Oliver (<soliver@usgs.gov>)
 
 ### Lesson scripts
 
