@@ -62,7 +62,9 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 ### Instructors
 
-Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact* Samantha Oliver (<soliver@usgs.gov>)
+Lindsay Carr (<lcarr@usgs.gov>) -- *primary contact*
+
+Samantha Oliver (<soliver@usgs.gov>)
 
 ### Lesson scripts
 
