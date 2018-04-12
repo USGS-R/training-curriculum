@@ -3,6 +3,7 @@ author: Jeffrey W. Hollister, Luke Winslow, Lindsay Carr
 date: 9999-01-08
 slug: Clean
 title: C. Clean
+draft: FALSE 
 image: img/main/intro-icons-300px/clean.png
 menu:
   main:
@@ -592,7 +593,7 @@ head(DO)
     ## 766  02336410 2011-05-05 22:45:00  8.8
 
 1.  Run the lines above to create the two data frames we will be working with.
-2.  Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.
+2.  Create a new data frame, `DO_Q`, that is a join of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to join by are the site and date columns.
 3.  Now try merging, but keeping all `Q` observations, and call it `Q_DO`. You should notice a lot of `NA` values where the `DO` dataframe did not have a matching observation.
 4.  Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
 5.  If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
@@ -650,14 +651,16 @@ Now `slice()`, which accomplishes what we did with the numeric indices before. R
 slice(intro_df, 3:10)
 ```
 
-    ##    site_no            dateTime   Flow Flow_cd Wtemp  pH   DO Wtemp_F
-    ## 1 02203655 2011-05-22 09:30:00    7.8       A  20.6 7.0  6.6   69.08
-    ## 2 02336313 2011-05-22 12:00:00    1.3       A  19.3 7.2  7.3   66.74
-    ## 3 02203700 2011-05-09 10:30:00    4.9       A  18.0 7.2  4.4   64.40
-    ## 4 02336313 2011-05-13 12:15:00    1.0       A  20.4 7.2  7.1   68.72
-    ## 5 02337170 2011-05-18 23:15:00 4510.0       A  13.5 6.9 10.0   56.30
-    ## 6 02336120 2011-05-08 15:45:00   17.0     A e  17.6 7.2  8.7   63.68
-    ## 7 02336526 2011-05-11 11:30:00    4.0       A  20.8 7.0  6.6   69.44
-    ## 8 02336410 2011-05-10 04:15:00   19.0       A  21.5 7.0  7.2   70.70
+    ## # A tibble: 8 x 8
+    ##    site_no            dateTime   Flow Flow_cd Wtemp    pH    DO Wtemp_F
+    ##      <chr>               <chr>  <dbl>   <chr> <dbl> <dbl> <dbl>   <dbl>
+    ## 1 02203655 2011-05-22 09:30:00    7.8       A  20.6   7.0   6.6   69.08
+    ## 2 02336313 2011-05-22 12:00:00    1.3       A  19.3   7.2   7.3   66.74
+    ## 3 02203700 2011-05-09 10:30:00    4.9       A  18.0   7.2   4.4   64.40
+    ## 4 02336313 2011-05-13 12:15:00    1.0       A  20.4   7.2   7.1   68.72
+    ## 5 02337170 2011-05-18 23:15:00 4510.0       A  13.5   6.9  10.0   56.30
+    ## 6 02336120 2011-05-08 15:45:00   17.0     A e  17.6   7.2   8.7   63.68
+    ## 7 02336526 2011-05-11 11:30:00    4.0       A  20.8   7.0   6.6   69.44
+    ## 8 02336410 2011-05-10 04:15:00   19.0       A  21.5   7.0   7.2   70.70
 
 We now have quite a few tools that we can use to clean and manipulate data in R. We have barely touched what both base R and `dplyr` are capable of accomplishing, but hopefully you now have some basics to build on.

@@ -3,6 +3,7 @@ title: "C. Clean"
 author: "Jeffrey W. Hollister, Luke Winslow, Lindsay Carr"
 date: "9999-01-08"
 slug: "Clean"
+draft: "FALSE"
 image: img/main/intro-icons-300px/clean.png
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to R Course
@@ -291,7 +292,7 @@ head(DO)
 ```
 
 1. Run the lines above to create the two data frames we will be working with.
-2. Create a new data frame, `DO_Q`, that is a merge of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to merge on are the site and date columns.  
+2. Create a new data frame, `DO_Q`, that is a join of `Q` and `DO`, but with only lines in `DO` preserved in the output. The columns to join by are the site and date columns.  
 3. Now try merging, but keeping all `Q` observations, and call it `Q_DO`. You should notice a lot of `NA` values where the `DO` dataframe did not have a matching observation. 
 3. Add another line to your code and create a data frame that removes all NA values from `Q_DO`. Woah - that's the same dataframe as our `DO_Q`!
 4. If that goes quickly, feel free to explore other joins (`inner_join`, `full_join`, etc).
