@@ -1,7 +1,7 @@
 ---
 date: 2018-05-16
 slug: introR-Reston-May18
-title: Reston Intro to R Training
+title: Reston Intro to R Training, 2018
 menu:
   main:
     parent: Course Specific Material
