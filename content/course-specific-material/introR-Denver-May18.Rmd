@@ -35,7 +35,7 @@ See [R Installation Instructions](/installr) for information on what software sh
 * 12:00 pm - 01:00 pm -- *Lunch*
 * 01:00 pm - 02:30 pm -- [Analyze: dataRetrieval](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf) 
 * 02:30 pm - 02:45 pm -- *Break*
-* 02:45 pm - 04:00 pm -- Visualize with base R: [Visualize](/intro-curriculum/Visualize/)
+* 02:45 pm - 04:00 pm -- Visualize with ggplot2: [Visualize](/intro-curriculum/ggplot2/)
 * 04:00 pm - 04:30 pm -- Project time!
 
 **Day 3**
