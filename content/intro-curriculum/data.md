@@ -16,6 +16,8 @@ menu:
 
 [course\_NWISdata\_cleaned.csv](../data/course_NWISdata_cleaned.csv)
 
+[course\_NWISdata.xlsx](../data/course_NWISdata.xlsx)
+
 [newData.csv](../data/newData.csv)
 
 [siteInfo.csv](../data/siteInfo.csv)
