@@ -5,6 +5,7 @@ slug: "data"
 output: USGSmarkdowntemplates::hugoTraining
 parent: Introduction to R Course
 weight: 2
+draft: "FALSE"
 ---
 
 [IonBalance.csv](../data/IonBalance.csv)
