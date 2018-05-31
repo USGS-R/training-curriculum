@@ -3,6 +3,7 @@ author:
 date: 9998-01-01
 slug: data
 title: Data
+draft: FALSE 
 image: 
 menu:
   main:
