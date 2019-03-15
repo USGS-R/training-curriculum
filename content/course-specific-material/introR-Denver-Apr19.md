@@ -1,7 +1,7 @@
 ---
 date: 2019-04-23
 slug: introR-Denver-Apr19
-title: Denver Intro to R Training
+title: Denver Intro to R Training 2019
 menu:
   main:
     parent: Course Specific Material
