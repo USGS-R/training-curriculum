@@ -1,13 +1,13 @@
 ---
-date: 2019-03-25
-slug: introR-LLNL-Mar19
-title: LLNL Intro to R Training
+date: 2019-04-23
+slug: introR-Denver-Apr19
+title: Denver Intro to R Training
 menu:
   main:
     parent: Course Specific Material
     weight: 1
 ---
-March 25-27, 2019 at the Lawrence Livermore National Laboratory.
+April 23-25, 2019 at the Denver Federal Center in Denver, CO.
 
 ### Installation
 
@@ -64,7 +64,7 @@ Download data from the [Data page](/intro-curriculum/data/).
 
 Lindsay Platt (<lplatt@usgs.gov>)
 
-Kyle Samperton (<samperton1@llnl.gov>)
+Andy Bock (<abock@usgs.gov>)
 
 ### Lesson scripts
 
