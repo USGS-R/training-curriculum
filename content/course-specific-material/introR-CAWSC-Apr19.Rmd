@@ -72,5 +72,5 @@ Zeno Levy (zlevy@usgs.gov)
 
 ### Lesson scripts
 
-After the first day of class, there will be a link to the folder that contains all of instructor's scripts created during the class for your reference.
+[This zip file](https://drive.google.com/file/d/10vGlNlWEpYnPt9NnBtgqV8r0annPR-65/view) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
 
