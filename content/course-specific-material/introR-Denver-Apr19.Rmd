@@ -67,4 +67,5 @@ Andy Bock (abock@usgs.gov)
 
 ### Lesson scripts
 
-After the first day of class, there will be a link to the folder that contains all of instructor's scripts created during the class for your reference.
+
+[This zip file](https://drive.google.com/file/d/1faKcWuTpH8q4ZuBaMnCwwxJvCJRGixIP/view) contains the project folder and `.Rproj` file with the scripts that the instructors created in the class.
