@@ -79,8 +79,8 @@ Download data from the [Data page](/intro-curriculum/data/).
 Lindsay Platt
 (<a href="mailto:lplatt@usgs.gov" class="email">lplatt@usgs.gov</a>)
 
-Joe Duris
-(<a href="mailto:jwduris@usgs.gov" class="email">jwduris@usgs.gov</a>)
+Matt Gyves
+(<a href="mailto:mgyves@usgs.gov" class="email">mgyves@usgs.gov</a>)
 
 ### Lesson scripts
 
