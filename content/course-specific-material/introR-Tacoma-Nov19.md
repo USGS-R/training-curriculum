@@ -1,14 +1,14 @@
 ---
-date: 2019-10-22
-slug: introR-Harrisburg-Oct19
-title: Harrisburg Intro to R Training 2019
+date: 2019-11-19
+slug: introR-Tacoma-Nov19
+title: Tacoma Intro to R Training 2019
 menu:
   main:
     parent: Course Specific Material
     weight: 1
 ---
-October 22-24, 2019 at the Pennsylvania Water Science Center in
-Harrisburg, PA.
+November 19-21, 2019 at the Washington Water Science Center in Tacoma,
+WA.
 
 ### Installation
 
@@ -79,13 +79,13 @@ Download data from the [Data page](/intro-curriculum/data/).
 Lindsay Platt
 (<a href="mailto:lplatt@usgs.gov" class="email">lplatt@usgs.gov</a>)
 
-Matt Gyves
-(<a href="mailto:mgyves@usgs.gov" class="email">mgyves@usgs.gov</a>)
+Daniel Restivo
+(<a href="mailto:drestivo@usgs.gov" class="email">drestivo@usgs.gov</a>)
 
 ### Lesson scripts
 
 [This zip
-file](https://drive.google.com/open?id=1pGtg2DA7evCD0tQkeH-TdNWf1hKGhcQQ)
+file](https://drive.google.com/open?id=1RZAQyYRUMw3-k8iQP8tam7iM93kNzodR)
 contains the project folder and `.Rproj` file with the scripts that will
 be used to start the class. As the class goes on, the instructor will
 upload a new version with the content that they have been typing at the
