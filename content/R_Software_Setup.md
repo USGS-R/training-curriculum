@@ -3,7 +3,7 @@ author:
 date: 2020-01-21
 slug: installr
 title: R Installation Instructions
-draft: TRUE 
+draft: FALSE 
 image: 
 menu:
   main:
