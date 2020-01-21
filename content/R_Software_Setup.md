@@ -15,9 +15,11 @@ have install access to your computer (often called “PR access”), you
 will need to contact your IT representative to have them install it. You
 can give them a link to this page for instructions.
 
-\#Install R and RStudio These instructions are for Windows install.
-Download and install R for Mac
-[here](https://cran.r-project.org/bin/macosx/). If you have trouble
+Install R and RStudio
+=====================
+
+These instructions are for Windows install. Download and install R for
+Mac [here](https://cran.r-project.org/bin/macosx/). If you have trouble
 installing R on a Mac or Linux machine, please contact us directly at
 [gs-w\_r\_admin@usgs.gov](gs-w_r_admin@usgs.gov).
 
@@ -56,7 +58,10 @@ in Windows will be unable to delete it.
 ![Uncheck desktop
 icon](../static/img/install_tasks.png#inline-img "uncheck desktop icon")
 
-\#\#Download and install RStudio [Download RStudio
+Download and install RStudio
+----------------------------
+
+[Download RStudio
 Desktop](https://www.rstudio.com/products/rstudio/download/)
 
 Double-click the installer. It will ask for your administrator
@@ -66,7 +71,8 @@ again). Accept all the default options for the RStudio install.
 ![RStudio install
 screen](../static/img/install_rstudio.png#inline-img "RStudio install screen")
 
-\#Check Install
+Check Install
+=============
 
 Open RStudio
 ------------
