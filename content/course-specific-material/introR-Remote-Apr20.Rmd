@@ -52,10 +52,6 @@ Times are in Eastern time zone.
 * 03:30 pm - 03:45 pm – Break
 * 03:45 pm - 04:30 pm – Project time: [USGS R packages](/intro-curriculum/USGS/), projects (group/individual), [Beyond Basic R blog topics](https://waterdata.usgs.gov/blog/tags/beyond-basic-r/), or [additional topics](/intro-curriculum/Additional/)
 
-### Data files
-
-Download data from the [Data page](/intro-curriculum/data/).
-
 ### Additional resources
 
 * [USGS-R blog](https://waterdata.usgs.gov/blog/tags/r/)
@@ -74,4 +70,4 @@ David Watkins (wwatkins@usgs.gov)
 
 ### Lesson scripts
 
-[This zip file](https://doimspp.sharepoint.com/:u:/s/IIDDStaff/ES0hte9IfuVNgxS6Vm2xx_EBYRBpnsiK79sNGYHHaqnZ_A?e=MGxzqZ) contains the project folder and `.Rproj` file with the scripts that will be used to start the class. As the class goes on, the instructor will upload a new version with the content that they have been typing at the front during class. Instructions for downloading and unzipping will take place during the class.
+You will be emailed a zip file containing a project folder and .Rproj file with the scripts that will be used to start the class. As the class goes on, the instructor will be typing new code in these scripts. At the end of the class, the instructor will share their version with the content that they have been typing at the front during class. Instructions for downloading and unzipping will take place during the class.
